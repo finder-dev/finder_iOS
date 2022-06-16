@@ -12,6 +12,7 @@
 		2B09DF02285B56F200FE19DC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF01285B56F200FE19DC /* Storage.swift */; };
 		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
 		2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF07285B58BF00FE19DC /* LoginViewController.swift */; };
+		2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABBA2854DA93002573DE /* ViewController.swift */; };
@@ -24,6 +25,7 @@
 		2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		2B09DF01285B56F200FE19DC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		2B09DF07285B58BF00FE19DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2B09DF09285B648F00FE19DC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2BBEABAA2854DA93002573DE = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 		2BBEABB52854DA93002573DE /* F!nder */ = {
 			isa = PBXGroup;
 			children = (
+				2B09DF09285B648F00FE19DC /* Extensions */,
 				2BBEABB62854DA93002573DE /* AppDelegate.swift */,
 				2BBEABB82854DA93002573DE /* SceneDelegate.swift */,
 				2B09DF01285B56F200FE19DC /* Storage.swift */,
@@ -178,6 +189,7 @@
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
+				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
 				2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */,
 				2B09DF02285B56F200FE19DC /* Storage.swift in Sources */,
