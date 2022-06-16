@@ -1,12 +1,21 @@
 {
   "pins" : [
     {
+      "identity" : "onboarder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JemAlvarez/onboarder",
+      "state" : {
+        "branch" : "master",
+        "revision" : "b35003b8b0018db2840b8bca8688979e80ee51d1"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",
       "state" : {
-        "branch" : "develop",
-        "revision" : "07c5d1f6044701d97e94dc11157259e8811977be"
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
       }
     },
     {

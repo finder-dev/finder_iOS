@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */; };
+		2B09DF00285B531B00FE19DC /* Onboarder in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DEFF285B531B00FE19DC /* Onboarder */; };
+		2B09DF02285B56F200FE19DC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF01285B56F200FE19DC /* Storage.swift */; };
+		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
+		2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF07285B58BF00FE19DC /* LoginViewController.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABBA2854DA93002573DE /* ViewController.swift */; };
@@ -16,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		2B09DF01285B56F200FE19DC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		2B09DF07285B58BF00FE19DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -30,18 +38,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
+				2B09DF00285B531B00FE19DC /* Onboarder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B09DEFD285B512100FE19DC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */,
+				2B09DF07285B58BF00FE19DC /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2B09DF04285B585900FE19DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2BBEABAA2854DA93002573DE = {
 			isa = PBXGroup;
 			children = (
 				2BBEABB52854DA93002573DE /* F!nder */,
 				2BBEABB42854DA93002573DE /* Products */,
+				2B09DF04285B585900FE19DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +85,8 @@
 			children = (
 				2BBEABB62854DA93002573DE /* AppDelegate.swift */,
 				2BBEABB82854DA93002573DE /* SceneDelegate.swift */,
+				2B09DF01285B56F200FE19DC /* Storage.swift */,
+				2B09DEFD285B512100FE19DC /* View */,
 				2BBEABBA2854DA93002573DE /* ViewController.swift */,
 				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
 				2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */,
@@ -84,6 +113,8 @@
 			name = "F!nder";
 			packageProductDependencies = (
 				2BC3C2792854E0430094F5EB /* Then */,
+				2B09DEFF285B531B00FE19DC /* Onboarder */,
+				2B09DF05285B585900FE19DC /* SnapKit */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -114,8 +145,9 @@
 			);
 			mainGroup = 2BBEABAA2854DA93002573DE;
 			packageReferences = (
-				2BC3C2772854E0070094F5EB /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */,
+				2B09DEFE285B531B00FE19DC /* XCRemoteSwiftPackageReference "onboarder" */,
+				2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -143,9 +175,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
+				2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */,
+				2B09DF02285B56F200FE19DC /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +248,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -267,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -355,12 +390,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2BC3C2772854E0070094F5EB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		2B09DEFE285B531B00FE19DC /* XCRemoteSwiftPackageReference "onboarder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JemAlvarez/onboarder";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
-				branch = develop;
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 5.6.0;
 			};
 		};
 		2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */ = {
@@ -374,6 +417,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B09DEFF285B531B00FE19DC /* Onboarder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B09DEFE285B531B00FE19DC /* XCRemoteSwiftPackageReference "onboarder" */;
+			productName = Onboarder;
+		};
+		2B09DF05285B585900FE19DC /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
 		2BC3C2792854E0430094F5EB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */;
