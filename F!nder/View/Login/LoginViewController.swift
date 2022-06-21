@@ -87,6 +87,8 @@ class LoginViewController: UIViewController {
     
     @objc func didTapEmailLogin() {
         print("didTapEmailLogin")
+        let nextVC = EmailLoginViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapAppleLogin() {

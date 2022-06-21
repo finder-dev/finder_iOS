@@ -13,6 +13,11 @@
 		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
 		2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF07285B58BF00FE19DC /* LoginViewController.swift */; };
 		2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */; };
+		2B09DF1A2861DF0800FE19DC /* FirstOBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF192861DF0800FE19DC /* FirstOBoardingViewController.swift */; };
+		2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF1B2861DF2000FE19DC /* SecondOnBoardingViewController.swift */; };
+		2B09DF1E2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF1D2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift */; };
+		2B09DF212861E05C00FE19DC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF202861E05C00FE19DC /* Colors.swift */; };
+		2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABBA2854DA93002573DE /* ViewController.swift */; };
@@ -26,6 +31,11 @@
 		2B09DF01285B56F200FE19DC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		2B09DF07285B58BF00FE19DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
+		2B09DF192861DF0800FE19DC /* FirstOBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOBoardingViewController.swift; sourceTree = "<group>"; };
+		2B09DF1B2861DF2000FE19DC /* SecondOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnBoardingViewController.swift; sourceTree = "<group>"; };
+		2B09DF1D2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnBoardingViewController.swift; sourceTree = "<group>"; };
+		2B09DF202861E05C00FE19DC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,8 +62,8 @@
 		2B09DEFD285B512100FE19DC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */,
-				2B09DF07285B58BF00FE19DC /* LoginViewController.swift */,
+				2B09DF222861E5E000FE19DC /* Login */,
+				2B09DF182861DED500FE19DC /* OnBoarding */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -71,6 +81,34 @@
 				2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2B09DF182861DED500FE19DC /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */,
+				2B09DF192861DF0800FE19DC /* FirstOBoardingViewController.swift */,
+				2B09DF1B2861DF2000FE19DC /* SecondOnBoardingViewController.swift */,
+				2B09DF1D2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		2B09DF1F2861E04800FE19DC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				2B09DF202861E05C00FE19DC /* Colors.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		2B09DF222861E5E000FE19DC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2B09DF07285B58BF00FE19DC /* LoginViewController.swift */,
+				2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {
@@ -97,6 +135,7 @@
 				2BBEABB62854DA93002573DE /* AppDelegate.swift */,
 				2BBEABB82854DA93002573DE /* SceneDelegate.swift */,
 				2B09DF01285B56F200FE19DC /* Storage.swift */,
+				2B09DF1F2861E04800FE19DC /* Resource */,
 				2B09DEFD285B512100FE19DC /* View */,
 				2BBEABBA2854DA93002573DE /* ViewController.swift */,
 				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
@@ -186,11 +225,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B09DF1A2861DF0800FE19DC /* FirstOBoardingViewController.swift in Sources */,
+				2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */,
+				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
+				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
+				2B09DF1E2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift in Sources */,
 				2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */,
 				2B09DF02285B56F200FE19DC /* Storage.swift in Sources */,
 			);

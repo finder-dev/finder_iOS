@@ -18,12 +18,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var rootVC = UIViewController()
         
         if Storage.isFirstTime() {
-            rootVC = OnBoardingViewController()
+            rootVC = OnBoardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         } else {
+            
             rootVC = LoginViewController()
+
         }
         
-        window?.rootViewController = rootVC
+        window?.rootViewController = UINavigationController(rootViewController: rootVC)
         window?.makeKeyAndVisible()
     }
 
