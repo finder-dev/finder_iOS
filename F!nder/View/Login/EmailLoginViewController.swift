@@ -52,6 +52,7 @@ class EmailLoginViewController: UIViewController {
         $0.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
     }
+    
     private lazy var loginButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
         $0.backgroundColor = .lightGray
@@ -73,12 +74,24 @@ class EmailLoginViewController: UIViewController {
         $0.textColor = .darkGrayTextColor
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+        layout()
+        attribute()
+    }
+
+}
+
+private extension EmailLoginViewController {
     @objc func didTapSignUpButton() {
-        
+        let nextVC = InsertUserInfoViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapLoginButton() {
-        
+       
     }
     
     @objc func didTapBackButton() {
@@ -97,15 +110,6 @@ class EmailLoginViewController: UIViewController {
         }
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = .white
-        layout()
-        attribute()
-    }
-
 }
 
 private extension EmailLoginViewController {
