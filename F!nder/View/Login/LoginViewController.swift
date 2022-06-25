@@ -61,7 +61,7 @@ class LoginViewController: UIViewController {
     }
     
     private lazy var emailLoginButton = UIButton(type: .system).then {
-        $0.setTitle("이메일로 로그인", for: .normal)
+        $0.setTitle("이메일로 시작하기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.addTarget(self, action: #selector(didTapEmailLogin), for: .touchUpInside)
@@ -75,10 +75,6 @@ class LoginViewController: UIViewController {
         self.view.backgroundColor = .white
         layout()
         attribute()
-        
-//        let tapApple = UITapGestureRecognizer(target: self, action: #selector(didTapAppleLogin))
-//        appleLoginView.addGestureRecognizer(tapApple)
-
     }
     
     @objc func didTapKakaoLogin() {
@@ -126,7 +122,7 @@ private extension LoginViewController {
         emailLoginButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(80.0)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(94.0)
+//            $0.width.equalTo(94.0)
         }
         
         appleLoginView.snp.makeConstraints {
@@ -140,6 +136,7 @@ private extension LoginViewController {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(327.0)
         }
+        
         loginViewLayout()
     }
     
@@ -170,6 +167,6 @@ private extension LoginViewController {
     }
     
     func attribute() {
-        
+        self.navigationController?.navigationBar.isHidden = true
     }
 }

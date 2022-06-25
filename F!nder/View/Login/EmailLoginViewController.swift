@@ -29,14 +29,14 @@ class EmailLoginViewController: UIViewController {
     }
     
     private lazy var idTextField = UITextField().then {
-        $0.placeholder = "    이메일 주소를 입력해주세요"
+        $0.placeholder = "이메일 주소를 입력해주세요"
     }
     
     private lazy var passwordLabel = UILabel().then {
         $0.text = "비밀번호"
     }
     private lazy var passwordTextField = UITextField().then {
-        $0.placeholder = "    비밀번호를 입력해주세요"
+        $0.placeholder = "비밀번호를 입력해주세요"
     }
     private lazy var checkButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "ic_check"), for: .normal)
@@ -44,7 +44,7 @@ class EmailLoginViewController: UIViewController {
         $0.tintColor = .lightGray
         $0.layer.cornerRadius = 12
         $0.layer.borderColor = UIColor.lightGray.cgColor
-        $0.layer.borderWidth = 2
+        $0.layer.borderWidth = 1
     }
     
     private lazy var keepLoginLabel = UILabel().then {
@@ -55,8 +55,9 @@ class EmailLoginViewController: UIViewController {
     
     private lazy var loginButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
-        $0.backgroundColor = .lightGray
-        $0.setTitleColor(UIColor.darkGrayTextColor, for: .normal)
+        $0.backgroundColor = .unabledButtonColor
+        $0.setTitleColor(.unabledButtonTextColor, for: .normal)
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(didTapLoginButton),for: .touchUpInside)
     }
     
@@ -84,6 +85,7 @@ class EmailLoginViewController: UIViewController {
 
 }
 
+// MARK - Button actions
 private extension EmailLoginViewController {
     @objc func didTapSignUpButton() {
         let nextVC = InsertUserInfoViewController()
@@ -91,7 +93,7 @@ private extension EmailLoginViewController {
     }
     
     @objc func didTapLoginButton() {
-       
+       print("didTapLoginButton")
     }
     
     @objc func didTapBackButton() {
@@ -110,6 +112,38 @@ private extension EmailLoginViewController {
         }
     }
     
+}
+
+// MARK - TextFieldDelegate
+extension EmailLoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        checkEverythingFilled()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        checkEverythingFilled()
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        checkEverythingFilled()
+        return true
+    }
+    
+    func checkEverythingFilled() {
+        if idTextField.hasText && passwordTextField.hasText {
+            loginButton.isEnabled = true
+            loginButton.setTitleColor(.white, for: .normal)
+            loginButton.backgroundColor = .mainTintColor
+        } else {
+            loginButton.backgroundColor = .unabledButtonColor
+            loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+            loginButton.isEnabled = false
+        }
+    }
 }
 
 private extension EmailLoginViewController {
@@ -198,9 +232,7 @@ private extension EmailLoginViewController {
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
             $0.layer.borderColor = UIColor.textFieldBorder.cgColor
             $0.layer.borderWidth = 1.0
+            $0.addLeftPadding(padding: 20.0)
         }
-        
-        
-//        loginButton.backgroundColor = .blue
     }
 }
