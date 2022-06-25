@@ -1,5 +1,5 @@
 //
-//  ThirdOnBoardingViewController.swift
+//  FirstOnboardingViewController.swift
 //  F!nder
 //
 //  Created by 장선영 on 2022/06/21.
@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class ThirdOnBoardingViewController: UIViewController {
+class FirstOnBoardingViewController: UIViewController {
     
     let mainTitleLabel = UILabel()
     let smallLabel = UILabel()
@@ -24,7 +24,7 @@ class ThirdOnBoardingViewController: UIViewController {
     }
 }
 
-private extension ThirdOnBoardingViewController {
+private extension FirstOnBoardingViewController {
     func layout() {
         [mainTitleLabel,
          smallLabel,
@@ -48,26 +48,26 @@ private extension ThirdOnBoardingViewController {
         mainImageView.snp.makeConstraints {
             $0.top.equalTo(smallLabel.snp.bottom).offset(58.0)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(312.0)
-            $0.height.equalTo(274.0)
+            $0.width.equalTo(302.0)
+            $0.height.equalTo(239.0)
         }
     }
     
     func attribute() {
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainTitleLabel.text = "세상에 나쁜 \nMBTI는 없다"
+        mainTitleLabel.text = "궁금한 MBTI한테 \n바로 물어보세요"
         mainTitleLabel.textColor = .blackTextColor
         mainTitleLabel.numberOfLines = 0
         mainTitleLabel.font = .systemFont(ofSize: 24.0, weight: .bold)
         
         smallLabel.translatesAutoresizingMaskIntoConstraints = false
-        smallLabel.text = "과몰입러들끼리 솔직담백한\n얘기들을 나눠보세요"
-        smallLabel.numberOfLines = 0
+        smallLabel.text = "오해와 진실! 여기서 다 풀어요"
         smallLabel.textColor = .onboardGrayTextColor
         smallLabel.font = .systemFont(ofSize: 16.0, weight: .regular)
         
         mainImageView.translatesAutoresizingMaskIntoConstraints = false
-        mainImageView.image = UIImage(named: "img_onboarding3")
-
+//        mainImageView.backgroundColor = .yellow
+        mainImageView.image = UIImage(named: "img_onboarding1")
+        
     }
 }
