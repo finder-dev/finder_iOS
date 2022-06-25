@@ -9,7 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-class SetUpProfileViewController: UIViewController {
+class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate {
+    
+//    var userMBTI: String? {
+//        didSet {
+//            if !userMBTI!.isEmpty {
+//                MBTITextField.text = userMBTI!
+//            }
+//        }
+//    }
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -28,7 +36,7 @@ class SetUpProfileViewController: UIViewController {
     
     private lazy var insertUserInfoLabel = UILabel().then {
         $0.text = "정보 입력"
-        $0.textColor = .mainTintColor
+        $0.textColor = .lightGrayTextColor
         $0.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.textAlignment = .center
     }
@@ -39,7 +47,7 @@ class SetUpProfileViewController: UIViewController {
     
     private lazy var setupProfileLabel = UILabel().then {
         $0.text = "프로필 설정"
-        $0.textColor = .lightGrayTextColor
+        $0.textColor = .mainTintColor
         $0.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.textAlignment = .center
     }
@@ -63,21 +71,93 @@ class SetUpProfileViewController: UIViewController {
         $0.image = UIImage(named: "btn_caretleft_bold")
     }
     
+    private lazy var MBTILabel = UILabel().then {
+        $0.text = "MBTI"
+        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
+        $0.textColor = .blackTextColor
+    }
+    
+    private lazy var MBTITextField = UITextField().then {
+        let button = UIButton()
+        button.setImage(UIImage(named: "btn_caretleft_gray"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 24.0, height: 24.0)
+        $0.rightView = button
+        $0.rightViewMode = .always
+        $0.placeholder = "MBTI를 선택해주세요"
+//        $0.isUserInteractionEnabled = false
+        $0.addLeftPadding(padding: 20.0)
+        $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
+        $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+        $0.layer.borderWidth = 1.0
+        $0.addTarget(self, action: #selector(didTapMBTITextField), for: .touchDown)
+//        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMBTITextField))
+//        $0.addGestureRecognizer(gesture)
+    }
+    
+    private lazy var nickNameLabel = UILabel().then {
+        $0.text = "닉네임"
+        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
+        $0.textColor = .blackTextColor
+    }
+    
+    private lazy var nickNameTextField = UITextField().then {
+        $0.placeholder = "6자 이내로 적어주세요"
+        $0.addLeftPadding(padding: 20.0)
+        $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
+        $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+        $0.layer.borderWidth = 1.0
+    }
+    
+    private lazy var nickNameCheckButton = UIButton().then {
+        $0.setTitle("중복확인", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = .mainTintColor
+        $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+        $0.addTarget(self, action: #selector(didTapNickNameCheckButton), for: .touchUpInside)
+    }
+    
+    private lazy var checkButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "ic_check"), for: .normal)
+        $0.addTarget(self, action: #selector(didTapCheckButton),for: .touchUpInside)
+        $0.tintColor = .lightGray
+        $0.layer.cornerRadius = 12
+        $0.layer.borderColor = UIColor.lightGray.cgColor
+        $0.layer.borderWidth = 1
+    }
+    
+    private lazy var serviceTermAgreeLabel = UILabel().then {
+        $0.text = "개인정보취급방침 및 서비스 약관에 동의 합니다."
+        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
+        $0.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
+    }
+    
+    private lazy var showServiceTerm = UIButton().then{
+        $0.setImage(UIImage(named: "btn_expandmore_blue"), for: .normal)
+        $0.addTarget(self, action: #selector(didTapShowServiceTermButton), for: .touchUpInside)
+    }
+   
     private lazy var nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
-        $0.setTitleColor(.darkGrayTextColor, for: .normal)
-        $0.backgroundColor = .lightGray
+        $0.setTitleColor(.unabledButtonTextColor, for: .normal)
+        $0.backgroundColor = .unabledButtonColor
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-
+        
+        setup()
         layout()
         attribute()
     }
+    
+    func sendValue(value: String) {
+        MBTITextField.text = value
+        print("from dialogView - \(value)")
+    }
+    
 }
 
 // MARK : - Button Action
@@ -85,13 +165,37 @@ private extension SetUpProfileViewController {
     @objc func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @objc func didTapNextButton() {
         let nextVC = CompleteSignUpViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    @objc func didTapNickNameCheckButton() {
+        print("didTapNickNameCheckButton")
+    }
+    
+    @objc func didTapCheckButton() {
+        
+    }
+    
+    @objc func didTapShowServiceTermButton() {
+        
+    }
+    
+    @objc func didTapMBTITextField() {
+        print("didTapMBTITextFiedl")
+        let nextVC = DialogViewController()
+        nextVC.delegate = self
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
 }
 
 private extension SetUpProfileViewController {
+    
+    func setup() {
+    }
+    
     func layout() {
         [backButton,
          headerTitle,
@@ -103,9 +207,65 @@ private extension SetUpProfileViewController {
          completeSignUpLabel,
          caretLeftImageView1,
          caretLeftImageView2,
-         nextButton].forEach {
+         nextButton,
+         MBTILabel,
+         MBTITextField,
+         nickNameLabel,
+         nickNameTextField,
+         nickNameCheckButton,
+         checkButton,
+         serviceTermAgreeLabel,
+         showServiceTerm].forEach {
             self.view.addSubview($0)
         }
+        
+        
+        MBTILabel.snp.makeConstraints {
+            $0.top.equalTo(insertUserInfoLabel.snp.bottom).offset(36.0)
+            $0.leading.equalToSuperview().inset(24.0)
+        }
+        
+        MBTITextField.snp.makeConstraints {
+            $0.top.equalTo(MBTILabel.snp.bottom).offset(8.0)
+            $0.leading.equalTo(MBTILabel)
+            $0.trailing.equalToSuperview().inset(24.0)
+        }
+        
+        nickNameLabel.snp.makeConstraints {
+            $0.top.equalTo(MBTITextField.snp.bottom).offset(16.0)
+            $0.leading.equalToSuperview().inset(24.0)
+        }
+        
+        nickNameTextField.snp.makeConstraints {
+            $0.top.equalTo(nickNameLabel.snp.bottom).offset(8.0)
+            $0.leading.equalTo(nickNameLabel)
+        }
+        
+        nickNameCheckButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(24.0)
+            $0.leading.equalTo(nickNameTextField.snp.trailing).offset(12.0)
+            $0.width.equalTo(71.0)
+            $0.centerY.equalTo(nickNameTextField)
+            $0.height.equalTo(54.0)
+        }
+        
+        checkButton.snp.makeConstraints {
+            $0.top.equalTo(nickNameTextField.snp.bottom).offset(22.0)
+            $0.leading.equalTo(nickNameLabel)
+            $0.height.width.equalTo(24.0)
+        }
+        
+        serviceTermAgreeLabel.snp.makeConstraints {
+            $0.centerY.equalTo(checkButton)
+            $0.leading.equalTo(checkButton.snp.trailing).offset(8.0)
+        }
+        
+        showServiceTerm.snp.makeConstraints {
+            $0.centerY.equalTo(checkButton)
+            $0.width.height.equalTo(24.0)
+            $0.trailing.equalToSuperview().inset(24.0)
+        }
+
     }
     
     func attribute() {

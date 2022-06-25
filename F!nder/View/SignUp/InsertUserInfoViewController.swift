@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class InsertUserInfoViewController: UIViewController {
+class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -66,8 +66,8 @@ class InsertUserInfoViewController: UIViewController {
     private lazy var nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
-        $0.setTitleColor(.darkGrayTextColor, for: .normal)
-        $0.backgroundColor = .lightGray
+        $0.setTitleColor(.unabledButtonTextColor, for: .normal)
+        $0.backgroundColor = .unabledButtonColor
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
     
@@ -78,7 +78,7 @@ class InsertUserInfoViewController: UIViewController {
     }
     
     private lazy var idTextField = UITextField().then {
-        $0.placeholder = "    이메일을 인증해주세요"
+        $0.placeholder = "이메일을 인증해주세요"
     }
     
     private lazy var requestAuthButton = UIButton().then {
@@ -89,13 +89,30 @@ class InsertUserInfoViewController: UIViewController {
         $0.addTarget(self, action: #selector(didTapRequestAuthButton), for: .touchUpInside)
     }
     
+    private lazy var codeLabel = UILabel().then {
+        $0.text = "코드번호"
+        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
+        $0.textColor = .blackTextColor
+    }
+    
+    private lazy var codeTextField = UITextField().then {
+        $0.placeholder = "코드번호를 입력해주세요"
+    }
+    
+    private lazy var codeAuthButton = UIButton().then {
+        $0.setTitle("인증확인", for: .normal)
+        $0.setTitleColor(UIColor(red: 167/255, green: 167/255, blue: 167/255, alpha: 1.0), for: .normal)
+        $0.backgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1.0)
+        $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+    }
+    
     private lazy var passwordLabel = UILabel().then {
         $0.text = "비밀번호"
         $0.font = .systemFont(ofSize: 16.0, weight: .bold)
         $0.textColor = .blackTextColor
     }
     private lazy var passwordTextField = UITextField().then {
-        $0.placeholder = "    비밀번호를 입력해주세요"
+        $0.placeholder = "비밀번호를 입력해주세요"
     }
     
     private lazy var passwordInfoLabel = UILabel().then {
@@ -105,7 +122,7 @@ class InsertUserInfoViewController: UIViewController {
     }
     
     private lazy var passwordCheckTextField = UITextField().then {
-        $0.placeholder = "    비밀번호를 재입력해주세요"
+        $0.placeholder = "비밀번호를 재입력해주세요"
     }
     
     private lazy var passwordCheckLabel = UILabel().then {
@@ -158,6 +175,9 @@ private extension InsertUserInfoViewController {
          idLabel,
          idTextField,
          requestAuthButton,
+         codeLabel,
+         codeTextField,
+         codeAuthButton,
          passwordLabel,
          passwordTextField,
          passwordCheckTextField,
@@ -232,7 +252,6 @@ private extension InsertUserInfoViewController {
             $0.bottom.equalTo(safeArea.snp.bottom).inset(26.0)
             $0.leading.trailing.equalToSuperview().inset(24.0)
             $0.height.equalTo(54.0)
-            
         }
         
         idLabel.snp.makeConstraints {
@@ -243,7 +262,6 @@ private extension InsertUserInfoViewController {
         idTextField.snp.makeConstraints {
             $0.top.equalTo(idLabel.snp.bottom).offset(8.0)
             $0.leading.equalTo(idLabel)
-//            $0.trailing.equalTo(safeArea.snp.trailing).inset(24.0)
         }
         
         requestAuthButton.snp.makeConstraints {
@@ -254,8 +272,27 @@ private extension InsertUserInfoViewController {
             $0.height.equalTo(54.0)
         }
         
-        passwordLabel.snp.makeConstraints {
+        codeLabel.snp.makeConstraints {
             $0.top.equalTo(idTextField.snp.bottom).offset(16.0)
+            $0.leading.equalToSuperview().inset(24.0)
+        }
+        
+        codeTextField.snp.makeConstraints {
+            $0.top.equalTo(codeLabel.snp.bottom).offset(8.0)
+            $0.leading.equalTo(codeLabel)
+//            $0.trailing.equalTo(safeArea.snp.trailing).inset(24.0)
+        }
+        
+        codeAuthButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(24.0)
+            $0.leading.equalTo(codeTextField.snp.trailing).offset(12.0)
+            $0.width.equalTo(71.0)
+            $0.centerY.equalTo(codeTextField)
+            $0.height.equalTo(54.0)
+        }
+        
+        passwordLabel.snp.makeConstraints {
+            $0.top.equalTo(codeTextField.snp.bottom).offset(16.0)
             $0.leading.equalTo(idLabel)
         }
         
@@ -281,12 +318,12 @@ private extension InsertUserInfoViewController {
             $0.top.equalTo(passwordCheckTextField.snp.bottom).offset(8.0)
         }
         
-        [idTextField,passwordTextField,passwordCheckTextField].forEach {
+        [idTextField,codeTextField,passwordTextField,passwordCheckTextField].forEach {
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
             $0.layer.borderColor = UIColor.textFieldBorder.cgColor
             $0.layer.borderWidth = 1.0
+            $0.addLeftPadding(padding: 20.0)
+            $0.delegate = self
         }
     }
-    
-
 }

@@ -233,6 +233,7 @@ private extension EmailLoginViewController {
             $0.layer.borderColor = UIColor.textFieldBorder.cgColor
             $0.layer.borderWidth = 1.0
             $0.addLeftPadding(padding: 20.0)
+            $0.delegate = self
         }
     }
 }
