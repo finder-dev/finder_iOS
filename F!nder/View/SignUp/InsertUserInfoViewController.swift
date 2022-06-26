@@ -68,6 +68,7 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
         $0.setTitleColor(.unabledButtonTextColor, for: .normal)
         $0.backgroundColor = .unabledButtonColor
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
     
@@ -104,6 +105,8 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
         $0.setTitleColor(UIColor(red: 167/255, green: 167/255, blue: 167/255, alpha: 1.0), for: .normal)
         $0.backgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1.0)
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(didTapCodeAuthButton), for: .touchUpInside)
     }
     
     private lazy var passwordLabel = UILabel().then {
@@ -152,12 +155,61 @@ private extension InsertUserInfoViewController {
     
     @objc func didTapRequestAuthButton() {
         print("didTapRequestQuthButton")
-        let email = "sunwarrant@gmail.com"
-        let network = Network()
-        network.requestAuthEmail(email: email)
         
+        guard let email = idTextField.text else {
+            
+            return
+        }
+        let network = Network()
+        
+        network.requestAuthEmail(email: email) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    DispatchQueue.main.async {
+                        self.codeAuthButton.isEnabled = true
+                        self.codeAuthButton.setTitleColor(.white, for: .normal)
+                        self.codeAuthButton.backgroundColor = .mainTintColor
+                    }
+                } else {
+                    print("이메일 확인")
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    @objc func didTapCodeAuthButton() {
+        print("didTapCodeAuthButton")
+        
+        guard let email = idTextField.text,
+        let code = codeTextField.text else {
+            
+            return
+        }
+        let network = Network()
+        network.requestCodeAuth(code: code, email: email) { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    DispatchQueue.main.async {
+                        self.nextButton.isEnabled = true
+                        self.nextButton.setTitleColor(.white, for: .normal)
+                        self.nextButton.backgroundColor = .mainTintColor
+                    }
+                } else {
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
 }
+
+
+
 
 private extension InsertUserInfoViewController {
     func layout() {
@@ -326,4 +378,27 @@ private extension InsertUserInfoViewController {
             $0.delegate = self
         }
     }
+}
+
+extension Dictionary {
+  func percentEncoded() -> Data? {
+    return map { key, value in
+      let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+      let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+      return escapedKey + "=" + escapedValue
+    }
+    .joined(separator: "&")
+    .data(using: .utf8)
+  }
+}
+
+extension CharacterSet {
+  static let urlQueryValueAllowed: CharacterSet = {
+    let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+    let subDelimitersToEncode = "!$&'()*+,;="
+
+    var allowed = CharacterSet.urlQueryAllowed
+    allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+    return allowed
+  }()
 }

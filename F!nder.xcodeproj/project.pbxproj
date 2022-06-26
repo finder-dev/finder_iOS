@@ -26,9 +26,10 @@
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
 		2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* DialogViewController.swift */; };
 		2BA8F2552867270400D64F0E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA8F2542867270400D64F0E /* Storyboard.storyboard */; };
+		2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponse.swift */; };
+		2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCode.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
-		2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABBA2854DA93002573DE /* ViewController.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
 		2BBEABC32854DA94002573DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */; };
 		2BC3C27A2854E0430094F5EB /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC3C2792854E0430094F5EB /* Then */; };
@@ -52,10 +53,12 @@
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2BA8F25228671DB200D64F0E /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
 		2BA8F2542867270400D64F0E /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		2BA8F2572868906200D64F0E /* SendEmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailResponse.swift; sourceTree = "<group>"; };
+		2BA8F25928689AB100D64F0E /* F!nder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "F!nder.entitlements"; sourceTree = "<group>"; };
+		2BA8F25A2868A98000D64F0E /* SendCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCode.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2BBEABBA2854DA93002573DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2BBEABBF2854DA94002573DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2BBEABC22854DA94002573DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BBEABC42854DA94002573DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,7 +84,6 @@
 				2B3E25952861FC5600C85193 /* SignUp */,
 				2B09DF222861E5E000FE19DC /* Login */,
 				2B09DF182861DED500FE19DC /* OnBoarding */,
-				2B3E259C286362B300C85193 /* Network.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -143,6 +145,15 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		2BA8F2562868904100D64F0E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2BA8F2572868906200D64F0E /* SendEmailResponse.swift */,
+				2BA8F25A2868A98000D64F0E /* SendCode.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2BBEABAA2854DA93002573DE = {
 			isa = PBXGroup;
 			children = (
@@ -163,13 +174,15 @@
 		2BBEABB52854DA93002573DE /* F!nder */ = {
 			isa = PBXGroup;
 			children = (
+				2BA8F25928689AB100D64F0E /* F!nder.entitlements */,
+				2BA8F2562868904100D64F0E /* Model */,
 				2BBEABB62854DA93002573DE /* AppDelegate.swift */,
 				2BBEABB82854DA93002573DE /* SceneDelegate.swift */,
 				2B09DF01285B56F200FE19DC /* Storage.swift */,
+				2B3E259C286362B300C85193 /* Network.swift */,
 				2B09DF1F2861E04800FE19DC /* Resource */,
 				2B09DF09285B648F00FE19DC /* Extensions */,
 				2B09DEFD285B512100FE19DC /* View */,
-				2BBEABBA2854DA93002573DE /* ViewController.swift */,
 				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
 				2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */,
 				2BBEABC42854DA94002573DE /* Info.plist */,
@@ -258,14 +271,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */,
 				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,
 				2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */,
 				2B3E259D286362B400C85193 /* Network.swift in Sources */,
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
+				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
-				2BBEABBB2854DA93002573DE /* ViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */,
 				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
@@ -413,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "F!nder/F!nder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2Q6MH57SWY;
@@ -440,6 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "F!nder/F!nder.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2Q6MH57SWY;
