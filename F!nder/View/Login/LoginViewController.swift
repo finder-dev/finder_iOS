@@ -9,8 +9,11 @@ import Foundation
 import UIKit
 import SnapKit
 import Then
+import AuthenticationServices
+import KakaoSDKAuth
+import KakaoSDKUser
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
     
     private lazy var logoImageView = UIImageView().then {
         $0.image = UIImage(named: "logo_f!nder_orange")
@@ -79,6 +82,32 @@ class LoginViewController: UIViewController {
     
     @objc func didTapKakaoLogin() {
         print("didTapKakoLogin")
+        
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("성공 : 카카오톡 소셜 로그인")
+                    let data = oauthToken?.accessToken ?? "nil"
+//                    print(String(data: data, encoding: .utf8) ?? "nil")
+                    let network = Network()
+                    network.requestOAuthLogin(userType: "KAKAO",
+                                              token: data,
+                                              mbti: "",
+                                              nickName: "") { result in
+                        switch result {
+                        case let .success(response):
+                            print(response.success)
+                        case let .failure(error):
+                            print(error.localizedDescription)
+                        }
+                    }
+                    
+                }
+            }
+        }
+        
     }
     
     @objc func didTapEmailLogin() {
@@ -89,6 +118,53 @@ class LoginViewController: UIViewController {
     
     @objc func didTapAppleLogin() {
         print("didTapAppleLogin")
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+    
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
+    }
+}
+
+// MARK : - APPLE SocialLogin
+extension LoginViewController : ASAuthorizationControllerPresentationContextProviding {
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("failed")
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        guard let credentials = authorization.credential as? ASAuthorizationAppleIDCredential else {
+            return
+        }
+        
+        guard let data = credentials.identityToken else {
+            return
+        }
+        let identityToken = String(data: data, encoding: .utf8) ?? "nil"
+        print(identityToken)
+        
+        let network = Network()
+        network.requestOAuthLogin(userType: "APPLE",
+                                  token: identityToken,
+                                  mbti: "INFJ",
+                                  nickName: "test") { result in
+            switch result {
+            case let .success(response):
+                print(response.success)
+            case let .failure(error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
     }
 }
 

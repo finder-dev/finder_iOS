@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */; };
-		2B09DF00285B531B00FE19DC /* Onboarder in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DEFF285B531B00FE19DC /* Onboarder */; };
 		2B09DF02285B56F200FE19DC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF01285B56F200FE19DC /* Storage.swift */; };
 		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
 		2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF07285B58BF00FE19DC /* LoginViewController.swift */; };
@@ -28,6 +27,8 @@
 		2BA8F2552867270400D64F0E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA8F2542867270400D64F0E /* Storyboard.storyboard */; };
 		2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponse.swift */; };
 		2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCode.swift */; };
+		2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */; };
+		2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA8F261286CA09500D64F0E /* KakaoSDK */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		2BA8F2572868906200D64F0E /* SendEmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailResponse.swift; sourceTree = "<group>"; };
 		2BA8F25928689AB100D64F0E /* F!nder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "F!nder.entitlements"; sourceTree = "<group>"; };
 		2BA8F25A2868A98000D64F0E /* SendCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCode.swift; sourceTree = "<group>"; };
+		2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSocialLogin.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,8 +72,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
+				2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
-				2B09DF00285B531B00FE19DC /* Onboarder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,10 +150,19 @@
 		2BA8F2562868904100D64F0E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2BA8F2572868906200D64F0E /* SendEmailResponse.swift */,
-				2BA8F25A2868A98000D64F0E /* SendCode.swift */,
+				2BA8F25C286C8DCB00D64F0E /* SignUp */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2BA8F25C286C8DCB00D64F0E /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				2BA8F2572868906200D64F0E /* SendEmailResponse.swift */,
+				2BA8F25A2868A98000D64F0E /* SendCode.swift */,
+				2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */,
+			);
+			path = SignUp;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {
@@ -208,8 +219,8 @@
 			name = "F!nder";
 			packageProductDependencies = (
 				2BC3C2792854E0430094F5EB /* Then */,
-				2B09DEFF285B531B00FE19DC /* Onboarder */,
 				2B09DF05285B585900FE19DC /* SnapKit */,
+				2BA8F261286CA09500D64F0E /* KakaoSDK */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -241,8 +252,8 @@
 			mainGroup = 2BBEABAA2854DA93002573DE;
 			packageReferences = (
 				2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */,
-				2B09DEFE285B531B00FE19DC /* XCRemoteSwiftPackageReference "onboarder" */,
 				2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */,
+				2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -278,6 +289,7 @@
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
+				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
@@ -502,20 +514,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2B09DEFE285B531B00FE19DC /* XCRemoteSwiftPackageReference "onboarder" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JemAlvarez/onboarder";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 5.6.0;
+			};
+		};
+		2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 		2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */ = {
@@ -529,15 +541,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2B09DEFF285B531B00FE19DC /* Onboarder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2B09DEFE285B531B00FE19DC /* XCRemoteSwiftPackageReference "onboarder" */;
-			productName = Onboarder;
-		};
 		2B09DF05285B585900FE19DC /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		2BA8F261286CA09500D64F0E /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
 		};
 		2BC3C2792854E0430094F5EB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
