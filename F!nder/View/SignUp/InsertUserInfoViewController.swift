@@ -10,6 +10,7 @@ import SnapKit
 import Then
 
 class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
+    let network = SignUpAPI()
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -163,7 +164,6 @@ private extension InsertUserInfoViewController {
             
             return
         }
-        let network = Network()
         
         network.requestAuthEmail(email: email) { [self] result in
             switch result {
@@ -193,7 +193,6 @@ private extension InsertUserInfoViewController {
             
             return
         }
-        let network = Network()
         network.requestCodeAuth(code: code, email: email) { result in
             switch result {
             case let .success(response) :

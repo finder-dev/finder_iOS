@@ -10,15 +10,17 @@ import SnapKit
 import Then
 
 class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate {
-    
-//    var userMBTI: String? {
-//        didSet {
-//            if !userMBTI!.isEmpty {
-//                MBTITextField.text = userMBTI!
-//            }
-//        }
-//    }
-    let network = Network()
+    let network = SignUpAPI()
+    var isnicknameChecked = false {
+        didSet {
+            enableNextButton()
+        }
+    }
+    var isCheckButtonTapped = false {
+        didSet {
+            enableNextButton()
+        }
+    }
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -85,14 +87,11 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         $0.rightView = button
         $0.rightViewMode = .always
         $0.placeholder = "MBTI를 선택해주세요"
-//        $0.isUserInteractionEnabled = false
         $0.addLeftPadding(padding: 20.0)
         $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
         $0.layer.borderColor = UIColor.textFieldBorder.cgColor
         $0.layer.borderWidth = 1.0
         $0.addTarget(self, action: #selector(didTapMBTITextField), for: .touchDown)
-//        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapMBTITextField))
-//        $0.addGestureRecognizer(gesture)
     }
     
     private lazy var nickNameLabel = UILabel().then {
@@ -157,6 +156,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     func sendValue(value: String) {
         MBTITextField.text = value
         print("from dialogView - \(value)")
+        enableNextButton()
     }
     
 }
@@ -172,7 +172,7 @@ private extension SetUpProfileViewController {
         print(mbti)
         guard let nickname = nickNameTextField.text else { return }
         
-        network.requestSignUp(email: "test234@gmail.com",
+        network.requestSignUp(email: "test23456@gmail.com",
                               password: "testtest11",
                               mbti: mbti,
                               nickname: nickname) { result in
@@ -203,8 +203,10 @@ private extension SetUpProfileViewController {
             case let .success(response) :
                 if response.success {
                     print("닉네임 사용 가능")
+                    self.isnicknameChecked = true
                 } else {
                     print(response.errorResponse?.errorMessages)
+                    self.isnicknameChecked = false
                 }
             case .failure(_):
                 print("오류")
@@ -213,7 +215,14 @@ private extension SetUpProfileViewController {
     }
     
     @objc func didTapCheckButton() {
-        
+        isCheckButtonTapped = isCheckButtonTapped ? false : true
+        if checkButton.tintColor == .lightGray {
+            checkButton.tintColor = .orange
+            checkButton.layer.borderColor = UIColor.orange.cgColor
+        } else {
+            checkButton.tintColor = .lightGray
+            checkButton.layer.borderColor = UIColor.lightGray.cgColor
+        }
     }
     
     @objc func didTapShowServiceTermButton() {
@@ -226,6 +235,23 @@ private extension SetUpProfileViewController {
         nextVC.delegate = self
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
+    }
+    
+    // 다음 버튼 활성화
+    func enableNextButton() {
+        DispatchQueue.main.async { [self] in
+            guard let mbti = MBTITextField.text else { return }
+            
+            if !mbti.isEmpty && isnicknameChecked && isCheckButtonTapped {
+                nextButton.backgroundColor = .orange
+                nextButton.setTitleColor(.white, for: .normal)
+                nextButton.isEnabled = true
+            } else {
+                nextButton.backgroundColor = .unabledButtonColor
+                nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+                nextButton.isEnabled = false
+            }
+        }
     }
 }
 

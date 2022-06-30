@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Network {
+struct SignUpAPI {
     
     // MARK : 이메일 확인
     func requestAuthEmail(email:String,
@@ -137,6 +137,7 @@ struct Network {
         task.resume()
     }
     
+    // MARK : - 소셜 로그인
     func requestOAuthLogin(userType: String,
                            token: String,
                            mbti: String,
@@ -200,6 +201,37 @@ struct Network {
 //            }
 //            print("======================================================================")
 //            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
+    // MARK : - 일반 로그인
+    func requestLogin(email:String, password:String,
+                      completionHandler: @escaping (Result<LoginResponse,Error>)-> Void) {
+        let emailData = SendLogin(email: email, password: password)
+        let bodyData = emailData.parameters.percentEncoded()
+        let urlComponents = URLComponents(string: "https://finder777.com/api/login")
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "POST" // POST
+        requestURL.httpBody = bodyData
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(LoginResponse.self, from: data) else {
+                return
+            }
+            print("======================================================================")
+            print("SendEmail : Network - sendEmailResponse => \(json.success)")
+            print("SendEmail : Network - sendEmailResponse => \(json.errorResponse?.errorMessages)")
+            print("======================================================================")
+            completionHandler(.success(json))
         }
         task.resume()
     }

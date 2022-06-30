@@ -12,6 +12,7 @@ import Then
 class EmailLoginViewController: UIViewController {
     
     var isCheckButtonTapped = false
+    let network = SignUpAPI()
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -94,6 +95,27 @@ private extension EmailLoginViewController {
     
     @objc func didTapLoginButton() {
        print("didTapLoginButton")
+        guard let email = idTextField.text else {
+            return
+        }
+        
+        guard let password = passwordTextField.text else {
+            return
+        }
+        network.requestLogin(email: email,
+                             password: password) { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 이메일 로그인")
+                } else {
+                    print("실패 : 이메일 로그인")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
     
     @objc func didTapBackButton() {

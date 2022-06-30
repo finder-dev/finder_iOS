@@ -93,7 +93,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
                     print(oauthToken?.idToken)
                     print(oauthToken?.refreshToken)
 //                    print(String(data: data, encoding: .utf8) ?? "nil")
-                    let network = Network()
+                    let network = SignUpAPI()
                     network.requestOAuthLogin(userType: "KAKAO",
                                               token: data,
                                               mbti: "",
@@ -151,7 +151,7 @@ extension LoginViewController : ASAuthorizationControllerPresentationContextProv
         let identityToken = String(data: data, encoding: .utf8) ?? "nil"
         print(identityToken)
         
-        let network = Network()
+        let network = SignUpAPI()
         network.requestOAuthLogin(userType: "APPLE",
                                   token: identityToken,
                                   mbti: "INFJ",
