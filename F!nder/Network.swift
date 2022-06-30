@@ -74,6 +74,69 @@ struct Network {
         task.resume()
     }
     
+    // MARK : - 닉네임 중복 확인
+    func requestCheckNickname(nickname: String,
+                              completionHandler: @escaping (Result<SendEmailResponse,Error>)-> Void) {
+        let urlComponents = URLComponents(string: "https://finder777.com/api/duplicated/nickname?nickname=\(nickname)")
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendEmailResponse.self, from: data) else {
+                return
+            }
+            print("======================================================================")
+            print("SendEmail : Network - sendEmailResponse => \(json.success)")
+            print("SendEmail : Network - sendEmailResponse => \(json.errorResponse?.errorMessages)")
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
+    // MARK : - 일반 회원가입
+    func requestSignUp(email: String,
+                       password: String,
+                       mbti:String,
+                       nickname:String,
+                       completionHandler: @escaping (Result<SignUpResponse,Error>)-> Void) {
+        
+        let codeData = SendSignUp(email: email, password: password, mbti: mbti, nickname: nickname)
+        let bodyData = codeData.parameters.percentEncoded()
+        let urlComponents = URLComponents(string: "https://finder777.com/api/signup")
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "POST" // POST
+        requestURL.httpBody = bodyData
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SignUpResponse.self, from: data) else {
+                return
+            }
+            print("======================================================================")
+            print("SendEmail : Network - sendEmailResponse => \(json.success)")
+            print("SendEmail : Network - sendEmailResponse => \(json.errorResponse?.errorMessages)")
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
     func requestOAuthLogin(userType: String,
                            token: String,
                            mbti: String,

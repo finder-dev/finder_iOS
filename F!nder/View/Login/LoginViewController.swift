@@ -90,6 +90,8 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
                 } else {
                     print("성공 : 카카오톡 소셜 로그인")
                     let data = oauthToken?.accessToken ?? "nil"
+                    print(oauthToken?.idToken)
+                    print(oauthToken?.refreshToken)
 //                    print(String(data: data, encoding: .utf8) ?? "nil")
                     let network = Network()
                     network.requestOAuthLogin(userType: "KAKAO",

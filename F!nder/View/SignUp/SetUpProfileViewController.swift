@@ -18,6 +18,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
 //            }
 //        }
 //    }
+    let network = Network()
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -167,11 +168,48 @@ private extension SetUpProfileViewController {
     }
     
     @objc func didTapNextButton() {
-        let nextVC = CompleteSignUpViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        guard let mbti = MBTITextField.text else { return }
+        print(mbti)
+        guard let nickname = nickNameTextField.text else { return }
+        
+        network.requestSignUp(email: "test234@gmail.com",
+                              password: "testtest11",
+                              mbti: mbti,
+                              nickname: nickname) { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("회원가입 성공")
+                    DispatchQueue.main.async {
+                        let nextVC = CompleteSignUpViewController()
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                    }
+                } else {
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
+    
     @objc func didTapNickNameCheckButton() {
         print("didTapNickNameCheckButton")
+        guard let nickname = nickNameTextField.text else {
+            return
+        }
+        network.requestCheckNickname(nickname: nickname) { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("닉네임 사용 가능")
+                } else {
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
     
     @objc func didTapCheckButton() {
@@ -194,6 +232,7 @@ private extension SetUpProfileViewController {
 private extension SetUpProfileViewController {
     
     func setup() {
+        
     }
     
     func layout() {

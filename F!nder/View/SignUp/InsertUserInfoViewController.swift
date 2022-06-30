@@ -68,7 +68,9 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
         $0.setTitleColor(.unabledButtonTextColor, for: .normal)
         $0.backgroundColor = .unabledButtonColor
-        $0.isEnabled = false
+//        $0.isEnabled = false
+        // TODO : for test
+        $0.isEnabled = true
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
     
@@ -153,6 +155,7 @@ private extension InsertUserInfoViewController {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    // 인증 요청
     @objc func didTapRequestAuthButton() {
         print("didTapRequestQuthButton")
         
@@ -167,6 +170,7 @@ private extension InsertUserInfoViewController {
             case let .success(response) :
                 if response.success {
                     DispatchQueue.main.async {
+                        presentAlertVC(title: "코드번호 발송", message: "이메일로 코드번호가 발송되었습니다.")
                         self.codeAuthButton.isEnabled = true
                         self.codeAuthButton.setTitleColor(.white, for: .normal)
                         self.codeAuthButton.backgroundColor = .mainTintColor
@@ -180,6 +184,7 @@ private extension InsertUserInfoViewController {
         }
     }
     
+    // 인증 확인
     @objc func didTapCodeAuthButton() {
         print("didTapCodeAuthButton")
         
@@ -194,6 +199,7 @@ private extension InsertUserInfoViewController {
             case let .success(response) :
                 if response.success {
                     DispatchQueue.main.async {
+                        self.presentAlertVC(title: "이메일 인증 완료", message: "인증되었습니다.")
                         self.nextButton.isEnabled = true
                         self.nextButton.setTitleColor(.white, for: .normal)
                         self.nextButton.backgroundColor = .mainTintColor
@@ -205,6 +211,17 @@ private extension InsertUserInfoViewController {
                 print("오류")
             }
         }
+    }
+    
+    func presentAlertVC(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
+                                      preferredStyle: .alert)
+        alert.view.traverseRadius(0)
+        alert.view.layer.cornerRadius = 0.0
+        let ok = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

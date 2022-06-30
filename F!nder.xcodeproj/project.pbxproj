@@ -34,6 +34,8 @@
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
 		2BBEABC32854DA94002573DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */; };
 		2BC3C27A2854E0430094F5EB /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC3C2792854E0430094F5EB /* Then */; };
+		2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F0CC286DCCB50016480A /* View+Extensions.swift */; };
+		2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F0CE286DD3550016480A /* SendSignUp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,8 @@
 		2BBEABBF2854DA94002573DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2BBEABC22854DA94002573DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BBEABC42854DA94002573DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BE5F0CC286DCCB50016480A /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		2BE5F0CE286DD3550016480A /* SendSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSignUp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 			children = (
 				2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */,
 				2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */,
+				2BE5F0CC286DCCB50016480A /* View+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 				2BA8F2572868906200D64F0E /* SendEmailResponse.swift */,
 				2BA8F25A2868A98000D64F0E /* SendCode.swift */,
 				2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */,
+				2BE5F0CE286DD3550016480A /* SendSignUp.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -284,11 +290,13 @@
 			files = (
 				2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */,
 				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,
+				2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */,
 				2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */,
 				2B3E259D286362B400C85193 /* Network.swift in Sources */,
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
+				2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */,
 				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
