@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         var rootVC = UIViewController()
         
-        if Storage.isFirstTime() {
-            rootVC = OnBoardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        if !Storage.isFirstTime() {
+//            rootVC = OnBoardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+            rootVC = MainTabBarController()
         } else {
             rootVC = LoginViewController()
         }

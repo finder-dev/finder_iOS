@@ -37,7 +37,7 @@ private extension FirstOnBoardingViewController {
         
         mainTitleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(24.0)
-            $0.top.equalTo(safeArea).inset(80.0)
+            $0.top.equalToSuperview().inset(80.0)
         }
         
         smallLabel.snp.makeConstraints {

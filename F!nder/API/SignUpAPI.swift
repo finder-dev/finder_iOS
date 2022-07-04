@@ -140,8 +140,8 @@ struct SignUpAPI {
     // MARK : - 소셜 로그인
     func requestOAuthLogin(userType: String,
                            token: String,
-                           mbti: String,
-                           nickName: String,
+                           mbti: String?,
+                           nickName: String?,
                            completionHandler: @escaping (Result<SocialLoginResponse,Error>)-> Void) {
         print("=========================requestOAuthLogin=============================================")
         

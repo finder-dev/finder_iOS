@@ -119,6 +119,7 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     }
     private lazy var passwordTextField = UITextField().then {
         $0.placeholder = "비밀번호를 입력해주세요"
+        $0.isSecureTextEntry = true
     }
     
     private lazy var passwordInfoLabel = UILabel().then {
@@ -129,6 +130,7 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var passwordCheckTextField = UITextField().then {
         $0.placeholder = "비밀번호를 재입력해주세요"
+        $0.isSecureTextEntry = true
     }
     
     private lazy var passwordCheckLabel = UILabel().then {

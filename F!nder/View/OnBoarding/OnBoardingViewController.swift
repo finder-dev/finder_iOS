@@ -145,8 +145,10 @@ extension OnBoardingViewController: UIPageViewControllerDelegate {
         
         if lastPage {
             nextButton.isHidden = false
+            skipButton.isHidden = true
         } else {
             nextButton.isHidden = true
+            skipButton.isHidden = false
         }
 
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {

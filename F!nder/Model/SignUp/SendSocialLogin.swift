@@ -9,10 +9,10 @@ import Foundation
 
 struct SendSocialLogin {
     let userType: String
-    let mbti: String
-    let nickname: String
+    let mbti: String?
+    let nickname: String?
     
-    var parameters : [String: String] { [
+    var parameters : [String: String?] { [
         "userType": userType,
         "mbti": mbti,
         "nickname": nickname,
