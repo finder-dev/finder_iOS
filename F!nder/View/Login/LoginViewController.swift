@@ -70,8 +70,6 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         $0.addTarget(self, action: #selector(didTapEmailLogin), for: .touchUpInside)
         $0.setUnderline()
     }
-    
-
 
     override func viewDidLoad() {
         super.viewDidLoad()

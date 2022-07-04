@@ -17,4 +17,5 @@ extension UIColor {
     static let lightGrayTextColor = UIColor(red: 136/255, green: 136/255, blue: 136/255, alpha: 1.0)
     static let textFieldBorder = UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1.0)
     static let onboardGrayTextColor = UIColor(red: 126/255, green: 133/255, blue: 137/255, alpha: 1.0)
+    static let textGrayColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
 }

@@ -8,6 +8,9 @@
 import Foundation
 import UIKit
 
+/*
+ * 탭 별 뷰컨트롤러를 관리하는 메인 텝 바 컨트롤러입니다.
+ */
 class MainTabBarController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
@@ -18,8 +21,16 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTabBar()
+        addShadowToTabBar()
     }
     
+    func addShadowToTabBar() {
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().backgroundColor = UIColor.white
+        
+        self.tabBar.layer.applyShadow(color: .lightGray, alpha: 0.3, x: 0, y: 0, blur: 12)
+    }
     
     private func setUpTabBar() {
         
