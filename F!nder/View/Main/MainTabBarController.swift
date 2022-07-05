@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTabBar()
-        addShadowToTabBar()
+//        addShadowToTabBar()
     }
     
     func addShadowToTabBar() {
@@ -32,6 +32,22 @@ class MainTabBarController: UITabBarController {
         self.tabBar.layer.applyShadow(color: .lightGray, alpha: 0.3, x: 0, y: 0, blur: 12)
         self.tabBar.tintColor = .mainTintColor
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//        var tabFrame = self.tabBar.frame
+//        tabFrame.size.height = 75.0
+//        tabFrame.origin.y = self.view.frame.size.height - 75.0
+//        self.tabBar.frame = tabFrame
+//    }
+//    
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        var tabFrame = self.tabBar.frame
+//        tabFrame.size.height = 75.0
+//        tabFrame.origin.y = self.view.frame.size.height - 75.0
+//        self.tabBar.frame = tabFrame
+//    }
     
     private func setUpTabBar() {
         
@@ -64,3 +80,12 @@ class MainTabBarController: UITabBarController {
         
     }
 }
+
+
+//extension UITabBar {
+//    override open func sizeThatFits(_ size: CGSize) -> CGSize {
+//    var sizeThatFits = super.sizeThatFits(size)
+//    sizeThatFits.height = 75 // 원하는 길이
+//    return sizeThatFits
+//   }
+//}

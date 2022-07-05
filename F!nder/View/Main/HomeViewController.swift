@@ -51,6 +51,9 @@ class HomeViewController: UIViewController {
     var agreeImageView = UIImageView()
     var disagreeImageView = UIImageView()
     
+    let lineView2 = UIView()
+    var communityLabel = UILabel()
+    
     var bannerButton = UIButton()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
 
@@ -103,9 +106,9 @@ private extension HomeViewController {
         }
         
         scrollView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(mainLogoImageView.snp.bottom)
-            $0.bottom.equalTo(safeArea)
+            $0.leading.trailing.bottom.equalTo(safeArea)
+            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(30.0)
+//            $0.bottom.equalTo(safeArea)
         }
         
         scrollViewLayout()
@@ -146,6 +149,11 @@ private extension HomeViewController {
         goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         
         bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
+        lineView2.backgroundColor = UIColor(red: 228/255, green: 229/255, blue: 233/255, alpha: 1.0)
+        
+        communityLabel.text = "💬 급상승 중인 파인더들의 수다"
+        communityLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
+        communityLabel.textColor = UIColor(red: 44/255, green: 44/255, blue: 44/255, alpha: 1.0)
                 
         searchBarAttribute()
         balanceGameAttribute()
@@ -153,18 +161,20 @@ private extension HomeViewController {
     }
     
     func scrollViewLayout() {
+        
         scrollView.addSubview(innerView)
-        scrollView.showsVerticalScrollIndicator = true
-                
+        innerView.translatesAutoresizingMaskIntoConstraints = false
+        
         innerView.snp.makeConstraints {
             $0.edges.equalTo(scrollView)
             $0.width.equalTo(scrollView.snp.width)
+            $0.height.equalTo(1000)
         }
-        
         innerViewLayout()
     }
     
     func innerViewLayout() {
+        
         [searchView,
         userInfoLabel,
         mbtiInfoLabel,
@@ -174,17 +184,18 @@ private extension HomeViewController {
         noBalanceGameDataView,
         balanceGameView,
         goBalanceGameButton,
-        bannerButton].forEach {
+        bannerButton,
+         lineView2,
+         communityLabel].forEach {
            self.innerView.addSubview($0)
        }
         
-        let safeArea = self.view.safeAreaLayoutGuide
         
         searchView.snp.makeConstraints {
 //            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(30.0)
-            $0.top.equalToSuperview().inset(30.0)
-            $0.leading.equalToSuperview().inset(20.0)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(innerView)
+            $0.leading.equalTo(innerView).inset(20.0)
+            $0.centerX.equalTo(innerView)
             $0.height.equalTo(54.0)
         }
         
@@ -200,7 +211,7 @@ private extension HomeViewController {
         
         mbtiImageView.snp.makeConstraints {
             $0.top.equalTo(searchView.snp.bottom).offset(8.0)
-            $0.trailing.equalToSuperview().inset(20.0)
+            $0.trailing.equalTo(innerView).inset(20.0)
             $0.width.equalTo(155.0)
             $0.height.equalTo(140.0)
         }
@@ -208,37 +219,46 @@ private extension HomeViewController {
         lineView.snp.makeConstraints {
             $0.height.equalTo(2.0)
             $0.top.equalTo(mbtiImageView.snp.bottom).offset(20.0)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalTo(innerView)
         }
         
         balanceGameLabel.snp.makeConstraints {
             $0.top.equalTo(lineView.snp.bottom).offset(53.0)
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalTo(innerView)
         }
         
         noBalanceGameDataView.snp.makeConstraints {
             $0.top.equalTo(balanceGameLabel.snp.bottom).offset(20.0)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalTo(innerView)
         }
         
         balanceGameView.snp.makeConstraints {
             $0.top.equalTo(balanceGameLabel.snp.bottom).offset(20.0)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.equalTo(innerView)
         }
         
         goBalanceGameButton.snp.makeConstraints {
             $0.top.equalTo(balanceGameLabel.snp.bottom).offset(255.0)
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalTo(innerView)
             $0.height.equalTo(34.0)
             $0.width.equalTo(180.0)
         }
         
         bannerButton.snp.makeConstraints {
             $0.top.equalTo(goBalanceGameButton.snp.bottom).offset(56.0)
-            $0.leading.equalTo(safeArea.snp.leading)
-            $0.trailing.equalTo(safeArea.snp.trailing)
+            $0.leading.trailing.equalTo(innerView)
             $0.height.equalTo(100.0)
-//            $0.leading.trailing.equalTo(self.view)
+        }
+        
+        lineView2.snp.makeConstraints {
+            $0.top.equalTo(bannerButton.snp.bottom).offset(36.0)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(10.0)
+        }
+        
+        communityLabel.snp.makeConstraints {
+            $0.top.equalTo(lineView2.snp.bottom).offset(56.0)
+            $0.leading.equalTo(innerView).inset(20.0)
         }
     }
 }
