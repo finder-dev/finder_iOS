@@ -30,6 +30,7 @@ class MainTabBarController: UITabBarController {
         UITabBar.appearance().backgroundColor = UIColor.white
         
         self.tabBar.layer.applyShadow(color: .lightGray, alpha: 0.3, x: 0, y: 0, blur: 12)
+        self.tabBar.tintColor = .mainTintColor
     }
     
     private func setUpTabBar() {

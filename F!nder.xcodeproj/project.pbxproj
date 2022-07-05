@@ -134,13 +134,6 @@
 			path = OnBoarding;
 			sourceTree = "<group>";
 		};
-		2B09DF1F2861E04800FE19DC /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
 		2B09DF222861E5E000FE19DC /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,7 +237,6 @@
 				2BA8F2562868904100D64F0E /* Model */,
 				2B27643A287325FB00C37C9A /* Utility */,
 				2B6826B4286DF7A1006AF742 /* API */,
-				2B09DF1F2861E04800FE19DC /* Resource */,
 				2B09DEFD285B512100FE19DC /* View */,
 				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
 				2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */,

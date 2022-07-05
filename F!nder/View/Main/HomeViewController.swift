@@ -11,11 +11,21 @@ import SnapKit
 /*
  * 메인 탭 바 진입 시 가장 먼저 보이는 홈 뷰 컨트롤러입니다.
  */
+
+enum balanceGameDataStatus {
+    case noData
+    case yesData
+}
+
 class HomeViewController: UIViewController {
     
     var mainLogoImageView = UIImageView()
     var alarmButton = UIButton()
     var messageButton = UIButton()
+    
+    var scrollView = UIScrollView()
+    var innerView = UIView()
+    
     var searchView = UIView()
     var searchImageView = UIImageView()
     var searchLabel = UILabel()
@@ -25,8 +35,24 @@ class HomeViewController: UIViewController {
     
     var lineView = UIView()
     var balanceGameLabel = UILabel()
+    var goBalanceGameButton = UIButton()
+    
+    var noBalanceGameDataView = UIView()
+    var noBalanceGameImageView = UIImageView()
+    var noBalanceGameLabelImageView = UIImageView()
+    
+    var balanceGameView = UIView()
     var balaceGameTitleLabel = UILabel()
     var balanceGameTimeLabel = UILabel()
+    var agreeButton = UIButton()
+    var agreeCounts = UILabel()
+    var disagreeButton = UIButton()
+    var disagreeCounts = UILabel()
+    var agreeImageView = UIImageView()
+    var disagreeImageView = UIImageView()
+    
+    var bannerButton = UIButton()
+    var balanceGameDataStatus : balanceGameDataStatus = .yesData
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +61,14 @@ class HomeViewController: UIViewController {
 
         layout()
         attribute()
+        
+        if balanceGameDataStatus == .noData {
+            balanceGameView.isHidden = true
+            noBalanceGameDataView.isHidden = false
+        } else {
+            balanceGameView.isHidden = false
+            noBalanceGameDataView.isHidden = true
+        }
     }
 }
 
@@ -44,12 +78,8 @@ private extension HomeViewController {
         [mainLogoImageView,
          alarmButton,
          messageButton,
-         searchView,
-         userInfoLabel,
-         mbtiInfoLabel,
-         mbtiImageView,
-         lineView,
-         balanceGameLabel].forEach {
+         scrollView,
+         ].forEach {
             self.view.addSubview($0)
         }
         
@@ -72,8 +102,87 @@ private extension HomeViewController {
             $0.width.height.equalTo(24.0)
         }
         
+        scrollView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(mainLogoImageView.snp.bottom)
+            $0.bottom.equalTo(safeArea)
+        }
+        
+        scrollViewLayout()
+        searchBarLayout()
+        balanceGameViewLayout()
+        noBalanceGameViewLayout()
+    }
+    
+    func attribute() {
+        mainLogoImageView.image = UIImage(named: "main_logo")
+        messageButton.setImage(UIImage(named: "message"), for: .normal)
+        alarmButton.setImage(UIImage(named: "ic_notification"), for: .normal)
+
+        searchView.layer.borderWidth = 2.0
+        searchView.layer.borderColor = UIColor.mainTintColor.cgColor
+        
+        userInfoLabel.text = "INFJ 수완"
+        userInfoLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
+        userInfoLabel.textColor = .blackTextColor
+        
+        mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
+        mbtiInfoLabel.numberOfLines = 0
+        mbtiInfoLabel.font = .systemFont(ofSize: 16.0, weight: .medium)
+        mbtiInfoLabel.textColor = .textGrayColor
+        mbtiInfoLabel.setLineHeight(lineHeight: 25.0)
+        
+        mbtiImageView.image = UIImage(named: "main character")
+        
+        lineView.backgroundColor = .mainTintColor
+        
+        balanceGameLabel.text = "🔥HOT한 밸런스 게임! 당신의 선택은?"
+        balanceGameLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
+        
+        goBalanceGameButton.layer.cornerRadius = 18.0
+        goBalanceGameButton.layer.borderWidth = 1.0
+        goBalanceGameButton.layer.borderColor = UIColor.mainTintColor.cgColor
+        goBalanceGameButton.setTitleColor(.mainTintColor, for: .normal)
+        goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+        
+        bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
+                
+        searchBarAttribute()
+        balanceGameAttribute()
+        noBalanceGameViewAttribute()
+    }
+    
+    func scrollViewLayout() {
+        scrollView.addSubview(innerView)
+        scrollView.showsVerticalScrollIndicator = true
+                
+        innerView.snp.makeConstraints {
+            $0.edges.equalTo(scrollView)
+            $0.width.equalTo(scrollView.snp.width)
+        }
+        
+        innerViewLayout()
+    }
+    
+    func innerViewLayout() {
+        [searchView,
+        userInfoLabel,
+        mbtiInfoLabel,
+        mbtiImageView,
+        lineView,
+        balanceGameLabel,
+        noBalanceGameDataView,
+        balanceGameView,
+        goBalanceGameButton,
+        bannerButton].forEach {
+           self.innerView.addSubview($0)
+       }
+        
+        let safeArea = self.view.safeAreaLayoutGuide
+        
         searchView.snp.makeConstraints {
-            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(30.0)
+//            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(30.0)
+            $0.top.equalToSuperview().inset(30.0)
             $0.leading.equalToSuperview().inset(20.0)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(54.0)
@@ -107,37 +216,30 @@ private extension HomeViewController {
             $0.centerX.equalToSuperview()
         }
         
-        searchBarLayout()
-        balanceGameLayout()
-    }
-    
-    func attribute() {
-        mainLogoImageView.image = UIImage(named: "main_logo")
-        messageButton.setImage(UIImage(named: "message"), for: .normal)
-        alarmButton.setImage(UIImage(named: "ic_notification"), for: .normal)
-
-        searchView.layer.borderWidth = 2.0
-        searchView.layer.borderColor = UIColor.mainTintColor.cgColor
+        noBalanceGameDataView.snp.makeConstraints {
+            $0.top.equalTo(balanceGameLabel.snp.bottom).offset(20.0)
+            $0.leading.trailing.equalToSuperview()
+        }
         
-        userInfoLabel.text = "INFJ 수완"
-        userInfoLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
-        userInfoLabel.textColor = .blackTextColor
+        balanceGameView.snp.makeConstraints {
+            $0.top.equalTo(balanceGameLabel.snp.bottom).offset(20.0)
+            $0.leading.trailing.equalToSuperview()
+        }
         
-        mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
-        mbtiInfoLabel.numberOfLines = 0
-        mbtiInfoLabel.font = .systemFont(ofSize: 16.0, weight: .medium)
-        mbtiInfoLabel.textColor = .textGrayColor
-        mbtiInfoLabel.setLineHeight(lineHeight: 25.0)
+        goBalanceGameButton.snp.makeConstraints {
+            $0.top.equalTo(balanceGameLabel.snp.bottom).offset(255.0)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(34.0)
+            $0.width.equalTo(180.0)
+        }
         
-        mbtiImageView.image = UIImage(named: "img_infj")
-        
-        lineView.backgroundColor = .mainTintColor
-        
-        balanceGameLabel.text = "🔥HOT한 밸런스 게임! 당신의 선택은?"
-        balanceGameLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
-        
-        searchBarAttribute()
-        balanceGameAttribute()
+        bannerButton.snp.makeConstraints {
+            $0.top.equalTo(goBalanceGameButton.snp.bottom).offset(56.0)
+            $0.leading.equalTo(safeArea.snp.leading)
+            $0.trailing.equalTo(safeArea.snp.trailing)
+            $0.height.equalTo(100.0)
+//            $0.leading.trailing.equalTo(self.view)
+        }
     }
 }
 
@@ -182,20 +284,69 @@ private extension HomeViewController {
 
 // 밸런스게임 UI 설정
 private extension HomeViewController {
-    func balanceGameLayout() {
-        [balaceGameTitleLabel,balanceGameTimeLabel].forEach {
-            self.view.addSubview($0)
+    func balanceGameViewLayout() {
+        
+        [balaceGameTitleLabel,
+         balanceGameTimeLabel,
+         agreeCounts,
+         disagreeCounts].forEach {
+            self.balanceGameView.addSubview($0)
+        }
+        
+        [agreeButton,
+         disagreeButton,
+         agreeImageView,
+         disagreeImageView].forEach {
+            self.balanceGameView.addSubview($0)
         }
         
         balaceGameTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(balanceGameLabel.snp.bottom).offset(20.0)
+            $0.top.equalTo(balanceGameView.snp.top)
         }
         
         balanceGameTimeLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(balaceGameTitleLabel.snp.bottom).offset(4.0)
         }
+        let screenWidth = self.view.bounds.width
+        
+        agreeCounts.snp.makeConstraints {
+            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
+            $0.trailing.equalToSuperview().inset(screenWidth/2+22.0)
+            $0.height.equalTo(64.0)
+        }
+        
+        disagreeCounts.snp.makeConstraints {
+            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
+            $0.leading.equalToSuperview().inset(screenWidth/2+22.0)
+            $0.height.equalTo(64.0)
+        }
+        
+        agreeButton.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(20.0)
+            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(75.0)
+            $0.trailing.equalToSuperview().inset(screenWidth/2+6)
+            $0.height.equalTo(55.0)
+        }
+        
+        disagreeButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20.0)
+            $0.top.equalTo(agreeButton)
+            $0.leading.equalToSuperview().inset(screenWidth/2+6)
+            $0.height.equalTo(55.0)
+        }
+        
+        agreeImageView.snp.makeConstraints {
+            $0.bottom.equalTo(agreeButton.snp.top)
+            $0.leading.equalTo(agreeButton)
+        }
+        
+        disagreeImageView.snp.makeConstraints {
+            $0.bottom.equalTo(disagreeButton.snp.top)
+            $0.trailing.equalTo(disagreeButton)
+        }
+        
     }
     
     func balanceGameAttribute() {
@@ -208,5 +359,72 @@ private extension HomeViewController {
         balanceGameTimeLabel.text = "남은시간 D-3"
         balanceGameTimeLabel.font = .systemFont(ofSize: 12.0, weight: .regular)
         balanceGameTimeLabel.textColor = UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 1.0)
+        
+        [agreeCounts,disagreeCounts].forEach {
+            $0.font = .systemFont(ofSize: 44.0, weight: .bold)
+            $0.textColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
+            $0.text = "33"
+            $0.textAlignment = .center
+        }
+        
+        agreeButton.setTitle("물론 가능!", for: .normal)
+        disagreeButton.setTitle("절대 불가능", for: .normal)
+        
+        [agreeButton,disagreeButton].forEach {
+            $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .bold)
+            $0.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
+            $0.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
+        }
+        
+        agreeButton.contentHorizontalAlignment = .left
+        disagreeButton.contentHorizontalAlignment = .right
+        
+        agreeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 0)
+        disagreeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20.0)
+        
+        goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
+        goBalanceGameButton.addTarget(self, action: #selector(didTapGoBalanceGameButton), for: .touchUpInside)
+        
+        [agreeImageView,disagreeImageView].forEach {
+            $0.image = UIImage(named: "Frame 986295")
+            $0.isHidden = true
+        }
+        
+        isselected()
+    }
+    
+    @objc func didTapGoBalanceGameButton() {
+        print("didTapGoBalanceGameButton")
+    }
+    
+    func isselected() {
+        agreeImageView.isHidden = false
+        //b 81 70 241
+        let selectedColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
+        agreeButton.backgroundColor = selectedColor
+        agreeButton.setTitleColor(.white, for: .normal)
+    }
+    
+    func noBalanceGameViewLayout() {
+        [noBalanceGameImageView,noBalanceGameLabelImageView].forEach {
+            self.noBalanceGameDataView.addSubview($0)
+        }
+        
+        noBalanceGameImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(noBalanceGameDataView.snp.top).inset(4.0)
+        }
+        
+        noBalanceGameLabelImageView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(noBalanceGameImageView.snp.bottom).offset(16.0)
+        }
+    }
+    
+    func noBalanceGameViewAttribute() {
+        noBalanceGameImageView.image = UIImage(named: "main character grey_home")
+        noBalanceGameLabelImageView.image = UIImage(named: "Group 986336")
+        goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
     }
 }
+

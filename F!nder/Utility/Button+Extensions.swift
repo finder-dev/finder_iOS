@@ -19,4 +19,5 @@ extension UIButton {
             )
         setAttributedTitle(attributedString, for: .normal)
     }
+    
 }
