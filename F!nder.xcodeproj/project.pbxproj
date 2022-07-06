@@ -47,6 +47,8 @@
 		2BE7BE54287317DE0062EB5A /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7BE53287317DE0062EB5A /* UserViewController.swift */; };
 		2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB592873360D0013F75B /* CALayer+Extension.swift */; };
 		2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */; };
+		2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */; };
+		2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,8 @@
 		2BE7BE53287317DE0062EB5A /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		2BE8BB592873360D0013F75B /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 		2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
+		2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +256,8 @@
 			children = (
 				2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */,
 				2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */,
+				2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */,
+				2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -353,6 +359,7 @@
 				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
 				2BE7BE4C2873173B0062EB5A /* HomeViewController.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
+				2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */,
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */,
@@ -361,6 +368,7 @@
 				2B6826B3286DE598006AF742 /* Login.swift in Sources */,
 				2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
+				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,

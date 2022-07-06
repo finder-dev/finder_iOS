@@ -13,9 +13,10 @@ enum AlertStatus {
     case yesAlert
 }
 
-class AlertViewController: UIViewController {
+class AlertViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var alertStatus: AlertStatus = .noAlert
+    let tableViewModel : AlertTableViewModel = AlertTableViewModel()
     
     // Header 설정
     private lazy var backButton = UIButton().then {
@@ -34,18 +35,27 @@ class AlertViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
-//        if alertStatus == .noAlert {
-//            noAlertView.isHidden = false
-//            yesAlertView.isHidden = true
-//        } else {
-//            noAlertView.isHidden = true
-//            yesAlertView.isHidden = false
-//        }
-        
         layout()
         attribute()
     }
+}
+
+extension AlertViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewModel.cells.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AlertTableViewCell.identifier, for: indexPath) as? AlertTableViewCell else {
+            print("오류 : tableview Cell을 찾을 수 없습니다. ")
+            return UITableViewCell()
+        }
+        
+        let data = tableViewModel.cells[indexPath.row]
+        cell.setupCell(data: data)
+        return cell
+    }
+    
 }
 
 private extension AlertViewController {
@@ -112,6 +122,24 @@ private extension AlertViewController {
 // 알림이 있는 경우 view
 private extension AlertViewController {
     func yesAlertViewLayout() {
+        self.view.addSubview(yesAlertView)
         
+        yesAlertView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(headerTitle.snp.bottom).offset(14.0)
+        }
+        
+        let tableview = UITableView()
+        
+        yesAlertView.addSubview(tableview)
+        
+        tableview.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        tableview.backgroundColor = .white
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.register(AlertTableViewCell.self, forCellReuseIdentifier: AlertTableViewCell.identifier)
     }
 }

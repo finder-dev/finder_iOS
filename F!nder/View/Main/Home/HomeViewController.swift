@@ -78,7 +78,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController {
     @objc func didTapAlaramButton() {
         let nextVC = AlertViewController()
-        nextVC.alertStatus = .noAlert
+        nextVC.alertStatus = .yesAlert
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
