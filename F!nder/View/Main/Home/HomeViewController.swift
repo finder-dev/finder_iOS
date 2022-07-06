@@ -75,6 +75,14 @@ class HomeViewController: UIViewController {
     }
 }
 
+extension HomeViewController {
+    @objc func didTapAlaramButton() {
+        let nextVC = AlertViewController()
+        nextVC.alertStatus = .noAlert
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+}
+
 private extension HomeViewController {
     func layout() {
         
@@ -121,6 +129,7 @@ private extension HomeViewController {
         mainLogoImageView.image = UIImage(named: "main_logo")
         messageButton.setImage(UIImage(named: "message"), for: .normal)
         alarmButton.setImage(UIImage(named: "ic_notification"), for: .normal)
+        alarmButton.addTarget(self, action: #selector(didTapAlaramButton), for: .touchUpInside)
 
         searchView.layer.borderWidth = 2.0
         searchView.layer.borderColor = UIColor.mainTintColor.cgColor

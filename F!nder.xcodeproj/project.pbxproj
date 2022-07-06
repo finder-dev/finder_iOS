@@ -46,6 +46,7 @@
 		2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7BE51287317C30062EB5A /* SavedViewController.swift */; };
 		2BE7BE54287317DE0062EB5A /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7BE53287317DE0062EB5A /* UserViewController.swift */; };
 		2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB592873360D0013F75B /* CALayer+Extension.swift */; };
+		2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		2BE7BE51287317C30062EB5A /* SavedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewController.swift; sourceTree = "<group>"; };
 		2BE7BE53287317DE0062EB5A /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		2BE8BB592873360D0013F75B /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +182,8 @@
 		2B6826B5286DF95C006AF742 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				2BE8BB5B2875D11C0013F75B /* Home */,
 				2BE7BE492873169E0062EB5A /* MainTabBarController.swift */,
-				2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */,
 				2BE7BE4D2873176C0062EB5A /* DiscussViewController.swift */,
 				2BE7BE4F287317A90062EB5A /* CommunityViewController.swift */,
 				2BE7BE51287317C30062EB5A /* SavedViewController.swift */,
@@ -243,6 +245,15 @@
 				2BBEABC42854DA94002573DE /* Info.plist */,
 			);
 			path = "F!nder";
+			sourceTree = "<group>";
+		};
+		2BE8BB5B2875D11C0013F75B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */,
+				2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +362,7 @@
 				2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
+				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,
 				2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
