@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SafariServices
 
 /*
  * 메인 탭 바 진입 시 가장 먼저 보이는 홈 뷰 컨트롤러입니다.
@@ -80,6 +81,16 @@ extension HomeViewController {
         let nextVC = AlertViewController()
         nextVC.alertStatus = .yesAlert
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @objc func didTapBannerButton() {
+        guard let url = URL(string: "https://www.16personalities.com/ko") else {
+            print("오류 - HomeViewController : 유효하지 않은 url ")
+            return
+        }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
     }
 }
 
@@ -158,6 +169,8 @@ private extension HomeViewController {
         goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         
         bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
+        bannerButton.addTarget(self, action: #selector(didTapBannerButton), for: .touchUpInside)
+        
         lineView2.backgroundColor = UIColor(red: 228/255, green: 229/255, blue: 233/255, alpha: 1.0)
         
         communityLabel.text = "💬 급상승 중인 파인더들의 수다"
