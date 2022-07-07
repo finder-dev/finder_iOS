@@ -21,7 +21,7 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTabBar()
-//        addShadowToTabBar()
+        addShadowToTabBar()
     }
     
     func addShadowToTabBar() {

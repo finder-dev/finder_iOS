@@ -18,7 +18,12 @@ enum balanceGameDataStatus {
     case yesData
 }
 
-class HomeViewController: UIViewController {
+enum discussDataStatus {
+    case noData
+    case yesData
+}
+
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var mainLogoImageView = UIImageView()
     var alarmButton = UIButton()
@@ -57,6 +62,7 @@ class HomeViewController: UIViewController {
     
     var bannerButton = UIButton()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
+    var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +80,25 @@ class HomeViewController: UIViewController {
             noBalanceGameDataView.isHidden = true
         }
     }
+}
+
+extension HomeViewController {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return communityTableViewModel.cells.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeCommunityTableViewCell.identifier, for: indexPath) as? HomeCommunityTableViewCell else {
+            print("오류 - Home : communityTableview cell을 찾을 수 없습니다.")
+            return UITableViewCell()
+        }
+        
+        let data = communityTableViewModel.cells[indexPath.row]
+        cell.setupCell(data: data)
+        return cell
+    }
+    
 }
 
 extension HomeViewController {
@@ -134,6 +159,7 @@ private extension HomeViewController {
         searchBarLayout()
         balanceGameViewLayout()
         noBalanceGameViewLayout()
+        communityTableViewLayout()
     }
     
     func attribute() {
@@ -190,8 +216,9 @@ private extension HomeViewController {
         innerView.snp.makeConstraints {
             $0.edges.equalTo(scrollView)
             $0.width.equalTo(scrollView.snp.width)
-            $0.height.equalTo(1000)
+            $0.height.equalTo(1180)
         }
+        
         innerViewLayout()
     }
     
@@ -441,7 +468,6 @@ private extension HomeViewController {
     
     func isselected() {
         agreeImageView.isHidden = false
-        //b 81 70 241
         let selectedColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
         agreeButton.backgroundColor = selectedColor
         agreeButton.setTitleColor(.white, for: .normal)
@@ -467,6 +493,23 @@ private extension HomeViewController {
         noBalanceGameImageView.image = UIImage(named: "main character grey_home")
         noBalanceGameLabelImageView.image = UIImage(named: "Group 986336")
         goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
+    }
+}
+
+private extension HomeViewController {
+    func communityTableViewLayout() {
+        let tableView = UITableView()
+        self.innerView.addSubview(tableView)
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(communityLabel.snp.bottom).offset(12.0)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
     }
 }
 
