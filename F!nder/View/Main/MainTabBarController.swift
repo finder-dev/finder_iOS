@@ -63,14 +63,14 @@ class MainTabBarController: UITabBarController {
         fourthViewController.tabBarItem.title = "저장"
         fifthViewController.tabBarItem.title = "마이"
         
-        /*
-        firstViewController = UIImage(named: "First") // TabBar Item 의 이미지
-         secondViewController = UIImage(named: "Second")
-         thirdViewController = UIImage(named: "Third")
-         fourthViewController = UIImage(named: "Fourth")
-         fifthViewController = UIImage(named: "Fifth")
+
+        // TabBar Item 의 이미지
+        firstViewController.tabBarItem.image = UIImage(named: "Frame 7612")
+        secondViewController.tabBarItem.image = UIImage(named: "Frame 7611")
+        thirdViewController.tabBarItem.image = UIImage(named: "Frame 7608")
+        fourthViewController.tabBarItem.image = UIImage(named: "Frame 7609")
+        fifthViewController.tabBarItem.image = UIImage(named: "Frame 7618")
          
-         */
         
         viewControllers = [firstViewController,
                            secondViewController,

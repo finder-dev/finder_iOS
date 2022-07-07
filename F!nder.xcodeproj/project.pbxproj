@@ -190,12 +190,12 @@
 		2B6826B5286DF95C006AF742 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				2BE8BB5B2875D11C0013F75B /* Home */,
 				2BE7BE492873169E0062EB5A /* MainTabBarController.swift */,
-				2BE7BE4D2873176C0062EB5A /* DiscussViewController.swift */,
-				2BE7BE4F287317A90062EB5A /* CommunityViewController.swift */,
-				2BE7BE51287317C30062EB5A /* SavedViewController.swift */,
-				2BE7BE53287317DE0062EB5A /* UserViewController.swift */,
+				2BE8BB5B2875D11C0013F75B /* Home */,
+				2BA51BC52877295D00D87533 /* Discuss */,
+				2BA51BC42877294D00D87533 /* Community */,
+				2BA51BC62877296600D87533 /* Saved */,
+				2BA51BC72877296C00D87533 /* User */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -208,6 +208,38 @@
 				2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */,
 			);
 			path = Alert;
+			sourceTree = "<group>";
+		};
+		2BA51BC42877294D00D87533 /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7BE4F287317A90062EB5A /* CommunityViewController.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		2BA51BC52877295D00D87533 /* Discuss */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7BE4D2873176C0062EB5A /* DiscussViewController.swift */,
+			);
+			path = Discuss;
+			sourceTree = "<group>";
+		};
+		2BA51BC62877296600D87533 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7BE51287317C30062EB5A /* SavedViewController.swift */,
+			);
+			path = Saved;
+			sourceTree = "<group>";
+		};
+		2BA51BC72877296C00D87533 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7BE53287317DE0062EB5A /* UserViewController.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		2BA8F2562868904100D64F0E /* Model */ = {
