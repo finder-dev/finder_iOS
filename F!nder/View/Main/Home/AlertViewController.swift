@@ -138,8 +138,10 @@ private extension AlertViewController {
         }
         
         tableview.backgroundColor = .white
+        tableview.separatorStyle = .none
         tableview.delegate = self
         tableview.dataSource = self
+//        tableview.estimatedRowHeight = 100
         tableview.register(AlertTableViewCell.self, forCellReuseIdentifier: AlertTableViewCell.identifier)
     }
 }

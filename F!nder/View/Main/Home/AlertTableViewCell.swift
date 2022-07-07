@@ -11,7 +11,7 @@ import SnapKit
 class AlertTableViewCell: UITableViewCell {
     
     static let identifier = "AlertTableViewCell"
-        
+    let innerView = UIView()
     let alertImageView = UIImageView()
     let alertTitleLabel = UILabel()
     let alertTextLabel = UILabel()
@@ -49,27 +49,32 @@ extension AlertTableViewCell {
     
     func layout() {
         
+        self.contentView.addSubview(innerView)
+        
+        innerView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         [alertImageView,
          alertTitleLabel,
          alertTextLabel,
          timeLabel].forEach {
-            self.contentView.addSubview($0)
+            self.innerView.addSubview($0)
         }
         
-        contentView.snp.makeConstraints {
+        innerView.snp.makeConstraints {
             $0.height.equalTo(100.0)
         }
         alertImageView.snp.makeConstraints {
             $0.height.width.equalTo(40.0)
-            $0.leading.equalTo(contentView).inset(20.0)
-            $0.centerY.equalTo(contentView)
+            $0.leading.equalTo(innerView).inset(20.0)
+            $0.centerY.equalTo(innerView)
         }
         
         alertTitleLabel.snp.makeConstraints {
             $0.leading.equalTo(alertImageView.snp.trailing).offset(16.0)
-//            $0.trailing.equalTo(contentView.snp.trailing).inset(-20.0)
-            $0.top.equalTo(contentView).inset(30.0)
-            $0.width.equalTo(270.0)
+            $0.trailing.equalTo(innerView).inset(20.0)
+            $0.top.equalTo(innerView).inset(30.0)
         }
         
         alertTextLabel.snp.makeConstraints {
@@ -79,7 +84,6 @@ extension AlertTableViewCell {
         
         timeLabel.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(20.0)
-            $0.width.equalTo(43.0)
             $0.top.equalTo(alertTextLabel.snp.bottom)
         }
     }
@@ -87,12 +91,12 @@ extension AlertTableViewCell {
     func attribute() {
         alertTitleLabel.font = .systemFont(ofSize: 16.0, weight: .medium)
         alertTitleLabel.textColor = UIColor(red: 44/255, green: 44/255, blue: 44/255, alpha: 1.0)
-        alertTitleLabel.backgroundColor = .yellow
         
         alertTextLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
         alertTextLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
         
         timeLabel.font = .systemFont(ofSize: 12.0, weight: .regular)
         timeLabel.textColor = UIColor(red: 130/255, green: 130/255, blue: 130/255, alpha: 1.0)
+        timeLabel.textAlignment = .right
     }
 }
