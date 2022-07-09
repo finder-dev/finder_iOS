@@ -26,6 +26,7 @@
 		2B6826B3286DE598006AF742 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6826B2286DE598006AF742 /* Login.swift */; };
 		2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */; };
 		2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */; };
+		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
 		2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */; };
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
 		2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* DialogViewController.swift */; };
@@ -72,6 +73,7 @@
 		2B6826B2286DE598006AF742 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewModel.swift; sourceTree = "<group>"; };
+		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
 		2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2BA8F25228671DB200D64F0E /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE7BE4F287317A90062EB5A /* CommunityViewController.swift */,
+				2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,
+				2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */,
 				2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
 				2B09DF1E2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift in Sources */,

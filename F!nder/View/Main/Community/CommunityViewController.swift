@@ -19,6 +19,9 @@ class CommunityViewController: UIViewController {
     let latestButton = UIButton()
     let commentButton = UIButton()
     let tableView = UITableView()
+    let writeButton = UIButton()
+    
+    
     var communityDataStatus : CommunityDataStatus = .noData
 
     override func viewDidLoad() {
@@ -32,23 +35,37 @@ class CommunityViewController: UIViewController {
 }
 
 private extension CommunityViewController {
+    @objc func didTapWriteButton() {
+        let nextVC = WriteCommunityViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+}
+
+private extension CommunityViewController {
     func layout() {
         [latestButton,
          commentButton].forEach {
             self.view.addSubview($0)
         }
         
-        
-        
         if communityDataStatus == .noData {
             noDataView()
         } else {
             yesDataView()
         }
+        
+        self.view.addSubview(writeButton)
+        
+        writeButton.snp.makeConstraints {
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide).inset(26.0)
+            $0.trailing.equalTo(self.view.safeAreaLayoutGuide).inset(9.0)
+        }
+        
     }
     
     func attribute() {
-       
+        writeButton.setImage(UIImage(named: "floating"), for: .normal)
+        writeButton.addTarget(self, action: #selector(didTapWriteButton), for: .touchUpInside)
     }
     
     func setupHeaderView() {
@@ -84,8 +101,8 @@ private extension CommunityViewController {
     func yesDataView() {
         self.view.addSubview(tableView)
         
-        tableView.snp.makeConstraints {
-            
-        }
+//        tableView.snp.makeConstraints {
+//
+//        }
     }
 }

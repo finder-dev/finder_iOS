@@ -65,9 +65,9 @@ class MainTabBarController: UITabBarController {
         
 
         // TabBar Item 의 이미지
-        firstViewController.tabBarItem.image = UIImage(named: "Frame 7612")
+        firstViewController.tabBarItem.image = UIImage(named: "7611")
         secondViewController.tabBarItem.image = UIImage(named: "Frame 7611")
-        thirdViewController.tabBarItem.image = UIImage(named: "Frame 7608")
+        thirdViewController.tabBarItem.image = UIImage(named: "Frame 986361")
         fourthViewController.tabBarItem.image = UIImage(named: "Frame 7609")
         fifthViewController.tabBarItem.image = UIImage(named: "Frame 7618")
          
