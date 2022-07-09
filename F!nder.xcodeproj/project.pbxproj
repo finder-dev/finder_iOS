@@ -28,6 +28,8 @@
 		2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */; };
 		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
 		2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */; };
+		2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */; };
+		2BA51BD22879BEDD00D87533 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BD12879BEDD00D87533 /* CustomAlert.swift */; };
 		2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */; };
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
 		2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* DialogViewController.swift */; };
@@ -76,6 +78,8 @@
 		2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewModel.swift; sourceTree = "<group>"; };
 		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
 		2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIViewController.swift; sourceTree = "<group>"; };
+		2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageViewController.swift; sourceTree = "<group>"; };
+		2BA51BD12879BEDD00D87533 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2BA8F25228671DB200D64F0E /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 		2B09DEFD285B512100FE19DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BA51BCC287977D100D87533 /* CommonUI */,
 				2B6826B5286DF95C006AF742 /* Main */,
 				2B09DF182861DED500FE19DC /* OnBoarding */,
 				2B3E25952861FC5600C85193 /* SignUp */,
@@ -246,6 +251,15 @@
 				2BE7BE53287317DE0062EB5A /* UserViewController.swift */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		2BA51BCC287977D100D87533 /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */,
+				2BA51BD12879BEDD00D87533 /* CustomAlert.swift */,
+			);
+			path = CommonUI;
 			sourceTree = "<group>";
 		};
 		2BA8F2562868904100D64F0E /* Model */ = {
@@ -398,6 +412,7 @@
 				2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */,
 				2BE7BE54287317DE0062EB5A /* UserViewController.swift in Sources */,
 				2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */,
+				2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */,
 				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,
 				2BE7BE4A2873169E0062EB5A /* MainTabBarController.swift in Sources */,
 				2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */,
@@ -421,6 +436,7 @@
 				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
 				2B6826B3286DE598006AF742 /* Login.swift in Sources */,
+				2BA51BD22879BEDD00D87533 /* CustomAlert.swift in Sources */,
 				2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,

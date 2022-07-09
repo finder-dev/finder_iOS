@@ -7,11 +7,12 @@
 
 import UIKit
 import SnapKit
+import PhotosUI
 
 /*
  * Community 새 글 작성 view 입니다.
  */
-class WriteCommunityViewController: UIViewController, SelectMBTIViewControllerDelegate {
+class WriteCommunityViewController: UIViewController {
     
     // headerView components
     let headerView = UIView()
@@ -30,6 +31,11 @@ class WriteCommunityViewController: UIViewController, SelectMBTIViewControllerDe
     let lineview = UIView()
     let contentTextView = UITextView()
     let textViewPlaceHolder = "내용을 입력하세요.(고민이나 질문을 포함한 글은 상단 궁금 버튼을 눌러주세요!)"
+    
+    // 사진 등록 components
+    var picker: PHPickerViewController!
+    let albumButton = UIButton()
+    var photoImages = [UIImage]()
     
     var isQuestionButtonTapped = false {
         didSet {
@@ -50,6 +56,8 @@ class WriteCommunityViewController: UIViewController, SelectMBTIViewControllerDe
         layout()
         attribute()
         contentTextView.backgroundColor = .yellow
+        setUpPHPickerVC()
+        
     }
     
     //옵저버 등록
@@ -65,14 +73,79 @@ class WriteCommunityViewController: UIViewController, SelectMBTIViewControllerDe
     }
 }
 
-extension WriteCommunityViewController {
+// 사진 불러오기
+extension WriteCommunityViewController : PHPickerViewControllerDelegate {
+    func setUpPHPickerVC() {
+        configurePickerView()
+        picker.delegate = self
+    }
+    
+    
+    func configurePickerView() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 5
+        configuration.filter = .images
+        self.picker = PHPickerViewController(configuration: configuration)
+//        self.present(picker, animated: true)
+    }
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//        var selectedImage : UIImage?
+        picker.dismiss(animated: true, completion: nil) // 3.
+        
+        
+        if !results.isEmpty {
+            photoImages.removeAll()
+            
+            for result in results {
+                let itemProvider = result.itemProvider
+                
+                if itemProvider.canLoadObject(ofClass: UIImage.self) {
+                    itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                        
+                        guard let image = image as? UIImage else {
+                            print("오류 - WriteCommunityVC : UIImage 변환 실패")
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.albumButton.setImage(image, for: .normal)
+                        }
+//                        self.photoImages.append(image)
+                    }
+                }
+            }
+        }
+//        let itemProvider = results.first?.itemProvider // 4.
+//        if let itemProvider = itemProvider,itemProvider.canLoadObject(ofClass: UIImage.self) { // 5.
+//            itemProvider.loadObject(ofClass: UIImage.self) { image, error in // 6.
+//                DispatchQueue.main.async { //
+//                    guard let selectedImage = image as? UIImage else { return }
+//                    let uploadViewController = UploadViewController(uploadImage: selectedImage)
+//                    let navigationController = UINavigationController(rootViewController: uploadViewController)
+//                    navigationController.modalPresentationStyle = .fullScreen
+//                    self.present(navigationController, animated: true, completion: nil)
+//                }
+//            }
+//        }
+    }
+}
+
+// 선택한 MBTI 보여주기
+extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
     
     func sendValue(value: String) {
         selectMBTILabel.text = value
     }
     
     @objc func didTapCloseButton() {
-        self.navigationController?.popViewController(animated: true)
+        let alertMessageVC = AlertMessageViewController()
+        alertMessageVC.titleLabelText = "작성을 취소하시겠습니까?"
+        alertMessageVC.textLabelText = "000000"
+        alertMessageVC.modalPresentationStyle = .overCurrentContext
+        alertMessageVC.delegate = self
+        self.present(alertMessageVC, animated: true)
+//        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func didTapCompleteButton() {
@@ -96,6 +169,14 @@ extension WriteCommunityViewController {
     }
     
     
+    @objc func didTapAlbumButton() {
+//        setUpPHPickerVC()
+        self.present(picker, animated: true)
+    }
+}
+
+// 키보드가 올라올 때 view도 올라가도록
+extension WriteCommunityViewController {
     @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
@@ -116,6 +197,7 @@ extension WriteCommunityViewController {
     }
 }
 
+
 // textView placeholder
 extension WriteCommunityViewController : UITextViewDelegate {
     
@@ -135,16 +217,21 @@ extension WriteCommunityViewController : UITextViewDelegate {
        }
 }
 
+extension WriteCommunityViewController: AlertMessageDelegate {
+    func okButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+}
 private extension WriteCommunityViewController {
     func layout() {
-//        setupHeaderView()
         selectMBTIViewLayout()
         
         [selectMBTIView,
          questionButton,
          titleTextField,
          lineview,
-         contentTextView].forEach {
+         contentTextView,
+         albumButton].forEach {
             self.view.addSubview($0)
         }
         
@@ -180,6 +267,11 @@ private extension WriteCommunityViewController {
             $0.leading.trailing.equalTo(titleTextField)
             $0.height.equalTo(300)
         }
+        
+        albumButton.snp.makeConstraints {
+            $0.top.equalTo(contentTextView.snp.bottom).offset(20.0)
+            $0.leading.equalTo(titleTextField)
+        }
     }
     
     func attribute() {
@@ -197,6 +289,9 @@ private extension WriteCommunityViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapContentTextView))
         view.addGestureRecognizer(tapGesture)
+        
+        albumButton.setImage(UIImage(named: "Group 986367"), for: .normal)
+        albumButton.addTarget(self, action: #selector(didTapAlbumButton), for: .touchUpInside)
     }
     
     func setupNavigationBar() {
@@ -237,47 +332,47 @@ private extension WriteCommunityViewController {
         self.selectMBTIView.addGestureRecognizer(gesture)
     }
     
-    func setupHeaderView() {
-        
-        self.view.addSubview(headerView)
-        [headerLabel,closeButton,completeButton].forEach {
-            self.headerView.addSubview($0)
-        }
-        
-        let safeArea = self.view.safeAreaLayoutGuide
-        
-        headerView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(48.0)
-            $0.top.equalTo(safeArea)
-        }
-        
-        headerLabel.snp.makeConstraints {
-            $0.centerX.centerY.equalTo(headerView)
-        }
-        
-        closeButton.snp.makeConstraints {
-            $0.centerY.equalTo(headerLabel)
-            $0.leading.equalToSuperview().inset(20.0)
-            $0.width.height.equalTo(24.0)
-        }
-        
-        completeButton.snp.makeConstraints {
-            $0.centerY.equalTo(headerLabel)
-            $0.trailing.equalToSuperview().inset(20.0)
-        }
-        
-        headerLabel.text = "글쓰기"
-        headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
-        headerLabel.textAlignment = .center
-        
-        closeButton.setImage(UIImage(named: "ic_baseline-close"), for: .normal)
-        closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
-        
-        completeButton.setTitle("완료", for: .normal)
-        completeButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
-        completeButton.setTitleColor(UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0), for: .normal)
-        completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
-    }
+//    func setupHeaderView() {
+//
+//        self.view.addSubview(headerView)
+//        [headerLabel,closeButton,completeButton].forEach {
+//            self.headerView.addSubview($0)
+//        }
+//
+//        let safeArea = self.view.safeAreaLayoutGuide
+//
+//        headerView.snp.makeConstraints {
+//            $0.leading.trailing.equalToSuperview()
+//            $0.height.equalTo(48.0)
+//            $0.top.equalTo(safeArea)
+//        }
+//
+//        headerLabel.snp.makeConstraints {
+//            $0.centerX.centerY.equalTo(headerView)
+//        }
+//
+//        closeButton.snp.makeConstraints {
+//            $0.centerY.equalTo(headerLabel)
+//            $0.leading.equalToSuperview().inset(20.0)
+//            $0.width.height.equalTo(24.0)
+//        }
+//
+//        completeButton.snp.makeConstraints {
+//            $0.centerY.equalTo(headerLabel)
+//            $0.trailing.equalToSuperview().inset(20.0)
+//        }
+//
+//        headerLabel.text = "글쓰기"
+//        headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
+//        headerLabel.textColor = .blackTextColor
+//        headerLabel.textAlignment = .center
+//
+//        closeButton.setImage(UIImage(named: "ic_baseline-close"), for: .normal)
+//        closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+//
+//        completeButton.setTitle("완료", for: .normal)
+//        completeButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+//        completeButton.setTitleColor(UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0), for: .normal)
+//        completeButton.addTarget(self, action: #selector(didTapCompleteButton), for: .touchUpInside)
+//    }
 }

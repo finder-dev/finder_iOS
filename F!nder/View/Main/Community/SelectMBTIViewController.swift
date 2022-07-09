@@ -57,17 +57,12 @@ class SelectMBTIViewController: UIViewController {
 private extension SelectMBTIViewController {
     
     @objc func didTapCloseButton() {
-        
+        self.dismiss(animated: true)
     }
     
     @objc func didTapConfirmButton() {
         delegate.sendValue(value: selectedMBTI)
         self.dismiss(animated: true)
-//        @objc func didTapConfirmButton() {
-//            let mbti = mbtiArray.joined()
-//            delegate.sendValue(value: mbti)
-//            self.dismiss(animated: true)
-//        }
     }
     
     @objc func didTapMBTIButton(sender: UIButton) {
