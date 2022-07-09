@@ -46,6 +46,7 @@ class WriteCommunityViewController: UIViewController {
         self.view.backgroundColor = .white
         // Do any additional setup after loading the view.
         contentTextView.delegate = self
+        setupNavigationBar()
         layout()
         attribute()
         contentTextView.backgroundColor = .yellow
@@ -128,7 +129,7 @@ extension WriteCommunityViewController : UITextViewDelegate {
 
 private extension WriteCommunityViewController {
     func layout() {
-        setupHeaderView()
+//        setupHeaderView()
         selectMBTIViewLayout()
         
         [selectMBTIView,
@@ -139,8 +140,10 @@ private extension WriteCommunityViewController {
             self.view.addSubview($0)
         }
         
+        let safeArea = self.view.safeAreaLayoutGuide
+        
         selectMBTIView.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16.0)
+            $0.top.equalTo(safeArea.snp.top).offset(16.0)
             $0.leading.equalToSuperview().inset(20.0)
             $0.height.equalTo(42.0)
             $0.trailing.equalTo(questionButton.snp.leading).offset(-13.0)
@@ -186,6 +189,18 @@ private extension WriteCommunityViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapContentTextView))
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    func setupNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
+        
+        let rightButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(didTapCompleteButton))
+        let leftButton = UIBarButtonItem(image: UIImage(named: "ic_baseline-close"), style: .done, target: self, action: #selector(didTapCloseButton))
+        rightButton.tintColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
+        leftButton.tintColor = .black
+        self.navigationItem.rightBarButtonItem = rightButton
+        self.navigationItem.leftBarButtonItem = leftButton
+        title = "글쓰기"
     }
     
     func selectMBTIViewLayout() {
