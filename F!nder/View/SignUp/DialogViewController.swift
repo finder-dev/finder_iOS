@@ -234,8 +234,7 @@ extension DialogViewController {
         mainLabel.textAlignment = .center
         mainLabel.textColor = .blackTextColor
         
-//        closeButton.setImage(UIImage(named: <#T##String#>), for: .normal)
-        closeButton.setTitle("X", for: .normal)
+        closeButton.setImage(UIImage(named: "ic_baseline-close"), for: .normal)
         closeButton.setTitleColor(.blackTextColor, for: .normal)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         

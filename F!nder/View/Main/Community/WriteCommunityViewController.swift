@@ -11,7 +11,7 @@ import SnapKit
 /*
  * Community 새 글 작성 view 입니다.
  */
-class WriteCommunityViewController: UIViewController {
+class WriteCommunityViewController: UIViewController, SelectMBTIViewControllerDelegate {
     
     // headerView components
     let headerView = UIView()
@@ -65,7 +65,11 @@ class WriteCommunityViewController: UIViewController {
     }
 }
 
-private extension WriteCommunityViewController {
+extension WriteCommunityViewController {
+    
+    func sendValue(value: String) {
+        selectMBTILabel.text = value
+    }
     
     @objc func didTapCloseButton() {
         self.navigationController?.popViewController(animated: true)
@@ -81,6 +85,10 @@ private extension WriteCommunityViewController {
     
     @objc func didTapSelectMBTIView() {
         print("didTapSelectMBTIView")
+        let nextVC = SelectMBTIViewController()
+        nextVC.delegate = self
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
     @objc func didTapContentTextView() {
