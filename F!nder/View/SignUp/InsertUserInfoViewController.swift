@@ -9,7 +9,19 @@ import UIKit
 import SnapKit
 import Then
 
-class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
+class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, AlertMessageDelegate {
+    func okButtonTapped(from: String) {
+        if from == "email" {
+            self.codeAuthButton.isEnabled = true
+            self.codeAuthButton.setTitleColor(.white, for: .normal)
+            self.codeAuthButton.backgroundColor = .mainTintColor
+        } else if from == "auth" {
+//            self.codeAuthButton.isEnabled = true
+//            self.codeAuthButton.setTitleColor(.white, for: .normal)
+//            self.codeAuthButton.backgroundColor = .mainTintColor
+        }
+    }
+    
     let network = SignUpAPI()
     
     private lazy var backButton = UIButton().then {
@@ -172,12 +184,16 @@ private extension InsertUserInfoViewController {
             case let .success(response) :
                 if response.success {
                     DispatchQueue.main.async {
-                        presentAlertVC(title: "코드번호 발송", message: "이메일로 코드번호가 발송되었습니다.")
-                        self.codeAuthButton.isEnabled = true
-                        self.codeAuthButton.setTitleColor(.white, for: .normal)
-                        self.codeAuthButton.backgroundColor = .mainTintColor
+                        self.presentCutomAlertVC(target: "email",
+                                            title: "코드번호 발송",
+                                            message: "이메일로 코드번호가 발송되었습니다.")
                     }
                 } else {
+                    DispatchQueue.main.async {
+                        self.presentCutomAlertVC(target: "email",
+                                            title: "코드번호 발송 실패",
+                                            message: "코드번호 발송을 실패했습니다.")
+                    }
                     print("이메일 확인")
                 }
             case .failure(_):
@@ -198,15 +214,19 @@ private extension InsertUserInfoViewController {
         network.requestCodeAuth(code: code, email: email) { result in
             switch result {
             case let .success(response) :
+                
                 if response.success {
                     DispatchQueue.main.async {
-                        self.presentAlertVC(title: "이메일 인증 완료", message: "인증되었습니다.")
-                        self.nextButton.isEnabled = true
-                        self.nextButton.setTitleColor(.white, for: .normal)
-                        self.nextButton.backgroundColor = .mainTintColor
+                        self.presentCutomAlertVC(target: "auth",
+                                            title: "이메일 인증 완료",
+                                            message: "인증되었습니다.")
                     }
                 } else {
-                    print(response.errorResponse?.errorMessages)
+                    DispatchQueue.main.async { [self] in
+                        presentCutomAlertVC(target: "auth",
+                                            title: "이메일 인증 실패",
+                                            message: "이메일 인증을 실패했습니다")
+                    }
                 }
             case .failure(_):
                 print("오류")
@@ -214,15 +234,14 @@ private extension InsertUserInfoViewController {
         }
     }
     
-    func presentAlertVC(title: String, message: String) {
-        let alert = UIAlertController(title: title,
-                                      message: message,
-                                      preferredStyle: .alert)
-        alert.view.traverseRadius(0)
-        alert.view.layer.cornerRadius = 0.0
-        let ok = UIAlertAction(title: "확인", style: .default)
-        alert.addAction(ok)
-        self.present(alert, animated: true, completion: nil)
+    func presentCutomAlertVC(target:String, title:String, message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
 }
 

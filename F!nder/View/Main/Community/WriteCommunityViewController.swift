@@ -144,6 +144,7 @@ extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
         alertMessageVC.textLabelText = "000000"
         alertMessageVC.modalPresentationStyle = .overCurrentContext
         alertMessageVC.delegate = self
+        alertMessageVC.target = "delete"
         self.present(alertMessageVC, animated: true)
 //        self.navigationController?.popViewController(animated: true)
     }
@@ -218,8 +219,10 @@ extension WriteCommunityViewController : UITextViewDelegate {
 }
 
 extension WriteCommunityViewController: AlertMessageDelegate {
-    func okButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+    func okButtonTapped(from: String) {
+        if from == "delete" {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 private extension WriteCommunityViewController {

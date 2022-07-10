@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol AlertMessageDelegate {
-    func okButtonTapped()
+    func okButtonTapped(from:String)
 }
 
 class AlertMessageViewController: UIViewController {
@@ -23,6 +23,7 @@ class AlertMessageViewController: UIViewController {
     let okButtonHeight :CGFloat = 56.0
     var titleLabelText : String = ""
     var textLabelText : String?
+    var target : String = ""
     
     var delegate: AlertMessageDelegate!
     
@@ -95,9 +96,7 @@ private extension AlertMessageViewController {
     
     @objc func didTapOKButton() {
         self.dismiss(animated: true)
-        delegate.okButtonTapped()
+        delegate.okButtonTapped(from: target)
 //        self.presentingViewController?.popoverPresentationController
     }
-    
-    
 }

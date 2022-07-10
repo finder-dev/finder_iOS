@@ -24,14 +24,15 @@ enum discussDataStatus {
 }
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+    // 헤더 components
     var mainLogoImageView = UIImageView()
     var alarmButton = UIButton()
     var messageButton = UIButton()
     
+    // 스크롤 components
     var scrollView = UIScrollView()
     var innerView = UIView()
-    
+
     var searchView = UIView()
     var searchImageView = UIImageView()
     var searchLabel = UILabel()
@@ -378,7 +379,9 @@ private extension HomeViewController {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(balaceGameTitleLabel.snp.bottom).offset(4.0)
         }
+        
         let screenWidth = self.view.bounds.width
+        let buttonWidth = (screenWidth - (20*2 + 13))/2
         
         agreeCounts.snp.makeConstraints {
             $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
@@ -395,14 +398,16 @@ private extension HomeViewController {
         agreeButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20.0)
             $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(75.0)
-            $0.trailing.equalToSuperview().inset(screenWidth/2+6)
+//            $0.trailing.equalToSuperview().inset(screenWidth/2+6)
+            $0.width.equalTo(buttonWidth)
             $0.height.equalTo(55.0)
         }
         
         disagreeButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(20.0)
             $0.top.equalTo(agreeButton)
-            $0.leading.equalToSuperview().inset(screenWidth/2+6)
+            $0.width.equalTo(buttonWidth)
+//            $0.leading.equalToSuperview().inset(screenWidth/2+6)
             $0.height.equalTo(55.0)
         }
         
