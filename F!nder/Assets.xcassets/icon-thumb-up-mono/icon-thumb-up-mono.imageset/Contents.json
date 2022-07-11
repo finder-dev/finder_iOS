@@ -1,15 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "Group 985681.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "icon-thumb-up-mono@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "icon-thumb-up-mono@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

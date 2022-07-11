@@ -24,6 +24,7 @@
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
 		2B3E259D286362B400C85193 /* SignUpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259C286362B300C85193 /* SignUpAPI.swift */; };
 		2B6826B3286DE598006AF742 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6826B2286DE598006AF742 /* Login.swift */; };
+		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
 		2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */; };
 		2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */; };
 		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
@@ -74,6 +75,7 @@
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
 		2B3E259C286362B300C85193 /* SignUpAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAPI.swift; sourceTree = "<group>"; };
 		2B6826B2286DE598006AF742 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewModel.swift; sourceTree = "<group>"; };
 		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				2BE7BE4F287317A90062EB5A /* CommunityViewController.swift */,
 				2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */,
 				2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */,
+				2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
+				2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */,
 				2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */,
 				2B27643E28732DAD00C37C9A /* Label+Extensions.swift in Sources */,
 				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
