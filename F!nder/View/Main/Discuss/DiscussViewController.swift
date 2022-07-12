@@ -6,45 +6,143 @@
 //
 
 import UIKit
+import SnapKit
+
+enum DiscussViewStatus {
+    case noData
+    case yesData
+}
 
 class DiscussViewController: UIViewController {
+    
+    let headerView = UIView()
+    let headerTitle = UILabel()
+    let addButton = UIButton()
+    let categoryButton = UIButton()
+    let categoryLabel = UILabel()
+    let characterImageview = UIImageView()
+    let lineView = UIView()
+    var discussViewStatus : DiscussViewStatus? = .noData
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = false
+
         
-        setupHeaderView()
         layout()
         attribute()
+        setupHeaderView()
+    }
+}
+
+extension DiscussViewController {
+    @objc func didTapAddButton() {
+        print("didTapAddButton")
     }
     
-
+    @objc func didTapCategoryButton() {
+        print("didTapCategoryButton")
+    }
+    
 }
 
 
 private extension DiscussViewController {
     func layout() {
-
+        [headerView].forEach {
+            self.view.addSubview($0)
+        }
+        
+        let safeArea = self.view.safeAreaLayoutGuide
+        
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalTo(safeArea)
+            $0.height.equalTo(124.5)
+        }
+        
+        if discussViewStatus == .noData {
+            noDataViewLayout()
+        }
     }
     
     func attribute() {
         
     }
-    
+
     func setupHeaderView() {
-        let headerLabel = UILabel()
-        
-        self.view.addSubview(headerLabel)
-        let safeArea = self.view.safeAreaLayoutGuide
-        headerLabel.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(48.0)
-            $0.top.equalTo(safeArea)
+        [headerTitle,
+         addButton,
+         categoryLabel,
+         categoryButton,
+         characterImageview,
+         lineView].forEach {
+            self.headerView.addSubview($0)
+        }
+            
+        headerTitle.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(13.0)
+            $0.centerX.equalToSuperview()
         }
         
-        headerLabel.text = "토론"
-        headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
-        headerLabel.textAlignment = .center
+        addButton.snp.makeConstraints {
+            $0.width.height.equalTo(24.0)
+            $0.centerY.equalTo(headerTitle)
+            $0.trailing.equalToSuperview().inset(20.0)
+        }
+        
+        characterImageview.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(15.0)
+        }
+        
+        lineView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(3.0)
+        }
+        
+        categoryButton.snp.makeConstraints {
+            $0.width.height.equalTo(24.0)
+            $0.leading.equalToSuperview().inset(20.0)
+            $0.bottom.equalToSuperview().inset(17.5)
+        }
+        categoryLabel.snp.makeConstraints {
+            $0.centerY.equalTo(categoryButton)
+            $0.leading.equalTo(categoryButton.snp.trailing).offset(8.0)
+        }
+        
+        headerTitle.text = "토론"
+        headerTitle.font = .systemFont(ofSize: 16.0, weight: .bold)
+        headerTitle.textColor = .blackTextColor
+        headerTitle.textAlignment = .center
+        
+        addButton.setImage(UIImage(named: "plus"), for: .normal)
+        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        
+        characterImageview.image = UIImage(named: "Frame 986295")
+        
+        categoryLabel.text = "불나게 진행중인 토론"
+        categoryLabel.font = .systemFont(ofSize: 18.0, weight: .bold)
+        categoryLabel.textColor = .blackTextColor
+            
+        categoryButton.setImage(UIImage(named: "btn_caretleft"), for: .normal)
+        categoryButton.addTarget(self, action: #selector(didTapCategoryButton), for: .touchUpInside)
+        
+        lineView.backgroundColor = .mainTintColor
+    }
+}
+
+private extension DiscussViewController {
+    func noDataViewLayout() {
+        let noDataImageView = UIImageView()
+        noDataImageView.image = UIImage(named: "noDiscuss")
+        
+        self.view.addSubview(noDataImageView)
+        
+        noDataImageView.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom).offset(66.5)
+            $0.centerX.equalToSuperview()
+        }
     }
 }

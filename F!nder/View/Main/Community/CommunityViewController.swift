@@ -99,11 +99,6 @@ private extension CommunityViewController {
         
     }
     
-//    func attribute() {
-//        writeButton.setImage(UIImage(named: "floating"), for: .normal)
-//        writeButton.addTarget(self, action: #selector(didTapWriteButton), for: .touchUpInside)
-//    }
-    
     func setupHeaderView() {
         
         [headerLine,
