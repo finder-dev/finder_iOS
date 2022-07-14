@@ -13,7 +13,10 @@ enum DiscussViewStatus {
     case yesData
 }
 
-class DiscussViewController: UIViewController {
+/*
+ * 토론 목록들을 보여주는 view controller
+ */
+class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let headerView = UIView()
     let headerTitle = UILabel()
@@ -22,8 +25,8 @@ class DiscussViewController: UIViewController {
     let categoryLabel = UILabel()
     let characterImageview = UIImageView()
     let lineView = UIView()
-    var discussViewStatus : DiscussViewStatus? = .noData
-
+    var discussViewStatus : DiscussViewStatus? = .yesData
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -33,6 +36,27 @@ class DiscussViewController: UIViewController {
         layout()
         attribute()
         setupHeaderView()
+    }
+}
+
+// 토론 데이터가 있는 경우 tableView delegate, datasource
+extension DiscussViewController {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DiscussTableViewCell.identifier, for: indexPath) as? DiscussTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        cell.setupCell()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let nextVC = DiscussDetailViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
@@ -63,6 +87,8 @@ private extension DiscussViewController {
         
         if discussViewStatus == .noData {
             noDataViewLayout()
+        } else {
+            yesDataViewLayout()
         }
     }
     
@@ -144,5 +170,21 @@ private extension DiscussViewController {
             $0.top.equalTo(headerView.snp.bottom).offset(66.5)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    func yesDataViewLayout() {
+        let tableView = UITableView()
+        self.view.addSubview(tableView)
+        
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(headerView.snp.bottom).offset(3.0)
+        }
+        
+        tableView.backgroundColor = UIColor(red: 233/255, green: 234/255, blue: 239/255, alpha: 1.0)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(DiscussTableViewCell.self, forCellReuseIdentifier: DiscussTableViewCell.identifier)
+        tableView.separatorStyle = .none
     }
 }
