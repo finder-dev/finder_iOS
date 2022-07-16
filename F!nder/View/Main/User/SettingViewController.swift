@@ -119,6 +119,7 @@ private extension SettingViewController {
         }
         
         serviceTermButton.setTitle("서비스 이용약관", for: .normal)
+        serviceTermButton.addTarget(self, action: #selector(didTapServiceTermButton), for: .touchUpInside)
         editAccountButton1.setTitle("개인정보 수정", for: .normal)
         editAccountButton2.setImage(UIImage(named: "next"), for: .normal)
         deleteAccountButton.setTitle("탈퇴하기", for: .normal)
@@ -149,10 +150,14 @@ private extension SettingViewController {
     
     @objc func didTapEditAccountButton() {
         print("didTapEditAccountButton")
+        let nextVC = EditUserInfoViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapServiceTermButton() {
         print("didTapServiceTermButton")
+        let nextVC = WebViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapDeleteAccountButton() {
