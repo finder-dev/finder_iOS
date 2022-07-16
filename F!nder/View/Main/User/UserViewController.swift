@@ -89,6 +89,8 @@ private extension UserViewController {
     
     @objc func didTapSetupButton() {
         print("didTapSetupButton")
+        let nextVC = SettingViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapLogutButton() {
