@@ -29,6 +29,7 @@ class DiscussDetailViewController: UIViewController {
     
     var emptyView = UIView()
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,6 +45,10 @@ class DiscussDetailViewController: UIViewController {
         userMBTILabel.text = "ENTJ"
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
     
 }
 
@@ -51,6 +56,7 @@ extension DiscussDetailViewController {
     
     @objc func didTapRightBarButton() {
         print("didTapRightBarButton")
+        
     }
     
 }
@@ -83,7 +89,6 @@ private extension DiscussDetailViewController {
     
     func attribute() {
         // 233 234 239
-//        self.view.backgroundColor = UIColor(red: 233/255, green: 234/255, blue: 239/255, alpha: 1.0)
         self.view.backgroundColor = .white
         setupNavigationAttribute()
         setupDiscussViewAttribute()
@@ -123,7 +128,6 @@ extension DiscussDetailViewController {
         }
         
         agreeCounts.snp.makeConstraints {
-//            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
             $0.trailing.equalToSuperview().inset(screenWidth/2+22.0)
             $0.height.equalTo(64.0)
             $0.top.equalTo(timeLabel.snp.bottom).offset(32.0)

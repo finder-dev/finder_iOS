@@ -30,12 +30,11 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = true
 
-        
+        setupHeaderView()
         layout()
         attribute()
-        setupHeaderView()
     }
 }
 
@@ -60,10 +59,14 @@ extension DiscussViewController {
     }
 }
 
-extension DiscussViewController {
+private extension DiscussViewController {
+    
     @objc func didTapAddButton() {
         print("didTapAddButton")
+        let nextVC = MakeDiscussViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
+    
     
     @objc func didTapCategoryButton() {
         print("didTapCategoryButton")
@@ -145,6 +148,7 @@ private extension DiscussViewController {
         
         addButton.setImage(UIImage(named: "plus"), for: .normal)
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        addButton.isEnabled = true
         
         characterImageview.image = UIImage(named: "Frame 986295")
         
