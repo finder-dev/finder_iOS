@@ -229,7 +229,44 @@ struct SignUpAPI {
             }
             print("======================================================================")
             print("SendEmail : Network - sendEmailResponse => \(json.success)")
-            print("SendEmail : Network - sendEmailResponse => \(json.errorResponse?.errorMessages)")
+            
+            if !json.success {
+                print("SendEmail : Network - sendEmailResponse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
+    // 로그아웃
+    func requestLogout(completionHandler: @escaping (Result<LogoutResponse,Error>)-> Void) {
+        let urlComponents = URLComponents(string: "https://finder777.com/api/logout")
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "POST" // POST
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(LogoutResponse.self, from: data) else {
+                return
+            }
+            print("======================================================================")
+            print("Logout : Network - LogoutResponse => \(json.success)")
+            if !json.success {
+                print("Logout : Network - LogoutResponse => \(json.errorResponse?.errorMessages)")
+            }
             print("======================================================================")
             completionHandler(.success(json))
         }

@@ -64,6 +64,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var bannerButton = UIButton()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
     var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
+    
+    let userInfoNetwork = UserInfoAPI()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +86,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             balanceGameView.isHidden = false
             noBalanceGameDataView.isHidden = true
         }
+        
+        setupUserData()
+    }
+}
+
+extension HomeViewController {
+    func setupUserData() {
+        let userMBTI = UserDefaults.standard.string(forKey: "userMBTI")
+        let userNickName = UserDefaults.standard.string(forKey: "userNickName")
+        
+        userInfoLabel.text = "\(userMBTI ?? "nil") \(userNickName ?? "nil")"
     }
 }
 

@@ -13,14 +13,15 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
     
     func okButtonTapped(from: String) {
         if from == "successEmailLogin" {
-            let nextVC = MainTabBarController()
-            self.navigationController?.pushViewController(nextVC, animated: true)
+            print("============getData=========")
+            getData()
         }
     }
     
     
     var isCheckButtonTapped = false
     let network = SignUpAPI()
+    let userInfoNetwork = UserInfoAPI()
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -122,8 +123,11 @@ private extension EmailLoginViewController {
             case let .success(response) :
                 if response.success {
                     print("성공 : 이메일 로그인")
+                    let accessToken = response.response?.accessToken
+                    UserDefaults.standard.set(accessToken, forKey: "accessToken")
                     DispatchQueue.main.async {
                         self.presentCutomAlertVC(target: "successEmailLogin", title: "로그인 성공", message: "로그인에 성공하였습니다.")
+                        
                     }
                 } else {
                     print("실패 : 이메일 로그인")
@@ -163,6 +167,44 @@ private extension EmailLoginViewController {
         nextVC.target = target
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
+    }
+    
+    func getData() {
+        userInfoNetwork.requestUserInfo { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 사용자 정보 가져오기")
+                    print(response.response)
+                    
+                    let userId = response.response?.userId ?? 0
+                    let userEmail = response.response?.email ?? "nil"
+                    let userMBTI = response.response?.mbti ?? "nil"
+                    let userNickName = response.response?.nickname ?? "nil"
+                    print("==========================")
+                    print(userId)
+                    print(userEmail)
+                    print(userMBTI)
+                    print(userNickName)
+                    print("==========================")
+                    
+                    UserDefaults.standard.set(userId, forKey: "userId")
+                    UserDefaults.standard.set(userEmail, forKey: "userEmail")
+                    UserDefaults.standard.set(userMBTI, forKey: "userMBTI")
+                    UserDefaults.standard.set(userNickName, forKey: "userNickName")
+                    
+                    DispatchQueue.main.async {
+                        let nextVC = MainTabBarController()
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                    }
+                } else {
+                    print("실패 : 사용자 정보 가져오기")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
     
 }

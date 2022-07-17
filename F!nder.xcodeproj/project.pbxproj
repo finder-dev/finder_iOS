@@ -46,6 +46,8 @@
 		2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */; };
 		2BB455DC28832BCE001139E5 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DB28832BCE001139E5 /* WebViewController.swift */; };
 		2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */; };
+		2BB455E02883EEB6001139E5 /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DF2883EEB6001139E5 /* Logout.swift */; };
+		2BB455E32883F170001139E5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E22883F170001139E5 /* UserInfo.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -104,6 +106,8 @@
 		2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewController.swift; sourceTree = "<group>"; };
 		2BB455DB28832BCE001139E5 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAPI.swift; sourceTree = "<group>"; };
+		2BB455DF2883EEB6001139E5 /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
+		2BB455E22883F170001139E5 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 		2BA8F2562868904100D64F0E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2BB455E12883F15E001139E5 /* UserInfo */,
 				2BA8F25C286C8DCB00D64F0E /* SignUp */,
 			);
 			path = Model;
@@ -301,8 +306,17 @@
 				2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */,
 				2BE5F0CE286DD3550016480A /* SendSignUp.swift */,
 				2B6826B2286DE598006AF742 /* Login.swift */,
+				2BB455DF2883EEB6001139E5 /* Logout.swift */,
 			);
 			path = SignUp;
+			sourceTree = "<group>";
+		};
+		2BB455E12883F15E001139E5 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2BB455E22883F170001139E5 /* UserInfo.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {
@@ -441,11 +455,13 @@
 				2BE7BE4A2873169E0062EB5A /* MainTabBarController.swift in Sources */,
 				2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */,
 				2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */,
+				2BB455E32883F170001139E5 /* UserInfo.swift in Sources */,
 				2B3E259D286362B400C85193 /* SignUpAPI.swift in Sources */,
 				2B27643C28732BB800C37C9A /* SearchViewController.swift in Sources */,
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
+				2BB455E02883EEB6001139E5 /* Logout.swift in Sources */,
 				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
 				2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */,
 				2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */,

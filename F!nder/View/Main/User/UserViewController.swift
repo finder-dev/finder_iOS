@@ -15,6 +15,8 @@ class UserViewController: UIViewController {
     let userNameLabel = UILabel()
     let userEmailLabel = UILabel()
     let logOutButton = UIButton()
+    
+    let signUpNetwork = SignUpAPI()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +98,23 @@ private extension UserViewController {
     @objc func didTapLogutButton() {
         print("didTapLogutButton")
         self.navigationController?.popToRootViewController(animated: true)
+        signUpNetwork.requestLogout { result in
+            
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 로그아웃")
+                    DispatchQueue.main.async {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                } else {
+                    print("실패 : 로그아웃")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
         
     }
 }
