@@ -65,10 +65,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
     var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
     
-    let userInfoNetwork = UserInfoAPI()
+//    let userInfoNetwork = UserInfoAPI()
+    let debateNetwork = DebateAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupUserData()
     }
 
     override func viewDidLoad() {
@@ -87,7 +89,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             noBalanceGameDataView.isHidden = true
         }
         
-        setupUserData()
+//        setupUserData()
     }
 }
 
@@ -97,6 +99,41 @@ extension HomeViewController {
         let userNickName = UserDefaults.standard.string(forKey: "userNickName")
         
         userInfoLabel.text = "\(userMBTI ?? "nil") \(userNickName ?? "nil")"
+        
+        debateNetwork.requestHotDebate { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 가장 많이 참여한 토론 조회")
+                    DispatchQueue.main.async {
+                        setupDebateView(data: response.response!)
+                    }
+                } else {
+                    print("실패 : 가장 많이 참여한 토론 조회")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+        
+        
+    }
+    
+    func setupDebateView(data: HotDebateSuccessResponse) {
+
+        balaceGameTitleLabel.text = data.title
+        balanceGameTimeLabel.text = data.deadline
+        agreeCounts.text = "\(data.optionACount)"
+        disagreeCounts.text = "\(data.optionBCount)"
+        
+        if data.join {
+            if data.joinOption == "A" {
+                IsselectedA()
+            } else if data.joinOption == "B" {
+                IsSelectedB()
+            }
+        }
     }
 }
 
@@ -441,20 +478,20 @@ private extension HomeViewController {
     }
     
     func balanceGameAttribute() {
-        balaceGameTitleLabel.text = "친구의 깻잎, 19장이 엉겨붙었는데 \n애인이 떼줘도 된다?"
+        balaceGameTitleLabel.text = "test"
         balaceGameTitleLabel.font = .systemFont(ofSize: 16.0, weight: .medium)
         balaceGameTitleLabel.textColor = .blackTextColor
         balaceGameTitleLabel.textAlignment = .center
         balaceGameTitleLabel.numberOfLines = 0
         
-        balanceGameTimeLabel.text = "남은시간 D-3"
+        balanceGameTimeLabel.text = "test"
         balanceGameTimeLabel.font = .systemFont(ofSize: 12.0, weight: .regular)
         balanceGameTimeLabel.textColor = UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 1.0)
         
         [agreeCounts,disagreeCounts].forEach {
             $0.font = .systemFont(ofSize: 44.0, weight: .bold)
             $0.textColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
-            $0.text = "33"
+            $0.text = "test"
             $0.textAlignment = .center
         }
         
@@ -480,19 +517,24 @@ private extension HomeViewController {
             $0.image = UIImage(named: "Frame 986295")
             $0.isHidden = true
         }
-        
-        isselected()
     }
     
     @objc func didTapGoBalanceGameButton() {
         print("didTapGoBalanceGameButton")
     }
     
-    func isselected() {
+    func IsselectedA() {
         agreeImageView.isHidden = false
         let selectedColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
         agreeButton.backgroundColor = selectedColor
         agreeButton.setTitleColor(.white, for: .normal)
+    }
+    
+    func IsSelectedB() {
+        disagreeImageView.isHidden = false
+        let selectedColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
+        disagreeButton.backgroundColor = selectedColor
+        disagreeButton.setTitleColor(.white, for: .normal)
     }
     
     func noBalanceGameViewLayout() {

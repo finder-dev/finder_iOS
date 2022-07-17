@@ -175,19 +175,12 @@ private extension EmailLoginViewController {
             case let .success(response) :
                 if response.success {
                     print("성공 : 사용자 정보 가져오기")
-                    print(response.response)
                     
                     let userId = response.response?.userId ?? 0
                     let userEmail = response.response?.email ?? "nil"
                     let userMBTI = response.response?.mbti ?? "nil"
                     let userNickName = response.response?.nickname ?? "nil"
-                    print("==========================")
-                    print(userId)
-                    print(userEmail)
-                    print(userMBTI)
-                    print(userNickName)
-                    print("==========================")
-                    
+    
                     UserDefaults.standard.set(userId, forKey: "userId")
                     UserDefaults.standard.set(userEmail, forKey: "userEmail")
                     UserDefaults.standard.set(userMBTI, forKey: "userMBTI")
