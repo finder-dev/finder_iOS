@@ -45,6 +45,7 @@
 		2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA8F261286CA09500D64F0E /* KakaoSDK */; };
 		2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */; };
 		2BB455DC28832BCE001139E5 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DB28832BCE001139E5 /* WebViewController.swift */; };
+		2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -102,6 +103,7 @@
 		2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSocialLogin.swift; sourceTree = "<group>"; };
 		2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewController.swift; sourceTree = "<group>"; };
 		2BB455DB28832BCE001139E5 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoAPI.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +146,6 @@
 				2B09DF182861DED500FE19DC /* OnBoarding */,
 				2B3E25952861FC5600C85193 /* SignUp */,
 				2B09DF222861E5E000FE19DC /* Login */,
-				2B27643B28732BB800C37C9A /* SearchViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -206,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				2B3E259C286362B300C85193 /* SignUpAPI.swift */,
+				2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -341,6 +343,7 @@
 		2BE8BB5B2875D11C0013F75B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				2B27643B28732BB800C37C9A /* SearchViewController.swift */,
 				2BA51BBF28771E5500D87533 /* Alert */,
 				2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */,
 				2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */,
@@ -455,6 +458,7 @@
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */,
+				2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */,
 				2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */,
 				2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */,
 				2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */,

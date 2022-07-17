@@ -37,7 +37,7 @@ class CompleteSignUpViewController: UIViewController {
     }
     
     @objc func didTapCompleteSignUpButton() {
-        
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
 }

@@ -9,7 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
-class EmailLoginViewController: UIViewController {
+class EmailLoginViewController: UIViewController, AlertMessageDelegate {
+    
+    func okButtonTapped(from: String) {
+        if from == "successEmailLogin" {
+            let nextVC = MainTabBarController()
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+    }
+    
     
     var isCheckButtonTapped = false
     let network = SignUpAPI()
@@ -38,7 +46,9 @@ class EmailLoginViewController: UIViewController {
     }
     private lazy var passwordTextField = UITextField().then {
         $0.placeholder = "비밀번호를 입력해주세요"
+        $0.isSecureTextEntry = true
     }
+    
     private lazy var checkButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "ic_check"), for: .normal)
         $0.addTarget(self, action: #selector(didTapCheckButton),for: .touchUpInside)
@@ -82,6 +92,9 @@ class EmailLoginViewController: UIViewController {
         self.view.backgroundColor = .white
         layout()
         attribute()
+        
+        passwordTextField.delegate = self
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 
 }
@@ -102,14 +115,22 @@ private extension EmailLoginViewController {
         guard let password = passwordTextField.text else {
             return
         }
+        
         network.requestLogin(email: email,
                              password: password) { result in
             switch result {
             case let .success(response) :
                 if response.success {
                     print("성공 : 이메일 로그인")
+                    DispatchQueue.main.async {
+                        self.presentCutomAlertVC(target: "successEmailLogin", title: "로그인 성공", message: "로그인에 성공하였습니다.")
+                    }
                 } else {
                     print("실패 : 이메일 로그인")
+                    DispatchQueue.main.async {
+                        let errorMessage = response.errorResponse?.errorMessages[0]
+                        self.presentCutomAlertVC(target: "emailLogin", title: "로그인 실패", message: errorMessage!)
+                    }
                     print(response.errorResponse?.errorMessages)
                 }
             case .failure(_):
@@ -130,14 +151,30 @@ private extension EmailLoginViewController {
         } else {
             checkButton.tintColor = .lightGray
             checkButton.layer.borderColor = UIColor.lightGray.cgColor
-
         }
+    }
+    
+    // AlertVC 띄움
+    func presentCutomAlertVC(target:String, title:String, message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
 }
 
 // MARK - TextFieldDelegate
 extension EmailLoginViewController: UITextFieldDelegate {
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if !textField.text!.isEmpty {
+            checkEverythingFilled()
+        }
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)

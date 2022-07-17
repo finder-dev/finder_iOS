@@ -95,6 +95,8 @@ private extension UserViewController {
     
     @objc func didTapLogutButton() {
         print("didTapLogutButton")
+        self.navigationController?.popToRootViewController(animated: true)
+        
     }
 }
 

@@ -16,13 +16,34 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
             self.codeAuthButton.setTitleColor(.white, for: .normal)
             self.codeAuthButton.backgroundColor = .mainTintColor
         } else if from == "auth" {
-//            self.codeAuthButton.isEnabled = true
-//            self.codeAuthButton.setTitleColor(.white, for: .normal)
-//            self.codeAuthButton.backgroundColor = .mainTintColor
+            
         }
     }
     
     let network = SignUpAPI()
+    var passwordIsSame = false {
+        didSet {
+            if passwordIsSame {
+                checkEnableNextButtonOrNot()
+            }
+        }
+    }
+    
+    var emailAuth = false {
+        didSet {
+            if emailAuth {
+                checkEnableNextButtonOrNot()
+            }
+        }
+    }
+    
+    var codeAuth = false {
+        didSet {
+            if codeAuth {
+                checkEnableNextButtonOrNot()
+            }
+        }
+    }
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -81,9 +102,9 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
         $0.setTitleColor(.unabledButtonTextColor, for: .normal)
         $0.backgroundColor = .unabledButtonColor
-//        $0.isEnabled = false
+        $0.isEnabled = false
         // TODO : for test
-        $0.isEnabled = true
+//        $0.isEnabled = true
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
     
@@ -157,8 +178,54 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
 
         layout()
         attribute()
+        
+        passwordCheckTextField.delegate = self
+        passwordCheckTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 }
+
+extension InsertUserInfoViewController {
+    
+    func checkEnableNextButtonOrNot() {
+        if passwordIsSame && emailAuth && codeAuth {
+            nextButton.isEnabled = true
+            nextButton.backgroundColor = .mainTintColor
+            nextButton.setTitleColor(.white, for: .normal)
+        } else {
+            nextButton.isEnabled = false
+            nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+            nextButton.backgroundColor = .unabledButtonColor
+        }
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let password = passwordTextField.text else {
+            return
+        }
+        
+        if password == textField.text {
+            passwordCheckLabel.text = "비밀번호가 일치합니다"
+            passwordCheckLabel.textColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
+            passwordIsSame = true
+            print("일치")
+        } else {
+            print("불일치")
+            passwordCheckLabel.text = "동일하지 않은 비밀번호입니다"
+            passwordCheckLabel.textColor = .mainTintColor
+            passwordIsSame = false
+        }
+    }
+ 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+
 
 // MARK : - Button Action
 private extension InsertUserInfoViewController {
@@ -167,6 +234,8 @@ private extension InsertUserInfoViewController {
     }
     @objc func didTapNextButton() {
         let nextVC = SetUpProfileViewController()
+        nextVC.email = idTextField.text ?? "nil"
+        nextVC.password = passwordTextField.text ?? "nil"
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -175,9 +244,12 @@ private extension InsertUserInfoViewController {
         print("didTapRequestQuthButton")
         
         guard let email = idTextField.text else {
-            
             return
         }
+        
+        requestAuthButton.isEnabled = false
+        requestAuthButton.backgroundColor = .unabledButtonColor
+        requestAuthButton.setTitleColor(.unabledButtonTextColor, for: .normal)
         
         network.requestAuthEmail(email: email) { [self] result in
             switch result {
@@ -187,12 +259,19 @@ private extension InsertUserInfoViewController {
                         self.presentCutomAlertVC(target: "email",
                                             title: "코드번호 발송",
                                             message: "이메일로 코드번호가 발송되었습니다.")
+                        
+                        emailAuth = true
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.presentCutomAlertVC(target: "email",
                                             title: "코드번호 발송 실패",
                                             message: "코드번호 발송을 실패했습니다.")
+                        requestAuthButton.isEnabled = true
+                        requestAuthButton.backgroundColor = .mainTintColor
+                        requestAuthButton.setTitleColor(.white, for: .normal)
+                        emailAuth = false
+                        
                     }
                     print("이메일 확인")
                 }
@@ -211,21 +290,33 @@ private extension InsertUserInfoViewController {
             
             return
         }
-        network.requestCodeAuth(code: code, email: email) { result in
+        network.requestCodeAuth(code: code, email: email) { [self] result in
+            
+
             switch result {
             case let .success(response) :
                 
                 if response.success {
                     DispatchQueue.main.async {
+                        codeAuthButton.isEnabled = false
+                        codeAuthButton.backgroundColor = .unabledButtonColor
+                        codeAuthButton.setTitleColor(.unabledButtonTextColor, for: .normal)
                         self.presentCutomAlertVC(target: "auth",
                                             title: "이메일 인증 완료",
                                             message: "인증되었습니다.")
+                        
+                        codeAuth = true
                     }
                 } else {
                     DispatchQueue.main.async { [self] in
                         presentCutomAlertVC(target: "auth",
                                             title: "이메일 인증 실패",
                                             message: "이메일 인증을 실패했습니다")
+                        
+                        codeAuthButton.isEnabled = true
+                        codeAuthButton.backgroundColor = .mainTintColor
+                        codeAuthButton.setTitleColor(.white, for: .normal)
+                        codeAuth = false
                     }
                 }
             case .failure(_):
@@ -244,9 +335,6 @@ private extension InsertUserInfoViewController {
         self.present(nextVC, animated: true)
     }
 }
-
-
-
 
 private extension InsertUserInfoViewController {
     func layout() {

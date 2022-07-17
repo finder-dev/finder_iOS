@@ -9,7 +9,11 @@ import UIKit
 import SnapKit
 import Then
 
-class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate {
+class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate, AlertMessageDelegate {
+    func okButtonTapped(from: String) {
+       
+    }
+    
     let network = SignUpAPI()
     var isnicknameChecked = false {
         didSet {
@@ -21,6 +25,9 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
             enableNextButton()
         }
     }
+    
+    var email: String?
+    var password: String?
     
     private lazy var backButton = UIButton().then {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
@@ -151,6 +158,8 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         setup()
         layout()
         attribute()
+        
+        nickNameCheckButton.isHidden = true
     }
     
     func sendValue(value: String) {
@@ -168,12 +177,15 @@ private extension SetUpProfileViewController {
     }
     
     @objc func didTapNextButton() {
+        
+        guard let email = email else { return }
+        guard let password = password else { return }
         guard let mbti = MBTITextField.text else { return }
         print(mbti)
         guard let nickname = nickNameTextField.text else { return }
         
-        network.requestSignUp(email: "test23456@gmail.com",
-                              password: "testtest11",
+        network.requestSignUp(email: email,
+                              password: password,
                               mbti: mbti,
                               nickname: nickname) { result in
             switch result {
@@ -185,7 +197,11 @@ private extension SetUpProfileViewController {
                         self.navigationController?.pushViewController(nextVC, animated: true)
                     }
                 } else {
-                    print(response.errorResponse?.errorMessages)
+                    DispatchQueue.main.async {
+                        let errorMessage = response.errorResponse?.errorMessages[0]
+                        self.presentCutomAlertVC(target: "setup", title: "회원가입 실패", message: errorMessage!)
+                    }
+//                    print(response.errorResponse?.errorMessages)
                 }
             case .failure(_):
                 print("오류")
@@ -226,7 +242,8 @@ private extension SetUpProfileViewController {
     }
     
     @objc func didTapShowServiceTermButton() {
-        
+        let nextVC = WebViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapMBTITextField() {
@@ -242,7 +259,7 @@ private extension SetUpProfileViewController {
         DispatchQueue.main.async { [self] in
             guard let mbti = MBTITextField.text else { return }
             
-            if !mbti.isEmpty && isnicknameChecked && isCheckButtonTapped {
+            if !mbti.isEmpty && isCheckButtonTapped {
                 nextButton.backgroundColor = .orange
                 nextButton.setTitleColor(.white, for: .normal)
                 nextButton.isEnabled = true
@@ -252,6 +269,17 @@ private extension SetUpProfileViewController {
                 nextButton.isEnabled = false
             }
         }
+    }
+    
+    // AlertVC 띄움
+    func presentCutomAlertVC(target:String, title:String, message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
 }
 
@@ -304,6 +332,7 @@ private extension SetUpProfileViewController {
         nickNameTextField.snp.makeConstraints {
             $0.top.equalTo(nickNameLabel.snp.bottom).offset(8.0)
             $0.leading.equalTo(nickNameLabel)
+            $0.trailing.equalToSuperview().inset(20.0)
         }
         
         nickNameCheckButton.snp.makeConstraints {
