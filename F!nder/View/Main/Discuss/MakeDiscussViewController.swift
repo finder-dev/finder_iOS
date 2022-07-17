@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MakeDiscussViewController: UIViewController {
+class MakeDiscussViewController: UIViewController, UITextFieldDelegate {
     
     let discussTitleTextField = UITextField()
     let textFieldA = UITextField()
@@ -18,12 +18,39 @@ class MakeDiscussViewController: UIViewController {
     let emptyView = UIView()
     
     let infoLabel = UILabel()
+    let debateNetwork = DebateAPI()
+    
+    let rightBarButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(didTapRightBarButton))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         layout()
         attribute()
+        
+        [discussTitleTextField,textFieldA,textFieldB].forEach {
+            $0.delegate = self
+            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        }
+    }
+}
+
+// textField
+extension MakeDiscussViewController {
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let title = discussTitleTextField.text,
+              let optionA = textFieldA.text,
+              let optionB = textFieldB.text else {
+            return
+        }
+        
+        if !title.isEmpty && !optionA.isEmpty && !optionB.isEmpty {
+            rightBarButton.isEnabled = true
+            rightBarButton.tintColor = .mainTintColor
+        } else {
+            rightBarButton.isEnabled = false
+            rightBarButton.tintColor = .lightGray
+        }
     }
 }
 
@@ -107,7 +134,8 @@ extension MakeDiscussViewController {
         
         let leftBarButton = UIBarButtonItem(image: UIImage(named: "ic_baseline-close"), style: .plain, target: self, action: #selector(didTapLeftBarButton))
         
-        let rightBarButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(didTapRightBarButton))
+//        let rightBarButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(didTapRightBarButton))
+        rightBarButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
         self.navigationController?.navigationBar.tintColor = .blackTextColor
@@ -121,5 +149,32 @@ extension MakeDiscussViewController {
     
     @objc func didTapRightBarButton() {
         print("didTapRightBarButton")
+        
+        guard let title = discussTitleTextField.text,
+              let optionA = textFieldA.text,
+              let optionB = textFieldB.text else {
+            return
+        }
+    
+        debateNetwork.requestMakeDebate(title: title,
+                                        optionA: optionA,
+                                        optionB: optionB) { [self] result in
+            
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 새로운 토론 만들기")
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    print("실패 : 새로운 토론 만들기")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+            
+        }
     }
 }

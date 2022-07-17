@@ -29,8 +29,10 @@ class UserViewController: UIViewController {
     }
     
     func addData() {
-        userNameLabel.text = "test"
-        userEmailLabel.text = "test"
+        let userNickName = UserDefaults.standard.string(forKey: "userNickName")
+        let userEmail = UserDefaults.standard.string(forKey: "userEmail")
+        userNameLabel.text = userNickName
+        userEmailLabel.text = userEmail
     }
 }
 

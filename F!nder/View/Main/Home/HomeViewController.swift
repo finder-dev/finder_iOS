@@ -152,6 +152,8 @@ extension HomeViewController {
                 IsSelectedB()
             }
         }
+        agreeButton.setTitle(data.optionA, for: .normal)
+        disagreeButton.setTitle(data.optionB, for: .normal)
     }
     
     func setupCommunityView(data: [HotCommunitySuccessResponse]?) {
@@ -525,8 +527,8 @@ private extension HomeViewController {
             $0.textAlignment = .center
         }
         
-        agreeButton.setTitle("물론 가능!", for: .normal)
-        disagreeButton.setTitle("절대 불가능", for: .normal)
+        agreeButton.setTitle("test", for: .normal)
+        disagreeButton.setTitle("test", for: .normal)
         
         [agreeButton,disagreeButton].forEach {
             $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .bold)
@@ -550,7 +552,13 @@ private extension HomeViewController {
     }
     
     @objc func didTapGoBalanceGameButton() {
-        print("didTapGoBalanceGameButton")
+        if balanceGameDataStatus == .noData {
+            // 토론 생성 view
+            self.navigationController?.pushViewController(MakeDiscussViewController(), animated: true)
+        } else {
+            // 토론 자세히 보기 view
+            self.navigationController?.pushViewController(DiscussDetailViewController(), animated: true)
+        }
     }
     
     func IsselectedA() {

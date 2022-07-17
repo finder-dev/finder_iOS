@@ -16,13 +16,13 @@ enum CommunityDataStatus {
 /*
  * 커뮤니티 글 리스트 뷰컨트롤러입니다.
  */
-class CommunityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommunityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectMBTIViewControllerDelegate {
     
     let headerView = UIView()
     let headerLine = UIView()
     let headerLabel = UILabel()
     let selectMBTIButton = UIButton()
-    let selectedMBTILabel = UILabel()
+    var selectedMBTILabel = UILabel()
     let mbtiLabelLine = UIView()
     let latestButton = UIButton()
     let commentButton = UIButton()
@@ -30,6 +30,12 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     let writeButton = UIButton()
     
     var communityDataStatus : CommunityDataStatus = .yesData
+    let communityNetwork = CommunityAPI()
+    
+    var communityList = [content]()
+    
+    var latestButtonIsSelected = true
+    var commentButtonIsSelected = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +44,40 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         layout()
 //        attribute()
         addWriteButton()
+        setupData(mbti: "ISTJ", orderBy: "CREATE_TIME", page: 0)
+        latestButton.setTitleColor(.blackTextColor, for: .normal)
+    }
+    
+    func sendValue(value: String) {
+        selectedMBTILabel.text = value
+        DispatchQueue.main.async { [self] in
+            self.setupData(mbti: value, orderBy: "CREATE_TIME", page: 0)
+        }
+    }
+    
+    
+    func setupData(mbti:String?, orderBy: String, page: Int) {
+        communityNetwork.requestEveryCommuityData(mbti: mbti,
+                                                  orderBy: orderBy,
+                                                  page: page) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 전체 커뮤니티 글 조회 ")
+                    print(response.response?.content)
+                    communityList = response.response!.content
+                    DispatchQueue.main.async {
+                        tableView.reloadData()
+                    }
+                } else {
+                    print("실패 : 전체 커뮤니티 글 조회")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+        
     }
 
 }
@@ -46,15 +86,16 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
 extension CommunityViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        return communityList.count
+//        10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommunityTableViewCell.identifier) as? CommunityTableViewCell else {
             return UITableViewCell()
         }
-        
-        cell.setupCellData()
+        let data = communityList[indexPath.row]
+        cell.setupCellData(data: data)
         return cell
     }
 }
@@ -131,7 +172,7 @@ private extension CommunityViewController {
         selectedMBTILabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(68.0)
             $0.bottom.equalToSuperview().inset(10.5)
-            $0.width.equalTo(26.0)
+//            $0.width.equalTo(30.0)
         }
         
         mbtiLabelLine.snp.makeConstraints {
@@ -156,13 +197,14 @@ private extension CommunityViewController {
         headerLabel.textAlignment = .center
         
         headerLine.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
-        latestButton.setTitle("최신순", for: .normal)
+        latestButton.setTitle(" • 최신순", for: .normal)
         // 188 188 188
         let unabledColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
         latestButton.setTitleColor(unabledColor, for: .normal)
-        commentButton.setTitle("댓글순", for: .normal)
+        commentButton.setTitle(" • 댓글순", for: .normal)
         commentButton.setTitleColor(unabledColor, for: .normal)
-        selectMBTIButton.setImage(UIImage(named: "backButton"), for: .normal)
+        selectMBTIButton.setImage(UIImage(named: "btn_caretleft"), for: .normal)
+        selectMBTIButton.addTarget(self, action: #selector(didTapSelectMBTIButton), for: .touchUpInside)
         
         [latestButton,commentButton].forEach {
             $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .regular)
@@ -173,9 +215,17 @@ private extension CommunityViewController {
         selectedMBTILabel.textColor = .mainTintColor
         selectedMBTILabel.textAlignment = .center
         
-        
         mbtiLabelLine.backgroundColor = .mainTintColor
         //"backButton"
+    }
+    
+    @objc func didTapSelectMBTIButton() {
+        print(" didTapSelectMBTIButton")
+        let nextVC = SelectMBTIViewController()
+        nextVC.delegate = self
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+//        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 

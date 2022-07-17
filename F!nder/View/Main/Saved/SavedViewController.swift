@@ -14,6 +14,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     let headerView = UIView()
     let tableView = UITableView()
+    let communityDataList = [content]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,8 @@ extension SavedViewController {
             return UITableViewCell()
         }
         
-        cell.setupCellData()
+        let data = communityDataList[indexPath.row]
+        cell.setupCellData(data:data)
         return cell
     }
 }

@@ -52,6 +52,8 @@
 		2BB455E82883F855001139E5 /* HotDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E72883F855001139E5 /* HotDebate.swift */; };
 		2BB455EA2883FCBD001139E5 /* CommunityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E92883FCBD001139E5 /* CommunityAPI.swift */; };
 		2BB455ED2883FD04001139E5 /* HotCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EC2883FD04001139E5 /* HotCommunity.swift */; };
+		2BB455EF2884044D001139E5 /* MakeDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EE2884044D001139E5 /* MakeDebate.swift */; };
+		2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455F028845B70001139E5 /* EveryCommunity.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -116,6 +118,8 @@
 		2BB455E72883F855001139E5 /* HotDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotDebate.swift; sourceTree = "<group>"; };
 		2BB455E92883FCBD001139E5 /* CommunityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityAPI.swift; sourceTree = "<group>"; };
 		2BB455EC2883FD04001139E5 /* HotCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCommunity.swift; sourceTree = "<group>"; };
+		2BB455EE2884044D001139E5 /* MakeDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebate.swift; sourceTree = "<group>"; };
+		2BB455F028845B70001139E5 /* EveryCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryCommunity.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -335,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				2BB455E72883F855001139E5 /* HotDebate.swift */,
+				2BB455EE2884044D001139E5 /* MakeDebate.swift */,
 			);
 			path = Debate;
 			sourceTree = "<group>";
@@ -343,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				2BB455EC2883FD04001139E5 /* HotCommunity.swift */,
+				2BB455F028845B70001139E5 /* EveryCommunity.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -516,6 +522,7 @@
 				2BA2E9AF287F10FB005DFE96 /* DiscussTableViewCell.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,
+				2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */,
@@ -525,6 +532,7 @@
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
 				2B09DF1E2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift in Sources */,
 				2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */,
+				2BB455EF2884044D001139E5 /* MakeDebate.swift in Sources */,
 				2BE7BE4E2873176C0062EB5A /* DiscussViewController.swift in Sources */,
 				2BB455DC28832BCE001139E5 /* WebViewController.swift in Sources */,
 				2BB455EA2883FCBD001139E5 /* CommunityAPI.swift in Sources */,

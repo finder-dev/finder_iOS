@@ -43,15 +43,15 @@ class CommunityTableViewCell: UITableViewCell {
 
     }
     
-    func setupCellData() {
-        mbtiCategoryLabel.text = "INFJ"
-        titleLabel.text = "INFJ 잊을 만 하면 연락하는 거 뭔 심리야?"
-        contentLabel.text = "그 사람 자기 입으로 인프제 그자체라고 말할 정도로야 잊을 만 하면 연락 오거든? 근데 내가 연락하면 또 나 자라고 해서 혼란스러워; 왜 이러는"
-        userMBTILabel.text = "ENTJ"
-        userNameLabel.text = "testest"
-        timeLabel.text = "방금"
-        recommentLabel.text = "2"
-        commentLabel.text = "3"
+    func setupCellData(data: content) {
+        mbtiCategoryLabel.text = data.communityMBTI
+        titleLabel.text = data.communityTitle
+        contentLabel.text = data.communityContent
+        userMBTILabel.text = data.userMBTI
+        userNameLabel.text = data.userNickname
+        timeLabel.text = data.createTime
+        recommentLabel.text = "\(data.likeCount)"
+        commentLabel.text = "\(data.answerCount)"
     }
 }
 
