@@ -59,14 +59,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var disagreeImageView = UIImageView()
     
     let lineView2 = UIView()
+    let tableView = UITableView()
     var communityLabel = UILabel()
     
     var bannerButton = UIButton()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
     var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
+    var hotCommunityData = [HotCommunitySuccessResponse]()
     
 //    let userInfoNetwork = UserInfoAPI()
     let debateNetwork = DebateAPI()
+    let communityNetwork = CommunityAPI()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -117,7 +120,22 @@ extension HomeViewController {
             }
         }
         
-        
+        communityNetwork.requestHotCommunity { [self] result  in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 댓글순 커뮤니티 글 조회")
+                    DispatchQueue.main.async {
+                        setupCommunityView(data: response.response)
+                    }
+                } else {
+                    print("실패 : 댓글순 커뮤니티 글 조회")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
     
     func setupDebateView(data: HotDebateSuccessResponse) {
@@ -135,12 +153,19 @@ extension HomeViewController {
             }
         }
     }
+    
+    func setupCommunityView(data: [HotCommunitySuccessResponse]?) {
+        guard let data = data else { return}
+        self.hotCommunityData = data
+        self.tableView.reloadData()
+    }
 }
 
 extension HomeViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return communityTableViewModel.cells.count
+        return hotCommunityData.count
+//        return communityTableViewModel.cells.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -149,8 +174,13 @@ extension HomeViewController {
             return UITableViewCell()
         }
         
-        let data = communityTableViewModel.cells[indexPath.row]
-        cell.setupCell(data: data)
+//        let data = communityTableViewModel.cells[indexPath.row]
+//        cell.setupCell(data: data)
+//        return cell
+        
+        let data = hotCommunityData[indexPath.row]
+//        cell.setupCell(data: data)
+        cell.setupCell(data: data, index: indexPath.row + 1)
         return cell
     }
     
@@ -562,7 +592,6 @@ private extension HomeViewController {
 
 private extension HomeViewController {
     func communityTableViewLayout() {
-        let tableView = UITableView()
         self.innerView.addSubview(tableView)
         
         tableView.snp.makeConstraints {

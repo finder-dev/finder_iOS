@@ -33,8 +33,8 @@ class HomeCommunityTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setupCell(data: HomeCommunityTableViewCellModel) {
-        numberLabel.text = data.number
+    func setupCell(data: HotCommunitySuccessResponse, index:Int) {
+        numberLabel.text = "\(index)"
         communityTitleLabel.text = data.title
     }
 

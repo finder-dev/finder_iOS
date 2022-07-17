@@ -8,16 +8,20 @@
 import Foundation
 
 struct HomeCommunityTableViewModel {
-    let cells : [HomeCommunityTableViewCellModel] = [
-        HomeCommunityTableViewCellModel(number: "1", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
-        HomeCommunityTableViewCellModel(number: "2", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
-        HomeCommunityTableViewCellModel(number: "3", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
-        HomeCommunityTableViewCellModel(number: "4", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
-        HomeCommunityTableViewCellModel(number: "5", title: "엔팁한테 사과받았다 대박!!!!!!!!")
-    ]
+//    let cells : [HomeCommunityTableViewCellModel] = [
+//        HomeCommunityTableViewCellModel(number: "1", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
+//        HomeCommunityTableViewCellModel(number: "2", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
+//        HomeCommunityTableViewCellModel(number: "3", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
+//        HomeCommunityTableViewCellModel(number: "4", title: "엔팁한테 사과받았다 대박!!!!!!!!"),
+//        HomeCommunityTableViewCellModel(number: "5", title: "엔팁한테 사과받았다 대박!!!!!!!!")
+//    ]
+    
+    var cells = [HotCommunityResponse]()
 }
 
 struct HomeCommunityTableViewCellModel {
     let number : String
     let title : String
 }
+
+
