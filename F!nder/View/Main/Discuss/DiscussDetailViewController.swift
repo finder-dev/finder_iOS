@@ -28,22 +28,67 @@ class DiscussDetailViewController: UIViewController {
     var commentCountLabel = UILabel()
     
     var emptyView = UIView()
-
+    var debateID : Int?
+    let debateNetwork = DebateAPI()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         layout()
         attribute()
-        addData()
+        guard let debateID = debateID else {
+            return
+        }
+        print(debateID)
+        fetchDebateData(debateID: debateID)
     }
     
-    func addData() {
-        discussTitle.text = "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?"
-        timeLabel.text = "남은시간 D-3"
-        commentCountLabel.text = "댓글 3"
-        userMBTILabel.text = "ENTJ"
+    func fetchDebateData(debateID: Int) {
+        debateNetwork.requestDebateDetail(debateID: debateID) { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 토론 상세 조회")
+                    guard let response = response.response else {
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        self.addData(data: response)
+                    }
+                } else {
+                    print("실패 : 토론 상세 조회")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
+    
+    func addData(data:DetailDebateSuccessResponse) {
+        discussTitle.text = data.debateTitle
+        timeLabel.text = "남은시간 \(data.deadline)"
+        commentCountLabel.text = "댓글 \(data.answerCount)"
+        userMBTILabel.text = data.writerMBTI
+        userNameLabel.text = data.writerNickname
+        agreeCounts.text = "\(data.optionACount)"
+        agreeButton.setTitle(data.optionA, for: .normal)
+        disagreeButton.setTitle(data.optionB, for: .normal)
+        print(data)
+        if data.join {
+            if data.joinOption == "A" {
+                agreeImageView.isHidden = false
+                disagreeImageView.isHidden = true
+                agreeButton.backgroundColor = .selectedDebateColor
+            } else if data.joinOption == "B" {
+                disagreeImageView.isHidden = false
+                agreeImageView.isHidden = true
+                disagreeButton.backgroundColor = .selectedDebateColor
+            }
+        }
+    }
+    
+    
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -169,6 +214,11 @@ extension DiscussDetailViewController {
             $0.leading.equalToSuperview().inset(20.0)
         }
         
+        userNameLabel.snp.makeConstraints {
+            $0.leading.equalTo(userMBTILabel.snp.trailing).offset(20.0)
+            $0.centerY.equalTo(userMBTILabel)
+        }
+        
         commentCountLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(16.0)
             $0.trailing.equalToSuperview().inset(20.0)
@@ -213,7 +263,7 @@ extension DiscussDetailViewController {
         
         [agreeImageView,disagreeImageView].forEach {
             $0.image = UIImage(named: "Frame 986295")
-            $0.isHidden = false
+            $0.isHidden = true
         }
     }
     func setupNavigationAttribute() {

@@ -70,6 +70,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 //    let userInfoNetwork = UserInfoAPI()
     let debateNetwork = DebateAPI()
     let communityNetwork = CommunityAPI()
+    var debateID :Int?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -91,6 +92,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             balanceGameView.isHidden = false
             noBalanceGameDataView.isHidden = true
         }
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        print(token)
+        
         
 //        setupUserData()
     }
@@ -108,8 +116,16 @@ extension HomeViewController {
             case let .success(response) :
                 if response.success {
                     print("성공 : 가장 많이 참여한 토론 조회")
+                    print("response.response?.debateId : \(response.response?.debateId)")
+                    print("debateID : \(debateID)")
+                    guard let response = response.response else {
+                        return
+                    }
+
+                    debateID = response.debateId
+                    print("debateID : \(debateID)")
                     DispatchQueue.main.async {
-                        setupDebateView(data: response.response!)
+                        setupDebateView(data: response)
                     }
                 } else {
                     print("실패 : 가장 많이 참여한 토론 조회")
@@ -553,11 +569,19 @@ private extension HomeViewController {
     
     @objc func didTapGoBalanceGameButton() {
         if balanceGameDataStatus == .noData {
+            print("here1")
             // 토론 생성 view
             self.navigationController?.pushViewController(MakeDiscussViewController(), animated: true)
         } else {
             // 토론 자세히 보기 view
-            self.navigationController?.pushViewController(DiscussDetailViewController(), animated: true)
+            let nextVC = DiscussDetailViewController()
+            guard let debateID = self.debateID else {
+                print("no debateID")
+                self.navigationController?.pushViewController(nextVC, animated: true)
+                return
+            }
+            nextVC.debateID = debateID
+            self.navigationController?.pushViewController(nextVC, animated: true)
         }
     }
     

@@ -27,6 +27,7 @@ struct EveryCommunityResponse : Codable {
 
 struct EveryCommunitySuccessResponse : Codable {
     let content: [content]
+    let last: Bool
 }
 
 struct content : Codable {

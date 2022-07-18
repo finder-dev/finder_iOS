@@ -7,18 +7,6 @@
 
 import Foundation
 
-struct MakeDebate {
-    let title: String
-    let optionA: String
-    let optionB: String
-    
-    var parameters : [String: String] { [
-        "title": title,
-        "optionA": optionA,
-        "optionB": optionB
-    ]}
-}
-
 struct MakeDebateResponse : Codable {
     let success: Bool
     let response: MakeDebateSuccessResponse?

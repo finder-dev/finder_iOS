@@ -9,6 +9,8 @@ import Foundation
 
 struct CommunityAPI {
     
+    var isPaginating = false
+    
     // 커뮤니티 댓글순 조회
     func requestHotCommunity(completionHandler: @escaping (Result<HotCommunityResponse,Error>)-> Void) {
         
@@ -45,11 +47,15 @@ struct CommunityAPI {
     }
     
     // 전체 커뮤니티 글 조회
-    func requestEveryCommuityData(mbti:String?,
+    mutating func requestEveryCommuityData(pagination: Bool = false,
+                                  mbti:String?,
                                   orderBy: String,
                                   page: Int,
                                   completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
-
+        
+//        if pagination {
+//            self.isPaginating = true
+//        }
         var urlComponents = URLComponents(string: "https://finder777.com/api/community")!
        
         if mbti != nil {
@@ -93,6 +99,9 @@ struct CommunityAPI {
             }
             print("======================================================================")
             completionHandler(.success(json))
+//            if pagination {
+//                self.isPaginating = false
+//            }
         }
         task.resume()
     }

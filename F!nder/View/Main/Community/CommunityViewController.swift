@@ -17,7 +17,7 @@ enum CommunityDataStatus {
  * 커뮤니티 글 리스트 뷰컨트롤러입니다.
  */
 class CommunityViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SelectMBTIViewControllerDelegate {
-    
+
     let headerView = UIView()
     let headerLine = UIView()
     let headerLabel = UILabel()
@@ -30,63 +30,133 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     let writeButton = UIButton()
     
     var communityDataStatus : CommunityDataStatus = .yesData
-    let communityNetwork = CommunityAPI()
+    var communityNetwork = CommunityAPI()
     
     var communityList = [content]()
+    var tableViewData = [content]()
     
     var latestButtonIsSelected = true
     var commentButtonIsSelected = false
+    
+    var isLastPage = false
+    var pageCount = 0
+//
+    var isPaging: Bool = false // 현재 페이징 중인지 체크하는 flag
+    var hasNextPage: Bool = false // 마지막 페이지 인지 체크 하는 flag
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setupHeaderView()
         layout()
-//        attribute()
         addWriteButton()
-        setupData(mbti: "ISTJ", orderBy: "CREATE_TIME", page: 0)
         latestButton.setTitleColor(.blackTextColor, for: .normal)
+        setupData(mbti: nibName, orderBy: "CREATE_TIME", page: 0)
+//        setupData(mbti: nil,
+//                  orderBy: "CREATE_TIME",
+//                  page: pageCount) { result in
+//            switch result {
+//            case let .success(dataList) :
+//                self.tableViewData = dataList
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//                self.pageCount = 0
+//            case .failure(_):
+//                print("데이터 조회 실패")
+//            }
+//        }
+        
+//        communityNetwork.requestEveryCommuityData(pagination: false,
+//                                                  mbti: nil,
+//                                                  orderBy: "CREATE_TIME",
+//                                                  page: 0) { result in
+//            switch result {
+//            case .success(let data):
+//                communityList.append(contentsOf: data)
+//            }
+//        }
     }
     
     func sendValue(value: String) {
         selectedMBTILabel.text = value
-        DispatchQueue.main.async { [self] in
-            self.setupData(mbti: value, orderBy: "CREATE_TIME", page: 0)
-        }
     }
     
     
-    func setupData(mbti:String?, orderBy: String, page: Int) {
-        communityNetwork.requestEveryCommuityData(mbti: mbti,
-                                                  orderBy: orderBy,
-                                                  page: page) { [self] result in
-            switch result {
-            case let .success(response) :
-                if response.success {
-                    print("성공 : 전체 커뮤니티 글 조회 ")
-                    print(response.response?.content)
-                    communityList = response.response!.content
-                    DispatchQueue.main.async {
-                        tableView.reloadData()
-                    }
-                } else {
-                    print("실패 : 전체 커뮤니티 글 조회")
-                    print(response.errorResponse?.errorMessages)
-                }
-            case .failure(_):
-                print("오류")
-            }
-        }
+    /*
+    func fetchData(pagination:Bool,mbti:String?, orderBy:String,page:Int) {
         
     }
+    */
+    
+    func setupData(mbti:String?,
+                   orderBy: String,
+                   page: Int) {
+        
+        self.communityNetwork.requestEveryCommuityData(mbti: mbti,
+                                                       orderBy: orderBy,
+                                                       page: self.pageCount) { [self] result in
+                    switch result {
+                    case let .success(response) :
+                        if response.success {
+                            print("성공 : 전체 커뮤니티 글 조회 ")
+
+                            guard let response = response.response  else {
+                                return
+                            }
+                            tableViewData = response.content
+                            DispatchQueue.main.async {
+                                tableView.reloadData()
+                            }
+                        } else {
+                            print("실패 : 전체 커뮤니티 글 조회")
+                            print(response.errorResponse?.errorMessages)
+                        }
+                    case .failure(_):
+                        print("오류")
+                    }
+                }
+            }
+    
 
 }
+
+
+// TableView Paging
+extension CommunityViewController: UIScrollViewDelegate {
+    
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (tableView.contentSize.height - 100 - scrollView.frame.size.height) {
+            print("fetch additional data")
+            guard !communityNetwork.isPaginating else {
+                return
+            }
+            self.tableView.tableFooterView = createSpinnerFooter()
+    
+        }
+    }
+    
+    private func createSpinnerFooter() -> UIView {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+            
+            let spinner = UIActivityIndicatorView()
+            spinner.center = footerView.center
+            footerView.addSubview(spinner)
+            spinner.startAnimating()
+            
+            return footerView
+        }
+}
+
+
 
 // TableView Datasource, Delegate
 extension CommunityViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return communityList.count
+        return tableViewData.count
 //        10
     }
     
@@ -94,7 +164,7 @@ extension CommunityViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommunityTableViewCell.identifier) as? CommunityTableViewCell else {
             return UITableViewCell()
         }
-        let data = communityList[indexPath.row]
+        let data = tableViewData[indexPath.row]
         cell.setupCellData(data: data)
         return cell
     }
