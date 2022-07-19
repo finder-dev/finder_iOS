@@ -47,7 +47,7 @@ struct CommunityAPI {
     }
     
     // 전체 커뮤니티 글 조회
-    mutating func requestEveryCommuityData(pagination: Bool = false,
+    func requestEveryCommuityData(pagination: Bool = false,
                                   mbti:String?,
                                   orderBy: String,
                                   page: Int,
@@ -95,10 +95,48 @@ struct CommunityAPI {
             }
             print("======================================================================")
             completionHandler(.success(json))
-//            if pagination {
-//                self.isPaginating = false
-//            }
         }
         task.resume()
+    }
+    
+    // 커뮤니티 상세 조회
+    func requestCommunityDetail(communityID:Int,
+                                completionHandler: @escaping (Result<DetailCommunityResponse,Error>)-> Void) {
+        
+        let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityID)")
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "GET"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(DetailCommunityResponse.self, from: data) else {
+                print("requestCommunityDetail : decode 에러")
+                return
+            }
+            
+            print("======================================================================")
+            print("requestCommunityDetail : Network - CommunityDetailResonponse => \(json.success)")
+            
+            if !json.success {
+                print("requestCommunityDetail : Network - CommunityDetailResonponse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+        
     }
 }

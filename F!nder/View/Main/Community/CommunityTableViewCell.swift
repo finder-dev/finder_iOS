@@ -48,10 +48,18 @@ class CommunityTableViewCell: UITableViewCell {
         titleLabel.text = data.communityTitle
         contentLabel.text = data.communityContent
         userMBTILabel.text = data.userMBTI
-        userNameLabel.text = data.userNickname
+        userNameLabel.text = " • \(data.userNickname)"
         timeLabel.text = data.createTime
         recommentLabel.text = "\(data.likeCount)"
         commentLabel.text = "\(data.answerCount)"
+        
+        if data.likeUser {
+            recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
+        }
+        
+        if !data.isQuestion {
+            questionImageView.isHidden = true
+        }
     }
 }
 
@@ -110,7 +118,7 @@ private extension CommunityTableViewCell {
         }
         
         userNameLabel.snp.makeConstraints {
-            $0.leading.equalTo(userMBTILabel.snp.trailing).offset(20.0)
+            $0.leading.equalTo(userMBTILabel.snp.trailing)
             $0.top.equalTo(userMBTILabel)
         }
         
@@ -158,8 +166,8 @@ private extension CommunityTableViewCell {
         mbtiCategoryLabel.textAlignment = .center
         
         titleLabel.textColor = .blackTextColor
-        timeLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
-        
+        titleLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
+//        timeLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
         contentLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
         contentLabel.font = .systemFont(ofSize: 16.0, weight: .regular)
         contentLabel.numberOfLines = 2
@@ -171,7 +179,8 @@ private extension CommunityTableViewCell {
         
         lineView.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
 
-        recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
+        recommentButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
+        recommentButton.isEnabled = false
         commentImageView.image = UIImage(named: "icon-chat-bubble-dots-mono")
         
         [recommentLabel,commentLabel].forEach {

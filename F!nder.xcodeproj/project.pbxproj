@@ -23,6 +23,8 @@
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
 		2B3E259D286362B400C85193 /* SignUpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259C286362B300C85193 /* SignUpAPI.swift */; };
+		2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */; };
+		2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B022886F49D0057CC9D /* DetailCommunity.swift */; };
 		2B6826B3286DE598006AF742 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6826B2286DE598006AF742 /* Login.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
@@ -92,6 +94,8 @@
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
 		2B3E259C286362B300C85193 /* SignUpAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAPI.swift; sourceTree = "<group>"; };
+		2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
+		2B557B022886F49D0057CC9D /* DetailCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCommunity.swift; sourceTree = "<group>"; };
 		2B6826B2286DE598006AF742 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */,
 				2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */,
 				2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */,
+				2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 			children = (
 				2BB455EC2883FD04001139E5 /* HotCommunity.swift */,
 				2BB455F028845B70001139E5 /* EveryCommunity.swift */,
+				2B557B022886F49D0057CC9D /* DetailCommunity.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 				2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */,
 				2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */,
 				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,
+				2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */,
 				2BE7BE4A2873169E0062EB5A /* MainTabBarController.swift in Sources */,
 				2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */,
 				2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */,
@@ -524,6 +531,7 @@
 				2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */,
 				2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */,
 				2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */,
+				2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */,
 				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
 				2B6826B3286DE598006AF742 /* Login.swift in Sources */,

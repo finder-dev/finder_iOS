@@ -158,6 +158,14 @@ extension CommunityViewController {
         cell.setupCellData(data: data)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = tableViewData[indexPath.row]
+        let nextVC = CommunityDetailViewController()
+        nextVC.communityId = data.communityId
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
 }
 
 private extension CommunityViewController {
