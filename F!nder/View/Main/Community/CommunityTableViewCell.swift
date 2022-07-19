@@ -52,13 +52,15 @@ class CommunityTableViewCell: UITableViewCell {
         timeLabel.text = data.createTime
         recommentLabel.text = "\(data.likeCount)"
         commentLabel.text = "\(data.answerCount)"
-        
+                
         if data.likeUser {
             recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
         }
         
         if !data.isQuestion {
             questionImageView.isHidden = true
+        } else {
+            questionImageView.isHidden = false
         }
     }
 }

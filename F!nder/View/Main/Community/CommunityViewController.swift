@@ -41,8 +41,8 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     var communityList = [content]()
     var tableViewData = [content]()
     
-    var latestButtonIsSelected = true
-    var commentButtonIsSelected = false
+//    var latestButtonIsSelected = true
+//    var commentButtonIsSelected = false
     
     var isLastPage = false
     var pageCount = 0

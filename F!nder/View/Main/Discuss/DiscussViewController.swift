@@ -42,13 +42,13 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
         setupHeaderView()
         layout()
         attribute()
-        fetchData()
+        fetchData(state: "PROCEEDING", page: 0)
     }
     
     
-    func fetchData() {
+    func fetchData(state: String, page:Int) {
         
-        debateNetwork.requestEveryDebateData(state: "PROCEEDING", page: 0) { [self] result in
+        debateNetwork.requestEveryDebateData(state: state, page: page) { [self] result in
             switch result {
             case let .success(response) :
                 if response.success {
@@ -83,6 +83,35 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
     }
+}
+
+// TableView Paging
+extension DiscussViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (tableView.contentSize.height - 100 - scrollView.frame.size.height) {
+            print("fetch additional data")
+            if !isLastPage {
+                self.tableView.tableFooterView = createSpinnerFooter()
+                self.fetchData(state: "PROCEEDING", page: pageCount)
+            } else {
+                print("This is last page")
+                return
+            }
+        }
+    }
+    
+    private func createSpinnerFooter() -> UIView {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+            
+            let spinner = UIActivityIndicatorView()
+            spinner.center = footerView.center
+            footerView.addSubview(spinner)
+            spinner.startAnimating()
+            
+            return footerView
+        }
 }
 
 // 토론 데이터가 있는 경우 tableView delegate, datasource
