@@ -53,7 +53,7 @@ class DiscussDetailViewController: UIViewController {
                         return
                     }
                     DispatchQueue.main.async {
-                        self.addData(data: response)
+                        self.fetchData(data: response)
                     }
                 } else {
                     print("실패 : 토론 상세 조회")
@@ -65,13 +65,14 @@ class DiscussDetailViewController: UIViewController {
         }
     }
     
-    func addData(data:DetailDebateSuccessResponse) {
+    func fetchData(data:DetailDebateSuccessResponse) {
         discussTitle.text = data.debateTitle
         timeLabel.text = "남은시간 \(data.deadline)"
         commentCountLabel.text = "댓글 \(data.answerCount)"
         userMBTILabel.text = data.writerMBTI
         userNameLabel.text = data.writerNickname
         agreeCounts.text = "\(data.optionACount)"
+        disagreeCounts.text = "\(data.optionBCount)"
         agreeButton.setTitle(data.optionA, for: .normal)
         disagreeButton.setTitle(data.optionB, for: .normal)
         print(data)
@@ -79,11 +80,14 @@ class DiscussDetailViewController: UIViewController {
             if data.joinOption == "A" {
                 agreeImageView.isHidden = false
                 disagreeImageView.isHidden = true
-                agreeButton.backgroundColor = .selectedDebateColor
+                selectedButton(button: agreeButton)
+                deSelectedButton(button: disagreeButton)
             } else if data.joinOption == "B" {
+                
                 disagreeImageView.isHidden = false
                 agreeImageView.isHidden = true
-                disagreeButton.backgroundColor = .selectedDebateColor
+                selectedButton(button: disagreeButton)
+                deSelectedButton(button: agreeButton)
             }
         }
     }
@@ -95,9 +99,81 @@ class DiscussDetailViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+
 }
 
 extension DiscussDetailViewController {
+    
+    
+    @objc func didTapAgreeButton() {
+        print("didTapAgreeButton")
+        debateNetwork.requestVoteDebate(debateID: debateID!, option: "A") { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 토론 옵션 A 투표")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    if response.message == "detach success" {
+                        DispatchQueue.main.async {
+                            agreeImageView.isHidden = true
+                            deSelectedButton(button: agreeButton)
+                        }
+                    }
+                    fetchDebateData(debateID: debateID!)
+
+                } else {
+                    print("실패 : 토론 옵션 A 투표")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func selectedButton(button:UIButton) {
+        button.backgroundColor = .selectedDebateColor
+        button.setTitleColor(.white, for: .normal)
+        
+    }
+    
+    func deSelectedButton(button:UIButton) {
+        button.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
+        button.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
+    }
+    
+    @objc func didTapDisAgreeButton() {
+        print("didTapDisAgreeButton")
+        debateNetwork.requestVoteDebate(debateID: debateID!, option: "B") { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 토론 옵션 B 투표")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    if response.message == "detach success" {
+                        DispatchQueue.main.async {
+                            disagreeImageView.isHidden = true
+                            deSelectedButton(button: disagreeButton)
+                        }
+                    }
+                    
+                    fetchDebateData(debateID: debateID!)
+                    
+                } else {
+                    print("실패 : 토론 옵션 B 투표")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
     
     @objc func didTapRightBarButton() {
         print("didTapRightBarButton")
@@ -258,7 +334,9 @@ extension DiscussDetailViewController {
         disagreeButton.contentHorizontalAlignment = .right
         
         agreeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 0)
+        agreeButton.addTarget(self, action: #selector(didTapAgreeButton), for: .touchUpInside)
         disagreeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20.0)
+        disagreeButton.addTarget(self, action: #selector(didTapDisAgreeButton), for: .touchUpInside)
         
         
         [agreeImageView,disagreeImageView].forEach {

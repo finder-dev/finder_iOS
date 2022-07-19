@@ -20,9 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if !Storage.isFirstTime() {
 //            rootVC = OnBoardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-//            rootVC = LoginViewController()
-            rootVC = SelectMBTIViewController()
-//            rootVC = CommunityDetailViewController()
+            rootVC = LoginViewController()
         } else {
             rootVC = LoginViewController()
         }

@@ -90,11 +90,6 @@ struct DebateAPI {
         task.resume()
     }
     
-    // 모든 토론 조회
-//    func requestEveryDebate(state:String) {
-//
-//    }
-    
     // 전체 토론조회
     func requestEveryDebateData(state:String = "PROCEEDING",
                                          page:Int,
@@ -135,7 +130,8 @@ struct DebateAPI {
     }
     
     // 토론 참여
-    func requestVoteDebate(debateID:Int,option:String,
+    func requestVoteDebate(debateID:Int,
+                           option:String,
                            completionHandler: @escaping (Result<VoteDebateResponse,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/\(debateID)")

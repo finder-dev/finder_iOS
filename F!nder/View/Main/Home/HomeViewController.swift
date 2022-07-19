@@ -98,9 +98,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         print(token)
-        
-        
-//        setupUserData()
     }
 }
 
@@ -170,6 +167,7 @@ extension HomeViewController {
         }
         agreeButton.setTitle(data.optionA, for: .normal)
         disagreeButton.setTitle(data.optionB, for: .normal)
+        goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
     }
     
     func setupCommunityView(data: [HotCommunitySuccessResponse]?) {
@@ -192,12 +190,7 @@ extension HomeViewController {
             return UITableViewCell()
         }
         
-//        let data = communityTableViewModel.cells[indexPath.row]
-//        cell.setupCell(data: data)
-//        return cell
-        
         let data = hotCommunityData[indexPath.row]
-//        cell.setupCell(data: data)
         cell.setupCell(data: data, index: indexPath.row + 1)
         return cell
     }
