@@ -25,6 +25,7 @@
 		2B3E259D286362B400C85193 /* SignUpAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259C286362B300C85193 /* SignUpAPI.swift */; };
 		2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */; };
 		2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B022886F49D0057CC9D /* DetailCommunity.swift */; };
+		2B557B052886F8B20057CC9D /* EveryDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B042886F8B20057CC9D /* EveryDebate.swift */; };
 		2B6826B3286DE598006AF742 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6826B2286DE598006AF742 /* Login.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
@@ -96,6 +97,7 @@
 		2B3E259C286362B300C85193 /* SignUpAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAPI.swift; sourceTree = "<group>"; };
 		2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		2B557B022886F49D0057CC9D /* DetailCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCommunity.swift; sourceTree = "<group>"; };
+		2B557B042886F8B20057CC9D /* EveryDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryDebate.swift; sourceTree = "<group>"; };
 		2B6826B2286DE598006AF742 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				2BB455EE2884044D001139E5 /* MakeDebate.swift */,
 				2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */,
 				2BAB6DAE2885B98A001DEE35 /* DetailDebate.swift */,
+				2B557B042886F8B20057CC9D /* EveryDebate.swift */,
 			);
 			path = Debate;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,
 				2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
+				2B557B052886F8B20057CC9D /* EveryDebate.swift in Sources */,
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,

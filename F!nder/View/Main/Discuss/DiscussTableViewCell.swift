@@ -41,12 +41,16 @@ class DiscussTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
     }
     
-    func setupCell() {
+    func setupCell(data: debateContent) {
         
-        discussLabel.text = "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?"
-        peopleCountLabel.text = "42명 참여"
+//        discussLabel.text = "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?"
+//        peopleCountLabel.text = "42명 참여"
         personImageView.image = UIImage(named: "icon-user-mono")
-        timeLabel.text = "D-6"        
+//        timeLabel.text = "D-6"
+        
+        discussLabel.text = data.title
+        peopleCountLabel.text = "\(data.joinCount)명 참여"
+        timeLabel.text = data.deadline
     }
 
 }

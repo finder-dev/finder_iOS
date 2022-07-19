@@ -27,6 +27,13 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
     let lineView = UIView()
     var discussViewStatus : DiscussViewStatus? = .yesData
     
+    let tableView = UITableView()
+    
+    let debateNetwork = DebateAPI()
+    var tableViewData = [debateContent]()
+    var isLastPage = false
+    var pageCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -35,26 +42,70 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
         setupHeaderView()
         layout()
         attribute()
+        fetchData()
+    }
+    
+    
+    func fetchData() {
+        
+        debateNetwork.requestEveryDebateData(state: "PROCEEDING", page: 0) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 전체 커뮤니티 글 조회 ")
+
+                    guard let response = response.response  else {
+                        return
+                    }
+                    tableViewData.append(contentsOf: response.content)
+                    isLastPage = response.last
+                    pageCount += 1
+                    print(response.content)
+                    print("pageCount : \(pageCount)")
+                    
+                    DispatchQueue.main.async {
+                        if tableViewData.isEmpty {
+                            discussViewStatus = .noData
+                            tableView.isHidden = true
+                        } else {
+                            discussViewStatus = .yesData
+                            tableView.isHidden = false
+                            tableView.reloadData()
+                            tableView.tableFooterView?.isHidden = true
+                        }
+                    }
+                } else {
+                    print("실패 : 전체 커뮤니티 글 조회")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
 }
 
 // 토론 데이터가 있는 경우 tableView delegate, datasource
 extension DiscussViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        tableViewData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DiscussTableViewCell.identifier, for: indexPath) as? DiscussTableViewCell else {
             return UITableViewCell()
         }
-        
-        cell.setupCell()
+        let data = tableViewData[indexPath.row]
+        cell.setupCell(data:data)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let debate = tableViewData[indexPath.row]
+        print(debate.debateId)
+        print(indexPath.row)
         let nextVC = DiscussDetailViewController()
+        nextVC.debateID = debate.debateId
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
@@ -177,7 +228,6 @@ private extension DiscussViewController {
     }
     
     func yesDataViewLayout() {
-        let tableView = UITableView()
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints {

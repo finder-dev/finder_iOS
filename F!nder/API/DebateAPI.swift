@@ -96,25 +96,12 @@ struct DebateAPI {
 //    }
     
     // 전체 토론조회
-    mutating func requestEveryDebateData(state:String,
+    func requestEveryDebateData(state:String = "PROCEEDING",
                                          page:Int,
-                                         completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
+                                         completionHandler: @escaping (Result<EveryDebateResponse,Error>)-> Void) {
         
-        var urlComponents = URLComponents()
-        if mbti == nil {
-            urlComponents = URLComponents(string: "https://finder777.com/api/community?orderBy=\(orderBy)&page=\(page)")!
-        } else {
-            guard let mbti = mbti else {
-                return
-            }
-
-            urlComponents = URLComponents(string: "https://finder777.com/api/community?mbti=\(mbti)&orderBy=\(orderBy)&page=\(page)")!
-        }
-
-        if mbti != nil {
-            print("mbti is not nil")
-        }
-
+        var urlComponents = URLComponents(string: "https://finder777.com/api/debate?page=\(page)&state=\(state)")!
+    
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
             print("오류 : token 없음")
             return
@@ -123,6 +110,7 @@ struct DebateAPI {
         var requestURL = URLRequest(url: (urlComponents.url)!)
         requestURL.httpMethod = "GET"
         requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        requestURL.setValue("application/json;charset=UTF-8", forHTTPHeaderField: "Content-Type")
         
         let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
             guard let data = data,error == nil else {
@@ -131,7 +119,7 @@ struct DebateAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(EveryCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(EveryDebateResponse.self, from: data) else {
                 print("오류 : HotCommunityResponse jsonDecode 실패")
                 return
             }
