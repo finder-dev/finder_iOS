@@ -58,6 +58,9 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func sendValue(value: String) {
         selectedMBTILabel.text = value
+        tableViewData = []
+        pageCount = 0
+        setupData(mbti: value, orderBy: "CREATE_TIME", page: pageCount)
     }
     
     

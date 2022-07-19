@@ -57,7 +57,11 @@ struct CommunityAPI {
         if mbti == nil {
             urlComponents = URLComponents(string: "https://finder777.com/api/community?orderBy=\(orderBy)&page=\(page)")!
         } else {
-            urlComponents = URLComponents(string: "https://finder777.com/api/community?mbti=\(mbti!)orderBy=\(orderBy)&page=\(page)")!
+            guard let mbti = mbti else {
+                return
+            }
+
+            urlComponents = URLComponents(string: "https://finder777.com/api/community?mbti=\(mbti)&orderBy=\(orderBy)&page=\(page)")!
         }
 
         if mbti != nil {
