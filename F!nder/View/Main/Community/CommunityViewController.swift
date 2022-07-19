@@ -54,7 +54,6 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.backgroundColor = .white
         setupHeaderView()
         layout()
-        addWriteButton()
         latestButton.setTitleColor(.blackTextColor, for: .normal)
         setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
     }
@@ -64,7 +63,12 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         selectedMBTILabel.text = value
         tableViewData = []
         pageCount = 0
-        setupData(mbti: value, orderBy: "CREATE_TIME", page: pageCount)
+        if value == "전체" {
+            setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
+        } else {
+            setupData(mbti: value, orderBy: "CREATE_TIME", page: pageCount)
+
+        }
     }
     
     
@@ -193,6 +197,8 @@ private extension CommunityViewController {
             $0.top.leading.trailing.equalTo(safeArea)
             $0.height.equalTo(98.5)
         }
+        
+        addWriteButton()
     }
     
     func addWriteButton() {

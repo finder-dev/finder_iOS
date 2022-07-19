@@ -18,11 +18,13 @@ protocol SelectMBTIViewControllerDelegate {
 
 class SelectMBTIViewController: UIViewController {
     
+    let viewHeight :CGFloat = 553
     let MBTIView = UIView()
     let mainLabel = UILabel()
     let closeButton = UIButton()
     let confirmButton = UIButton()
     
+    let everyButton = UIButton()
     let ISTJButton = UIButton()
     let ISFJButton = UIButton()
     let INFJButton = UIButton()
@@ -100,7 +102,7 @@ private extension SelectMBTIViewController {
         
         MBTIView.snp.makeConstraints {
             $0.width.equalTo(mbtiViewWidth)
-            $0.height.equalTo(553)
+            $0.height.equalTo(viewHeight)
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
@@ -108,6 +110,7 @@ private extension SelectMBTIViewController {
         [mainLabel,
          closeButton,
          confirmButton,
+         everyButton,
          ISTJButton,
          ISFJButton,
          ISTPButton,
@@ -127,9 +130,11 @@ private extension SelectMBTIViewController {
         ].forEach {
             MBTIView.addSubview($0)
         }
+        
         mainLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(16.0)
+            $0.height.equalTo(23.0)
         }
         
         closeButton.snp.makeConstraints {
@@ -143,20 +148,92 @@ private extension SelectMBTIViewController {
             $0.height.equalTo(58.0)
         }
     
-        ISTJButton.snp.makeConstraints {
+        everyButton.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.top.equalTo(mainLabel.snp.bottom).offset(16.0)
         }
         
         ISFJButton.snp.makeConstraints {
-            $0.leading.equalTo(ISTJButton.snp.trailing)
-            $0.top.equalTo(ISTJButton)
+            $0.leading.equalTo(everyButton.snp.trailing)
+            $0.centerY.equalTo(everyButton)
             $0.trailing.equalToSuperview()
         }
         
-        INFPButton.snp.makeConstraints {
+        INFJButton.snp.makeConstraints {
             $0.leading.equalToSuperview()
+            $0.top.equalTo(everyButton.snp.bottom)
+        }
+        
+        INTJButton.snp.makeConstraints {
+            $0.leading.equalTo(INFJButton.snp.trailing)
+            $0.centerY.equalTo(INFJButton)
+            $0.trailing.equalToSuperview()
+        }
+        
+        ISTPButton.snp.makeConstraints {
+            $0.top.equalTo(INFJButton.snp.bottom)
+            $0.leading.equalToSuperview()
+        }
+        
+        ISFPButton.snp.makeConstraints {
+            $0.centerY.equalTo(ISTPButton)
+            $0.trailing.equalToSuperview()
+            $0.leading.equalTo(ISTPButton.snp.trailing)
+        }
+        
+        INFPButton.snp.makeConstraints {
+            $0.top.equalTo(ISTPButton.snp.bottom)
+            $0.leading.equalToSuperview()
+        }
+        
+        INTPButton.snp.makeConstraints {
+            $0.centerY.equalTo(INFPButton)
+            $0.leading.equalTo(INFPButton.snp.trailing)
+        }
+        
+        ISTJButton.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalTo(INFPButton.snp.bottom)
+        }
+        
+        ESFJButton.snp.makeConstraints {
+            $0.centerY.equalTo(ISTJButton)
+            $0.leading.equalTo(ISTJButton.snp.trailing)
+        }
+        
+        ENFJButton.snp.makeConstraints {
             $0.top.equalTo(ISTJButton.snp.bottom)
+            $0.leading.equalToSuperview()
+        }
+        
+        ENTJButton.snp.makeConstraints {
+            $0.centerY.equalTo(ENFJButton)
+            $0.leading.equalTo(ENFJButton.snp.trailing)
+        }
+        
+        ESTPButton.snp.makeConstraints {
+            $0.top.equalTo(ENFJButton.snp.bottom)
+            $0.leading.equalToSuperview()
+        }
+        
+        ESFPButton.snp.makeConstraints {
+            $0.centerY.equalTo(ESTPButton)
+            $0.leading.equalTo(ESTPButton.snp.trailing)
+        }
+        
+        ENFPButton.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalTo(ESTPButton.snp.bottom)
+        }
+        
+        ENTPButton.snp.makeConstraints {
+            $0.leading.equalTo(ENFPButton.snp.trailing)
+            $0.centerY.equalTo(ENFPButton)
+        }
+        
+        ESTJButton.snp.makeConstraints {
+            $0.top.equalTo(ENFPButton.snp.bottom)
+            $0.leading.equalToSuperview()
         }
     }
     
@@ -180,9 +257,10 @@ private extension SelectMBTIViewController {
         confirmButton.isEnabled = false
                 
         let buttonWidth = self.mbtiViewWidth/2
-        let buttonHeight :CGFloat = 54.5
-        
-        [ISTJButton,
+        let buttonHeight :CGFloat = (viewHeight - 55.0 - 58.0)/9
+//        let buttonHeight :CGFloat = 54.5
+        [everyButton,
+        ISTJButton,
          ISFJButton,
          ISTPButton,
          ISFPButton,
@@ -207,6 +285,7 @@ private extension SelectMBTIViewController {
             $0.addTarget(self, action: #selector(didTapMBTIButton(sender:)), for: .touchUpInside)
         }
 
+        everyButton.setTitle("전체", for: .normal)
         ISTJButton.setTitle("ISTJ", for: .normal)
         ISFJButton.setTitle("ISFJ", for: .normal)
         ISTPButton.setTitle("ISTP", for: .normal)
