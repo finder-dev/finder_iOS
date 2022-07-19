@@ -17,6 +17,7 @@ class CommunityDetailViewController: UIViewController {
     let userMBTILabel = UILabel()
     let userNameLabel = UILabel()
     let timeLabel = UILabel()
+    let saveButton = UIButton()
     
     let lineView = UIView()
     let contentLabel = UILabel()
@@ -67,8 +68,15 @@ class CommunityDetailViewController: UIViewController {
         titleLabel.text = data.communityTitle
         contentLabel.text = data.communityContent
         
+        
         if !data.isQuestion {
             questionImageView.isHidden = true
+        }
+        
+        if data.saveUser {
+            saveButton.setImage(UIImage(named: "saved"), for: .normal)
+        } else {
+            saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
         }
     }
 }
@@ -179,7 +187,6 @@ extension CommunityDetailViewController {
     func setupHeaderView() {
         let headerLabel = UILabel()
         let backButton = UIButton()
-        let saveButton = UIButton()
         
         [headerLabel,backButton,saveButton].forEach {
             headerView.addSubview($0)
@@ -219,6 +226,35 @@ extension CommunityDetailViewController {
     
     @objc func didTapSaveButton() {
         print("didTapSaveButton")
+        
+        communityNetwork.requestSave(communityID: communityId!) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 글 저장 ")
+
+                    guard let response = response.response  else {
+                        return
+                    }
+                    if response.message == "save success" {
+                        DispatchQueue.main.async {
+                            saveButton.setImage(UIImage(named: "saved"), for: .normal)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
+                        }
+                    }
+                    print(response.message)
+                    
+                } else {
+                    print("실패 : 커뮤니티 글 저장")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
 }
 
