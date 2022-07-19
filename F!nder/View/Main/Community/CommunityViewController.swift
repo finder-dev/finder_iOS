@@ -31,7 +31,11 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
 
     var totalTableRows = 15
     
-    var communityDataStatus : CommunityDataStatus = .yesData
+    var communityDataStatus : CommunityDataStatus = .yesData {
+        didSet {
+            layout()
+        }
+    }
     var communityNetwork = CommunityAPI()
     
     var communityList = [content]()
@@ -85,8 +89,15 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
                             print(response.content)
                             print("pageCount : \(pageCount)")
                             DispatchQueue.main.async {
-                                tableView.reloadData()
-                                tableView.tableFooterView?.isHidden = true
+                                if tableViewData.isEmpty {
+                                    communityDataStatus = .noData
+                                    tableView.isHidden = true
+                                } else {
+                                    communityDataStatus = .yesData
+                                    tableView.isHidden = false
+                                    tableView.reloadData()
+                                    tableView.tableFooterView?.isHidden = true
+                                }
                             }
                         } else {
                             print("실패 : 전체 커뮤니티 글 조회")
