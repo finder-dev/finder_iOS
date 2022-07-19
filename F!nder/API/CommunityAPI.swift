@@ -47,8 +47,7 @@ struct CommunityAPI {
     }
     
     // 전체 커뮤니티 글 조회
-    func requestEveryCommuityData(pagination: Bool = false,
-                                  mbti:String?,
+    func requestEveryCommuityData(mbti:String?,
                                   orderBy: String,
                                   page: Int,
                                   completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
@@ -62,10 +61,6 @@ struct CommunityAPI {
             }
 
             urlComponents = URLComponents(string: "https://finder777.com/api/community?mbti=\(mbti)&orderBy=\(orderBy)&page=\(page)")!
-        }
-
-        if mbti != nil {
-            print("mbti is not nil")
         }
 
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
@@ -174,6 +169,43 @@ struct CommunityAPI {
             
             if !json.success {
                 print("requestCommunitySave : Network - CommunityDetailResonponse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
+    // 사용자가 저장한 커뮤니티 글 불러오기
+    func requestSavedCommuityList(page: Int,
+                                  completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
+        
+        var urlComponents = URLComponents(string: "https://finder777.com/api/users/save?page=\(page)")!
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents.url)!)
+        requestURL.httpMethod = "GET"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(EveryCommunityResponse.self, from: data) else {
+                print("오류 : HotCommunityResponse jsonDecode 실패")
+                return
+            }
+            print("======================================================================")
+            print("EveryCommuityData : Network - EveryCommunityResponse => \(json.success)")
+            if !json.success {
+                print("EveryCommuityData : Network - EveryCommunityResponse => \(json.errorResponse?.errorMessages)")
             }
             print("======================================================================")
             completionHandler(.success(json))

@@ -14,20 +14,97 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     let headerView = UIView()
     let tableView = UITableView()
-    let tableViewData = [content]()
+    
+    var tableViewData = [content]()
+    var pageCount = 0
+    var isLastPage = false
+    var dataStatus : dataStatus = .yesData {
+        didSet {
+            layout()
+        }
+    }
+    let communityNetwork = CommunityAPI()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        fetchData(page: pageCount)
         layout()
         attribute()
     }
+    
+    func fetchData(page:Int) {
+        communityNetwork.requestSavedCommuityList(page: page) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 저장한 커뮤니티 글 조회 ")
+
+                    guard let response = response.response  else {
+                        return
+                    }
+                    tableViewData.append(contentsOf: response.content)
+                    isLastPage = response.last
+                    pageCount += 1
+                    print(response.content)
+                    print("pageCount : \(pageCount)")
+                    DispatchQueue.main.async {
+                        if tableViewData.isEmpty {
+                            dataStatus = .noData
+                            tableView.isHidden = true
+                        } else {
+                            dataStatus = .yesData
+                            tableView.isHidden = false
+                            tableView.reloadData()
+                            tableView.tableFooterView?.isHidden = true
+                        }
+                    }
+                } else {
+                    print("실패 : 전체 커뮤니티 글 조회")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
 }
+
+// TableView Paging
+extension SavedViewController: UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = scrollView.contentOffset.y
+        if position > (tableView.contentSize.height - 100 - scrollView.frame.size.height) {
+            print("fetch additional data")
+            if !isLastPage {
+                self.tableView.tableFooterView = createSpinnerFooter()
+                fetchData(page: pageCount)
+            } else {
+                print("This is last page")
+                return
+            }
+        }
+    }
+    
+    private func createSpinnerFooter() -> UIView {
+            let footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 100))
+            
+            let spinner = UIActivityIndicatorView()
+            spinner.center = footerView.center
+            footerView.addSubview(spinner)
+            spinner.startAnimating()
+            
+            return footerView
+        }
+}
+
+
 
 // tableview delegate, datasource
 extension SavedViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        tableViewData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -44,8 +121,11 @@ extension SavedViewController {
 private extension SavedViewController {
     func layout() {
         setupHeaderView()
-        yesDataView()
-//        noDataView()
+        if dataStatus == .yesData {
+            yesDataView()
+        } else {
+            noDataView()
+        }
     }
     
     func attribute() {
