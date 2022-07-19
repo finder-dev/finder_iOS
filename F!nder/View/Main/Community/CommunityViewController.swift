@@ -28,6 +28,8 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     let commentButton = UIButton()
     let tableView = UITableView()
     let writeButton = UIButton()
+
+    var totalTableRows = 15
     
     var communityDataStatus : CommunityDataStatus = .yesData
     var communityNetwork = CommunityAPI()
@@ -40,9 +42,8 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var isLastPage = false
     var pageCount = 0
-//
-    var isPaging: Bool = false // 현재 페이징 중인지 체크하는 flag
-    var hasNextPage: Bool = false // 마지막 페이지 인지 체크 하는 flag
+
+//    var isPaging: Bool = false // 현재 페이징 중인지 체크하는 flag
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,43 +52,14 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         layout()
         addWriteButton()
         latestButton.setTitleColor(.blackTextColor, for: .normal)
-        setupData(mbti: nibName, orderBy: "CREATE_TIME", page: 0)
-//        setupData(mbti: nil,
-//                  orderBy: "CREATE_TIME",
-//                  page: pageCount) { result in
-//            switch result {
-//            case let .success(dataList) :
-//                self.tableViewData = dataList
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadData()
-//                }
-//                self.pageCount = 0
-//            case .failure(_):
-//                print("데이터 조회 실패")
-//            }
-//        }
-        
-//        communityNetwork.requestEveryCommuityData(pagination: false,
-//                                                  mbti: nil,
-//                                                  orderBy: "CREATE_TIME",
-//                                                  page: 0) { result in
-//            switch result {
-//            case .success(let data):
-//                communityList.append(contentsOf: data)
-//            }
-//        }
+        setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
     }
+ 
     
     func sendValue(value: String) {
         selectedMBTILabel.text = value
     }
     
-    
-    /*
-    func fetchData(pagination:Bool,mbti:String?, orderBy:String,page:Int) {
-        
-    }
-    */
     
     func setupData(mbti:String?,
                    orderBy: String,
@@ -95,7 +67,7 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.communityNetwork.requestEveryCommuityData(mbti: mbti,
                                                        orderBy: orderBy,
-                                                       page: self.pageCount) { [self] result in
+                                                       page: page) { [self] result in
                     switch result {
                     case let .success(response) :
                         if response.success {
@@ -104,9 +76,14 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
                             guard let response = response.response  else {
                                 return
                             }
-                            tableViewData = response.content
+                            tableViewData.append(contentsOf: response.content)
+                            isLastPage = response.last
+                            pageCount += 1
+                            print(response.content)
+                            print("pageCount : \(pageCount)")
                             DispatchQueue.main.async {
                                 tableView.reloadData()
+                                tableView.tableFooterView?.isHidden = true
                             }
                         } else {
                             print("실패 : 전체 커뮤니티 글 조회")
@@ -117,24 +94,24 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
                     }
                 }
             }
-    
 
 }
 
 
 // TableView Paging
 extension CommunityViewController: UIScrollViewDelegate {
-    
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let position = scrollView.contentOffset.y
         if position > (tableView.contentSize.height - 100 - scrollView.frame.size.height) {
             print("fetch additional data")
-            guard !communityNetwork.isPaginating else {
+            if !isLastPage {
+                self.tableView.tableFooterView = createSpinnerFooter()
+                setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
+            } else {
+                print("This is last page")
                 return
             }
-            self.tableView.tableFooterView = createSpinnerFooter()
-    
         }
     }
     
@@ -157,7 +134,6 @@ extension CommunityViewController {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewData.count
-//        10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

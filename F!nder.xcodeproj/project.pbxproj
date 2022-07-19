@@ -45,6 +45,7 @@
 		2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA8F261286CA09500D64F0E /* KakaoSDK */; };
 		2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */; };
 		2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAE2885B98A001DEE35 /* DetailDebate.swift */; };
+		2BAB6DB22886D48F001DEE35 /* PagedLists in Frameworks */ = {isa = PBXBuildFile; productRef = 2BAB6DB12886D48F001DEE35 /* PagedLists */; };
 		2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */; };
 		2BB455DC28832BCE001139E5 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DB28832BCE001139E5 /* WebViewController.swift */; };
 		2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */; };
@@ -151,6 +152,7 @@
 			files = (
 				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
 				2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */,
+				2BAB6DB22886D48F001DEE35 /* PagedLists in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -426,6 +428,7 @@
 				2BC3C2792854E0430094F5EB /* Then */,
 				2B09DF05285B585900FE19DC /* SnapKit */,
 				2BA8F261286CA09500D64F0E /* KakaoSDK */,
+				2BAB6DB12886D48F001DEE35 /* PagedLists */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -459,6 +462,7 @@
 				2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */,
 				2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				2BAB6DB02886D48F001DEE35 /* XCRemoteSwiftPackageReference "PagedLists" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -774,6 +778,14 @@
 				kind = branch;
 			};
 		};
+		2BAB6DB02886D48F001DEE35 /* XCRemoteSwiftPackageReference "PagedLists" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rootstrap/PagedLists";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -794,6 +806,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
+		};
+		2BAB6DB12886D48F001DEE35 /* PagedLists */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BAB6DB02886D48F001DEE35 /* XCRemoteSwiftPackageReference "PagedLists" */;
+			productName = PagedLists;
 		};
 		2BC3C2792854E0430094F5EB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;

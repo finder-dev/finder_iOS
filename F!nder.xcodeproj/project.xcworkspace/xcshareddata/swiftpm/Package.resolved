@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "pagedlists",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/rootstrap/PagedLists",
+      "state" : {
+        "revision" : "6f20fcc9c4dbb7ced76754badf18161b50386cd7",
+        "version" : "1.0.0"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",

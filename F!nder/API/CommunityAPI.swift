@@ -53,24 +53,17 @@ struct CommunityAPI {
                                   page: Int,
                                   completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
         
-//        if pagination {
-//            self.isPaginating = true
-//        }
-        var urlComponents = URLComponents(string: "https://finder777.com/api/community")!
-       
+        var urlComponents = URLComponents()
+        if mbti == nil {
+            urlComponents = URLComponents(string: "https://finder777.com/api/community?orderBy=\(orderBy)&page=\(page)")!
+        } else {
+            urlComponents = URLComponents(string: "https://finder777.com/api/community?mbti=\(mbti!)orderBy=\(orderBy)&page=\(page)")!
+        }
+
         if mbti != nil {
             print("mbti is not nil")
         }
-        
-        var mbtiQuery = URLQueryItem(name: "mbti", value: mbti)
-        var orderQuery = URLQueryItem(name: "orderBy", value: orderBy)
-        var pageQuery = URLQueryItem(name: "page", value: "\(page)")
-        
-        urlComponents.queryItems?.append(orderQuery)
-        urlComponents.queryItems?.append(pageQuery)
-        urlComponents.queryItems?.append(mbtiQuery)
 
-        
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
             print("오류 : token 없음")
             return
@@ -78,7 +71,6 @@ struct CommunityAPI {
         
         var requestURL = URLRequest(url: (urlComponents.url)!)
         requestURL.httpMethod = "GET"
-//        requestURL.httpBody = bodyData
         requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
