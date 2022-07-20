@@ -55,7 +55,13 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         setupHeaderView()
         layout()
         latestButton.setTitleColor(.blackTextColor, for: .normal)
+        commentButton.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
+        tableView.reloadData()
     }
  
     
@@ -87,9 +93,10 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
                             guard let response = response.response  else {
                                 return
                             }
-                            tableViewData.append(contentsOf: response.content)
                             isLastPage = response.last
                             pageCount += 1
+                            tableViewData.append(contentsOf: response.content)
+
                             print(response.content)
                             print("pageCount : \(pageCount)")
                             DispatchQueue.main.async {

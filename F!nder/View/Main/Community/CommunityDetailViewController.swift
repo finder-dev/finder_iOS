@@ -12,30 +12,26 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
     
     func leftButtonTapped(from: String) {
         if from == "deletePost" {
-            /*
-             ebateNetwork.reportDebate(debateId: debateID!) { result in
-                 switch result {
-                 case let .success(response) :
-                     if response.success {
-                         print("성공 : 토론 신고")
-                         guard let response = response.response else {
-                             return
-                         }
-                         print(response.message)
-                         DispatchQueue.main.async {
-                             self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
-                         }
-                     } else {
-                         print("실패 : 토론 신ㄱ")
-                         print(response.errorResponse?.errorMessages)
-                     }
-                 case .failure(_):
-                     print("오류")
-                 }
-             }
-             */
-            
-            self.presentCutomAlert1VC(target: "didDeletePost", title: "글 삭제 완료", message: "삭제되었습니다.")
+            self.communityNetwork.requestDeleteCommunity(communityId: communityId!) { [self] result in
+                switch result {
+                case let .success(response) :
+                    if response.success {
+                        print("성공 : 커뮤니티 글 삭제")
+                        guard let response = response.response else {
+                            return
+                        }
+                        print(response.message)
+                        DispatchQueue.main.async {
+                            self.presentCutomAlert1VC(target: "didDeletePost", title: "글 삭제 완료", message: "삭제되었습니다.")
+                        }
+                    } else {
+                        print("실패 : 커뮤니티 글 삭제")
+                        print(response.errorResponse?.errorMessages)
+                    }
+                case .failure(_):
+                    print("오류")
+                }
+            }
         }
     }
     
@@ -66,7 +62,9 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
     }
    
     func okButtonTapped(from: String) {
-        
+        if from == "didDeletePost" || "didReportCommunityUser" {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     
@@ -114,6 +112,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
     var commentDataList = [answerHistDtos]()
 
     let communityNetwork = CommunityAPI()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
