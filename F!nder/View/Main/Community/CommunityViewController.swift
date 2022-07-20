@@ -262,15 +262,15 @@ private extension CommunityViewController {
             $0.bottom.equalToSuperview()
         }
         
-        commentButton.snp.makeConstraints {
+        latestButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(20.0)
             $0.bottom.equalToSuperview().inset(7.5)
         }
         
-        latestButton.snp.makeConstraints {
-            $0.trailing.equalTo(commentButton.snp.leading).offset(-7.0)
-            $0.bottom.equalTo(commentButton)
-        }
+//        latestButton.snp.makeConstraints {
+//            $0.trailing.equalTo(commentButton.snp.leading).offset(-7.0)
+//            $0.bottom.equalTo(commentButton)
+//        }
         
         headerLabel.text = "커뮤니티"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)

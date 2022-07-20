@@ -47,12 +47,18 @@ class SelectMBTIViewController: UIViewController {
     var selectedMBTI : String = ""
     var selectedButton = [UIButton]()
     var delegate : SelectMBTIViewControllerDelegate!
+    var everyButtonisEnabled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(white: 0.4, alpha: 0.4)
         layout()
         attribute()
+        
+        if everyButtonisEnabled {
+            everyButton.isEnabled = false
+            everyButton.backgroundColor = .lightGray
+        }
     }
 }
 

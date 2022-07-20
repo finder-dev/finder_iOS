@@ -41,4 +41,38 @@ struct UserInfoAPI {
         }
         task.resume()
     }
+    
+    //회원 탈퇴
+    func requestDeleteUser(completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+        let urlComponents = URLComponents(string: "https://finder777.com/api/users")
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "DELETE"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+                print("오류 : requestDeleteUser jsonDecode 실패")
+                return
+            }
+            print("======================================================================")
+            print("requestDeleteUser : Network - requestDeleteUser => \(json.success)")
+            if !json.success {
+                print("requestDeleteUser : Network - requestDeleteUser => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
 }

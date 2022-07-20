@@ -8,7 +8,14 @@
 import UIKit
 import SnapKit
 
-class UserViewController: UIViewController, AlertMessage2Delegate {
+class UserViewController: UIViewController, AlertMessage2Delegate, AlertMessageDelegate {
+    func okButtonTapped(from: String) {
+        if from == "didLogout" {
+            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
     func leftButtonTapped(from: String) {
     }
     
@@ -17,25 +24,26 @@ class UserViewController: UIViewController, AlertMessage2Delegate {
         print(from)
         if from == "logout" {
 //            self.navigationController?.popToRootViewController(animated: true)
-//            signUpNetwork.requestLogout { result in
-//                switch result {
-//                case let .success(response) :
-//                    if response.success {
-//                        print("성공 : 로그아웃")
-//                        DispatchQueue.main.async {
-//                            self.navigationController?.popViewController(animated: true)
-//
-////                            self.navigationController?.popToRootViewController(animated: true)
-//                        }
-//                    } else {
-//                        print("실패 : 로그아웃")
-//                        print(response.errorResponse?.errorMessages)
-//                    }
-//                case .failure(_):
-//                    print("오류")
-//                }
-//            }
+            signUpNetwork.requestLogout { result in
+                switch result {
+                case let .success(response) :
+                    if response.success {
+                        print("성공 : 로그아웃")
+                        DispatchQueue.main.async {
+//                            self.presentCutomAlert1VC(target: "didLogout", title: "로그아웃 되었습니다.", message: "")
+
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    } else {
+                        print("실패 : 로그아웃")
+                        print(response.errorResponse?.errorMessages)
+                    }
+                case .failure(_):
+                    print("오류")
+                }
+            }
         }
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     let headerView = UIView()
@@ -160,6 +168,18 @@ private extension UserViewController {
         nextVC.textLabelText = message
         nextVC.leftButtonTitle = leftButtonTitle
         nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
+    
+    func presentCutomAlert1VC(target:String,
+                              title:String,
+                              message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
         nextVC.delegate = self
         nextVC.target = target
         nextVC.modalPresentationStyle = .overCurrentContext

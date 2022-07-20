@@ -8,7 +8,36 @@
 import UIKit
 import SnapKit
 
-class SettingViewController: UIViewController {
+class SettingViewController: UIViewController, AlertMessage2Delegate {
+    func leftButtonTapped(from: String) {
+        
+    }
+    
+    func rightButtonTapped(from: String) {
+        print("탈퇴")
+        if from == "deleteAccount" {
+            userNetwork.requestDeleteUser { [self] result in
+                switch result {
+                case let .success(response) :
+                    if response.success {
+                        print("성공 : 탈퇴")
+                        DispatchQueue.main.async {
+//                            self.presentCutomAlert1VC(target: "didLogout", title: "로그아웃 되었습니다.", message: "")
+
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                    } else {
+                        print("실패 : 탈퇴")
+                        print(response.errorResponse?.errorMessages)
+                    }
+                case .failure(_):
+                    print("오류")
+                }
+            }
+        }
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     
     let headerView = UIView()
     let accountLabel = UILabel()
@@ -22,12 +51,17 @@ class SettingViewController: UIViewController {
     
     let deleteAccountButton = UIButton()
     let appVersionLabel = UILabel()
+    let userNetwork = UserInfoAPI()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
         setupHeaderView()
         attribute()
+        
+        [editAccountButton1,editAccountButton2].forEach {
+            $0.isHidden = true
+        }
     }
 }
 
@@ -123,6 +157,7 @@ private extension SettingViewController {
         editAccountButton1.setTitle("개인정보 수정", for: .normal)
         editAccountButton2.setImage(UIImage(named: "next"), for: .normal)
         deleteAccountButton.setTitle("탈퇴하기", for: .normal)
+        deleteAccountButton.addTarget(self, action: #selector(didTapDeleteAccountButton), for: .touchUpInside)
         
         [editAccountButton1,editAccountButton2].forEach {
             $0.addTarget(self, action: #selector(didTapEditAccountButton), for: .touchUpInside)
@@ -162,6 +197,28 @@ private extension SettingViewController {
     
     @objc func didTapDeleteAccountButton() {
         print("didTapServiceTermButton")
+        presentCutomAlert2VC(target: "deleteAccount",
+                             title: "정말로 탈퇴하시겠습니까?",
+                             message: "탈퇴 후 계정 복구는 불가합니다.",
+                             leftButtonTitle: "아니오",
+                             rightButtonTitle: "탈퇴")
+    }
+    
+    func presentCutomAlert2VC(target:String,
+                              title:String,
+                              message:String,
+                              leftButtonTitle:String,
+                              rightButtonTitle:String) {
+        
+        let nextVC = AlertMessage2ViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.leftButtonTitle = leftButtonTitle
+        nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
 }
 

@@ -14,10 +14,10 @@ import PhotosUI
  */
 class WriteCommunityViewController: UIViewController, AlertMessage2Delegate {
     func leftButtonTapped(from: String) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     func rightButtonTapped(from: String) {
-        self.navigationController?.popViewController(animated: true)
     }
     
     
@@ -66,7 +66,7 @@ class WriteCommunityViewController: UIViewController, AlertMessage2Delegate {
         attribute()
         contentTextView.backgroundColor = .white
         setUpPHPickerVC()
-        
+        albumButton.isHidden = true
     }
     
     //옵저버 등록
@@ -216,6 +216,7 @@ extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
         print("didTapSelectMBTIView")
         let nextVC = SelectMBTIViewController()
         nextVC.delegate = self
+        nextVC.everyButtonisEnabled = true
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
     }

@@ -62,7 +62,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
     }
    
     func okButtonTapped(from: String) {
-        if from == "didDeletePost" || "didReportCommunityUser" {
+        if from == "didDeletePost" || from == "didReportCommunityUser" {
             self.navigationController?.popViewController(animated: true)
         }
     }
