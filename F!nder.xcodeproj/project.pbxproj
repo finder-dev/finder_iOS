@@ -29,6 +29,7 @@
 		2B557B07288712AD0057CC9D /* SaveCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B06288712AD0057CC9D /* SaveCommunity.swift */; };
 		2B557B092888403F0057CC9D /* DebateComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B082888403F0057CC9D /* DebateComment.swift */; };
 		2B557B0B288843AB0057CC9D /* DebateCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */; };
+		2B557B0D288852600057CC9D /* CommunityComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0C2888525F0057CC9D /* CommunityComment.swift */; };
 		2B6826B3286DE598006AF742 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6826B2286DE598006AF742 /* Login.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
@@ -103,6 +104,7 @@
 		2B557B06288712AD0057CC9D /* SaveCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCommunity.swift; sourceTree = "<group>"; };
 		2B557B082888403F0057CC9D /* DebateComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateComment.swift; sourceTree = "<group>"; };
 		2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateCommentTableViewCell.swift; sourceTree = "<group>"; };
+		2B557B0C2888525F0057CC9D /* CommunityComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityComment.swift; sourceTree = "<group>"; };
 		2B6826B2286DE598006AF742 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 				2BB455F028845B70001139E5 /* EveryCommunity.swift */,
 				2B557B022886F49D0057CC9D /* DetailCommunity.swift */,
 				2B557B06288712AD0057CC9D /* SaveCommunity.swift */,
+				2B557B0C2888525F0057CC9D /* CommunityComment.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
 				2B557B052886F8B20057CC9D /* EveryDebate.swift in Sources */,
+				2B557B0D288852600057CC9D /* CommunityComment.swift in Sources */,
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,

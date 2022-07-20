@@ -212,4 +212,47 @@ struct CommunityAPI {
         }
         task.resume()
     }
+    
+    func requestNewComment(communityId:Int,
+                           content:String,
+                           completionHandler: @escaping (Result<CommunityCommentResponse,Error>)-> Void) {
+        
+        let commentData = CommunityComment(content: content)
+        let bodyData = commentData.parameters.percentEncoded()
+        var urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityId)/answers")!
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents.url)!)
+        requestURL.httpMethod = "POST"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+//        requestURL.setValue("multipart-form", forHTTPHeaderField: "Content-Type")
+        requestURL.httpBody = bodyData
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(CommunityCommentResponse.self, from: data) else {
+                print("오류 : HotCommunityResponse jsonDecode 실패")
+                return
+            }
+            print("======================================================================")
+            print("CommunityComment : Network - CommunityCommentResponse => \(json.success)")
+            if !json.success {
+                print("CommunityComment : Network - CommunityCommentResponse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+        
+
+    }
 }

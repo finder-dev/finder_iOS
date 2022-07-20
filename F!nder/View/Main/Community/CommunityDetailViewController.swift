@@ -137,6 +137,41 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
 }
 
 extension CommunityDetailViewController {
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+          view.endEditing(true)
+      }
+
+      func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+          commentTextField.resignFirstResponder()
+          return true
+      }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        print("keyboardWillHide")
+        self.view.frame.origin.y = 0
+    }
+
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            UIView.animate(withDuration: 0.3
+                           , animations: {
+                
+                let keyboardHeight = keyboardRectangle.height
+                if self.view.frame.origin.y == 0 {
+                    let bottomSpace = self.view.frame.height - (self.textFieldView.frame.origin.y + self.textFieldView.frame.height)
+                    self.view.frame.origin.y -= keyboardHeight
+                }
+            })
+        }
+    }
+}
+
+
+extension CommunityDetailViewController {
     func layout() {
         
         [headerView,
@@ -270,7 +305,39 @@ extension CommunityDetailViewController {
             $0.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
             $0.font = .systemFont(ofSize: 12.0, weight: .regular)
         }
-
+        
+        commentTextField.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
+        commentTextField.placeholder = "토론에 참여해보세요!"
+        commentTextField.layer.cornerRadius = 15.0//ic_baseline-arrow-forward
+        commentTextField.addLeftPadding(padding: 16.0)
+        btnView = UIButton(frame: CGRect(x: 0, y: 0, width: 34.0, height: 34.0))
+        btnView.setImage(UIImage(named: "btn_caretleft_bold")!, for: .normal)
+        btnView.addTarget(self, action: #selector(didTapTextFieldButton), for: .touchUpInside)
+        commentTextField.rightView = btnView
+        commentTextField.rightViewMode = .always
+    }
+    
+    @objc func didTapTextFieldButton() {
+        print("didTapTextFieldButton")
+        guard let text = commentTextField.text else { return }
+        
+        communityNetwork.requestNewComment(communityId: communityId!, content: text) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 댓글 달기 ")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.communityAnswerId)
+                } else {
+                    print("실패 : 댓글 달기")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
     
     func setupHeaderView() {
