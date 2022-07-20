@@ -27,6 +27,16 @@ struct DetailDebateSuccessResponse : Codable {
     let join: Bool
     let joinOption: String?
     let deadline: String
+    let answerHistDtos: [answerHistDtos]?
+}
+
+struct answerHistDtos: Codable {
+    let answerId: Int
+    let answerContent :String
+    let userId: Int
+    let userMBTI:String
+    let userNickname:String
+    let createTime:String
 }
 
 struct DetailDebateErrorResponse: Codable {

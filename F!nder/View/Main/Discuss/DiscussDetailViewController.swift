@@ -7,11 +7,30 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 /*
  * 토론 상세 뷰 입니다.
  */
-class DiscussDetailViewController: UIViewController {
+class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        commentDataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
+            print("오류 : tableview Cell을 찾을 수 없습니다. ")
+            return UITableViewCell()
+        }
+        
+        if !commentDataList.isEmpty {
+            print("!commentDataList.isEmpty")
+            let data = commentDataList[indexPath.row]
+            cell.setupCell(data: data)
+        }
+        
+        return cell
+    }
     
     // 토론 내용 보여주는 components
     let discussView = UIView()
@@ -27,6 +46,14 @@ class DiscussDetailViewController: UIViewController {
     var userNameLabel = UILabel()
     var commentCountLabel = UILabel()
     
+    var textFieldView = UIView()
+    var commentTextField = UITextField()
+    var btnView = UIButton()
+    var textFieldYValue = CGFloat(0)
+    let tableView = UITableView()
+    var commentDataList = [answerHistDtos]()
+    lazy var constraint = textFieldView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    
     var emptyView = UIView()
     var debateID : Int?
     let debateNetwork = DebateAPI()
@@ -36,14 +63,18 @@ class DiscussDetailViewController: UIViewController {
 
         layout()
         attribute()
+        commentTextField.delegate = self
+
         guard let debateID = debateID else {
             return
         }
         print(debateID)
         fetchDebateData(debateID: debateID)
     }
+
     
     func fetchDebateData(debateID: Int) {
+        print("fetchDebateData")
         debateNetwork.requestDebateDetail(debateID: debateID) { result in
             switch result {
             case let .success(response) :
@@ -90,17 +121,61 @@ class DiscussDetailViewController: UIViewController {
                 deSelectedButton(button: agreeButton)
             }
         }
+        print(data.answerHistDtos)
+        guard let commentDataList = data.answerHistDtos else {return}
+        self.commentDataList = commentDataList
+        tableView.reloadData()
     }
     
+    // 옵저버 등록
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
     
-
+    // 옵저버 해제
     override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
-    
-
 }
+
+extension DiscussDetailViewController {
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+          view.endEditing(true)
+      }
+
+      func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+          commentTextField.resignFirstResponder()
+          return true
+      }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        print("keyboardWillHide")
+        self.view.frame.origin.y = 0
+    }
+
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            UIView.animate(withDuration: 0.3
+                           , animations: {
+                
+                let keyboardHeight = keyboardRectangle.height
+                if self.view.frame.origin.y == 0 {
+                    let bottomSpace = self.view.frame.height - (self.textFieldView.frame.origin.y + self.textFieldView.frame.height)
+                    self.view.frame.origin.y -= keyboardHeight
+                }
+            })
+        }
+    }
+}
+
 
 extension DiscussDetailViewController {
     
@@ -184,7 +259,7 @@ extension DiscussDetailViewController {
 
 private extension DiscussDetailViewController {
     func layout() {
-        [discussView,emptyView].forEach {
+        [discussView,emptyView,tableView,textFieldView].forEach {
             self.view.addSubview($0)
         }
         
@@ -201,18 +276,77 @@ private extension DiscussDetailViewController {
             $0.height.equalTo(10.0)
         }
         
+        textFieldView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(78.0)
+
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalTo(emptyView.snp.bottom)
+            $0.bottom.equalTo(textFieldView.snp.top)
+        }
+        
+        tableView.backgroundColor = .white
+        
+        constraint.isActive = true
+        
+        textFieldView.addSubview(commentTextField)
+        
+        commentTextField.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(20.0)
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(42.0)
+        }
+        
         discussView.backgroundColor = .white
         emptyView.backgroundColor = UIColor(red: 233/255, green: 234/255, blue: 239/255, alpha: 1.0)
         setupNavigationAttribute()
         setupDiscussViewLayout()
+        textFieldView.backgroundColor = .white
+        textFieldView.layer.borderWidth = 1.0
+        textFieldView.layer.borderColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0).cgColor
     }
     
     
     func attribute() {
-        // 233 234 239
         self.view.backgroundColor = .white
         setupNavigationAttribute()
         setupDiscussViewAttribute()
+        setupTableView()
+        
+        commentTextField.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
+        commentTextField.placeholder = "토론에 참여해보세요!"
+        commentTextField.layer.cornerRadius = 15.0//ic_baseline-arrow-forward
+        commentTextField.addLeftPadding(padding: 16.0)
+        btnView = UIButton(frame: CGRect(x: 0, y: 0, width: 34.0, height: 34.0))
+        btnView.setImage(UIImage(named: "btn_caretleft_bold")!, for: .normal)
+        btnView.addTarget(self, action: #selector(didTapTextFieldButton), for: .touchUpInside)
+        commentTextField.rightView = btnView
+        commentTextField.rightViewMode = .always
+    }
+    
+    @objc func didTapTextFieldButton() {
+        print("didTapTextFieldButton")
+        guard let text = commentTextField.text else { return }
+        debateNetwork.requestNewComment(debateID: debateID!, content: text) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 댓글 달기 ")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.debateAnswerId)
+                } else {
+                    print("실패 : 댓글 달기")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
 }
 
@@ -355,5 +489,11 @@ extension DiscussDetailViewController {
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         self.navigationController?.navigationBar.tintColor = .blackTextColor
         self.navigationItem.title = "토론"
+    }
+    
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(DebateCommentTableViewCell.self, forCellReuseIdentifier: DebateCommentTableViewCell.identifier)
     }
 }

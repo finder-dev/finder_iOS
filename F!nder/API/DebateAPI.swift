@@ -198,6 +198,7 @@ struct DebateAPI {
             
             let decoder = JSONDecoder()
             guard let json = try? decoder.decode(DetailDebateResponse.self, from: data) else {
+                print("json decode error\(error?.localizedDescription)")
                 return
             }
             
@@ -212,5 +213,50 @@ struct DebateAPI {
         }
         task.resume()
         
+    }
+    
+    // 새 댓글 생성
+    func requestNewComment(debateID:Int,
+                           content:String,
+                           completionHandler: @escaping (Result<DebateCommentResponse,Error>)-> Void) {
+        
+        let urlComponents = URLComponents(string: "https://finder777.com/api/debate/\(debateID)/answers")
+        let httpbody = "{\"content\" : \"\(content)\"}"
+        let data = httpbody.data(using: String.Encoding.utf8)
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "POST"
+        requestURL.httpBody = data
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        requestURL.setValue("application/json;charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(DebateCommentResponse.self, from: data) else {
+                return
+            }
+            
+            print("======================================================================")
+            print("DebateComment : Network - DebateCommenResponse => \(json.success)")
+            
+            if !json.success {
+                print("DebateCommen : Network - DebateCommenResponse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
     }
 }

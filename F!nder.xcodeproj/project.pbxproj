@@ -27,6 +27,8 @@
 		2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B022886F49D0057CC9D /* DetailCommunity.swift */; };
 		2B557B052886F8B20057CC9D /* EveryDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B042886F8B20057CC9D /* EveryDebate.swift */; };
 		2B557B07288712AD0057CC9D /* SaveCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B06288712AD0057CC9D /* SaveCommunity.swift */; };
+		2B557B092888403F0057CC9D /* DebateComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B082888403F0057CC9D /* DebateComment.swift */; };
+		2B557B0B288843AB0057CC9D /* DebateCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */; };
 		2B6826B3286DE598006AF742 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6826B2286DE598006AF742 /* Login.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
@@ -49,7 +51,6 @@
 		2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA8F261286CA09500D64F0E /* KakaoSDK */; };
 		2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */; };
 		2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAE2885B98A001DEE35 /* DetailDebate.swift */; };
-		2BAB6DB22886D48F001DEE35 /* PagedLists in Frameworks */ = {isa = PBXBuildFile; productRef = 2BAB6DB12886D48F001DEE35 /* PagedLists */; };
 		2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */; };
 		2BB455DC28832BCE001139E5 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DB28832BCE001139E5 /* WebViewController.swift */; };
 		2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DD2883EA45001139E5 /* UserInfoAPI.swift */; };
@@ -100,6 +101,8 @@
 		2B557B022886F49D0057CC9D /* DetailCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCommunity.swift; sourceTree = "<group>"; };
 		2B557B042886F8B20057CC9D /* EveryDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryDebate.swift; sourceTree = "<group>"; };
 		2B557B06288712AD0057CC9D /* SaveCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCommunity.swift; sourceTree = "<group>"; };
+		2B557B082888403F0057CC9D /* DebateComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateComment.swift; sourceTree = "<group>"; };
+		2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateCommentTableViewCell.swift; sourceTree = "<group>"; };
 		2B6826B2286DE598006AF742 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
@@ -160,7 +163,6 @@
 			files = (
 				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
 				2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */,
-				2BAB6DB22886D48F001DEE35 /* PagedLists in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,6 +288,7 @@
 				2BA2E9AE287F10FB005DFE96 /* DiscussTableViewCell.swift */,
 				2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */,
 				2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */,
+				2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */,
 			);
 			path = Discuss;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */,
 				2BAB6DAE2885B98A001DEE35 /* DetailDebate.swift */,
 				2B557B042886F8B20057CC9D /* EveryDebate.swift */,
+				2B557B082888403F0057CC9D /* DebateComment.swift */,
 			);
 			path = Debate;
 			sourceTree = "<group>";
@@ -440,7 +444,6 @@
 				2BC3C2792854E0430094F5EB /* Then */,
 				2B09DF05285B585900FE19DC /* SnapKit */,
 				2BA8F261286CA09500D64F0E /* KakaoSDK */,
-				2BAB6DB12886D48F001DEE35 /* PagedLists */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -474,7 +477,6 @@
 				2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */,
 				2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-				2BAB6DB02886D48F001DEE35 /* XCRemoteSwiftPackageReference "PagedLists" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -507,6 +509,7 @@
 				2BE7BE54287317DE0062EB5A /* UserViewController.swift in Sources */,
 				2B557B07288712AD0057CC9D /* SaveCommunity.swift in Sources */,
 				2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */,
+				2B557B0B288843AB0057CC9D /* DebateCommentTableViewCell.swift in Sources */,
 				2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */,
 				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,
 				2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */,
@@ -531,6 +534,7 @@
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */,
 				2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */,
+				2B557B092888403F0057CC9D /* DebateComment.swift in Sources */,
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */,
@@ -794,14 +798,6 @@
 				kind = branch;
 			};
 		};
-		2BAB6DB02886D48F001DEE35 /* XCRemoteSwiftPackageReference "PagedLists" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rootstrap/PagedLists";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -822,11 +818,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDK;
-		};
-		2BAB6DB12886D48F001DEE35 /* PagedLists */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2BAB6DB02886D48F001DEE35 /* XCRemoteSwiftPackageReference "PagedLists" */;
-			productName = PagedLists;
 		};
 		2BC3C2792854E0430094F5EB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;

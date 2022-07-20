@@ -37,6 +37,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var searchImageView = UIImageView()
     var searchLabel = UILabel()
     var userInfoLabel = UILabel()
+    var addLabel = UILabel()
     var mbtiInfoLabel = UILabel()
     var mbtiImageView = UIImageView()
     
@@ -270,6 +271,9 @@ private extension HomeViewController {
         userInfoLabel.text = "INFJ 수완"
         userInfoLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
         userInfoLabel.textColor = .blackTextColor
+        addLabel.text = "님,"
+        addLabel.font = .systemFont(ofSize: 16.0, weight: .regular)
+        addLabel.textColor = .blackTextColor
         
         mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
         mbtiInfoLabel.numberOfLines = 0
@@ -322,6 +326,7 @@ private extension HomeViewController {
         
         [searchView,
         userInfoLabel,
+         addLabel,
         mbtiInfoLabel,
         mbtiImageView,
         lineView,
@@ -347,6 +352,11 @@ private extension HomeViewController {
         userInfoLabel.snp.makeConstraints {
             $0.top.equalTo(searchView.snp.bottom).offset(36.0)
             $0.leading.equalTo(searchView)
+        }
+        
+        addLabel.snp.makeConstraints {
+            $0.leading.equalTo(userInfoLabel.snp.trailing)
+            $0.bottom.equalTo(userInfoLabel)
         }
         
         mbtiInfoLabel.snp.makeConstraints {
