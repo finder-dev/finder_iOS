@@ -229,7 +229,6 @@ struct CommunityAPI {
         var requestURL = URLRequest(url: (urlComponents.url)!)
         requestURL.httpMethod = "POST"
         requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
-//        requestURL.setValue("multipart-form", forHTTPHeaderField: "Content-Type")
         requestURL.httpBody = bodyData
         
         let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
@@ -240,7 +239,7 @@ struct CommunityAPI {
             }
             let decoder = JSONDecoder()
             guard let json = try? decoder.decode(CommunityCommentResponse.self, from: data) else {
-                print("오류 : HotCommunityResponse jsonDecode 실패")
+                print("오류 : CommunityCommentResponse jsonDecode 실패")
                 return
             }
             print("======================================================================")
@@ -252,7 +251,48 @@ struct CommunityAPI {
             completionHandler(.success(json))
         }
         task.resume()
+    }
+    
+    // 커뮤니티 글 생성
+    func requestNewCommunity(title:String,
+                             content:String,
+                             mbti:String,
+                             isQuestion:Bool,
+                             completionHandler: @escaping (Result<NewCommunityResponse,Error>)-> Void) {
         
-
+        let newCommunity = NewCommunity(title: title, content: content, mbti: mbti, isQuestion: isQuestion)
+        let bodyData = newCommunity.parameters.percentEncoded()
+        var urlComponents = URLComponents(string: "https://finder777.com/api/community")!
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents.url)!)
+        requestURL.httpMethod = "POST"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        requestURL.httpBody = bodyData
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(NewCommunityResponse.self, from: data) else {
+                print("오류 : NewCommunityResponse jsonDecode 실패")
+                return
+            }
+            print("======================================================================")
+            print("NewCommunityResponse : Network - NewCommunityResponse => \(json.success)")
+            if !json.success {
+                print("NewCommunityResponse : Network - NewCommunityResponse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
     }
 }

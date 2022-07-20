@@ -37,6 +37,8 @@ class WriteCommunityViewController: UIViewController {
     let albumButton = UIButton()
     var photoImages = [UIImage]()
     
+    let communityNetwork = CommunityAPI()
+    
     var isQuestionButtonTapped = false {
         didSet {
             if isQuestionButtonTapped {
@@ -55,7 +57,7 @@ class WriteCommunityViewController: UIViewController {
         setupNavigationBar()
         layout()
         attribute()
-        contentTextView.backgroundColor = .yellow
+        contentTextView.backgroundColor = .white
         setUpPHPickerVC()
         
     }
@@ -150,7 +152,44 @@ extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
     }
     
     @objc func didTapCompleteButton() {
+        guard let title = titleTextField.text,
+              let content = contentTextView.text,
+              let mbti = selectMBTILabel.text  else {
+            return
+        }
         
+        communityNetwork.requestNewCommunity(title: title,
+                                             content: content,
+                                             mbti: mbti,
+                                             isQuestion: isQuestionButtonTapped) { [self] result in
+
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 글 작성")
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                } else {
+                    print("실패 : 커뮤니티 글 작성")
+                    DispatchQueue.main.async {
+                        self.presentCutomAlertVC(target: "writeCommunity", title: "글 작성 실패", message: response.errorResponse?.errorMessages[0] ?? "글 작성에 실패하였습니다.")
+                    }
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func presentCutomAlertVC(target:String, title:String, message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
     @objc func didTapQuestionButton() {
