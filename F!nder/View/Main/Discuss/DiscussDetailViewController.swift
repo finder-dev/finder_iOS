@@ -13,7 +13,12 @@ import SwiftUI
  * 토론 상세 뷰 입니다.
  */
 class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AlertMessage2Delegate {
-    func okButtonTapped(from: String) {
+    func leftButtonTapped(from: String) {
+        
+    }
+    
+    
+    func rightButtonTapped(from: String) {
         if from == "reportButton" {
             // 토론 신고
             debateNetwork.reportDebate(debateId: debateID!) { result in
@@ -38,9 +43,7 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITabl
             }
         }
     }
-    
-    func noButtonTapped(from: String) {
-    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         commentDataList.count
@@ -207,6 +210,8 @@ extension DiscussDetailViewController {
 
 
 extension DiscussDetailViewController: AlertMessageDelegate {
+    func okButtonTapped(from: String) {
+    }
     
     
     @objc func didTapAgreeButton() {

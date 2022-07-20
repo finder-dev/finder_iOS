@@ -10,8 +10,8 @@ import UIKit
 import SnapKit
 
 protocol AlertMessage2Delegate {
-    func okButtonTapped(from:String)
-    func noButtonTapped(from:String)
+    func leftButtonTapped(from:String)
+    func rightButtonTapped(from:String)
 }
 
 class AlertMessage2ViewController: UIViewController {
@@ -121,12 +121,11 @@ private extension AlertMessage2ViewController {
     
     @objc func didTapOKButton() {
         self.dismiss(animated: true)
-        delegate.okButtonTapped(from: target)
-//        self.presentingViewController?.popoverPresentationController
+        delegate.rightButtonTapped(from: target)
     }
 
     @objc func didTapNoButton() {
         self.dismiss(animated: true)
-        delegate.noButtonTapped(from: target)
+        delegate.leftButtonTapped(from: target)
     }
 }

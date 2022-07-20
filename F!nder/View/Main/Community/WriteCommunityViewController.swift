@@ -12,7 +12,14 @@ import PhotosUI
 /*
  * Community 새 글 작성 view 입니다.
  */
-class WriteCommunityViewController: UIViewController {
+class WriteCommunityViewController: UIViewController, AlertMessage2Delegate {
+    func leftButtonTapped(from: String) {
+    }
+    
+    func rightButtonTapped(from: String) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
     // headerView components
     let headerView = UIView()
@@ -141,14 +148,23 @@ extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
     }
     
     @objc func didTapCloseButton() {
-        let alertMessageVC = AlertMessageViewController()
-        alertMessageVC.titleLabelText = "작성을 취소하시겠습니까?"
-        alertMessageVC.textLabelText = "000000"
-        alertMessageVC.modalPresentationStyle = .overCurrentContext
-        alertMessageVC.delegate = self
-        alertMessageVC.target = "delete"
-        self.present(alertMessageVC, animated: true)
-//        self.navigationController?.popViewController(animated: true)
+        presentCutomAlert2VC(target: "delete", title: "작성을 취소하시겠습니까?", message: "", leftButtonTitle: "네", rightButtonTitle: "아니요")
+    }
+    
+    func presentCutomAlert2VC(target:String,
+                              title:String,
+                              message:String,
+                              leftButtonTitle:String,
+                              rightButtonTitle:String) {
+        let nextVC = AlertMessage2ViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.leftButtonTitle = leftButtonTitle
+        nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
     @objc func didTapCompleteButton() {

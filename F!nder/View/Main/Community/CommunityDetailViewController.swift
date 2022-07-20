@@ -8,7 +8,67 @@
 import UIKit
 import SnapKit
 
-class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AlertMessage2Delegate , AlertMessageDelegate{
+    
+    func leftButtonTapped(from: String) {
+        if from == "deletePost" {
+            /*
+             ebateNetwork.reportDebate(debateId: debateID!) { result in
+                 switch result {
+                 case let .success(response) :
+                     if response.success {
+                         print("성공 : 토론 신고")
+                         guard let response = response.response else {
+                             return
+                         }
+                         print(response.message)
+                         DispatchQueue.main.async {
+                             self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                         }
+                     } else {
+                         print("실패 : 토론 신ㄱ")
+                         print(response.errorResponse?.errorMessages)
+                     }
+                 case .failure(_):
+                     print("오류")
+                 }
+             }
+             */
+            
+            self.presentCutomAlert1VC(target: "didDeletePost", title: "글 삭제 완료", message: "삭제되었습니다.")
+        }
+    }
+    
+    func rightButtonTapped(from: String) {
+        if from == "reportCommunityUser" {
+            
+            self.communityNetwork.reportCommunity(communityId: communityId!) { [self] result in
+                switch result {
+                case let .success(response) :
+                    if response.success {
+                        print("성공 : 커뮤니티 글 신고")
+                        guard let response = response.response else {
+                            return
+                        }
+                        print(response.message)
+                        DispatchQueue.main.async {
+                            self.presentCutomAlert1VC(target: "didReportCommunityUser", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                        }
+                    } else {
+                        print("실패 : 커뮤니티 글 신고")
+                        print(response.errorResponse?.errorMessages)
+                    }
+                case .failure(_):
+                    print("오류")
+                }
+            }
+        }
+    }
+   
+    func okButtonTapped(from: String) {
+        
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         commentDataList.count
@@ -44,6 +104,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
     let lineView2 = UIView()
     let emptyView = UIView()
     var communityId : Int?
+    var communityUserId : String?
     
     var textFieldView = UIView()
     var commentTextField = UITextField()
@@ -112,6 +173,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
         }
         
         self.commentDataList = communityData
+        self.communityUserId = "\(data.userId)"
         tableView.reloadData()
     }
     
@@ -343,8 +405,9 @@ extension CommunityDetailViewController {
     func setupHeaderView() {
         let headerLabel = UILabel()
         let backButton = UIButton()
+        let dotButton = UIButton()
         
-        [headerLabel,backButton,saveButton].forEach {
+        [headerLabel,backButton,saveButton,dotButton].forEach {
             headerView.addSubview($0)
         }
         
@@ -358,10 +421,16 @@ extension CommunityDetailViewController {
             $0.centerY.equalTo(headerLabel)
         }
         
-        saveButton.snp.makeConstraints {
+        dotButton.snp.makeConstraints {
             $0.width.height.equalTo(24.0)
             $0.trailing.equalToSuperview().inset(20.0)
             $0.centerY.equalTo(headerLabel)
+        }
+        
+        saveButton.snp.makeConstraints {
+            $0.width.height.equalTo(24.0)
+            $0.trailing.equalTo(dotButton.snp.leading).offset(4.0)
+            $0.centerY.equalTo(dotButton)
         }
         
         backButton.setImage(UIImage(named: "backButton"), for: .normal)
@@ -369,6 +438,9 @@ extension CommunityDetailViewController {
         
         saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
         saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        
+        dotButton.setImage(UIImage(named: "icon-dots"), for: .normal)
+        dotButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
 
         headerLabel.text = "커뮤니티"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
@@ -379,6 +451,76 @@ extension CommunityDetailViewController {
     @objc func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @objc func didTapDotButton() {
+        let userId = UserDefaults.standard.string(forKey: "userId")
+        
+        guard let userId = userId,
+              let communityUserId = communityUserId else {
+            return
+        }
+        
+        if userId == communityUserId {
+            presentMyPostActionSheet()
+        } else {
+            presentOthersPostActionSheet()
+        }
+
+    }
+    
+    func presentMyPostActionSheet() {
+        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) {_ in
+            self.presentCutomAlert2VC(target: "deletePost", title: "글을 삭제하시겠습니까?", message: "", leftButtonTitle: "네", rightButtonTitle: "아니요")
+            print("delete")
+        }
+        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(closeAction)
+        self.present(actionSheet, animated: true)
+    }
+    
+    func presentOthersPostActionSheet() {
+        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "신고", style: .destructive) {_ in
+            self.presentCutomAlert2VC(target: "reportCommunityUser", title: "해당 사용자를 신고하시겠습니까?", message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.", leftButtonTitle: "취소", rightButtonTitle: "신고")
+            print("report")
+        }
+        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(closeAction)
+        self.present(actionSheet, animated: true)
+    }
+    
+    
+    func presentCutomAlert2VC(target:String,
+                              title:String,
+                              message:String,
+                              leftButtonTitle:String,
+                              rightButtonTitle:String) {
+        let nextVC = AlertMessage2ViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.leftButtonTitle = leftButtonTitle
+        nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
+    
+    func presentCutomAlert1VC(target:String,
+                              title:String,
+                              message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
+    
     
     @objc func didTapSaveButton() {
         print("didTapSaveButton")

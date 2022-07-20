@@ -8,7 +8,35 @@
 import UIKit
 import SnapKit
 
-class UserViewController: UIViewController {
+class UserViewController: UIViewController, AlertMessage2Delegate {
+    func leftButtonTapped(from: String) {
+    }
+    
+    func rightButtonTapped(from: String) {
+        print("rightButtonTapped")
+        print(from)
+        if from == "logout" {
+//            self.navigationController?.popToRootViewController(animated: true)
+//            signUpNetwork.requestLogout { result in
+//                switch result {
+//                case let .success(response) :
+//                    if response.success {
+//                        print("성공 : 로그아웃")
+//                        DispatchQueue.main.async {
+//                            self.navigationController?.popViewController(animated: true)
+//
+////                            self.navigationController?.popToRootViewController(animated: true)
+//                        }
+//                    } else {
+//                        print("실패 : 로그아웃")
+//                        print(response.errorResponse?.errorMessages)
+//                    }
+//                case .failure(_):
+//                    print("오류")
+//                }
+//            }
+        }
+    }
     
     let headerView = UIView()
     let userInfoView = UIView()
@@ -24,7 +52,6 @@ class UserViewController: UIViewController {
         layout()
         attribute()
         setupHeaderView()
-        
         addData()
     }
     
@@ -99,9 +126,7 @@ private extension UserViewController {
     
     @objc func didTapLogutButton() {
         print("didTapLogutButton")
-        self.navigationController?.popToRootViewController(animated: true)
         signUpNetwork.requestLogout { result in
-            
             switch result {
             case let .success(response) :
                 if response.success {
@@ -117,7 +142,28 @@ private extension UserViewController {
                 print("오류")
             }
         }
+//        presentCutomAlert2VC(target: "logout",
+//                             title: "로그아웃하시겠습니까?",
+//                             message: "",
+//                             leftButtonTitle: "아니오",
+//                             rightButtonTitle: "로그아웃")
+    }
+    
+    func presentCutomAlert2VC(target:String,
+                              title:String,
+                              message:String,
+                              leftButtonTitle:String,
+                              rightButtonTitle:String) {
         
+        let nextVC = AlertMessage2ViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.leftButtonTitle = leftButtonTitle
+        nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
 }
 
