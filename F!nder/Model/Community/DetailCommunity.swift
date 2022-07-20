@@ -28,7 +28,7 @@ struct DetailCommunitySuccessResponse : Codable {
     let answerCount: Int
     let isQuestion: Bool
     let createTime: String
-//    let content: DetailContent
+    let answerHistDtos : [answerHistDtos]?
 }
 
 struct DetailContent : Codable {
