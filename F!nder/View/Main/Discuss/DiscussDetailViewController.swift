@@ -12,7 +12,36 @@ import SwiftUI
 /*
  * 토론 상세 뷰 입니다.
  */
-class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AlertMessage2Delegate {
+    func okButtonTapped(from: String) {
+        if from == "reportButton" {
+            // 토론 신고
+            debateNetwork.reportDebate(debateId: debateID!) { result in
+                switch result {
+                case let .success(response) :
+                    if response.success {
+                        print("성공 : 토론 신고")
+                        guard let response = response.response else {
+                            return
+                        }
+                        print(response.message)
+                        DispatchQueue.main.async {
+                            self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                        }
+                    } else {
+                        print("실패 : 토론 신ㄱ")
+                        print(response.errorResponse?.errorMessages)
+                    }
+                case .failure(_):
+                    print("오류")
+                }
+            }
+        }
+    }
+    
+    func noButtonTapped(from: String) {
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         commentDataList.count
     }
@@ -177,7 +206,7 @@ extension DiscussDetailViewController {
 }
 
 
-extension DiscussDetailViewController {
+extension DiscussDetailViewController: AlertMessageDelegate {
     
     
     @objc func didTapAgreeButton() {
@@ -253,6 +282,40 @@ extension DiscussDetailViewController {
     @objc func didTapRightBarButton() {
         print("didTapRightBarButton")
         
+        presentCutomAlert2VC(target: "reportButton",
+                             title: "해당 사용자를 신고하시겠습니까?",
+                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "신고")
+        
+    }
+    
+    func presentCutomAlert2VC(target:String,
+                              title:String,
+                              message:String,
+                              leftButtonTitle:String,
+                              rightButtonTitle:String) {
+        let nextVC = AlertMessage2ViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.leftButtonTitle = leftButtonTitle
+        nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
+    
+    func presentCutomAlert1VC(target:String,
+                              title:String,
+                              message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
 }
