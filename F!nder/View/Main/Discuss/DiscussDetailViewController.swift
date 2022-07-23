@@ -12,57 +12,7 @@ import SwiftUI
 /*
  * 토론 상세 뷰 입니다.
  */
-class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AlertMessage2Delegate {
-    func leftButtonTapped(from: String) {
-        
-    }
-    
-    
-    func rightButtonTapped(from: String) {
-        if from == "reportButton" {
-            // 토론 신고
-            debateNetwork.reportDebate(debateId: debateID!) { result in
-                switch result {
-                case let .success(response) :
-                    if response.success {
-                        print("성공 : 토론 신고")
-                        guard let response = response.response else {
-                            return
-                        }
-                        print(response.message)
-                        DispatchQueue.main.async {
-                            self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
-                        }
-                    } else {
-                        print("실패 : 토론 신ㄱ")
-                        print(response.errorResponse?.errorMessages)
-                    }
-                case .failure(_):
-                    print("오류")
-                }
-            }
-        }
-    }
-
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        commentDataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
-            print("오류 : tableview Cell을 찾을 수 없습니다. ")
-            return UITableViewCell()
-        }
-        
-        if !commentDataList.isEmpty {
-            print("!commentDataList.isEmpty")
-            let data = commentDataList[indexPath.row]
-            cell.setupCell(data: data)
-        }
-        
-        return cell
-    }
+class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
     
     // 토론 내용 보여주는 components
     let discussView = UIView()
@@ -104,7 +54,24 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITabl
         fetchDebateData(debateID: debateID)
     }
 
+    // 옵저버 등록
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
     
+    // 옵저버 해제
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+}
+
+// API - Fetch Data
+extension DiscussDetailViewController {
+    // 서버로 부터 데이터 받기
     func fetchDebateData(debateID: Int) {
         print("fetchDebateData")
         debateNetwork.requestDebateDetail(debateID: debateID) { result in
@@ -127,7 +94,8 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITabl
             }
         }
     }
-    
+
+    // 받은 데이터 ui에 넣기
     func fetchData(data:DetailDebateSuccessResponse) {
         discussTitle.text = data.debateTitle
         timeLabel.text = "남은시간 \(data.deadline)"
@@ -158,24 +126,32 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate, UITabl
         self.commentDataList = commentDataList
         tableView.reloadData()
     }
-    
-    // 옵저버 등록
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+}
+
+// 댓글 Tableview delegate, datasource
+extension DiscussDetailViewController: UITableViewDelegate, UITableViewDataSource  {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        commentDataList.count
     }
     
-    // 옵저버 해제
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isHidden = true
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
+            print("오류 : tableview Cell을 찾을 수 없습니다. ")
+            return UITableViewCell()
+        }
+        
+        if !commentDataList.isEmpty {
+            print("!commentDataList.isEmpty")
+            let data = commentDataList[indexPath.row]
+            cell.setupCell(data: data)
+        }
+        
+        return cell
     }
 }
 
+// 댓글 TextField 이동
 extension DiscussDetailViewController {
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
           view.endEditing(true)
@@ -208,12 +184,8 @@ extension DiscussDetailViewController {
     }
 }
 
-
-extension DiscussDetailViewController: AlertMessageDelegate {
-    func okButtonTapped(from: String) {
-    }
-    
-    
+// Button tap actions
+extension DiscussDetailViewController {
     @objc func didTapAgreeButton() {
         print("didTapAgreeButton")
         debateNetwork.requestVoteDebate(debateID: debateID!, option: "A") { [self] result in
@@ -241,17 +213,6 @@ extension DiscussDetailViewController: AlertMessageDelegate {
                 print("오류")
             }
         }
-    }
-    
-    func selectedButton(button:UIButton) {
-        button.backgroundColor = .selectedDebateColor
-        button.setTitleColor(.white, for: .normal)
-        
-    }
-    
-    func deSelectedButton(button:UIButton) {
-        button.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
-        button.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
     }
     
     @objc func didTapDisAgreeButton() {
@@ -294,6 +255,55 @@ extension DiscussDetailViewController: AlertMessageDelegate {
                              rightButtonTitle: "신고")
         
     }
+}
+
+// 커스텀 AlertView Delegate
+extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delegate {
+    func leftButtonTapped(from: String) {
+        
+    }
+    
+    
+    func rightButtonTapped(from: String) {
+        if from == "reportButton" {
+            // 토론 신고
+            debateNetwork.reportDebate(debateId: debateID!) { result in
+                switch result {
+                case let .success(response) :
+                    if response.success {
+                        print("성공 : 토론 신고")
+                        guard let response = response.response else {
+                            return
+                        }
+                        print(response.message)
+                        DispatchQueue.main.async {
+                            self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                        }
+                    } else {
+                        print("실패 : 토론 신ㄱ")
+                        print(response.errorResponse?.errorMessages)
+                    }
+                case .failure(_):
+                    print("오류")
+                }
+            }
+        }
+    }
+
+    func okButtonTapped(from: String) {
+    }
+    
+    
+    func selectedButton(button:UIButton) {
+        button.backgroundColor = .selectedDebateColor
+        button.setTitleColor(.white, for: .normal)
+        
+    }
+    
+    func deSelectedButton(button:UIButton) {
+        button.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
+        button.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
+    }
     
     func presentCutomAlert2VC(target:String,
                               title:String,
@@ -322,7 +332,6 @@ extension DiscussDetailViewController: AlertMessageDelegate {
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
     }
-    
 }
 
 private extension DiscussDetailViewController {

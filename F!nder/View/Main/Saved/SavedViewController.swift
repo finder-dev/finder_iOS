@@ -27,11 +27,22 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("saved : - viewDidLoad")
         self.view.backgroundColor = .white
         fetchData(page: pageCount)
         layout()
         attribute()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        pageCount = 0
+        tableViewData = []
+        fetchData(page: pageCount)
+        layout()
+        attribute()
+    }
+    
     
     func fetchData(page:Int) {
         communityNetwork.requestSavedCommuityList(page: page) { [self] result in

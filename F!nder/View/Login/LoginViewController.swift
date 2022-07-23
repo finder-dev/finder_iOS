@@ -74,6 +74,9 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        [kakaoLoginView,appleLoginView].forEach{
+            $0.isHidden = true
+        }
         layout()
         attribute()
     }

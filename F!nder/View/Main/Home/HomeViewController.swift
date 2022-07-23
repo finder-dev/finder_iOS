@@ -82,6 +82,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
+        [searchView,alarmButton,messageButton].forEach {
+            $0.isHidden = true
+        }
 
         layout()
         attribute()
@@ -103,11 +106,73 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 }
 
 extension HomeViewController {
+    
+    func setupUserPage(mbti:String) {
+        
+        switch mbti {
+        case "INFJ":
+            mbtiInfoLabel.text = "오늘은 하고 싶은 말 다 하고 오셨나요?"
+            mbtiImageView.image = UIImage(named: "Frame 7594")
+        case "INFP":
+            mbtiInfoLabel.text = "오늘은 집 밖으로 나가볼까요?"
+            mbtiImageView.image = UIImage(named: "Frame 7593")
+        case "ISFJ":
+            mbtiInfoLabel.text = "어떤 독특한 일이 일어날까요?"
+            mbtiImageView.image = UIImage(named: "Frame 7595")
+        case "ISFP":
+            mbtiInfoLabel.text = "오늘은 어떤 것에 꽂혀볼까요?"
+            mbtiImageView.image = UIImage(named: "Frame 7595")
+        case "INTJ":
+            mbtiInfoLabel.text = "어떤 호기심으로 가득차셨나요?"
+            mbtiImageView.image = UIImage(named: "Frame 7594")
+        case "INTP":
+            mbtiInfoLabel.text = "어떤 곳에 열정을 불태워볼까요?"
+            mbtiImageView.image = UIImage(named: "Frame 7592")
+        case "ISTJ":
+            mbtiInfoLabel.text = "민첩한 하루 되세요!"
+            mbtiImageView.image = UIImage(named: "Frame 7593")
+        case "ISTP":
+            mbtiInfoLabel.text = "만능 재주꾼의 시간이에요!"
+            mbtiImageView.image = UIImage(named: "Frame 7592")
+        case "ENFJ":
+            mbtiInfoLabel.text = "카리스마 넘치는 하루 보내세요!"
+            mbtiImageView.image = UIImage(named: "Frame 7595")
+        case "ENFP":
+            mbtiInfoLabel.text = "오늘은 어떤 상상을 하셨나요?"
+            mbtiImageView.image = UIImage(named: "Frame 7592")
+        case "ESFJ":
+            mbtiInfoLabel.text = "오늘 계획도 완벽 수행 각!"
+            // 94로 다시 수정
+            mbtiImageView.image = UIImage(named: "Frame 7594")
+        case "ESFP":
+            mbtiInfoLabel.text = "어떤 재밌는 일이 기다리고 있을까요?"
+            mbtiImageView.image = UIImage(named: "Frame 7595")
+        case "ENTJ":
+            mbtiInfoLabel.text = "오늘도 쿨한 하루 보내셨나요?"
+            mbtiImageView.image = UIImage(named: "Frame 7593")
+        case "ENTP":
+            mbtiInfoLabel.text = "자신감 충만한 하루 되세요!"
+            mbtiImageView.image = UIImage(named: "Frame 7593")
+        case "ESTJ":
+            mbtiInfoLabel.text = "오늘도 알찬 하루 보내세요"
+            mbtiImageView.image = UIImage(named: "Frame 7592")
+        case "ESTP":
+            mbtiInfoLabel.text = "스릴 넘치는 하루 보내세요!"
+            mbtiImageView.image = UIImage(named: "Frame 7594")
+        default:
+            mbtiInfoLabel.text = ""
+        }
+                    
+                    
+    }
+    
     func setupUserData() {
         let userMBTI = UserDefaults.standard.string(forKey: "userMBTI")
         let userNickName = UserDefaults.standard.string(forKey: "userNickName")
         
         userInfoLabel.text = "\(userMBTI ?? "nil") \(userNickName ?? "nil")"
+        
+        setupUserPage(mbti: userMBTI ?? "nil")
         
         debateNetwork.requestHotDebate { [self] result in
             switch result {
@@ -282,6 +347,8 @@ private extension HomeViewController {
         mbtiInfoLabel.setLineHeight(lineHeight: 25.0)
         
         mbtiImageView.image = UIImage(named: "main character")
+        mbtiImageView.contentMode = .scaleAspectFit
+        mbtiImageView.clipsToBounds = false
         
         lineView.backgroundColor = .mainTintColor
         
@@ -341,17 +408,21 @@ private extension HomeViewController {
        }
         
         
-        searchView.snp.makeConstraints {
-//            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(30.0)
-            $0.top.equalTo(innerView)
-            $0.leading.equalTo(innerView).inset(20.0)
-            $0.centerX.equalTo(innerView)
-            $0.height.equalTo(54.0)
-        }
+//        searchView.snp.makeConstraints {
+//            $0.top.equalTo(innerView)
+//            $0.leading.equalTo(innerView).inset(20.0)
+//            $0.centerX.equalTo(innerView)
+//            $0.height.equalTo(54.0)
+//        }
+        
+//        userInfoLabel.snp.makeConstraints {
+//            $0.top.equalTo(searchView.snp.bottom).offset(36.0)
+//            $0.leading.equalTo(searchView)
+//        }
         
         userInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(36.0)
-            $0.leading.equalTo(searchView)
+            $0.top.equalTo(innerView).inset(10.0)
+            $0.leading.equalTo(innerView).inset(20.0)
         }
         
         addLabel.snp.makeConstraints {
@@ -361,14 +432,17 @@ private extension HomeViewController {
         
         mbtiInfoLabel.snp.makeConstraints {
             $0.top.equalTo(userInfoLabel.snp.bottom).offset(8.0)
-            $0.leading.equalTo(searchView)
+            $0.leading.equalTo(userInfoLabel)
         }
         
         mbtiImageView.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(8.0)
+//            $0.top.equalTo(searchView.snp.bottom).offset(8.0)
             $0.trailing.equalTo(innerView).inset(20.0)
-            $0.width.equalTo(155.0)
+//            $0.width.equalTo(155.0)
+            $0.width.equalTo(140.0)
+
             $0.height.equalTo(140.0)
+            $0.centerY.equalTo(mbtiInfoLabel)
         }
         
         lineView.snp.makeConstraints {

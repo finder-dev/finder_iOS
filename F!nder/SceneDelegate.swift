@@ -19,11 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var rootVC = UIViewController()
         
         if !Storage.isFirstTime() {
-//            rootVC = OnBoardingViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
             rootVC = LoginViewController()
-//            rootVC = CommunityDetailViewController()
         } else {
-            rootVC = LoginViewController()
+            rootVC = OnBoardingViewController()
         }
         
         window?.rootViewController = UINavigationController(rootViewController: rootVC)

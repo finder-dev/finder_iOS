@@ -60,7 +60,7 @@ class WebViewController: UIViewController {
         return webView
     }()
     
-    private var url : URL = URL(string: "https://www.notion.so/513cc9a19e4f40c491b43fa025340898")!
+    private var url : URL = URL(string: "https://pineapple-session-93c.notion.site/513cc9a19e4f40c491b43fa025340898")!
 
     
     override func viewDidLoad() {

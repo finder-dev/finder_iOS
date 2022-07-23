@@ -42,8 +42,8 @@ class UserViewController: UIViewController, AlertMessage2Delegate, AlertMessageD
                     print("오류")
                 }
             }
+            self.navigationController?.popToRootViewController(animated: true)
         }
-        self.navigationController?.popToRootViewController(animated: true)
     }
     
     let headerView = UIView()

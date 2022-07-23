@@ -86,7 +86,7 @@ extension OnBoardingViewController {
             pageControl.widthAnchor.constraint(equalTo: view.widthAnchor),
             pageControl.heightAnchor.constraint(equalToConstant: 20),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -150),
+            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -100),
 
             nextButton.heightAnchor.constraint(equalToConstant: 54.0),
             nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24.0),

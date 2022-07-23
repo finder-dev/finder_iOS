@@ -18,7 +18,6 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         }
     }
     
-    
     var isCheckButtonTapped = false
     let network = SignUpAPI()
     let userInfoNetwork = UserInfoAPI()
@@ -91,6 +90,9 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = true
         self.view.backgroundColor = .white
+        [checkButton,keepLoginLabel].forEach {
+            $0.isHidden = true
+        }
         layout()
         attribute()
         

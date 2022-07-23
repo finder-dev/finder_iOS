@@ -34,10 +34,11 @@ private extension FirstOnBoardingViewController {
         }
         
         let safeArea = self.view.safeAreaLayoutGuide
+        let topMargin = 40.0
         
         mainTitleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(24.0)
-            $0.top.equalToSuperview().inset(80.0)
+            $0.top.equalTo(safeArea).inset(topMargin)
         }
         
         smallLabel.snp.makeConstraints {
@@ -46,8 +47,9 @@ private extension FirstOnBoardingViewController {
         }
         
         mainImageView.snp.makeConstraints {
-            $0.top.equalTo(smallLabel.snp.bottom).offset(58.0)
+//            $0.top.equalTo(smallLabel.snp.bottom).offset(58.0)
             $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
             $0.width.equalTo(302.0)
             $0.height.equalTo(239.0)
         }
