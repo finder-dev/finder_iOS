@@ -9,7 +9,16 @@ import UIKit
 import SnapKit
 import Then
 
-class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate {
+class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate, AlertMessageDelegate {
+    
+    func okButtonTapped(from: String) {
+        if from == "DuplicatedNickName" {
+            nickNameCheckButton.setTitleColor(.white, for: .normal)
+            nickNameCheckButton.backgroundColor = .mainTintColor
+            nickNameCheckButton.isEnabled = true
+        }
+    }
+    
     let headerView = UIView()
     let nickNameLabel = UILabel()
     let nickNameTextField = UITextField()
@@ -23,12 +32,11 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
     let mbtiLabel = UILabel()
     
     let nextButton = UIButton()
+    let userAPI = UserInfoAPI()
     
     var passwordIsSame = false {
         didSet {
-            if passwordIsSame {
-//                checkEnableNextButtonOrNot()
-            }
+            checkEnableNextButtonOrNot()
         }
     }
     
@@ -56,6 +64,7 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
 
     func sendValue(value: String) {
         MBTITextField.text = value
+        checkEnableNextButtonOrNot()
     }
     
 
@@ -65,24 +74,55 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
         attribute()
         setupHeaderView()
         
-        passwordTextField2.delegate = self
+        [passwordTextField,passwordTextField2].forEach {
+            $0.delegate = self
+//            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        }
+//        passwordTextField2.delegate = self
         passwordTextField2.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 }
 
 extension EditUserInfoViewController: UITextFieldDelegate {
     
-//    func checkEnableNextButtonOrNot() {
-//        if passwordIsSame && emailAuth && codeAuth {
-//            nextButton.isEnabled = true
-//            nextButton.backgroundColor = .mainTintColor
-//            nextButton.setTitleColor(.white, for: .normal)
-//        } else {
-//            nextButton.isEnabled = false
-//            nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-//            nextButton.backgroundColor = .unabledButtonColor
-//        }
-//    }
+    func checkEnableNextButtonOrNot() {
+        print(" checkEnableNextButtonOrNo")
+        guard let mbti = MBTITextField.text else {
+            return
+        }
+        
+        guard let password = passwordTextField.text else {
+            return
+        }
+        
+        
+        if password.isEmpty {
+            if nickNameCheckButton.isEnabled == false && !mbti.isEmpty {
+                nextButton.isEnabled = true
+                nextButton.backgroundColor = .mainTintColor
+                nextButton.setTitleColor(.white, for: .normal)
+            } else {
+                nextButton.isEnabled = false
+                nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+                nextButton.backgroundColor = .unabledButtonColor
+            }
+        } else {
+            if nickNameCheckButton.isEnabled == false && !mbti.isEmpty && passwordIsSame {
+                nextButton.isEnabled = true
+                nextButton.backgroundColor = .mainTintColor
+                nextButton.setTitleColor(.white, for: .normal)
+            } else {
+                nextButton.isEnabled = false
+                nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+                nextButton.backgroundColor = .unabledButtonColor
+            }
+        }
+    }
+    
+    @objc func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("textFieldDidBeginEditing")
+        checkEnableNextButtonOrNot()
+    }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let password = passwordTextField.text else {
@@ -251,6 +291,52 @@ private extension EditUserInfoViewController {
     
     @objc func didTapNickNameCheckButton() {
         print("didTapNickNameCheckButton")
+        guard let nickName = nickNameTextField.text else {
+            return
+        }
+        nickNameCheckButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        nickNameCheckButton.backgroundColor = .unabledButtonColor
+        nickNameCheckButton.isEnabled = false
+        
+        userAPI.requestCheckNickname(nickname: nickName) { [self] result in
+            switch result {
+            case let .success(response) :
+                
+                if response.success {
+                    guard let response = response.response else {
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        presentCutomAlertVC(target: "CheckNickname", title: response.message, message: "")
+                        checkEnableNextButtonOrNot()
+                    }
+                } else {
+                    guard let error = response.errorResponse else {
+                        return
+                    }
+                    
+//                    print(error.errorMessages)
+                    DispatchQueue.main.async {
+                        presentCutomAlertVC(target: "DuplicatedNickName", title: "닉네임 사용 불가", message: error.errorMessages[0])
+                    }
+                }
+                
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    // AlertVC 띄움
+    func presentCutomAlertVC(target:String, title:String, message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
     @objc func didTapIdCheckButton() {

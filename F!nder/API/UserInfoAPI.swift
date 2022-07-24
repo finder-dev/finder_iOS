@@ -75,4 +75,37 @@ struct UserInfoAPI {
         task.resume()
     }
     
+    // MARK : - 닉네임 중복 확인
+    func requestCheckNickname(nickname: String,
+                              completionHandler: @escaping (Result<SendEmailResponse,Error>)-> Void) {
+        
+        let urlString = "https://finder777.com/api/duplicated/nickname?nickname=\(nickname)"
+        
+//        let urlComponents = URLComponents(string: "https://finder777.com/api/duplicated/nickname?nickname=\(nickname)")
+        let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let url = URL(string: encodedString)!
+        
+        var requestURL = URLRequest(url: url)
+        requestURL.httpMethod = "GET"
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendEmailResponse.self, from: data) else {
+                return
+            }
+            print("======================================================================")
+            print("SendEmail : Network - sendEmailResponse => \(json.success)")
+            print("SendEmail : Network - sendEmailResponse => \(json.errorResponse?.errorMessages)")
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
 }

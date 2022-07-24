@@ -69,7 +69,10 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
             return
         }
         print("communityId : \(communityId)")
-        
+        fetchCommunityData(communityId: communityId)
+    }
+    
+    func fetchCommunityData(communityId:Int) {
         communityNetwork.requestCommunityDetail(communityID: communityId) { result in
             switch result {
             case let .success(response) :
@@ -379,6 +382,7 @@ extension CommunityDetailViewController {
                     guard let response = response.response else {
                         return
                     }
+                    fetchCommunityData(communityId: communityId!)
                     print(response.communityAnswerId)
                 } else {
                     print("실패 : 댓글 달기")

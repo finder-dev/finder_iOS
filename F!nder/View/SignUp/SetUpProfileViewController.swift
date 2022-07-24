@@ -210,24 +210,24 @@ private extension SetUpProfileViewController {
     }
     
     @objc func didTapNickNameCheckButton() {
-        print("didTapNickNameCheckButton")
-        guard let nickname = nickNameTextField.text else {
-            return
-        }
-        network.requestCheckNickname(nickname: nickname) { result in
-            switch result {
-            case let .success(response) :
-                if response.success {
-                    print("닉네임 사용 가능")
-                    self.isnicknameChecked = true
-                } else {
-                    print(response.errorResponse?.errorMessages)
-                    self.isnicknameChecked = false
-                }
-            case .failure(_):
-                print("오류")
-            }
-        }
+//        print("didTapNickNameCheckButton")
+//        guard let nickname = nickNameTextField.text else {
+//            return
+//        }
+//        network.requestCheckNickname(nickname: nickname) { result in
+//            switch result {
+//            case let .success(response) :
+//                if response.success {
+//                    print("닉네임 사용 가능")
+//                    self.isnicknameChecked = true
+//                } else {
+//                    print(response.errorResponse?.errorMessages)
+//                    self.isnicknameChecked = false
+//                }
+//            case .failure(_):
+//                print("오류")
+//            }
+//        }
     }
     
     @objc func didTapCheckButton() {
