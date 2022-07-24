@@ -15,6 +15,10 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         if from == "successEmailLogin" {
             print("============getData=========")
             getData()
+        } else if from == "emailLogin" {
+            loginButton.backgroundColor = .mainTintColor
+            loginButton.setTitleColor(.white, for: .normal)
+            loginButton.isEnabled = true
         }
     }
     

@@ -108,4 +108,57 @@ struct UserInfoAPI {
         task.resume()
     }
     
+    // 사용자 정보 수정
+    func requestChangeUserInfo(nickName:String,
+                               mbti:String,
+                               password:String?,
+                               completionHandler: @escaping (Result<ChangeUserInfoResponse,Error>)-> Void) {
+        
+        var httpbody = ""
+        
+        if let password = password {
+            httpbody = "{\"mbti\" : \"\(mbti)\",\"nickname\" : \"\(nickName)\",\"password\" : \"\(password)\"}"
+        } else {
+            httpbody = "{\"mbti\" : \"\(mbti)\",\"nickname\" : \"\(nickName)\"}"
+        }
+
+        let data = httpbody.data(using: String.Encoding.utf8)
+        let urlComponents = URLComponents(string: "https://finder777.com/api/users")
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+                
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "PATCH"
+        requestURL.httpBody = data
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        requestURL.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(ChangeUserInfoResponse.self, from: data) else {
+                return
+            }
+            
+            print("======================================================================")
+            print("requestChangeUserInfo : Network - requestChangeUserInfo => \(json.success)")
+            
+            if !json.success {
+                print("requestChangeUserInfo : Network - requestChangeUserInfo => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
 }

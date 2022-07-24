@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */; };
 		2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */; };
 		2B09DF02285B56F200FE19DC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF01285B56F200FE19DC /* Storage.swift */; };
 		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
@@ -85,6 +86,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfo.swift; sourceTree = "<group>"; };
 		2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		2B09DF01285B56F200FE19DC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		2B09DF07285B58BF00FE19DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				2BB455E22883F170001139E5 /* UserInfo.swift */,
+				2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -560,6 +563,7 @@
 				2BA51BD22879BEDD00D87533 /* CustomAlert.swift in Sources */,
 				2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */,
 				2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */,
+				2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */,
 				2BA2E9AF287F10FB005DFE96 /* DiscussTableViewCell.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,

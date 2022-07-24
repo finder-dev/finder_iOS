@@ -76,10 +76,9 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
         
         [passwordTextField,passwordTextField2].forEach {
             $0.delegate = self
-//            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         }
-//        passwordTextField2.delegate = self
         passwordTextField2.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(textFieldDidChange2(_:)), for: .editingChanged)
     }
 }
 
@@ -118,11 +117,7 @@ extension EditUserInfoViewController: UITextFieldDelegate {
             }
         }
     }
-    
-    @objc func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("textFieldDidBeginEditing")
-        checkEnableNextButtonOrNot()
-    }
+
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let password = passwordTextField.text else {
@@ -140,6 +135,10 @@ extension EditUserInfoViewController: UITextFieldDelegate {
             passwordCheckLabel.textColor = .mainTintColor
             passwordIsSame = false
         }
+    }
+    
+    @objc func textFieldDidChange2(_ textField: UITextField) {
+        checkEnableNextButtonOrNot()
     }
  
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -344,6 +343,36 @@ private extension EditUserInfoViewController {
     }
     @objc func didTapNextButton() {
         print("didTapNextButton")
+        guard let nickName = nickNameTextField.text,
+              let mbti = MBTITextField.text else {
+            return
+        }
+        
+        var password :String?
+        
+        if !passwordIsSame {
+            password = nil
+        } else {
+            password = passwordTextField.text!
+        }
+        
+        userAPI.requestChangeUserInfo(nickName: nickName,
+                                      mbti: mbti,
+                                      password: password) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    DispatchQueue.main.async {
+                        presentCutomAlertVC(target: "changeUserInfo", title: "개인정보 수정 완료", message: "수정되었습니다.")
+                    }
+                }
+                print(response.response)
+                print(response.errorResponse)
+                
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
 }
 
