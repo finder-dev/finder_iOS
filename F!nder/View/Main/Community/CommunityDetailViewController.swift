@@ -32,6 +32,8 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
         }
     }
     
+    let saveButton = UIButton(type: .custom)
+    
     let headerView = UIView()
     let questionImageView = UIImageView()
     let mbtiCategoryLabel = UILabel()
@@ -39,7 +41,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     let userMBTILabel = UILabel()
     let userNameLabel = UILabel()
     let timeLabel = UILabel()
-    let saveButton = UIButton()
+//    let saveButton = UIButton()
     
     let lineView = UIView()
     let contentLabel = UILabel()
@@ -134,6 +136,31 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        setupNavigationAttribute()
+    }
+    
+    func setupNavigationAttribute() {
+        self.navigationController?.navigationBar.isHidden = false
+        
+        let reportButton = UIButton(type: .custom)
+        reportButton.setImage(UIImage(named: "icon-dots"), for: [])
+        reportButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
+        reportButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        
+        saveButton.setImage(UIImage(named: "Frame 986353"), for: [])
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        saveButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        
+        let rightBarButton1 = UIBarButtonItem(customView: reportButton)
+        let rightBarButton2 = UIBarButtonItem(customView: saveButton)
+        
+        self.navigationItem.rightBarButtonItems = [rightBarButton1,rightBarButton2]
+        
+        let backButton  = UIBarButtonItem()
+        backButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        self.navigationController?.navigationBar.tintColor = .blackTextColor
+        self.navigationItem.title = "커뮤니티"
     }
     
     // 옵저버 해제
@@ -244,13 +271,20 @@ extension CommunityDetailViewController {
         
         let safeArea = self.view.safeAreaLayoutGuide
         
-        headerView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(safeArea)
-            $0.height.equalTo(48.0)
-        }
+//        headerView.snp.makeConstraints {
+//            $0.top.leading.trailing.equalTo(safeArea)
+//            $0.height.equalTo(48.0)
+//        }
+        
+//        mbtiCategoryLabel.snp.makeConstraints {
+//            $0.top.equalTo(headerView.snp.bottom).offset(16.0)
+//            $0.leading.equalToSuperview().inset(20.0)
+//            $0.width.equalTo(43.0)
+//            $0.height.equalTo(30.0)
+//        }
         
         mbtiCategoryLabel.snp.makeConstraints {
-            $0.top.equalTo(headerView.snp.bottom).offset(16.0)
+            $0.top.equalTo(safeArea).offset(16.0)
             $0.leading.equalToSuperview().inset(20.0)
             $0.width.equalTo(43.0)
             $0.height.equalTo(30.0)
@@ -310,6 +344,7 @@ extension CommunityDetailViewController {
         
         textFieldView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
+//            $0.bottom.equalTo(safeArea)
             $0.height.equalTo(78.0)
         }
         
@@ -453,9 +488,26 @@ extension CommunityDetailViewController {
         }
         
         if userId == communityUserId {
-            presentMyPostActionSheet()
+            DispatchQueue.main.async {
+                self.presentCutomAlert2VC(target: "deletePost",
+                                          title: "글을 삭제하시겠습니까?",
+                                          message: "",
+                                          leftButtonTitle: "네",
+                                          rightButtonTitle: "아니요")
+            }
+           
+//            presentMyPostActionSheet()
         } else {
-            presentOthersPostActionSheet()
+//            presentOthersPostActionSheet()
+            
+            DispatchQueue.main.async {
+                self.presentCutomAlert2VC(target: "reportCommunityUser",
+                                          title: "해당 사용자를 신고하시겠습니까?",
+                                          message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
+                                          leftButtonTitle: "취소",
+                                          rightButtonTitle: "신고")
+            }
+            
         }
 
     }
@@ -533,6 +585,7 @@ extension CommunityDetailViewController {
                     if response.message == "save success" {
                         DispatchQueue.main.async {
                             saveButton.setImage(UIImage(named: "saved"), for: .normal)
+                            navigationItem.rightBarButtonItems?[0].tintColor = .mainTintColor
                         }
                     } else {
                         DispatchQueue.main.async {

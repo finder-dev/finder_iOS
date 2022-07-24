@@ -369,9 +369,9 @@ private extension DiscussDetailViewController {
         }
         
         textFieldView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(78.0)
-
+//            $0.bottom.equalTo(safeArea)
         }
         
         tableView.snp.makeConstraints {
