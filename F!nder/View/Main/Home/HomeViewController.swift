@@ -261,6 +261,12 @@ extension HomeViewController {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = hotCommunityData[indexPath.row]
+        let nextVC = CommunityDetailViewController()
+        nextVC.communityId = data.communityId
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 }
 
 extension HomeViewController {
