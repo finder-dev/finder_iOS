@@ -53,6 +53,11 @@ class UserViewController: UIViewController, AlertMessage2Delegate, AlertMessageD
     let logOutButton = UIButton()
     
     let signUpNetwork = SignUpAPI()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +65,6 @@ class UserViewController: UIViewController, AlertMessage2Delegate, AlertMessageD
         layout()
         attribute()
         setupHeaderView()
-        addData()
     }
     
     func addData() {

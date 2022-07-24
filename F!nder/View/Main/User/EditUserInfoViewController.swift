@@ -16,6 +16,8 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
             nickNameCheckButton.setTitleColor(.white, for: .normal)
             nickNameCheckButton.backgroundColor = .mainTintColor
             nickNameCheckButton.isEnabled = true
+        } else if from == "changeUserInfo" {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -364,6 +366,12 @@ private extension EditUserInfoViewController {
                 if response.success {
                     DispatchQueue.main.async {
                         presentCutomAlertVC(target: "changeUserInfo", title: "개인정보 수정 완료", message: "수정되었습니다.")
+                        
+                        let userMBTI = response.response?.mbti ?? "nil"
+                        let userNickName = response.response?.nickname ?? "nil"
+        
+                        UserDefaults.standard.set(userMBTI, forKey: "userMBTI")
+                        UserDefaults.standard.set(userNickName, forKey: "userNickName")
                     }
                 }
                 print(response.response)
