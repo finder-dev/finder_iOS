@@ -128,6 +128,27 @@ extension DiscussDetailViewController {
     }
 }
 
+// 댓글에서 점버튼 눌렀을 때
+extension DiscussDetailViewController: CommentCellDelegate {
+    
+    func report(answerID: Int) {
+        presentCutomAlert2VC(target: "reportComment",
+                             title: "해당 사용자를 신고하시겠습니까?",
+                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "신고")
+    }
+    
+    func delete(answerID: Int) {
+        presentCutomAlert2VC(target: "deleteComment",
+                             title: "댓글을 삭제하시겠습니까?",
+                             message: "",
+                             leftButtonTitle: "네",
+                             rightButtonTitle: "아니요")
+    }
+    
+}
+
 // 댓글 Tableview delegate, datasource
 extension DiscussDetailViewController: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -144,6 +165,7 @@ extension DiscussDetailViewController: UITableViewDelegate, UITableViewDataSourc
             print("!commentDataList.isEmpty")
             let data = commentDataList[indexPath.row]
             cell.setupCell(data: data)
+            cell.delegate = self
         }
         
         return cell
@@ -260,9 +282,10 @@ extension DiscussDetailViewController {
 // 커스텀 AlertView Delegate
 extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delegate {
     func leftButtonTapped(from: String) {
-        
+        if from == "deleteComment" {
+            print("댓글 삭제")
+        }
     }
-    
     
     func rightButtonTapped(from: String) {
         if from == "reportButton" {
@@ -287,10 +310,13 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
                     print("오류")
                 }
             }
+        } else if from == "reportComment" {
+            print("해당 댓글 사용자 신고 완료")
         }
     }
 
     func okButtonTapped(from: String) {
+
     }
     
     
@@ -366,9 +392,7 @@ private extension DiscussDetailViewController {
         }
         
         tableView.backgroundColor = .white
-        
         constraint.isActive = true
-        
         textFieldView.addSubview(commentTextField)
         
         commentTextField.snp.makeConstraints {
@@ -415,6 +439,7 @@ private extension DiscussDetailViewController {
                     guard let response = response.response else {
                         return
                     }
+                    fetchDebateData(debateID: debateID!)
                     print(response.debateAnswerId)
                 } else {
                     print("실패 : 댓글 달기")

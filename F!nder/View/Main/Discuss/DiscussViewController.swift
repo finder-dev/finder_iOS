@@ -42,7 +42,7 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
         setupHeaderView()
         layout()
         attribute()
-        fetchData(state: "PROCEEDING", page: pageCount)
+//        fetchData(state: "PROCEEDING", page: pageCount)
     }
     
     override func viewWillAppear(_ animated: Bool) {

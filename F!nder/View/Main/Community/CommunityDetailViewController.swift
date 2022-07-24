@@ -8,85 +8,29 @@
 import UIKit
 import SnapKit
 
-class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, AlertMessage2Delegate , AlertMessageDelegate{
+class CommunityDetailViewController: UIViewController, UITextFieldDelegate, AlertMessage2Delegate , AlertMessageDelegate{
     
     func leftButtonTapped(from: String) {
         if from == "deletePost" {
-            self.communityNetwork.requestDeleteCommunity(communityId: communityId!) { [self] result in
-                switch result {
-                case let .success(response) :
-                    if response.success {
-                        print("성공 : 커뮤니티 글 삭제")
-                        guard let response = response.response else {
-                            return
-                        }
-                        print(response.message)
-                        DispatchQueue.main.async {
-                            self.presentCutomAlert1VC(target: "didDeletePost", title: "글 삭제 완료", message: "삭제되었습니다.")
-                        }
-                    } else {
-                        print("실패 : 커뮤니티 글 삭제")
-                        print(response.errorResponse?.errorMessages)
-                    }
-                case .failure(_):
-                    print("오류")
-                }
-            }
+            deleteCommunityPost()
+        } else if from == "deleteCommunityComment" {
+            deleteCommunityComment()
         }
     }
     
     func rightButtonTapped(from: String) {
         if from == "reportCommunityUser" {
-            
-            self.communityNetwork.reportCommunity(communityId: communityId!) { [self] result in
-                switch result {
-                case let .success(response) :
-                    if response.success {
-                        print("성공 : 커뮤니티 글 신고")
-                        guard let response = response.response else {
-                            return
-                        }
-                        print(response.message)
-                        DispatchQueue.main.async {
-                            self.presentCutomAlert1VC(target: "didReportCommunityUser", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
-                        }
-                    } else {
-                        print("실패 : 커뮤니티 글 신고")
-                        print(response.errorResponse?.errorMessages)
-                    }
-                case .failure(_):
-                    print("오류")
-                }
-            }
+            reportCommunityPost()
+        } else if from == "reportCommunityComment" {
+            reportCommunityComment()
         }
     }
    
     func okButtonTapped(from: String) {
-        if from == "didDeletePost" || from == "didReportCommunityUser" {
+        if from == "didDeletePost" || from == "didReportCommunityUser" || from == "DeletedCommunityComment" {
             self.navigationController?.popViewController(animated: true)
         }
     }
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        commentDataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
-            print("오류 : tableview Cell을 찾을 수 없습니다. ")
-            return UITableViewCell()
-        }
-        
-        if !commentDataList.isEmpty {
-            print("!commentDataList.isEmpty")
-            let data = commentDataList[indexPath.row]
-            cell.setupCell(data: data)
-        }
-        
-        return cell
-    }
-    
     
     let headerView = UIView()
     let questionImageView = UIImageView()
@@ -112,6 +56,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
     var commentDataList = [answerHistDtos]()
 
     let communityNetwork = CommunityAPI()
+    var answerID = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,6 +140,49 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, UITa
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
+}
+
+extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSource, CommentCellDelegate {
+    
+    func report(answerID: Int) {
+        
+        presentCutomAlert2VC(target: "reportCommunityComment",
+                             title: "해당 사용자를 신고하시겠습니까?",
+                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "신고")
+        self.answerID = answerID
+    }
+    
+    func delete(answerID: Int) {
+        presentCutomAlert2VC(target: "deleteCommunityComment",
+                             title: "댓글을 삭제하시겠습니까?",
+                             message: "",
+                             leftButtonTitle: "네",
+                             rightButtonTitle: "아니요")
+        self.answerID = answerID
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        commentDataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
+            print("오류 : tableview Cell을 찾을 수 없습니다. ")
+            return UITableViewCell()
+        }
+        
+        if !commentDataList.isEmpty {
+            print("!commentDataList.isEmpty")
+            let data = commentDataList[indexPath.row]
+            cell.setupCell(data: data)
+            cell.delegate = self
+        }
+        
+        return cell
+    }
+    
 }
 
 extension CommunityDetailViewController {
@@ -483,7 +471,11 @@ extension CommunityDetailViewController {
     func presentOthersPostActionSheet() {
         let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "신고", style: .destructive) {_ in
-            self.presentCutomAlert2VC(target: "reportCommunityUser", title: "해당 사용자를 신고하시겠습니까?", message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.", leftButtonTitle: "취소", rightButtonTitle: "신고")
+            self.presentCutomAlert2VC(target: "reportCommunityUser",
+                                      title: "해당 사용자를 신고하시겠습니까?",
+                                      message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
+                                      leftButtonTitle: "취소",
+                                      rightButtonTitle: "신고")
             print("report")
         }
         let closeAction = UIAlertAction(title: "닫기", style: .cancel)
@@ -556,3 +548,78 @@ extension CommunityDetailViewController {
     }
 }
 
+
+extension CommunityDetailViewController {
+    
+    func deleteCommunityPost() {
+        self.communityNetwork.requestDeleteCommunity(communityId: communityId!) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 글 삭제")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "didDeletePost", title: "글 삭제 완료", message: "삭제되었습니다.")
+                    }
+                } else {
+                    print("실패 : 커뮤니티 글 삭제")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func reportCommunityPost() {
+        self.communityNetwork.reportCommunity(communityId: communityId!) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 글 신고")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "didReportCommunityUser", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                    }
+                } else {
+                    print("실패 : 커뮤니티 글 신고")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func reportCommunityComment() {
+    }
+    
+    func deleteCommunityComment() {
+        communityNetwork.requestDeleteCommunityComment(answerId: self.answerID) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 댓글 삭제")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "DeletedCommunityComment", title: "댓글 삭제 완료", message: "삭제되었습니다.")
+                    }
+                } else {
+                    print("실패 : 커뮤니티 댓글 삭제")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+}

@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class SettingViewController: UIViewController, AlertMessage2Delegate {
+    
+   
     func leftButtonTapped(from: String) {
         
     }
@@ -52,6 +54,7 @@ class SettingViewController: UIViewController, AlertMessage2Delegate {
     let deleteAccountButton = UIButton()
     let appVersionLabel = UILabel()
     let userNetwork = UserInfoAPI()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,9 +62,9 @@ class SettingViewController: UIViewController, AlertMessage2Delegate {
         setupHeaderView()
         attribute()
         
-        [editAccountButton1,editAccountButton2].forEach {
-            $0.isHidden = true
-        }
+//        [editAccountButton1,editAccountButton2].forEach {
+//            $0.isHidden = true
+//        }
     }
 }
 

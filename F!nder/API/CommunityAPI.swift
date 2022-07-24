@@ -338,7 +338,7 @@ struct CommunityAPI {
     
     // 커뮤니티 글 삭제
     func requestDeleteCommunity(communityId:Int,
-                         completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                                completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityId)")
         
@@ -370,6 +370,47 @@ struct CommunityAPI {
             if !json.success {
                 print(" requestDeleteCommunity: Network -  requestDeleteCommunity => \(json.errorResponse?.errorMessages)")
             }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
+    // 커뮤니티 댓글 삭제
+    func requestDeleteCommunityComment(answerId:Int,
+                                       completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+        
+        let urlComponents = URLComponents(string: "https://finder777.com/api/community/answers/\(answerId)")
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "DELETE"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+                return
+            }
+            
+            print("======================================================================")
+            print(" requestDeleteCommunityComment: Network -  requestDeleteCommunity => \(json.success)")
+            
+            if !json.success {
+                print(" requestDeleteCommunityComment: Network -  requestDeleteCommunity => \(json.errorResponse?.errorMessages)")
+            }
+            
             print("======================================================================")
             completionHandler(.success(json))
         }

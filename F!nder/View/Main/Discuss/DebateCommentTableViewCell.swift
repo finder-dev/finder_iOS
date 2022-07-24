@@ -8,8 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol CommentCellDelegate {
+    func report(answerID:Int)
+    func delete(answerID:Int)
+}
+
 class DebateCommentTableViewCell: UITableViewCell {
-    
+
     static let identifier = " DebateCommentTableViewCell"
     
     let innerView = UIView()
@@ -17,6 +22,12 @@ class DebateCommentTableViewCell: UITableViewCell {
     let userNameLabel = UILabel()
     let timeLabel = UILabel()
     let commentLabel = UILabel()
+    let dotButton = UIButton()
+    
+    var userID: Int = -1
+    var answerID: Int = -1
+    
+    var delegate: CommentCellDelegate!
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,6 +51,9 @@ class DebateCommentTableViewCell: UITableViewCell {
 //        userNameLabel.text = data.userNickname
         timeLabel.text = data.createTime
         commentLabel.text = data.answerContent
+        userID = data.userId
+        answerID = data.answerId
+        
     }
     
     func setupCell() {
@@ -58,7 +72,7 @@ extension DebateCommentTableViewCell {
             $0.edges.equalToSuperview()
         }
         
-        [userMBTILabel,userNameLabel,timeLabel,commentLabel].forEach {
+        [userMBTILabel,userNameLabel,timeLabel,commentLabel,dotButton].forEach {
             innerView.addSubview($0)
         }
         
@@ -76,6 +90,12 @@ extension DebateCommentTableViewCell {
         timeLabel.snp.makeConstraints {
             $0.centerY.equalTo(userMBTILabel)
             $0.leading.equalTo(userNameLabel.snp.trailing).offset(8.0)
+        }
+        
+        dotButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(20.0)
+            $0.width.height.equalTo(24.0)
+            $0.centerY.equalTo(userMBTILabel)
         }
         
         commentLabel.snp.makeConstraints {
@@ -99,5 +119,21 @@ extension DebateCommentTableViewCell {
         commentLabel.numberOfLines = 0
         
         commentLabel.text = "test"
+        
+        dotButton.setImage(UIImage(named: "icon-dots-mono"), for: .normal)
+        dotButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
     }
+    
+    @objc func didTapDotButton() {
+        print("didTapDotButton")
+        let userIdString = UserDefaults.standard.string(forKey: "userId") ?? "-2"
+        if self.userID != Int(userIdString)! {
+            print("userID 다름")
+            self.delegate.report(answerID: self.answerID)
+        } else {
+            print("userID 같음")
+            self.delegate.delete(answerID: self.answerID)
+        }
+    }
+    
 }
