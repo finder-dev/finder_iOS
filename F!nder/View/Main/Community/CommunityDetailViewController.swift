@@ -274,8 +274,8 @@ extension CommunityDetailViewController {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(mbtiCategoryLabel.snp.bottom).offset(20.0)
-            $0.height.equalTo(26.0)
             $0.leading.equalTo(mbtiCategoryLabel)
+            $0.trailing.equalToSuperview().inset(20.0)
         }
         
         userMBTILabel.snp.makeConstraints {
@@ -353,6 +353,7 @@ extension CommunityDetailViewController {
         
         titleLabel.textColor = .blackTextColor
         titleLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
+        titleLabel.numberOfLines = 0
         
         contentLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
         contentLabel.font = .systemFont(ofSize: 14.0, weight: .regular)

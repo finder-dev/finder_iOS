@@ -119,6 +119,10 @@ private extension EmailLoginViewController {
             return
         }
         
+        loginButton.backgroundColor = .unabledButtonColor
+        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        loginButton.isEnabled = false
+        
         network.requestLogin(email: email,
                              password: password) { result in
             switch result {
@@ -136,6 +140,7 @@ private extension EmailLoginViewController {
                     DispatchQueue.main.async {
                         let errorMessage = response.errorResponse?.errorMessages[0]
                         self.presentCutomAlertVC(target: "emailLogin", title: "로그인 실패", message: errorMessage!)
+                        
                     }
                     print(response.errorResponse?.errorMessages)
                 }

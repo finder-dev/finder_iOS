@@ -60,6 +60,9 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("CommunityVC - viewWillAppear")
+        pageCount = 0
+        tableViewData = []
         setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
         tableView.reloadData()
     }
@@ -73,7 +76,6 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
             setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
         } else {
             setupData(mbti: value, orderBy: "CREATE_TIME", page: pageCount)
-
         }
     }
     

@@ -101,7 +101,7 @@ extension DiscussDetailViewController {
         timeLabel.text = "남은시간 \(data.deadline)"
         commentCountLabel.text = "댓글 \(data.answerCount)"
         userMBTILabel.text = data.writerMBTI
-        userNameLabel.text = data.writerNickname
+        userNameLabel.text = " • \(data.writerNickname)"
         agreeCounts.text = "\(data.optionACount)"
         disagreeCounts.text = "\(data.optionBCount)"
         agreeButton.setTitle(data.optionA, for: .normal)
@@ -502,7 +502,8 @@ extension DiscussDetailViewController {
         }
         
         userNameLabel.snp.makeConstraints {
-            $0.leading.equalTo(userMBTILabel.snp.trailing).offset(20.0)
+//            $0.leading.equalTo(userMBTILabel.snp.trailing).offset(20.0)
+            $0.leading.equalTo(userMBTILabel.snp.trailing)
             $0.centerY.equalTo(userMBTILabel)
         }
         

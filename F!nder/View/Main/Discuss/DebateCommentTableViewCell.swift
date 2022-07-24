@@ -36,7 +36,8 @@ class DebateCommentTableViewCell: UITableViewCell {
     
     func setupCell(data:answerHistDtos) {
         userMBTILabel.text = data.userMBTI
-        userNameLabel.text = data.userNickname
+        userNameLabel.text = " • \(data.userNickname)"
+//        userNameLabel.text = data.userNickname
         timeLabel.text = data.createTime
         commentLabel.text = data.answerContent
     }

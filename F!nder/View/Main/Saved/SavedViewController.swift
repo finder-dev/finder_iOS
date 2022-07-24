@@ -29,7 +29,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         print("saved : - viewDidLoad")
         self.view.backgroundColor = .white
-        fetchData(page: pageCount)
+//        fetchData(page: pageCount)
         layout()
         attribute()
     }
@@ -58,7 +58,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     isLastPage = response.last
                     pageCount += 1
                     print(response.content)
-                    print("pageCount : \(pageCount)")
+                    print("requestSavedCommuityList pageCount : \(pageCount)")
                     DispatchQueue.main.async {
                         if tableViewData.isEmpty {
                             dataStatus = .noData
@@ -126,6 +126,13 @@ extension SavedViewController {
         let data = tableViewData[indexPath.row]
         cell.setupCellData(data:data)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = tableViewData[indexPath.row]
+        let nextVC = CommunityDetailViewController()
+        nextVC.communityId = data.communityId
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 

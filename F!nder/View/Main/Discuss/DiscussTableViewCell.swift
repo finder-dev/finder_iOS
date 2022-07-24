@@ -42,9 +42,7 @@ class DiscussTableViewCell: UITableViewCell {
     }
     
     func setupCell(data: debateContent) {
-        
-//        discussLabel.text = "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?"
-//        peopleCountLabel.text = "42명 참여"
+    
         personImageView.image = UIImage(named: "icon-user-mono")
 //        timeLabel.text = "D-6"
         
