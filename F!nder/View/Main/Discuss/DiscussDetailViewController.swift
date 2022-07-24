@@ -39,6 +39,7 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
     var emptyView = UIView()
     var debateID : Int?
     let debateNetwork = DebateAPI()
+    var answerID = -1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +138,8 @@ extension DiscussDetailViewController: CommentCellDelegate {
                              message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
                              leftButtonTitle: "취소",
                              rightButtonTitle: "신고")
+        self.answerID = answerID
+       
     }
     
     func delete(answerID: Int) {
@@ -145,6 +148,7 @@ extension DiscussDetailViewController: CommentCellDelegate {
                              message: "",
                              leftButtonTitle: "네",
                              rightButtonTitle: "아니요")
+        self.answerID = answerID
     }
     
 }
@@ -284,39 +288,24 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
     func leftButtonTapped(from: String) {
         if from == "deleteComment" {
             print("댓글 삭제")
+            deleteDebateComment()
         }
     }
     
     func rightButtonTapped(from: String) {
         if from == "reportButton" {
             // 토론 신고
-            debateNetwork.reportDebate(debateId: debateID!) { result in
-                switch result {
-                case let .success(response) :
-                    if response.success {
-                        print("성공 : 토론 신고")
-                        guard let response = response.response else {
-                            return
-                        }
-                        print(response.message)
-                        DispatchQueue.main.async {
-                            self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
-                        }
-                    } else {
-                        print("실패 : 토론 신ㄱ")
-                        print(response.errorResponse?.errorMessages)
-                    }
-                case .failure(_):
-                    print("오류")
-                }
-            }
+            reportDebate()
         } else if from == "reportComment" {
             print("해당 댓글 사용자 신고 완료")
+            reportDebateComment()
         }
     }
 
     func okButtonTapped(from: String) {
-
+        if from == "DeletedDebateComment" || from == "reportedDebateComment" {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     
@@ -600,3 +589,75 @@ extension DiscussDetailViewController {
         tableView.register(DebateCommentTableViewCell.self, forCellReuseIdentifier: DebateCommentTableViewCell.identifier)
     }
 }
+
+extension DiscussDetailViewController {
+    func reportDebate() {
+        debateNetwork.reportDebate(debateId: debateID!) { result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 토론 신고")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                    }
+                } else {
+                    print("실패 : 토론 신ㄱ")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func deleteDebateComment() {
+        debateNetwork.requestDeleteDebateComment(answerId: self.answerID) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 토론 댓글 삭제")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "DeletedDebateComment", title: "댓글 삭제 완료", message: "삭제되었습니다.")
+                    }
+                } else {
+                    print("실패 : 토론 댓글 삭제")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func reportDebateComment() {
+        debateNetwork.reportDebateComment(answerId: self.answerID) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 토론 댓글 신고")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                    }
+                } else {
+                    print("실패 : 토론 댓글 신고")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+}
+

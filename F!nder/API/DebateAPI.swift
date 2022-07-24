@@ -299,4 +299,83 @@ struct DebateAPI {
         }
         task.resume()
     }
+    
+    func reportDebateComment(answerId:Int,
+                             completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+        let urlComponents = URLComponents(string: "https://finder777.com/api/debate/answers/\(answerId)/report")
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "POST"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+                return
+            }
+            
+            print("======================================================================")
+            print("reportDebateComment : Network - reportDebateComment => \(json.success)")
+            
+            if !json.success {
+                print("reportDebateComment : Network - reportDebateComment => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
+    
+    // 토론 댓글 삭제
+    func requestDeleteDebateComment(answerId:Int,
+                                    completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+        
+        let urlComponents = URLComponents(string: "https://finder777.com/api/debate/answers/\(answerId)")
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+        
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "DELETE"
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+                return
+            }
+            
+            print("======================================================================")
+            print(" requestDeleteDebateComment: Network -  requestDeleteDebateComment => \(json.success)")
+            
+            if !json.success {
+                print(" requestDeleteDebateComment: Network - requestDeleteDebateComment => \(json.errorResponse?.errorMessages)")
+            }
+            
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+    }
 }

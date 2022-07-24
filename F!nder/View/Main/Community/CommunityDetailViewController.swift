@@ -27,7 +27,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     }
    
     func okButtonTapped(from: String) {
-        if from == "didDeletePost" || from == "didReportCommunityUser" || from == "DeletedCommunityComment" {
+        if from == "didDeletePost" || from == "didReportCommunityUser" || from == "DeletedCommunityComment" || from == "didReportCommunityComment" {
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -598,6 +598,26 @@ extension CommunityDetailViewController {
     }
     
     func reportCommunityComment() {
+        communityNetwork.reportCommunityComment(answerId: self.answerID) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 댓글 신고")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "didReportCommunityComment", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                    }
+                } else {
+                    print("실패 : 커뮤니티 댓글 삭제")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
     
     func deleteCommunityComment() {
