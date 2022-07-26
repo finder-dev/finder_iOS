@@ -7,6 +7,8 @@
 
 import UIKit
 import SnapKit
+import MaterialComponents.MaterialBottomSheet
+
 
 class CommunityDetailViewController: UIViewController, UITextFieldDelegate, AlertMessage2Delegate , AlertMessageDelegate{
     
@@ -112,7 +114,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
         }
         
         if data.saveUser {
-            saveButton.setImage(UIImage(named: "saved"), for: .normal)
+            saveButton.setImage(UIImage(named: "saved2"), for: .normal)
         } else {
             saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
         }
@@ -136,7 +138,23 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reportDebateUser), name: Notification.Name("reportUser"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(blockDebateUser), name: Notification.Name("blockUser"), object: nil)
         setupNavigationAttribute()
+    }
+    
+    @objc func blockDebateUser() {
+        print("===========blockCommunityUser")
+    }
+    
+    @objc func reportDebateUser() {
+        print("===========reportCommunityUser")
+    
+        self.presentCutomAlert2VC(target: "reportCommunityUser",
+                                  title: "해당 사용자를 신고하시겠습니까?",
+                                  message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
+                                  leftButtonTitle: "취소",
+                                  rightButtonTitle: "신고")
     }
     
     func setupNavigationAttribute() {
@@ -167,6 +185,8 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("blockUser"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("reportUser"), object: nil)
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -500,13 +520,20 @@ extension CommunityDetailViewController {
         } else {
 //            presentOthersPostActionSheet()
             
-            DispatchQueue.main.async {
-                self.presentCutomAlert2VC(target: "reportCommunityUser",
-                                          title: "해당 사용자를 신고하시겠습니까?",
-                                          message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
-                                          leftButtonTitle: "취소",
-                                          rightButtonTitle: "신고")
-            }
+            let bottomSheetVC = BottomSheetViewController()
+            
+            let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
+            bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
+            
+            present(bottomSheet, animated: true)
+            
+//            DispatchQueue.main.async {
+//                self.presentCutomAlert2VC(target: "reportCommunityUser",
+//                                          title: "해당 사용자를 신고하시겠습니까?",
+//                                          message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
+//                                          leftButtonTitle: "취소",
+//                                          rightButtonTitle: "신고")
+//            }
             
         }
 
@@ -584,7 +611,7 @@ extension CommunityDetailViewController {
                     }
                     if response.message == "save success" {
                         DispatchQueue.main.async {
-                            saveButton.setImage(UIImage(named: "saved"), for: .normal)
+                            saveButton.setImage(UIImage(named: "saved2"), for: .normal)
                             navigationItem.rightBarButtonItems?[0].tintColor = .mainTintColor
                         }
                     } else {

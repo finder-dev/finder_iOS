@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
+import MaterialComponents.MaterialBottomSheet
 
 /*
  * 토론 상세 뷰 입니다.
@@ -59,12 +60,31 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(reportDebateUser), name: Notification.Name("reportUser"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(blockDebateUser), name: Notification.Name("blockUser"), object: nil)
+    }
+
+    @objc func blockDebateUser() {
+        print("===========blockDebateUser")
+    }
+    @objc func reportDebateUser() {
+        print("===========reportDebateUser")
+        presentCutomAlert2VC(target: "reportButton",
+                             title: "해당 사용자를 신고하시겠습니까?",
+                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "신고")
     }
     
     // 옵저버 해제
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("blockUser"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("reportUser"), object: nil)
+        
         super.viewWillDisappear(animated)
         self.navigationController?.navigationBar.isHidden = true
     }
@@ -271,14 +291,21 @@ extension DiscussDetailViewController {
         }
     }
     
+    // 바텀 시트 보여주기
     @objc func didTapRightBarButton() {
         print("didTapRightBarButton")
+        let bottomSheetVC = BottomSheetViewController()
         
-        presentCutomAlert2VC(target: "reportButton",
-                             title: "해당 사용자를 신고하시겠습니까?",
-                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "신고")
+        let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
+        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
+        
+        present(bottomSheet, animated: true)
+        
+//        presentCutomAlert2VC(target: "reportButton",
+//                             title: "해당 사용자를 신고하시겠습니까?",
+//                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+//                             leftButtonTitle: "취소",
+//                             rightButtonTitle: "신고")
         
     }
 }

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */; };
+		2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */; };
+		2B0252C2288EE5B50078D7F2 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2B0252C1288EE5B50078D7F2 /* KakaoSDK */; };
+		2B0252C4288EE5B50078D7F2 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2B0252C3288EE5B50078D7F2 /* KakaoSDKAuth */; };
 		2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */; };
 		2B09DF02285B56F200FE19DC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF01285B56F200FE19DC /* Storage.swift */; };
 		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
@@ -52,7 +55,6 @@
 		2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponse.swift */; };
 		2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCode.swift */; };
 		2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */; };
-		2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA8F261286CA09500D64F0E /* KakaoSDK */; };
 		2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */; };
 		2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAE2885B98A001DEE35 /* DetailDebate.swift */; };
 		2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */; };
@@ -83,10 +85,13 @@
 		2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */; };
 		2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */; };
 		2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */; };
+		47C901E401B9A68D70C32D71 /* Pods_F_nder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB53E490C6BE68D4C07EB0 /* Pods_F_nder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		17F7E96666C4F6E0434D9E08 /* Pods-F!nder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F!nder.debug.xcconfig"; path = "Target Support Files/Pods-F!nder/Pods-F!nder.debug.xcconfig"; sourceTree = "<group>"; };
 		2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfo.swift; sourceTree = "<group>"; };
+		2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		2B09DF01285B56F200FE19DC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		2B09DF07285B58BF00FE19DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +167,8 @@
 		2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
 		2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewModel.swift; sourceTree = "<group>"; };
+		55FB97CC9C9D2775C3172810 /* Pods-F!nder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F!nder.release.xcconfig"; path = "Target Support Files/Pods-F!nder/Pods-F!nder.release.xcconfig"; sourceTree = "<group>"; };
+		D9FB53E490C6BE68D4C07EB0 /* Pods_F_nder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_F_nder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,8 +177,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
-				2BA8F262286CA09500D64F0E /* KakaoSDK in Frameworks */,
+				2B0252C2288EE5B50078D7F2 /* KakaoSDK in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
+				47C901E401B9A68D70C32D71 /* Pods_F_nder.framework in Frameworks */,
+				2B0252C4288EE5B50078D7F2 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +202,7 @@
 		2B09DF04285B585900FE19DC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D9FB53E490C6BE68D4C07EB0 /* Pods_F_nder.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -326,6 +336,7 @@
 				2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */,
 				2BA51BD12879BEDD00D87533 /* CustomAlert.swift */,
 				2B557B1028885C1C0057CC9D /* AlertMessage2ViewController.swift */,
+				2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -395,6 +406,7 @@
 				2BBEABB52854DA93002573DE /* F!nder */,
 				2BBEABB42854DA93002573DE /* Products */,
 				2B09DF04285B585900FE19DC /* Frameworks */,
+				56D52F5FCE91D54F9E50BA21 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -436,6 +448,15 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		56D52F5FCE91D54F9E50BA21 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				17F7E96666C4F6E0434D9E08 /* Pods-F!nder.debug.xcconfig */,
+				55FB97CC9C9D2775C3172810 /* Pods-F!nder.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -443,9 +464,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2BBEABC72854DA94002573DE /* Build configuration list for PBXNativeTarget "F!nder" */;
 			buildPhases = (
+				811E3F2DA5471E48A0B6C2BC /* [CP] Check Pods Manifest.lock */,
 				2BBEABAF2854DA93002573DE /* Sources */,
 				2BBEABB02854DA93002573DE /* Frameworks */,
 				2BBEABB12854DA93002573DE /* Resources */,
+				EBAD30BC4BDA595CD2E3B7E4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -455,7 +478,8 @@
 			packageProductDependencies = (
 				2BC3C2792854E0430094F5EB /* Then */,
 				2B09DF05285B585900FE19DC /* SnapKit */,
-				2BA8F261286CA09500D64F0E /* KakaoSDK */,
+				2B0252C1288EE5B50078D7F2 /* KakaoSDK */,
+				2B0252C3288EE5B50078D7F2 /* KakaoSDKAuth */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -488,7 +512,7 @@
 			packageReferences = (
 				2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */,
 				2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */,
-				2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				2B0252C0288EE5B50078D7F2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -511,6 +535,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		811E3F2DA5471E48A0B6C2BC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-F!nder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBAD30BC4BDA595CD2E3B7E4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-F!nder/Pods-F!nder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-F!nder/Pods-F!nder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-F!nder/Pods-F!nder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2BBEABAF2854DA93002573DE /* Sources */ = {
@@ -559,6 +625,7 @@
 				2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */,
 				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
+				2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */,
 				2B6826B3286DE598006AF742 /* Login.swift in Sources */,
 				2BA51BD22879BEDD00D87533 /* CustomAlert.swift in Sources */,
 				2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */,
@@ -720,6 +787,7 @@
 		};
 		2BBEABC82854DA94002573DE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17F7E96666C4F6E0434D9E08 /* Pods-F!nder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -738,7 +806,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jsy.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -749,6 +817,7 @@
 		};
 		2BBEABC92854DA94002573DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55FB97CC9C9D2775C3172810 /* Pods-F!nder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -767,7 +836,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jsy.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -800,20 +869,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2B0252C0288EE5B50078D7F2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = upToNextMinorVersion;
 				minimumVersion = 5.6.0;
-			};
-		};
-		2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
-			requirement = {
-				branch = master;
-				kind = branch;
 			};
 		};
 		2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */ = {
@@ -827,15 +896,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2B0252C1288EE5B50078D7F2 /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B0252C0288EE5B50078D7F2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		2B0252C3288EE5B50078D7F2 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B0252C0288EE5B50078D7F2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
 		2B09DF05285B585900FE19DC /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		2BA8F261286CA09500D64F0E /* KakaoSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2BA8F260286CA09500D64F0E /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
-			productName = KakaoSDK;
 		};
 		2BC3C2792854E0430094F5EB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
