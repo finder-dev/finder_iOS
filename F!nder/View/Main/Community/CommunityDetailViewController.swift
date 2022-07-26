@@ -25,6 +25,8 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
             reportCommunityPost()
         } else if from == "reportCommunityComment" {
             reportCommunityComment()
+        } else if from == "blockCommunityUser" {
+            blockUser()
         }
     }
    
@@ -50,7 +52,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     let lineView2 = UIView()
     let emptyView = UIView()
     var communityId : Int?
-    var communityUserId : String?
+    var communityUserId :String?
     
     var textFieldView = UIView()
     var commentTextField = UITextField()
@@ -61,6 +63,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
 
     let communityNetwork = CommunityAPI()
     var answerID = -1
+    var writerID = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +128,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
         
         self.commentDataList = communityData
         self.communityUserId = "\(data.userId)"
+        self.writerID = data.userId
         tableView.reloadData()
     }
     
@@ -145,6 +149,11 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
     
     @objc func blockDebateUser() {
         print("===========blockCommunityUser")
+        self.presentCutomAlert2VC(target: "blockCommunityUser",
+                             title: "해당 사용자를 차단하시겠습니까?",
+                             message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "차단")
     }
     
     @objc func reportDebateUser() {
@@ -502,8 +511,7 @@ extension CommunityDetailViewController {
     @objc func didTapDotButton() {
         let userId = UserDefaults.standard.string(forKey: "userId")
         
-        guard let userId = userId,
-              let communityUserId = communityUserId else {
+        guard let userId = userId else {
             return
         }
         
@@ -719,6 +727,31 @@ extension CommunityDetailViewController {
                     }
                 } else {
                     print("실패 : 커뮤니티 댓글 삭제")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func blockUser() {
+        let userAPI = UserInfoAPI()
+
+        userAPI.requestBlockUser(userID:self.writerID ) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 사용자 차단")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 차단 완료", message: "차단되었습니다.")
+                    }
+                } else {
+                    print("실패 : 토론 댓글 신고")
                     print(response.errorResponse?.errorMessages)
                 }
             case .failure(_):

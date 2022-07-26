@@ -39,6 +39,7 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
     
     var emptyView = UIView()
     var debateID : Int?
+    var writerID = -1
     let debateNetwork = DebateAPI()
     var answerID = -1
 
@@ -64,18 +65,6 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(reportDebateUser), name: Notification.Name("reportUser"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(blockDebateUser), name: Notification.Name("blockUser"), object: nil)
-    }
-
-    @objc func blockDebateUser() {
-        print("===========blockDebateUser")
-    }
-    @objc func reportDebateUser() {
-        print("===========reportDebateUser")
-        presentCutomAlert2VC(target: "reportButton",
-                             title: "해당 사용자를 신고하시겠습니까?",
-                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "신고")
     }
     
     // 옵저버 해제
@@ -145,7 +134,31 @@ extension DiscussDetailViewController {
         print(data.answerHistDtos)
         guard let commentDataList = data.answerHistDtos else {return}
         self.commentDataList = commentDataList
+        self.writerID = data.writerId
         tableView.reloadData()
+    }
+}
+
+// 댓글 Tableview delegate, datasource
+extension DiscussDetailViewController: UITableViewDelegate, UITableViewDataSource  {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        commentDataList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
+            print("오류 : tableview Cell을 찾을 수 없습니다. ")
+            return UITableViewCell()
+        }
+        
+        if !commentDataList.isEmpty {
+            print("!commentDataList.isEmpty")
+            let data = commentDataList[indexPath.row]
+            cell.setupCell(data: data)
+            cell.delegate = self
+        }
+        
+        return cell
     }
 }
 
@@ -171,29 +184,6 @@ extension DiscussDetailViewController: CommentCellDelegate {
         self.answerID = answerID
     }
     
-}
-
-// 댓글 Tableview delegate, datasource
-extension DiscussDetailViewController: UITableViewDelegate, UITableViewDataSource  {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        commentDataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
-            print("오류 : tableview Cell을 찾을 수 없습니다. ")
-            return UITableViewCell()
-        }
-        
-        if !commentDataList.isEmpty {
-            print("!commentDataList.isEmpty")
-            let data = commentDataList[indexPath.row]
-            cell.setupCell(data: data)
-            cell.delegate = self
-        }
-        
-        return cell
-    }
 }
 
 // 댓글 TextField 이동
@@ -232,6 +222,24 @@ extension DiscussDetailViewController {
 
 // Button tap actions
 extension DiscussDetailViewController {
+    @objc func blockDebateUser() {
+        print("===========blockDebateUser")
+        presentCutomAlert2VC(target: "blockDebateUser",
+                             title: "해당 사용자를 차단하시겠습니까?",
+                             message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "차단")
+    }
+    
+    @objc func reportDebateUser() {
+        print("===========reportDebateUser")
+        presentCutomAlert2VC(target: "reportButton",
+                             title: "해당 사용자를 신고하시겠습니까?",
+                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "신고")
+    }
+    
     @objc func didTapAgreeButton() {
         print("didTapAgreeButton")
         debateNetwork.requestVoteDebate(debateID: debateID!, option: "A") { [self] result in
@@ -300,53 +308,11 @@ extension DiscussDetailViewController {
         bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
         
         present(bottomSheet, animated: true)
-        
-//        presentCutomAlert2VC(target: "reportButton",
-//                             title: "해당 사용자를 신고하시겠습니까?",
-//                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-//                             leftButtonTitle: "취소",
-//                             rightButtonTitle: "신고")
-        
     }
 }
 
 // 커스텀 AlertView Delegate
 extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delegate {
-    func leftButtonTapped(from: String) {
-        if from == "deleteComment" {
-            print("댓글 삭제")
-            deleteDebateComment()
-        }
-    }
-    
-    func rightButtonTapped(from: String) {
-        if from == "reportButton" {
-            // 토론 신고
-            reportDebate()
-        } else if from == "reportComment" {
-            print("해당 댓글 사용자 신고 완료")
-            reportDebateComment()
-        }
-    }
-
-    func okButtonTapped(from: String) {
-        if from == "DeletedDebateComment" || from == "reportedDebateComment" {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    
-    func selectedButton(button:UIButton) {
-        button.backgroundColor = .selectedDebateColor
-        button.setTitleColor(.white, for: .normal)
-        
-    }
-    
-    func deSelectedButton(button:UIButton) {
-        button.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
-        button.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
-    }
-    
     func presentCutomAlert2VC(target:String,
                               title:String,
                               message:String,
@@ -373,6 +339,43 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
         nextVC.target = target
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
+    }
+    
+    func leftButtonTapped(from: String) {
+        if from == "deleteComment" {
+            print("댓글 삭제")
+            deleteDebateComment()
+        }
+    }
+    
+    func rightButtonTapped(from: String) {
+        if from == "reportButton" {
+            // 토론 신고
+            reportDebate()
+        } else if from == "reportComment" {
+            print("해당 댓글 사용자 신고 완료")
+            reportDebateComment()
+        } else if from == "blockDebateUser" {
+            blockUser()
+        }
+    }
+
+    func okButtonTapped(from: String) {
+        if from == "DeletedDebateComment" || from == "reportedDebateComment" {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    
+    func selectedButton(button:UIButton) {
+        button.backgroundColor = .selectedDebateColor
+        button.setTitleColor(.white, for: .normal)
+        
+    }
+    
+    func deSelectedButton(button:UIButton) {
+        button.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
+        button.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
     }
 }
 
@@ -676,6 +679,31 @@ extension DiscussDetailViewController {
                     print(response.message)
                     DispatchQueue.main.async {
                         self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+                    }
+                } else {
+                    print("실패 : 토론 댓글 신고")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    func blockUser() {
+        let userAPI = UserInfoAPI()
+
+        userAPI.requestBlockUser(userID: self.writerID) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 사용자 차단")
+                    guard let response = response.response else {
+                        return
+                    }
+                    print(response.message)
+                    DispatchQueue.main.async {
+                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 차단 완료", message: "차단되었습니다.")
                     }
                 } else {
                     print("실패 : 토론 댓글 신고")

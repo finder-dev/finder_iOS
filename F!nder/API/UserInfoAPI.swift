@@ -161,6 +161,50 @@ struct UserInfoAPI {
         task.resume()
     }
     
-    
+    // 사용자 차단
+    func requestBlockUser(userID:Int,
+                          completionHandler: @escaping (Result<SendEmailResponse,Error>)-> Void) {
+        
+        let urlComponents = URLComponents(string: "https://finder777.com/api/users/block")
+        let httpbody = "{\"blockUserId\" : \"\(userID)\"}"
+        let data = httpbody.data(using: String.Encoding.utf8)
+        
+        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+            print("오류 : token 없음")
+            return
+        }
+                
+        var requestURL = URLRequest(url: (urlComponents?.url)!)
+        requestURL.httpMethod = "POST"
+        requestURL.httpBody = data
+        requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+//        requestURL.setValue("application/json;charset=UTF-8", forHTTPHeaderField: "Content-Type")
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+            
+            guard let data = data,error == nil else {
+                debugPrint("error - \(error?.localizedDescription)")
+                completionHandler(.failure(error!))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            guard let json = try? decoder.decode(SendEmailResponse.self, from: data) else {
+                return
+            }
+            
+            print("======================================================================")
+            print("requestBlockUser : Network - requestBlockUse => \(json.success)")
+            
+            if !json.success {
+                print("requestBlockUse : Network - requestBlockUse => \(json.errorResponse?.errorMessages)")
+            }
+            print("======================================================================")
+            completionHandler(.success(json))
+        }
+        task.resume()
+        
+        
+    }
     
 }
