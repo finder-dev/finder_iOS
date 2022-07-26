@@ -58,6 +58,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var disagreeCounts = UILabel()
     var agreeImageView = UIImageView()
     var disagreeImageView = UIImageView()
+    var AgreeButtonConstraints: NSLayoutConstraint!
+    var disAgreeButtonConstraints: NSLayoutConstraint!
     
     let lineView2 = UIView()
     let tableView = UITableView()
@@ -78,17 +80,25 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         print("viewWillAppear")
         setupUserData()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
+        
+        //$0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
+        
         [searchView,alarmButton,messageButton].forEach {
             $0.isHidden = true
         }
 
         layout()
         attribute()
+        
+        AgreeButtonConstraints = self.agreeCounts.topAnchor.constraint(equalTo: balanceGameTimeLabel.bottomAnchor, constant: 32.0)
+        disAgreeButtonConstraints = self.disagreeCounts.topAnchor.constraint(equalTo: balanceGameTimeLabel.bottomAnchor, constant: 32.0)
+        AgreeButtonConstraints.isActive = true
+        disAgreeButtonConstraints.isActive = true
         
         if balanceGameDataStatus == .noData {
             balanceGameView.isHidden = true
@@ -570,13 +580,13 @@ private extension HomeViewController {
         let buttonWidth = (screenWidth - (20*2 + 13))/2
         
         agreeCounts.snp.makeConstraints {
-            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
+//            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
             $0.trailing.equalToSuperview().inset(screenWidth/2+22.0)
             $0.height.equalTo(64.0)
         }
-        
+
         disagreeCounts.snp.makeConstraints {
-            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
+//            $0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
             $0.leading.equalToSuperview().inset(screenWidth/2+22.0)
             $0.height.equalTo(64.0)
         }
@@ -669,19 +679,41 @@ private extension HomeViewController {
         }
     }
     
+    
     func IsselectedA() {
+        
+        AgreeButtonConstraints.constant = 11.0
+        disAgreeButtonConstraints.constant = 32.0
+
         agreeImageView.isHidden = false
         let selectedColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
         agreeButton.backgroundColor = selectedColor
         agreeButton.setTitleColor(.white, for: .normal)
+        agreeCounts.textColor = selectedColor
+        
+        disagreeImageView.isHidden = true
+        disagreeButton.backgroundColor = .unabledButtonColor
+        disagreeButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        disagreeCounts.textColor = .unabledButtonTextColor
     }
     
     func IsSelectedB() {
+        
+        AgreeButtonConstraints.constant = 32.0
+        disAgreeButtonConstraints.constant = 11.0
+ 
         disagreeImageView.isHidden = false
         let selectedColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
         disagreeButton.backgroundColor = selectedColor
         disagreeButton.setTitleColor(.white, for: .normal)
+        disagreeCounts.textColor = selectedColor
+        
+        agreeImageView.isHidden = true
+        agreeButton.backgroundColor = .unabledButtonColor
+        agreeButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        agreeCounts.textColor = .unabledButtonTextColor
     }
+
     
     func noBalanceGameViewLayout() {
         [noBalanceGameImageView,noBalanceGameLabelImageView].forEach {

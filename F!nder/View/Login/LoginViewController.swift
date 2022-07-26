@@ -70,6 +70,26 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         $0.addTarget(self, action: #selector(didTapEmailLogin), for: .touchUpInside)
         $0.setUnderline()
     }
+    
+    private lazy var serviceTermButton = UIButton(type: .system).then {
+        $0.setTitle("이용약관 및 개인정보취급방침", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .regular)
+        $0.addTarget(self, action: #selector(didTapServiceTermButton), for: .touchUpInside)
+        $0.setUnderline()
+    }
+    
+    private lazy var serviceLabel1 = UILabel().then {
+        $0.text = "로그인함으로써 "
+        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
+        $0.textColor = .textGrayColor
+    }
+    
+    private lazy var serviceLabel2 = UILabel().then {
+        $0.text = " 에 동의합니다"
+        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
+        $0.textColor = .textGrayColor
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +99,12 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         }
         layout()
         attribute()
+    }
+    
+    @objc func didTapServiceTermButton() {
+        print("didTapServiceTermButton")
+        let nextVC = WebViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapKakaoLogin() {
@@ -179,10 +205,15 @@ private extension LoginViewController {
             characterImageView,
             kakaoLoginView,
             appleLoginView,
-            emailLoginButton
+            emailLoginButton,
+            serviceTermButton,
+            serviceLabel1,
+            serviceLabel2
         ].forEach {
             self.view.addSubview($0)
         }
+        
+        let safeArea = self.view.safeAreaLayoutGuide
         
         logoImageView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(181.0)
@@ -199,9 +230,25 @@ private extension LoginViewController {
         }
         
         emailLoginButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(80.0)
+            $0.bottom.equalTo(serviceTermButton.snp.top).offset(-31.0)
+//            $0.bottom.equalToSuperview().inset(80.0)
             $0.centerX.equalToSuperview()
 //            $0.width.equalTo(94.0)
+        }
+        
+        serviceTermButton.snp.makeConstraints {
+            $0.bottom.equalTo(safeArea.snp.bottom).inset(25.0)
+            $0.centerX.equalToSuperview()
+        }
+        
+        serviceLabel1.snp.makeConstraints {
+            $0.centerY.equalTo(serviceTermButton)
+            $0.trailing.equalTo(serviceTermButton.snp.leading)
+        }
+        
+        serviceLabel2.snp.makeConstraints {
+            $0.centerY.equalTo(serviceTermButton)
+            $0.leading.equalTo(serviceTermButton.snp.trailing)
         }
         
         appleLoginView.snp.makeConstraints {

@@ -432,7 +432,7 @@ private extension InsertUserInfoViewController {
         }
         
         idLabel.snp.makeConstraints {
-            $0.top.equalTo(insertUserInfoLabel.snp.bottom).offset(36.0)
+            $0.top.equalTo(insertUserInfoLabel.snp.bottom).offset(12.0)
             $0.leading.equalToSuperview().inset(24.0)
         }
         
@@ -450,7 +450,7 @@ private extension InsertUserInfoViewController {
         }
         
         codeLabel.snp.makeConstraints {
-            $0.top.equalTo(idTextField.snp.bottom).offset(16.0)
+            $0.top.equalTo(idTextField.snp.bottom).offset(8.0)
             $0.leading.equalToSuperview().inset(24.0)
         }
         
@@ -469,7 +469,7 @@ private extension InsertUserInfoViewController {
         }
         
         passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(codeTextField.snp.bottom).offset(16.0)
+            $0.top.equalTo(codeTextField.snp.bottom).offset(8.0)
             $0.leading.equalTo(idLabel)
         }
         
@@ -485,7 +485,7 @@ private extension InsertUserInfoViewController {
         }
         
         passwordCheckTextField.snp.makeConstraints {
-            $0.top.equalTo(passwordInfoLabel.snp.bottom).offset(16.0)
+            $0.top.equalTo(passwordInfoLabel.snp.bottom).offset(8.0)
             $0.leading.equalTo(idLabel)
             $0.trailing.equalTo(safeArea.snp.trailing).inset(24.0)
         }

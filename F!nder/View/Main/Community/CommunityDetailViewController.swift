@@ -9,35 +9,12 @@ import UIKit
 import SnapKit
 import MaterialComponents.MaterialBottomSheet
 
-
-class CommunityDetailViewController: UIViewController, UITextFieldDelegate, AlertMessage2Delegate , AlertMessageDelegate{
-    
-    func leftButtonTapped(from: String) {
-        if from == "deletePost" {
-            deleteCommunityPost()
-        } else if from == "deleteCommunityComment" {
-            deleteCommunityComment()
-        }
-    }
-    
-    func rightButtonTapped(from: String) {
-        if from == "reportCommunityUser" {
-            reportCommunityPost()
-        } else if from == "reportCommunityComment" {
-            reportCommunityComment()
-        } else if from == "blockCommunityUser" {
-            blockUser()
-        }
-    }
-   
-    func okButtonTapped(from: String) {
-        if from == "didDeletePost" || from == "didReportCommunityUser" || from == "DeletedCommunityComment" || from == "didReportCommunityComment" {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
+/*
+ * 커뮤니티 상세 보기 뷰
+ */
+class CommunityDetailViewController: UIViewController, UITextFieldDelegate{
     
     let saveButton = UIButton(type: .custom)
-    
     let headerView = UIView()
     let questionImageView = UIImageView()
     let mbtiCategoryLabel = UILabel()
@@ -78,7 +55,54 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
         print("communityId : \(communityId)")
         fetchCommunityData(communityId: communityId)
     }
+
     
+    // 옵저버 등록
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reportDebateUser), name: Notification.Name("reportUser"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(blockDebateUser), name: Notification.Name("blockUser"), object: nil)
+        setupNavigationAttribute()
+    }
+    
+    func setupNavigationAttribute() {
+        self.navigationController?.navigationBar.isHidden = false
+        
+        let reportButton = UIButton(type: .custom)
+        reportButton.setImage(UIImage(named: "icon-dots"), for: [])
+        reportButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
+        reportButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        
+        saveButton.setImage(UIImage(named: "Frame 986353"), for: [])
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        saveButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        
+        let rightBarButton1 = UIBarButtonItem(customView: reportButton)
+        let rightBarButton2 = UIBarButtonItem(customView: saveButton)
+        
+        self.navigationItem.rightBarButtonItems = [rightBarButton1,rightBarButton2]
+        
+        let backButton  = UIBarButtonItem()
+        backButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        self.navigationController?.navigationBar.tintColor = .blackTextColor
+        self.navigationItem.title = "커뮤니티"
+    }
+    
+    // 옵저버 해제
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("blockUser"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("reportUser"), object: nil)
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+}
+
+// API 통신
+extension CommunityDetailViewController {
     func fetchCommunityData(communityId:Int) {
         communityNetwork.requestCommunityDetail(communityID: communityId) { result in
             switch result {
@@ -131,95 +155,15 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate, Aler
         self.writerID = data.userId
         tableView.reloadData()
     }
+}
+
+// TableView - delegate, datasource
+extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSource {
     
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DebateCommentTableViewCell.self, forCellReuseIdentifier: DebateCommentTableViewCell.identifier)
-    }
-    
-    // 옵저버 등록
-    override func viewWillAppear(_ animated: Bool) {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(reportDebateUser), name: Notification.Name("reportUser"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(blockDebateUser), name: Notification.Name("blockUser"), object: nil)
-        setupNavigationAttribute()
-    }
-    
-    @objc func blockDebateUser() {
-        print("===========blockCommunityUser")
-        self.presentCutomAlert2VC(target: "blockCommunityUser",
-                             title: "해당 사용자를 차단하시겠습니까?",
-                             message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "차단")
-    }
-    
-    @objc func reportDebateUser() {
-        print("===========reportCommunityUser")
-    
-        self.presentCutomAlert2VC(target: "reportCommunityUser",
-                                  title: "해당 사용자를 신고하시겠습니까?",
-                                  message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
-                                  leftButtonTitle: "취소",
-                                  rightButtonTitle: "신고")
-    }
-    
-    func setupNavigationAttribute() {
-        self.navigationController?.navigationBar.isHidden = false
-        
-        let reportButton = UIButton(type: .custom)
-        reportButton.setImage(UIImage(named: "icon-dots"), for: [])
-        reportButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
-        reportButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        
-        saveButton.setImage(UIImage(named: "Frame 986353"), for: [])
-        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
-        saveButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-        
-        let rightBarButton1 = UIBarButtonItem(customView: reportButton)
-        let rightBarButton2 = UIBarButtonItem(customView: saveButton)
-        
-        self.navigationItem.rightBarButtonItems = [rightBarButton1,rightBarButton2]
-        
-        let backButton  = UIBarButtonItem()
-        backButton.title = ""
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-        self.navigationController?.navigationBar.tintColor = .blackTextColor
-        self.navigationItem.title = "커뮤니티"
-    }
-    
-    // 옵저버 해제
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("blockUser"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("reportUser"), object: nil)
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-    }
-}
-
-extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSource, CommentCellDelegate {
-    
-    func report(answerID: Int) {
-        
-        presentCutomAlert2VC(target: "reportCommunityComment",
-                             title: "해당 사용자를 신고하시겠습니까?",
-                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "신고")
-        self.answerID = answerID
-    }
-    
-    func delete(answerID: Int) {
-        presentCutomAlert2VC(target: "deleteCommunityComment",
-                             title: "댓글을 삭제하시겠습니까?",
-                             message: "",
-                             leftButtonTitle: "네",
-                             rightButtonTitle: "아니요")
-        self.answerID = answerID
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -242,6 +186,28 @@ extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSou
         return cell
     }
     
+}
+
+// cell의 닷 선택시 실행
+extension CommunityDetailViewController: CommentCellDelegate  {
+    func report(answerID: Int) {
+        
+        presentCutomAlert2VC(target: "reportCommunityComment",
+                             title: "해당 사용자를 신고하시겠습니까?",
+                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "신고")
+        self.answerID = answerID
+    }
+    
+    func delete(answerID: Int) {
+        presentCutomAlert2VC(target: "deleteCommunityComment",
+                             title: "댓글을 삭제하시겠습니까?",
+                             message: "",
+                             leftButtonTitle: "네",
+                             rightButtonTitle: "아니요")
+        self.answerID = answerID
+    }
 }
 
 extension CommunityDetailViewController {
@@ -278,11 +244,178 @@ extension CommunityDetailViewController {
     }
 }
 
+// cumstom alert message VC
+extension CommunityDetailViewController : AlertMessage2Delegate , AlertMessageDelegate{
+    func presentCutomAlert2VC(target:String,
+                              title:String,
+                              message:String,
+                              leftButtonTitle:String,
+                              rightButtonTitle:String) {
+        let nextVC = AlertMessage2ViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.leftButtonTitle = leftButtonTitle
+        nextVC.rightButtonTitle = rightButtonTitle
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
+    
+    func presentCutomAlert1VC(target:String,
+                              title:String,
+                              message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
+    }
+    
+    func leftButtonTapped(from: String) {
+        if from == "deletePost" {
+            deleteCommunityPost()
+        } else if from == "deleteCommunityComment" {
+            deleteCommunityComment()
+        }
+    }
+    
+    func rightButtonTapped(from: String) {
+        if from == "reportCommunityUser" {
+            reportCommunityPost()
+        } else if from == "reportCommunityComment" {
+            reportCommunityComment()
+        } else if from == "blockCommunityUser" {
+            blockUser()
+        }
+    }
+   
+    func okButtonTapped(from: String) {
+        if from == "didDeletePost" || from == "didReportCommunityUser" || from == "DeletedCommunityComment" || from == "didReportCommunityComment" {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+}
+
+// button events
+extension CommunityDetailViewController {
+    @objc func didTapTextFieldButton() {
+        print("didTapTextFieldButton")
+        guard let text = commentTextField.text else { return }
+        
+        communityNetwork.requestNewComment(communityId: communityId!, content: text) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 댓글 달기 ")
+                    guard let response = response.response else {
+                        return
+                    }
+                    fetchCommunityData(communityId: communityId!)
+                    print(response.communityAnswerId)
+                } else {
+                    print("실패 : 댓글 달기")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+    @objc func blockDebateUser() {
+        print("===========blockCommunityUser")
+        self.presentCutomAlert2VC(target: "blockCommunityUser",
+                             title: "해당 사용자를 차단하시겠습니까?",
+                             message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
+                             leftButtonTitle: "취소",
+                             rightButtonTitle: "차단")
+    }
+    
+    @objc func reportDebateUser() {
+        print("===========reportCommunityUser")
+    
+        self.presentCutomAlert2VC(target: "reportCommunityUser",
+                                  title: "해당 사용자를 신고하시겠습니까?",
+                                  message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
+                                  leftButtonTitle: "취소",
+                                  rightButtonTitle: "신고")
+    }
+    
+    @objc func didTapBackButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func didTapDotButton() {
+        let userId = UserDefaults.standard.string(forKey: "userId")
+        
+        guard let userId = userId else {
+            return
+        }
+        
+        if userId == communityUserId {
+            DispatchQueue.main.async {
+                self.presentCutomAlert2VC(target: "deletePost",
+                                          title: "글을 삭제하시겠습니까?",
+                                          message: "",
+                                          leftButtonTitle: "네",
+                                          rightButtonTitle: "아니요")
+            }
+            
+        } else {
+            let bottomSheetVC = BottomSheetViewController()
+            
+            let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
+            bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
+            
+            present(bottomSheet, animated: true)
+
+        }
+
+    }
+    
+    @objc func didTapSaveButton() {
+        print("didTapSaveButton")
+        
+        communityNetwork.requestSave(communityID: communityId!) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 글 저장 ")
+
+                    guard let response = response.response  else {
+                        return
+                    }
+                    if response.message == "save success" {
+                        DispatchQueue.main.async {
+                            saveButton.setImage(UIImage(named: "saved2"), for: .normal)
+                            navigationItem.rightBarButtonItems?[0].tintColor = .mainTintColor
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
+                        }
+                    }
+                    print(response.message)
+                    
+                } else {
+                    print("실패 : 커뮤니티 글 저장")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
+    }
+    
+}
 
 extension CommunityDetailViewController {
     func layout() {
         
-        [headerView,
+        [
          mbtiCategoryLabel,
          questionImageView,
          titleLabel,
@@ -434,29 +567,7 @@ extension CommunityDetailViewController {
         commentTextField.rightViewMode = .always
     }
     
-    @objc func didTapTextFieldButton() {
-        print("didTapTextFieldButton")
-        guard let text = commentTextField.text else { return }
-        
-        communityNetwork.requestNewComment(communityId: communityId!, content: text) { [self] result in
-            switch result {
-            case let .success(response) :
-                if response.success {
-                    print("성공 : 댓글 달기 ")
-                    guard let response = response.response else {
-                        return
-                    }
-                    fetchCommunityData(communityId: communityId!)
-                    print(response.communityAnswerId)
-                } else {
-                    print("실패 : 댓글 달기")
-                    print(response.errorResponse?.errorMessages)
-                }
-            case .failure(_):
-                print("오류")
-            }
-        }
-    }
+
     
     func setupHeaderView() {
         let headerLabel = UILabel()
@@ -504,140 +615,36 @@ extension CommunityDetailViewController {
         headerLabel.textAlignment = .center
     }
     
-    @objc func didTapBackButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
     
-    @objc func didTapDotButton() {
-        let userId = UserDefaults.standard.string(forKey: "userId")
-        
-        guard let userId = userId else {
-            return
-        }
-        
-        if userId == communityUserId {
-            DispatchQueue.main.async {
-                self.presentCutomAlert2VC(target: "deletePost",
-                                          title: "글을 삭제하시겠습니까?",
-                                          message: "",
-                                          leftButtonTitle: "네",
-                                          rightButtonTitle: "아니요")
-            }
-           
-//            presentMyPostActionSheet()
-        } else {
-//            presentOthersPostActionSheet()
-            
-            let bottomSheetVC = BottomSheetViewController()
-            
-            let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
-            bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
-            
-            present(bottomSheet, animated: true)
-            
-//            DispatchQueue.main.async {
-//                self.presentCutomAlert2VC(target: "reportCommunityUser",
-//                                          title: "해당 사용자를 신고하시겠습니까?",
-//                                          message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
-//                                          leftButtonTitle: "취소",
-//                                          rightButtonTitle: "신고")
-//            }
-            
-        }
-
-    }
-    
-    func presentMyPostActionSheet() {
-        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) {_ in
-            self.presentCutomAlert2VC(target: "deletePost", title: "글을 삭제하시겠습니까?", message: "", leftButtonTitle: "네", rightButtonTitle: "아니요")
-            print("delete")
-        }
-        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
-        actionSheet.addAction(deleteAction)
-        actionSheet.addAction(closeAction)
-        self.present(actionSheet, animated: true)
-    }
-    
-    func presentOthersPostActionSheet() {
-        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "신고", style: .destructive) {_ in
-            self.presentCutomAlert2VC(target: "reportCommunityUser",
-                                      title: "해당 사용자를 신고하시겠습니까?",
-                                      message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
-                                      leftButtonTitle: "취소",
-                                      rightButtonTitle: "신고")
-            print("report")
-        }
-        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
-        actionSheet.addAction(deleteAction)
-        actionSheet.addAction(closeAction)
-        self.present(actionSheet, animated: true)
-    }
+//    func presentMyPostActionSheet() {
+//        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+//        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) {_ in
+//            self.presentCutomAlert2VC(target: "deletePost", title: "글을 삭제하시겠습니까?", message: "", leftButtonTitle: "네", rightButtonTitle: "아니요")
+//            print("delete")
+//        }
+//        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
+//        actionSheet.addAction(deleteAction)
+//        actionSheet.addAction(closeAction)
+//        self.present(actionSheet, animated: true)
+//    }
+//
+//    func presentOthersPostActionSheet() {
+//        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+//        let deleteAction = UIAlertAction(title: "신고", style: .destructive) {_ in
+//            self.presentCutomAlert2VC(target: "reportCommunityUser",
+//                                      title: "해당 사용자를 신고하시겠습니까?",
+//                                      message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
+//                                      leftButtonTitle: "취소",
+//                                      rightButtonTitle: "신고")
+//            print("report")
+//        }
+//        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
+//        actionSheet.addAction(deleteAction)
+//        actionSheet.addAction(closeAction)
+//        self.present(actionSheet, animated: true)
+//    }
     
     
-    func presentCutomAlert2VC(target:String,
-                              title:String,
-                              message:String,
-                              leftButtonTitle:String,
-                              rightButtonTitle:String) {
-        let nextVC = AlertMessage2ViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.leftButtonTitle = leftButtonTitle
-        nextVC.rightButtonTitle = rightButtonTitle
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
-    }
-    
-    func presentCutomAlert1VC(target:String,
-                              title:String,
-                              message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
-    }
-    
-    
-    @objc func didTapSaveButton() {
-        print("didTapSaveButton")
-        
-        communityNetwork.requestSave(communityID: communityId!) { [self] result in
-            switch result {
-            case let .success(response) :
-                if response.success {
-                    print("성공 : 커뮤니티 글 저장 ")
-
-                    guard let response = response.response  else {
-                        return
-                    }
-                    if response.message == "save success" {
-                        DispatchQueue.main.async {
-                            saveButton.setImage(UIImage(named: "saved2"), for: .normal)
-                            navigationItem.rightBarButtonItems?[0].tintColor = .mainTintColor
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
-                        }
-                    }
-                    print(response.message)
-                    
-                } else {
-                    print("실패 : 커뮤니티 글 저장")
-                    print(response.errorResponse?.errorMessages)
-                }
-            case .failure(_):
-                print("오류")
-            }
-        }
-    }
 }
 
 

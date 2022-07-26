@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if !Storage.isFirstTime() {
             rootVC = LoginViewController()
-//            rootVC = CommunityDetailViewController()
+//            rootVC = OnBoardingViewController()
         } else {
             rootVC = OnBoardingViewController()
         }

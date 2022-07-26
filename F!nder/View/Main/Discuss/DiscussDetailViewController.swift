@@ -28,6 +28,8 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
     var userMBTILabel = UILabel()
     var userNameLabel = UILabel()
     var commentCountLabel = UILabel()
+    var agreeButtonConstraints: NSLayoutConstraint!
+    var disAgreeButtonConstraints: NSLayoutConstraint!
     
     var textFieldView = UIView()
     var commentTextField = UITextField()
@@ -49,6 +51,10 @@ class DiscussDetailViewController: UIViewController, UITextFieldDelegate{
         layout()
         attribute()
         commentTextField.delegate = self
+        agreeButtonConstraints = self.agreeCounts.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 32.0)
+        disAgreeButtonConstraints = self.disagreeCounts.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 32.0)
+        agreeButtonConstraints.isActive = true
+        disAgreeButtonConstraints.isActive = true
 
         guard let debateID = debateID else {
             return
@@ -121,14 +127,14 @@ extension DiscussDetailViewController {
             if data.joinOption == "A" {
                 agreeImageView.isHidden = false
                 disagreeImageView.isHidden = true
-                selectedButton(button: agreeButton)
-                deSelectedButton(button: disagreeButton)
+                selectedButton(button: agreeButton, option: "A")
+                deSelectedButton(button: disagreeButton, option: "B")
             } else if data.joinOption == "B" {
                 
                 disagreeImageView.isHidden = false
                 agreeImageView.isHidden = true
-                selectedButton(button: disagreeButton)
-                deSelectedButton(button: agreeButton)
+                selectedButton(button: disagreeButton, option: "B")
+                deSelectedButton(button: agreeButton, option: "A")
             }
         }
         print(data.answerHistDtos)
@@ -254,7 +260,7 @@ extension DiscussDetailViewController {
                     if response.message == "detach success" {
                         DispatchQueue.main.async {
                             agreeImageView.isHidden = true
-                            deSelectedButton(button: agreeButton)
+                            deSelectedButton(button: agreeButton, option: "A")
                         }
                     }
                     fetchDebateData(debateID: debateID!)
@@ -283,7 +289,7 @@ extension DiscussDetailViewController {
                     if response.message == "detach success" {
                         DispatchQueue.main.async {
                             disagreeImageView.isHidden = true
-                            deSelectedButton(button: disagreeButton)
+                            deSelectedButton(button: disagreeButton, option: "B")
                         }
                     }
                     
@@ -367,15 +373,36 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
     }
     
     
-    func selectedButton(button:UIButton) {
+    func selectedButton(button:UIButton, option:String) {
         button.backgroundColor = .selectedDebateColor
         button.setTitleColor(.white, for: .normal)
         
+        if option == "B" {
+            disAgreeButtonConstraints.constant = 11.0
+//            disagreeCounts.snp.makeConstraints {
+//                $0.top.equalTo(timeLabel.snp.bottom).offset(11.0)
+//            }
+            disagreeCounts.textColor = .selectedDebateColor
+        } else {
+            agreeButtonConstraints.constant = 11.0
+//            agreeCounts.snp.makeConstraints {
+//                $0.top.equalTo(timeLabel.snp.bottom).offset(11.0)
+//            }
+            agreeCounts.textColor = .selectedDebateColor
+        }
     }
     
-    func deSelectedButton(button:UIButton) {
+    func deSelectedButton(button:UIButton, option:String) {
         button.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         button.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
+        
+        if option == "B" {
+            disAgreeButtonConstraints.constant = 32.0
+            disagreeCounts.textColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
+        } else {
+            agreeButtonConstraints.constant = 32.0
+            agreeCounts.textColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
+        }
     }
 }
 
