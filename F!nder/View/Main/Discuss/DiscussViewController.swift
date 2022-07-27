@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import MaterialComponents.MaterialBottomSheet
 
 enum DiscussViewStatus {
     case noData
@@ -16,8 +17,8 @@ enum DiscussViewStatus {
 /*
  * 토론 목록들을 보여주는 view controller
  */
-class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MDCBottomSheetControllerDelegate {
+
     let headerView = UIView()
     let headerTitle = UILabel()
     let addButton = UIButton()
@@ -51,8 +52,29 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
         pageCount = 0
         tableViewData = []
         fetchData(state: "PROCEEDING", page: pageCount)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapProgressDebate), name: Notification.Name("blockUser"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didTapEndDebate), name: Notification.Name("reportUser"), object: nil)
+    
     }
     
+    @objc func didTapProgressDebate() {
+        print("didTapProgressDebate")
+        pageCount = 0
+        tableViewData = []
+        categoryLabel.text = "불나게 진행중인 토론"
+        fetchData(state: "PROCEEDING", page: pageCount)
+    }
+    
+    @objc func didTapEndDebate() {
+        print("didTapEndDebate")
+        categoryLabel.text = "아쉽게 마감한 토론"
+        pageCount = 0
+        tableViewData = []
+        fetchData(state: "COMPLETE", page: pageCount)
+
+    }
     
     func fetchData(state: String, page:Int) {
         
@@ -60,7 +82,7 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
             switch result {
             case let .success(response) :
                 if response.success {
-                    print("성공 : 전체 커뮤니티 글 조회 ")
+                    print("성공 : 전체 토론 글 조회 ")
 
                     guard let response = response.response  else {
                         return
@@ -83,7 +105,7 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
                         }
                     }
                 } else {
-                    print("실패 : 전체 커뮤니티 글 조회")
+                    print("실패 : 토론 글 조회")
                     print(response.errorResponse?.errorMessages)
                 }
             case .failure(_):
@@ -158,6 +180,14 @@ private extension DiscussViewController {
     
     @objc func didTapCategoryButton() {
         print("didTapCategoryButton")
+        let bottomSheetVC = BottomSheetViewController()
+        bottomSheetVC.titles = ["불나게 진행중인 토론","아쉽게 마감한 토론"]
+        
+        let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
+        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 150
+        bottomSheet.delegate = self
+        
+        present(bottomSheet, animated: true)
     }
     
 }

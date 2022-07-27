@@ -11,7 +11,7 @@ import SnapKit
 class BottomSheetViewController: UIViewController {
 
     let tableView = UITableView()
-    let titles: [String] = ["차단","신고","닫기"]
+    var titles: [String] = ["차단","신고","닫기"]
     var userId: Int = -1
 
     override func viewDidLoad() {
