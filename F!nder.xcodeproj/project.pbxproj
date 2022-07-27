@@ -47,7 +47,6 @@
 		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
 		2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */; };
 		2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */; };
-		2BA51BD22879BEDD00D87533 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BD12879BEDD00D87533 /* CustomAlert.swift */; };
 		2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */; };
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
 		2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* DialogViewController.swift */; };
@@ -127,7 +126,6 @@
 		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
 		2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIViewController.swift; sourceTree = "<group>"; };
 		2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageViewController.swift; sourceTree = "<group>"; };
-		2BA51BD12879BEDD00D87533 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2BA8F25228671DB200D64F0E /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
@@ -334,7 +332,6 @@
 			isa = PBXGroup;
 			children = (
 				2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */,
-				2BA51BD12879BEDD00D87533 /* CustomAlert.swift */,
 				2B557B1028885C1C0057CC9D /* AlertMessage2ViewController.swift */,
 				2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */,
 			);
@@ -627,7 +624,6 @@
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
 				2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */,
 				2B6826B3286DE598006AF742 /* Login.swift in Sources */,
-				2BA51BD22879BEDD00D87533 /* CustomAlert.swift in Sources */,
 				2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */,
 				2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */,
 				2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */,
@@ -802,6 +798,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -832,6 +829,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
