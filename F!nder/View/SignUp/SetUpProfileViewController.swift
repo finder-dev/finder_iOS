@@ -159,6 +159,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         layout()
         attribute()
         
+        nickNameTextField.delegate = self
         nickNameCheckButton.isHidden = true
     }
     
@@ -168,6 +169,18 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         enableNextButton()
     }
     
+}
+
+// 키보드 내림 추가
+extension SetUpProfileViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
 
 // MARK : - Button Action

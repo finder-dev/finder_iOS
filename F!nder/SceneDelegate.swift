@@ -20,11 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if !Storage.isFirstTime() {
             rootVC = LoginViewController()
-//            rootVC = OnBoardingViewController()
         } else {
             rootVC = OnBoardingViewController()
         }
         
+//        window?.rootViewController = SetUpProfileViewController()
         window?.rootViewController = UINavigationController(rootViewController: rootVC)
         window?.makeKeyAndVisible()
     }
