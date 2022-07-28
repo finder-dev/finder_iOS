@@ -45,6 +45,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate{
     let communityNetwork = CommunityAPI()
     var answerID = -1
     var writerID = -1
+    var likeCount = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,6 +166,7 @@ extension CommunityDetailViewController {
         self.commentDataList = communityData
         self.communityUserId = "\(data.userId)"
         self.writerID = data.userId
+        self.likeCount = data.likeCount
         tableView.reloadData()
     }
     
@@ -666,6 +668,46 @@ extension CommunityDetailViewController {
         thumbsUpButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
         thumbsUpButton.setTitleColor(.mainTintColor, for: .normal)
         thumbsUpButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+        thumbsUpButton.addTarget(self, action: #selector(didTapThumbsUpButton), for: .touchUpInside)
+    }
+    
+    @objc func didTapThumbsUpButton() {
+        print("didTapThumbsUpButton")
+        
+        communityNetwork.requestCommunityLike(communityId: communityId!) { [self] result in
+            switch result {
+            case let .success(response) :
+                if response.success {
+                    print("성공 : 커뮤니티 좋아요 ")
+
+                    guard let response = response.response  else {
+                        return
+                    }
+                    if response.message == "add success" {
+                        DispatchQueue.main.async {
+                            self.likeButton()
+                            likeCount += 1
+                            thumbsUpButton.setTitle(" 추천 \(likeCount)", for: .normal)
+                        }
+                        
+                    } else {
+                        DispatchQueue.main.async {
+                            self.disLikeButton()
+                            likeCount -= 1
+                            thumbsUpButton.setTitle(" 추천 \(likeCount)", for: .normal)
+                        }
+                        
+                    }
+                    print(response.message)
+                    
+                } else {
+                    print("실패 : 커뮤니티 좋아요")
+                    print(response.errorResponse?.errorMessages)
+                }
+            case .failure(_):
+                print("오류")
+            }
+        }
     }
 
 }
