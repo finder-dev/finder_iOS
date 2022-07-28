@@ -43,6 +43,12 @@ class CommunityTableViewCell: UITableViewCell {
 
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // cell간 간격 주기
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
+    }
+    
     func setupCellData(data: content) {
         mbtiCategoryLabel.text = data.communityMBTI
         titleLabel.text = data.communityTitle
@@ -159,6 +165,9 @@ private extension CommunityTableViewCell {
     }
     
     func attribute() {
+        backgroundColor = UIColor(red: 247/255, green: 248/255, blue: 252/255, alpha: 1.0)
+        innerView.backgroundColor = .white
+        
         questionImageView.image = UIImage(named: "Group 986359")
         
         mbtiCategoryLabel.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)

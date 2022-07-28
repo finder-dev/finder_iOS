@@ -557,8 +557,8 @@ extension CommunityDetailViewController {
         }
         
         commentTextField.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
-        commentTextField.placeholder = "토론에 참여해보세요!"
-        commentTextField.layer.cornerRadius = 15.0//ic_baseline-arrow-forward
+        commentTextField.placeholder = "따뜻한 댓글을 남겨주세요!"
+        commentTextField.layer.cornerRadius = 25.0//ic_baseline-arrow-forward
         commentTextField.addLeftPadding(padding: 16.0)
         btnView = UIButton(frame: CGRect(x: 0, y: 0, width: 34.0, height: 34.0))
         btnView.setImage(UIImage(named: "btn_caretleft_bold")!, for: .normal)

@@ -333,8 +333,10 @@ private extension CommunityViewController {
             $0.top.equalTo(headerView.snp.bottom)
         }
         
+        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.register(CommunityTableViewCell.self, forCellReuseIdentifier: CommunityTableViewCell.identifier)
     }
 }

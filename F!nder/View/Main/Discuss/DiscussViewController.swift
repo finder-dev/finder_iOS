@@ -59,6 +59,12 @@ class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("blockUser"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("reportUser"), object: nil)
+    }
+    
     @objc func didTapProgressDebate() {
         print("didTapProgressDebate")
         pageCount = 0
@@ -302,7 +308,7 @@ private extension DiscussViewController {
             $0.top.equalTo(headerView.snp.bottom).offset(3.0)
         }
         
-        tableView.backgroundColor = UIColor(red: 233/255, green: 234/255, blue: 239/255, alpha: 1.0)
+        tableView.backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(DiscussTableViewCell.self, forCellReuseIdentifier: DiscussTableViewCell.identifier)

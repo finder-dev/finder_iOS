@@ -23,7 +23,11 @@ enum discussDataStatus {
     case yesData
 }
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AlertMessageDelegate {
+    func okButtonTapped(from: String) {
+        
+    }
+    
     // 헤더 components
     var mainLogoImageView = UIImageView()
     var alarmButton = UIButton()
@@ -88,7 +92,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         //$0.top.equalTo(balanceGameTimeLabel.snp.bottom).offset(32.0)
         
-        [searchView,alarmButton,messageButton].forEach {
+        [alarmButton,messageButton].forEach {
             $0.isHidden = true
         }
 
@@ -122,22 +126,22 @@ extension HomeViewController {
         
         switch mbti {
         case "INFJ":
-            mbtiInfoLabel.text = "오늘은 하고 싶은 말 다 하고 오셨나요?"
+            mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
             mbtiImageView.image = UIImage(named: "Frame 7594")
         case "INFP":
-            mbtiInfoLabel.text = "오늘은 집 밖으로 나가볼까요?"
+            mbtiInfoLabel.text = "오늘은 집 밖으로 \n나가볼까요?"
             mbtiImageView.image = UIImage(named: "Frame 7593")
         case "ISFJ":
-            mbtiInfoLabel.text = "어떤 독특한 일이 일어날까요?"
+            mbtiInfoLabel.text = "어떤 독특한 일이 \n일어날까요?"
             mbtiImageView.image = UIImage(named: "Frame 7595")
         case "ISFP":
-            mbtiInfoLabel.text = "오늘은 어떤 것에 꽂혀볼까요?"
+            mbtiInfoLabel.text = "오늘은 어떤 것에 \n꽂혀볼까요?"
             mbtiImageView.image = UIImage(named: "Frame 7595")
         case "INTJ":
-            mbtiInfoLabel.text = "어떤 호기심으로 가득차셨나요?"
+            mbtiInfoLabel.text = "어떤 호기심으로 \n가득차셨나요?"
             mbtiImageView.image = UIImage(named: "Frame 7594")
         case "INTP":
-            mbtiInfoLabel.text = "어떤 곳에 열정을 불태워볼까요?"
+            mbtiInfoLabel.text = "어떤 곳에 열정을 \n불태워볼까요?"
             mbtiImageView.image = UIImage(named: "Frame 7592")
         case "ISTJ":
             mbtiInfoLabel.text = "민첩한 하루 되세요!"
@@ -146,29 +150,28 @@ extension HomeViewController {
             mbtiInfoLabel.text = "만능 재주꾼의 시간이에요!"
             mbtiImageView.image = UIImage(named: "Frame 7592")
         case "ENFJ":
-            mbtiInfoLabel.text = "카리스마 넘치는 하루 보내세요!"
+            mbtiInfoLabel.text = "카리스마 넘치는 \n하루 보내세요!"
             mbtiImageView.image = UIImage(named: "Frame 7595")
         case "ENFP":
-            mbtiInfoLabel.text = "오늘은 어떤 상상을 하셨나요?"
+            mbtiInfoLabel.text = "오늘은 어떤 상상을 \n하셨나요?"
             mbtiImageView.image = UIImage(named: "Frame 7592")
         case "ESFJ":
-            mbtiInfoLabel.text = "오늘 계획도 완벽 수행 각!"
-            // 94로 다시 수정
+            mbtiInfoLabel.text = "오늘 계획도 \n완벽 수행 각!"
             mbtiImageView.image = UIImage(named: "Frame 7594")
         case "ESFP":
-            mbtiInfoLabel.text = "어떤 재밌는 일이 기다리고 있을까요?"
+            mbtiInfoLabel.text = "어떤 재밌는 일이 \n기다리고 있을까요?"
             mbtiImageView.image = UIImage(named: "Frame 7595")
         case "ENTJ":
-            mbtiInfoLabel.text = "오늘도 쿨한 하루 보내셨나요?"
+            mbtiInfoLabel.text = "오늘도 쿨한 하루 \n보내셨나요?"
             mbtiImageView.image = UIImage(named: "Frame 7593")
         case "ENTP":
-            mbtiInfoLabel.text = "자신감 충만한 하루 되세요!"
+            mbtiInfoLabel.text = "자신감 충만한 \n하루 되세요!"
             mbtiImageView.image = UIImage(named: "Frame 7593")
         case "ESTJ":
-            mbtiInfoLabel.text = "오늘도 알찬 하루 보내세요"
+            mbtiInfoLabel.text = "오늘도 알찬 \n하루 보내세요"
             mbtiImageView.image = UIImage(named: "Frame 7592")
         case "ESTP":
-            mbtiInfoLabel.text = "스릴 넘치는 하루 보내세요!"
+            mbtiInfoLabel.text = "스릴 넘치는 \n하루 보내세요!"
             mbtiImageView.image = UIImage(named: "Frame 7594")
         default:
             mbtiInfoLabel.text = ""
@@ -356,6 +359,7 @@ private extension HomeViewController {
         addLabel.text = "님,"
         addLabel.font = .systemFont(ofSize: 16.0, weight: .regular)
         addLabel.textColor = .blackTextColor
+        addLabel.textAlignment = .left
         
         mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
         mbtiInfoLabel.numberOfLines = 0
@@ -425,41 +429,34 @@ private extension HomeViewController {
        }
         
         
-//        searchView.snp.makeConstraints {
-//            $0.top.equalTo(innerView)
-//            $0.leading.equalTo(innerView).inset(20.0)
-//            $0.centerX.equalTo(innerView)
-//            $0.height.equalTo(54.0)
-//        }
-        
-//        userInfoLabel.snp.makeConstraints {
-//            $0.top.equalTo(searchView.snp.bottom).offset(36.0)
-//            $0.leading.equalTo(searchView)
-//        }
-        
-        userInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(innerView).inset(10.0)
+        searchView.snp.makeConstraints {
+            $0.top.equalTo(innerView)
             $0.leading.equalTo(innerView).inset(20.0)
+            $0.centerX.equalTo(innerView)
+            $0.height.equalTo(54.0)
         }
         
+        userInfoLabel.snp.makeConstraints {
+            $0.top.equalTo(searchView.snp.bottom).offset(36.0)
+            $0.leading.equalTo(searchView.snp.leading)
+        }
+ 
         addLabel.snp.makeConstraints {
             $0.leading.equalTo(userInfoLabel.snp.trailing)
             $0.bottom.equalTo(userInfoLabel)
         }
         
+        
         mbtiInfoLabel.snp.makeConstraints {
             $0.top.equalTo(userInfoLabel.snp.bottom).offset(8.0)
-            $0.leading.equalTo(userInfoLabel)
+            $0.leading.equalTo(userInfoLabel.snp.leading)
         }
         
         mbtiImageView.snp.makeConstraints {
-//            $0.top.equalTo(searchView.snp.bottom).offset(8.0)
-            $0.trailing.equalTo(innerView).inset(20.0)
-//            $0.width.equalTo(155.0)
-            $0.width.equalTo(140.0)
-
+            $0.width.equalTo(155.0)
             $0.height.equalTo(140.0)
-            $0.centerY.equalTo(mbtiInfoLabel)
+            $0.trailing.equalTo(searchView.snp.trailing)
+            $0.top.equalTo(searchView.snp.bottom).offset(8.0)
         }
         
         lineView.snp.makeConstraints {
@@ -543,8 +540,21 @@ private extension HomeViewController {
     
     @objc func didTapSearchView() {
         print("didtapSearchView")
-        let nextVC = SearchViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
+//        let nextVC = SearchViewController()
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+        self.presentCutomAlert1VC(target: "tapSearch", title: "아직 공사 중!", message: "조금만 기다려주세요♥")
+    }
+    
+    func presentCutomAlert1VC(target:String,
+                              title:String,
+                              message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
 }
 

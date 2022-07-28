@@ -300,6 +300,7 @@ private extension WriteCommunityViewController {
             $0.top.equalTo(safeArea.snp.top).offset(16.0)
             $0.leading.equalToSuperview().inset(20.0)
             $0.height.equalTo(42.0)
+//            $0.width.equalTo(264.0)
             $0.trailing.equalTo(questionButton.snp.leading).offset(-13.0)
         }
         
@@ -334,7 +335,7 @@ private extension WriteCommunityViewController {
     }
     
     func attribute() {
-        selectMBTIView.layer.cornerRadius = 10
+        selectMBTIView.layer.cornerRadius = 21.0
         selectMBTIView.layer.borderColor = UIColor.mainTintColor.cgColor
         selectMBTIView.layer.borderWidth = 1.0
         questionButton.setImage(UIImage(named: "Group 986375"), for: .normal)

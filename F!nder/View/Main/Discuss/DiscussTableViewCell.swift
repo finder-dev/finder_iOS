@@ -91,7 +91,7 @@ private extension DiscussTableViewCell {
     }
     
     func attribute() {
-        backgroundColor = UIColor(red: 233/255, green: 234/255, blue: 239/255, alpha: 1.0)
+        backgroundColor = UIColor(red: 247/255, green: 248/255, blue: 252/255, alpha: 1.0)
         innerView.backgroundColor = .white
         
         discussLabel.numberOfLines = 2

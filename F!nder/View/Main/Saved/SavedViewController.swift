@@ -197,6 +197,7 @@ private extension SavedViewController {
             $0.top.equalTo(headerView.snp.bottom).offset(16.0)
         }
         
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CommunityTableViewCell.self, forCellReuseIdentifier: CommunityTableViewCell.identifier)
