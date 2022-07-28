@@ -61,6 +61,7 @@ class CommunityTableViewCell: UITableViewCell {
                 
         if data.likeUser {
             recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
+            recommentButton.tintColor = .mainTintColor
             recommentLabel.textColor = .mainTintColor
         } else {
             recommentButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
@@ -171,6 +172,8 @@ private extension CommunityTableViewCell {
     func attribute() {
         backgroundColor = UIColor(red: 247/255, green: 248/255, blue: 252/255, alpha: 1.0)
         innerView.backgroundColor = .white
+//        backgroundColor = .clear
+//        innerView.backgroundColor = .clear
         
         questionImageView.image = UIImage(named: "Group 986359")
         
@@ -194,8 +197,7 @@ private extension CommunityTableViewCell {
         
         lineView.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
 
-        recommentButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
-        recommentButton.isEnabled = false
+//        recommentButton.isEnabled = false
         commentImageView.image = UIImage(named: "icon-chat-bubble-dots-mono")
         
         [recommentLabel,commentLabel].forEach {
