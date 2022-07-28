@@ -23,6 +23,10 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate{
     let userNameLabel = UILabel()
     let timeLabel = UILabel()
 //    let saveButton = UIButton()
+    let thumbsUpButton = UIButton()
+    let commentView = UIView()
+    let commentImageView = UIImageView()
+    let commentCountLabel = UILabel()
     
     let lineView = UIView()
     let contentLabel = UILabel()
@@ -135,7 +139,8 @@ extension CommunityDetailViewController {
         userNameLabel.text = " • \(data.userNickname)"
         titleLabel.text = data.communityTitle
         contentLabel.text = data.communityContent
-        
+        commentCountLabel.text = "댓글 \(data.answerCount)"
+        thumbsUpButton.setTitle(" 추천 \(data.likeCount)", for: .normal)
         if !data.isQuestion {
             questionImageView.isHidden = true
         }
@@ -146,6 +151,13 @@ extension CommunityDetailViewController {
             saveButton.setImage(UIImage(named: "Frame 986353"), for: .normal)
         }
         
+        if data.likeUser {
+            likeButton()
+            
+        } else {
+            disLikeButton()
+        }
+         
         guard let communityData = data.answerHistDtos else {
             return
         }
@@ -154,6 +166,16 @@ extension CommunityDetailViewController {
         self.communityUserId = "\(data.userId)"
         self.writerID = data.userId
         tableView.reloadData()
+    }
+    
+    func likeButton() {
+        thumbsUpButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
+        thumbsUpButton.setTitleColor(.mainTintColor, for: .normal)
+    }
+    
+    func disLikeButton() {
+        thumbsUpButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
+        thumbsUpButton.setTitleColor(UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0), for: .normal)
     }
 }
 
@@ -425,6 +447,8 @@ extension CommunityDetailViewController {
          lineView,
          contentLabel,
          lineView2,
+         thumbsUpButton,
+         commentView,
          emptyView,
          tableView,
          textFieldView].forEach {
@@ -432,18 +456,6 @@ extension CommunityDetailViewController {
         }
         
         let safeArea = self.view.safeAreaLayoutGuide
-        
-//        headerView.snp.makeConstraints {
-//            $0.top.leading.trailing.equalTo(safeArea)
-//            $0.height.equalTo(48.0)
-//        }
-        
-//        mbtiCategoryLabel.snp.makeConstraints {
-//            $0.top.equalTo(headerView.snp.bottom).offset(16.0)
-//            $0.leading.equalToSuperview().inset(20.0)
-//            $0.width.equalTo(43.0)
-//            $0.height.equalTo(30.0)
-//        }
         
         mbtiCategoryLabel.snp.makeConstraints {
             $0.top.equalTo(safeArea).offset(16.0)
@@ -497,8 +509,40 @@ extension CommunityDetailViewController {
             $0.height.equalTo(1.0)
         }
         
-        emptyView.snp.makeConstraints {
+        let buttonWidth = self.view.bounds.width/2 - 20.0
+        thumbsUpButton.snp.makeConstraints {
             $0.top.equalTo(lineView2.snp.bottom)
+            $0.leading.equalTo(lineView2.snp.leading)
+            $0.width.equalTo(buttonWidth)
+            $0.height.equalTo(56.0)
+        }
+        
+        commentView.snp.makeConstraints {
+            $0.top.equalTo(thumbsUpButton)
+            $0.trailing.equalTo(lineView2)
+            $0.height.equalTo(56.0)
+            $0.width.equalTo(buttonWidth)
+        }
+        
+        [commentImageView,commentCountLabel].forEach {
+            commentView.addSubview($0)
+        }
+        
+        let leadingSpacing = buttonWidth * 50.0 / 167.0
+        
+        commentImageView.snp.makeConstraints {
+            $0.leading.equalTo(commentView).inset(leadingSpacing)
+            $0.width.height.equalTo(24.0)
+            $0.centerY.equalToSuperview()
+        }
+        
+        commentCountLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(commentImageView.snp.trailing).offset(4.0)
+        }
+        
+        emptyView.snp.makeConstraints {
+            $0.top.equalTo(thumbsUpButton.snp.bottom)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(10.0)
 
@@ -565,6 +609,10 @@ extension CommunityDetailViewController {
         btnView.addTarget(self, action: #selector(didTapTextFieldButton), for: .touchUpInside)
         commentTextField.rightView = btnView
         commentTextField.rightViewMode = .always
+        
+        commentImageView.image = UIImage(named: "icon-chat-bubble-dots-mono")
+        commentCountLabel.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
+        commentCountLabel.font = .systemFont(ofSize: 14.0, weight: .medium)
     }
     
 
@@ -613,38 +661,13 @@ extension CommunityDetailViewController {
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
         headerLabel.textColor = .blackTextColor
         headerLabel.textAlignment = .center
+        
+        thumbsUpButton.setTitle(" 추천", for: .normal)
+        thumbsUpButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
+        thumbsUpButton.setTitleColor(.mainTintColor, for: .normal)
+        thumbsUpButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
     }
-    
-    
-//    func presentMyPostActionSheet() {
-//        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-//        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) {_ in
-//            self.presentCutomAlert2VC(target: "deletePost", title: "글을 삭제하시겠습니까?", message: "", leftButtonTitle: "네", rightButtonTitle: "아니요")
-//            print("delete")
-//        }
-//        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
-//        actionSheet.addAction(deleteAction)
-//        actionSheet.addAction(closeAction)
-//        self.present(actionSheet, animated: true)
-//    }
-//
-//    func presentOthersPostActionSheet() {
-//        let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
-//        let deleteAction = UIAlertAction(title: "신고", style: .destructive) {_ in
-//            self.presentCutomAlert2VC(target: "reportCommunityUser",
-//                                      title: "해당 사용자를 신고하시겠습니까?",
-//                                      message: "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
-//                                      leftButtonTitle: "취소",
-//                                      rightButtonTitle: "신고")
-//            print("report")
-//        }
-//        let closeAction = UIAlertAction(title: "닫기", style: .cancel)
-//        actionSheet.addAction(deleteAction)
-//        actionSheet.addAction(closeAction)
-//        self.present(actionSheet, animated: true)
-//    }
-    
-    
+
 }
 
 
