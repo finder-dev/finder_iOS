@@ -60,7 +60,7 @@ class LoginViewController: UIViewController, View {
         $0.setTitle("이용약관 및 개인정보취급방침", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .regular)
-        $0.addTarget(self, action: #selector(didTapServiceTermButton), for: .touchUpInside)
+//        $0.addTarget(self, action: #selector(didTapServiceTermButton), for: .touchUpInside)
         $0.setUnderline()
     }
     
@@ -77,6 +77,11 @@ class LoginViewController: UIViewController, View {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        serviceTermButton.rx.tap
+            .map { Reactor.Action.showServiceTerm }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         // State
         reactor.state
             .map { $0.isPresentEditTask }
@@ -84,6 +89,14 @@ class LoginViewController: UIViewController, View {
             .filter{ $0 }
             .map { _ in reactor.getEmailLoginViewmodelForCreatingTask()}
             .bind(onNext: presentEmailLoginVC)
+            .disposed(by: disposeBag)
+        
+        reactor.state
+            .map { $0.isPresentServiceTerm }
+            .distinctUntilChanged()
+            .filter { $0 }
+            .map { _ in reactor.getServiceTermViewmodelForCreatingTask()}
+            .bind(onNext: showServicTerm)
             .disposed(by: disposeBag)
     }
     
@@ -99,11 +112,20 @@ class LoginViewController: UIViewController, View {
         attribute()
     }
     
-    @objc func didTapServiceTermButton() {
-        print("didTapServiceTermButton")
+    func presentEmailLoginVC(reator: EmailLoginViewModel) {
+        let nextVC = EmailLoginViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func showServicTerm() {
         let nextVC = WebViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
+//    @objc func didTapServiceTermButton() {
+//        print("didTapServiceTermButton")
+//        let nextVC = WebViewController()
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+//    }
     
     @objc func didTapKakaoLogin() {
         print("didTapKakoLogin")
@@ -135,11 +157,6 @@ class LoginViewController: UIViewController, View {
             }
         }
         
-    }
-    
-    func presentEmailLoginVC(reator: EmailLoginViewModel) {
-        let nextVC = EmailLoginViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @objc func didTapEmailLogin() {
