@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 import SnapKit
-import Then
 
 import AuthenticationServices
 import KakaoSDKAuth
@@ -23,51 +22,33 @@ class LoginViewController: UIViewController, View {
     var logoImageView = UIImageView()
     var characterImageView = UIImageView()
     
-    private lazy var kakaoLoginView = UIView().then {
-        $0.backgroundColor = UIColor(red:  254/255, green: 229/255, blue: 0/255, alpha: 1.0)
-        $0.addSubview(kakaoLoginLabel)
-        $0.addSubview(kakaoLoginImage)
-        $0.isUserInteractionEnabled = true
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapKakaoLogin))
-        $0.addGestureRecognizer(gesture)
-    }
-    
+    var kakaoLoginView = UIView()
     var kakaoLoginImage = UIImageView()
     var kakaoLoginLabel = UILabel()
-    
 
-    private lazy var appleLoginView = UIView().then {
-        $0.backgroundColor = .black
-        $0.addSubview(appleLoginLabel)
-        $0.addSubview(appleLoginImage)
-        $0.isUserInteractionEnabled = true
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapAppleLogin))
-        $0.addGestureRecognizer(gesture)
-    }
-
+    var appleLoginView = UIView()
     var appleLoginImage = UIImageView()
     var appleLoginLabel = UILabel()
-  
     
-    private lazy var emailLoginButton = UIButton(type: .system).then {
-        $0.setTitle("이메일로 시작하기", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
-        $0.setUnderline()
-    }
-    
-    private lazy var serviceTermButton = UIButton(type: .system).then {
-        $0.setTitle("이용약관 및 개인정보취급방침", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .regular)
-//        $0.addTarget(self, action: #selector(didTapServiceTermButton), for: .touchUpInside)
-        $0.setUnderline()
-    }
-    
+    var emailLoginButton = UIButton(type: .system)
+    var serviceTermButton = UIButton(type: .system)
     var serviceLabel1 = UILabel()
     var serviceLabel2 = UILabel()
     
     var disposeBag = DisposeBag()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.reactor = LoginViewModel()
+        
+        self.view.backgroundColor = .white
+        [kakaoLoginView,appleLoginView].forEach{
+            $0.isHidden = true
+        }
+        layout()
+        attribute()
+    }
     
     func bind(reactor: LoginViewModel) {
         
@@ -100,17 +81,7 @@ class LoginViewController: UIViewController, View {
             .disposed(by: disposeBag)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.reactor = LoginViewModel()
-        
-        self.view.backgroundColor = .white
-        [kakaoLoginView,appleLoginView].forEach{
-            $0.isHidden = true
-        }
-        layout()
-        attribute()
-    }
+
     
     func presentEmailLoginVC(reator: EmailLoginViewModel) {
         let nextVC = EmailLoginViewController()
@@ -121,11 +92,6 @@ class LoginViewController: UIViewController, View {
         let nextVC = WebViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-//    @objc func didTapServiceTermButton() {
-//        print("didTapServiceTermButton")
-//        let nextVC = WebViewController()
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-//    }
     
     @objc func didTapKakaoLogin() {
         print("didTapKakoLogin")
@@ -159,11 +125,6 @@ class LoginViewController: UIViewController, View {
         
     }
     
-    @objc func didTapEmailLogin() {
-        print("didTapEmailLogin")
-        let nextVC = EmailLoginViewController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
     
     @objc func didTapAppleLogin() {
         print("didTapAppleLogin")
@@ -288,6 +249,14 @@ private extension LoginViewController {
     
     func loginViewLayout() {
         
+        [kakaoLoginLabel,kakaoLoginImage].forEach {
+            kakaoLoginView.addSubview($0)
+        }
+        
+        [appleLoginLabel,appleLoginImage].forEach {
+            appleLoginView.addSubview($0)
+        }
+        
         kakaoLoginLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(16.0)
@@ -317,9 +286,19 @@ private extension LoginViewController {
         logoImageView.image = UIImage(named: "logo_f!nder_orange")
         characterImageView.image = UIImage(named: "main character")
         
+        kakaoLoginView.backgroundColor = UIColor(red:  254/255, green: 229/255, blue: 0/255, alpha: 1.0)
+        kakaoLoginView.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapKakaoLogin))
+        kakaoLoginView.addGestureRecognizer(gesture)
         kakaoLoginImage.image = UIImage(named: "btn_login_kakao")
         kakaoLoginLabel.text = "카카오로 로그인"
         kakaoLoginLabel.textColor = .black
+
+        
+        appleLoginView.backgroundColor = .black
+        appleLoginView.isUserInteractionEnabled = true
+        let TapAppleLoginGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAppleLogin))
+        appleLoginView.addGestureRecognizer(TapAppleLoginGesture)
 
         appleLoginImage.image = UIImage(named: "btn_login_apple")
         appleLoginLabel.text = "애플로 로그인"
@@ -337,6 +316,18 @@ private extension LoginViewController {
             $0.font = .systemFont(ofSize: 12.0, weight: .regular)
             $0.textColor = .textGrayColor
         }
+        
+        emailLoginButton.setTitle("이메일로 시작하기", for: .normal)
+        emailLoginButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+        
+        serviceTermButton.setTitle("이용약관 및 개인정보취급방침", for: .normal)
+        serviceTermButton.titleLabel?.font = .systemFont(ofSize: 12.0, weight: .regular)
+        
+        [emailLoginButton,serviceTermButton].forEach {
+            $0.setTitleColor(.black, for: .normal)
+            $0.setUnderline()
+        }
+
     }
     
 }
