@@ -465,11 +465,24 @@ private extension DiscussDetailViewController {
         
         commentTextField.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
         commentTextField.placeholder = "토론에 참여해보세요!"
-        commentTextField.layer.cornerRadius = 25.0//ic_baseline-arrow-forward
+        commentTextField.layer.cornerRadius = 20.0//ic_baseline-arrow-forward
         commentTextField.addLeftPadding(padding: 16.0)
-        btnView = UIButton(frame: CGRect(x: 0, y: 0, width: 34.0, height: 34.0))
-        btnView.setImage(UIImage(named: "btn_caretleft_bold")!, for: .normal)
-        btnView.addTarget(self, action: #selector(didTapTextFieldButton), for: .touchUpInside)
+        
+        let btnView = UIView(frame: CGRect(x: -4.0, y: 0, width: 34.0, height: 34.0))
+        btnView.backgroundColor = UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1.0)
+        
+        let sendBtn = UIButton()
+        btnView.addSubview(sendBtn)
+        sendBtn.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        sendBtn.setImage(UIImage(named: "btn_caretleft_bold")!, for: .normal)
+        sendBtn.addTarget(self, action: #selector(didTapTextFieldButton), for: .touchUpInside)
+        
+        
+//        btnView = UIButton(frame: CGRect(x: 0, y: 0, width: 34.0, height: 34.0))
+//        btnView.setImage(UIImage(named: "btn_caretleft_bold")!, for: .normal)
+//        btnView.addTarget(self, action: #selector(didTapTextFieldButton), for: .touchUpInside)
         commentTextField.rightView = btnView
         commentTextField.rightViewMode = .always
     }

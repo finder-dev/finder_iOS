@@ -9,19 +9,19 @@ import Foundation
 import UIKit
 import SnapKit
 import Then
+
 import AuthenticationServices
 import KakaoSDKAuth
 import KakaoSDKUser
 
-class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
+import ReactorKit
+import RxSwift
+import RxCocoa
+
+class LoginViewController: UIViewController, View {
     
-    private lazy var logoImageView = UIImageView().then {
-        $0.image = UIImage(named: "logo_f!nder_orange")
-    }
-    
-    private lazy var characterImageView = UIImageView().then {
-        $0.image = UIImage(named: "main character")
-    }
+    var logoImageView = UIImageView()
+    var characterImageView = UIImageView()
     
     private lazy var kakaoLoginView = UIView().then {
         $0.backgroundColor = UIColor(red:  254/255, green: 229/255, blue: 0/255, alpha: 1.0)
@@ -32,17 +32,10 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         $0.addGestureRecognizer(gesture)
     }
     
-    private lazy var kakaoLoginImage = UIImageView().then {
-        $0.image = UIImage(named: "btn_login_kakao")
-    }
+    var kakaoLoginImage = UIImageView()
+    var kakaoLoginLabel = UILabel()
     
-    private lazy var kakaoLoginLabel = UILabel().then {
-        $0.text = "카카오로 로그인"
-        $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 16.0, weight: .medium)
-        $0.textColor = .black
-    }
-    
+
     private lazy var appleLoginView = UIView().then {
         $0.backgroundColor = .black
         $0.addSubview(appleLoginLabel)
@@ -52,22 +45,14 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         $0.addGestureRecognizer(gesture)
     }
 
-    private lazy var appleLoginImage = UIImageView().then {
-        $0.image = UIImage(named: "btn_login_apple")
-    }
-    
-    private lazy var appleLoginLabel = UILabel().then {
-        $0.text = "애플로 로그인"
-        $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 16.0, weight: .medium)
-        $0.textColor = .white
-    }
+    var appleLoginImage = UIImageView()
+    var appleLoginLabel = UILabel()
+  
     
     private lazy var emailLoginButton = UIButton(type: .system).then {
         $0.setTitle("이메일로 시작하기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
-        $0.addTarget(self, action: #selector(didTapEmailLogin), for: .touchUpInside)
         $0.setUnderline()
     }
     
@@ -79,20 +64,33 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         $0.setUnderline()
     }
     
-    private lazy var serviceLabel1 = UILabel().then {
-        $0.text = "로그인함으로써 "
-        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
-        $0.textColor = .textGrayColor
+    var serviceLabel1 = UILabel()
+    var serviceLabel2 = UILabel()
+    
+    var disposeBag = DisposeBag()
+    
+    func bind(reactor: LoginViewModel) {
+        
+        // Action
+        emailLoginButton.rx.tap
+            .map { Reactor.Action.emailLogin }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // State
+        reactor.state
+            .map { $0.isPresentEditTask }
+            .distinctUntilChanged()
+            .filter{ $0 }
+            .map { _ in reactor.getEmailLoginViewmodelForCreatingTask()}
+            .bind(onNext: presentEmailLoginVC)
+            .disposed(by: disposeBag)
     }
     
-    private lazy var serviceLabel2 = UILabel().then {
-        $0.text = " 에 동의합니다"
-        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
-        $0.textColor = .textGrayColor
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.reactor = LoginViewModel()
+        
         self.view.backgroundColor = .white
         [kakaoLoginView,appleLoginView].forEach{
             $0.isHidden = true
@@ -139,6 +137,11 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
         
     }
     
+    func presentEmailLoginVC(reator: EmailLoginViewModel) {
+        let nextVC = EmailLoginViewController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
     @objc func didTapEmailLogin() {
         print("didTapEmailLogin")
         let nextVC = EmailLoginViewController()
@@ -160,7 +163,7 @@ class LoginViewController: UIViewController, ASAuthorizationControllerDelegate {
 }
 
 // MARK : - APPLE SocialLogin
-extension LoginViewController : ASAuthorizationControllerPresentationContextProviding {
+extension LoginViewController : ASAuthorizationControllerPresentationContextProviding, ASAuthorizationControllerDelegate  {
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("failed")
@@ -294,5 +297,29 @@ private extension LoginViewController {
     
     func attribute() {
         self.navigationController?.navigationBar.isHidden = true
+        logoImageView.image = UIImage(named: "logo_f!nder_orange")
+        characterImageView.image = UIImage(named: "main character")
+        
+        kakaoLoginImage.image = UIImage(named: "btn_login_kakao")
+        kakaoLoginLabel.text = "카카오로 로그인"
+        kakaoLoginLabel.textColor = .black
+
+        appleLoginImage.image = UIImage(named: "btn_login_apple")
+        appleLoginLabel.text = "애플로 로그인"
+        appleLoginLabel.textColor = .white
+        
+        [kakaoLoginLabel,appleLoginLabel].forEach {
+            $0.textAlignment = .center
+            $0.font = .systemFont(ofSize: 16.0, weight: .medium)
+        }
+        
+        serviceLabel1.text = "로그인함으로써 "
+        serviceLabel2.text = " 에 동의합니다"
+        
+        [serviceLabel1,serviceLabel2].forEach {
+            $0.font = .systemFont(ofSize: 12.0, weight: .regular)
+            $0.textColor = .textGrayColor
+        }
     }
+    
 }

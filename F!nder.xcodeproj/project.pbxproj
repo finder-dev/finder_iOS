@@ -67,6 +67,11 @@
 		2BB455ED2883FD04001139E5 /* HotCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EC2883FD04001139E5 /* HotCommunity.swift */; };
 		2BB455EF2884044D001139E5 /* MakeDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EE2884044D001139E5 /* MakeDebate.swift */; };
 		2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455F028845B70001139E5 /* EveryCommunity.swift */; };
+		2BB760FD28A152290011CEBC /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB760FC28A152290011CEBC /* ReactorKit */; };
+		2BB760FF28A152460011CEBC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB760FE28A152460011CEBC /* LoginViewModel.swift */; };
+		2BB7610228A157E50011CEBC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB7610128A157E50011CEBC /* RxCocoa */; };
+		2BB7610428A157E50011CEBC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB7610328A157E50011CEBC /* RxRelay */; };
+		2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -147,6 +152,8 @@
 		2BB455EC2883FD04001139E5 /* HotCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCommunity.swift; sourceTree = "<group>"; };
 		2BB455EE2884044D001139E5 /* MakeDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebate.swift; sourceTree = "<group>"; };
 		2BB455F028845B70001139E5 /* EveryCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryCommunity.swift; sourceTree = "<group>"; };
+		2BB760FE28A152460011CEBC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -177,7 +184,10 @@
 				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
 				2B0252C2288EE5B50078D7F2 /* KakaoSDK in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
+				2BB7610228A157E50011CEBC /* RxCocoa in Frameworks */,
 				47C901E401B9A68D70C32D71 /* Pods_F_nder.framework in Frameworks */,
+				2BB760FD28A152290011CEBC /* ReactorKit in Frameworks */,
+				2BB7610428A157E50011CEBC /* RxRelay in Frameworks */,
 				2B0252C4288EE5B50078D7F2 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,7 +230,9 @@
 			isa = PBXGroup;
 			children = (
 				2B09DF07285B58BF00FE19DC /* LoginViewController.swift */,
+				2BB760FE28A152460011CEBC /* LoginViewModel.swift */,
 				2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */,
+				2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -477,6 +489,9 @@
 				2B09DF05285B585900FE19DC /* SnapKit */,
 				2B0252C1288EE5B50078D7F2 /* KakaoSDK */,
 				2B0252C3288EE5B50078D7F2 /* KakaoSDKAuth */,
+				2BB760FC28A152290011CEBC /* ReactorKit */,
+				2BB7610128A157E50011CEBC /* RxCocoa */,
+				2BB7610328A157E50011CEBC /* RxRelay */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -510,6 +525,8 @@
 				2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */,
 				2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2B0252C0288EE5B50078D7F2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				2BB760FB28A152290011CEBC /* XCRemoteSwiftPackageReference "ReactorKit" */,
+				2BB7610028A157E50011CEBC /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -597,6 +614,7 @@
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
+				2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */,
 				2BB455E02883EEB6001139E5 /* Logout.swift in Sources */,
 				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
 				2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */,
@@ -613,6 +631,7 @@
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2B557B0F288855DF0057CC9D /* NewCommunity.swift in Sources */,
+				2BB760FF28A152460011CEBC /* LoginViewModel.swift in Sources */,
 				2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */,
 				2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */,
 				2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */,
@@ -803,7 +822,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jsy.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -834,7 +853,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jsy.Finder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -883,6 +902,22 @@
 				minimumVersion = 5.6.0;
 			};
 		};
+		2BB760FB28A152290011CEBC /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		2BB7610028A157E50011CEBC /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		2BC3C2782854E0430094F5EB /* XCRemoteSwiftPackageReference "Then" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/devxoul/Then";
@@ -908,6 +943,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		2BB760FC28A152290011CEBC /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BB760FB28A152290011CEBC /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
+		};
+		2BB7610128A157E50011CEBC /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BB7610028A157E50011CEBC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		2BB7610328A157E50011CEBC /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2BB7610028A157E50011CEBC /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
 		};
 		2BC3C2792854E0430094F5EB /* Then */ = {
 			isa = XCSwiftPackageProductDependency;
