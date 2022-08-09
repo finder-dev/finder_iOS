@@ -13,8 +13,7 @@ struct SendCode {
     var parameters : [String: String] { [
         "code": code,
         "email": email
-    ]
-    }
+    ]}
 }
 
 struct SendCodeResponse: Codable {

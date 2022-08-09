@@ -9,18 +9,12 @@ import UIKit
 import SnapKit
 import Then
 
-class EmailLoginViewController: UIViewController, AlertMessageDelegate {
+import ReactorKit
+import RxSwift
+import RxCocoa
+
+class EmailLoginViewController: UIViewController, View {
     
-    func okButtonTapped(from: String) {
-        if from == "successEmailLogin" {
-            print("============getData=========")
-            getData()
-        } else if from == "emailLogin" {
-            loginButton.backgroundColor = .mainTintColor
-            loginButton.setTitleColor(.white, for: .normal)
-            loginButton.isEnabled = true
-        }
-    }
     
     var isCheckButtonTapped = false
     let network = SignUpAPI()
@@ -30,28 +24,15 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         $0.setImage(UIImage(named: "backButton"), for: .normal)
         $0.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
     }
-    private lazy var emailLoginLabel = UILabel().then {
-        $0.text = "이메일로 로그인"
-        $0.font = .systemFont(ofSize: 20.0, weight: .bold)
-        $0.textColor = .blackTextColor
-    }
-    private lazy var idLabel = UILabel().then {
-        $0.text = "아이디(이메일)"
-        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textColor = .blackTextColor
-    }
     
-    private lazy var idTextField = UITextField().then {
-        $0.placeholder = "이메일 주소를 입력해주세요"
-    }
+    var emailLoginLabel = UILabel()
+    var idLabel = UILabel()
+    var idTextField = UITextField()
+    var passwordLabel = UILabel()
+    var passwordTextField = UITextField()
+    var keepLoginLabel = UILabel()
+    var noneUserLabel = UILabel()
     
-    private lazy var passwordLabel = UILabel().then {
-        $0.text = "비밀번호"
-    }
-    private lazy var passwordTextField = UITextField().then {
-        $0.placeholder = "비밀번호를 입력해주세요"
-        $0.isSecureTextEntry = true
-    }
     
     private lazy var checkButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "ic_check"), for: .normal)
@@ -62,18 +43,12 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         $0.layer.borderWidth = 1
     }
     
-    private lazy var keepLoginLabel = UILabel().then {
-        $0.text = "로그인 상태 유지"
-        $0.font = .systemFont(ofSize: 14.0, weight: .medium)
-        $0.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
-    }
-    
     private lazy var loginButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
         $0.backgroundColor = .unabledButtonColor
         $0.setTitleColor(.unabledButtonTextColor, for: .normal)
         $0.isEnabled = false
-        $0.addTarget(self, action: #selector(didTapLoginButton),for: .touchUpInside)
+//        $0.addTarget(self, action: #selector(didTapLoginButton),for: .touchUpInside)
     }
     
     private lazy var signUpButton = UIButton().then {
@@ -84,16 +59,62 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         
     }
     
-    private lazy var noneUserLabel = UILabel().then {
-        $0.text = "아직 F!nder 회원이 아니라면?"
-        $0.font = .systemFont(ofSize: 14.0, weight: .regular)
-        $0.textColor = .darkGrayTextColor
+    var disposeBag = DisposeBag()
+    
+    func bind(reactor: EmailLoginViewModel) {
+        // Action
+        // 1. textfield 두개 활성화 감지 -> 로그인 버튼 활성화
+        // 2. 로그인 버튼 탭 -> 로그인 API
+//        idTextField.rx.controlEvent([.editingChanged])
+//            .map { Reactor.Action.IdTextFieldIsFilled }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
+//
+//        passwordTextField.rx.controlEvent([.editingChanged])
+//            .map { Reactor.Action.passwordTextFieldIsFilled }
+//            .bind(to: reactor.action)
+//            .disposed(by: disposeBag)
+        
+        loginButton.rx.tap
+            .filter { self.idTextField.hasText && self.passwordTextField.hasText }
+            .map {
+                Reactor.Action.tapLoginButton( self.idTextField.text!,
+                                               self.passwordTextField.text!)
+            }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        // State
+        
+        // 로그인 성공 -> 토큰 저장, 화면 전환
+        reactor.state.map { $0.userToken }
+            .filter { $0 != "" }
+            .distinctUntilChanged()
+            .subscribe(onNext: { token in
+                UserDefaults.standard.set(token, forKey: "accessToken")
+                DispatchQueue.main.async {
+                    self.presentCutomAlertVC(target: "successEmailLogin", title: "로그인 성공", message: "로그인에 성공하였습니다.")
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        // 로그인 실패 -> 에러메시지
+        reactor.state.map { $0.errorMessage }
+            .filter { $0 != "" }
+            .distinctUntilChanged()
+            .subscribe(onNext: { message in
+                print("실패 : 이메일 로그인")
+                DispatchQueue.main.async {
+                    self.presentCutomAlertVC(target: "emailLogin", title: "로그인 실패", message: message)
+                }
+            })
     }
     
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = .white
+        self.reactor = EmailLoginViewModel()
+       
         [checkButton,keepLoginLabel].forEach {
             $0.isHidden = true
         }
@@ -103,7 +124,19 @@ class EmailLoginViewController: UIViewController, AlertMessageDelegate {
         passwordTextField.delegate = self
         passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
+}
 
+extension EmailLoginViewController: AlertMessageDelegate {
+    func okButtonTapped(from: String) {
+        if from == "successEmailLogin" {
+            print("============getData=========")
+            getData()
+        } else if from == "emailLogin" {
+            loginButton.backgroundColor = .mainTintColor
+            loginButton.setTitleColor(.white, for: .normal)
+            loginButton.isEnabled = true
+        }
+    }
 }
 
 // MARK - Button actions
@@ -113,46 +146,33 @@ private extension EmailLoginViewController {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    @objc func didTapLoginButton() {
-       print("didTapLoginButton")
-        guard let email = idTextField.text else {
-            return
-        }
-        
-        guard let password = passwordTextField.text else {
-            return
-        }
-        
-        loginButton.backgroundColor = .unabledButtonColor
-        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-        loginButton.isEnabled = false
-        
-        network.requestLogin(email: email,
-                             password: password) { result in
-            switch result {
-            case let .success(response) :
-                if response.success {
-                    print("성공 : 이메일 로그인")
-                    let accessToken = response.response?.accessToken
-                    UserDefaults.standard.set(accessToken, forKey: "accessToken")
-                    DispatchQueue.main.async {
-                        self.presentCutomAlertVC(target: "successEmailLogin", title: "로그인 성공", message: "로그인에 성공하였습니다.")
-                        
-                    }
-                } else {
-                    print("실패 : 이메일 로그인")
-                    DispatchQueue.main.async {
-                        let errorMessage = response.errorResponse?.errorMessages[0]
-                        self.presentCutomAlertVC(target: "emailLogin", title: "로그인 실패", message: errorMessage!)
-                        
-                    }
-                    print(response.errorResponse?.errorMessages)
-                }
-            case .failure(_):
-                print("오류")
-            }
-        }
-    }
+//    @objc func didTapLoginButton() {
+//       print("didTapLoginButton")
+//        guard let email = idTextField.text else {
+//            return
+//        }
+//
+//        guard let password = passwordTextField.text else {
+//            return
+//        }
+//
+//        loginButton.backgroundColor = .unabledButtonColor
+//        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+//        loginButton.isEnabled = false
+//
+//    }
+//
+//    func enableLoginButton() {
+//        loginButton.backgroundColor = .mainTintColor
+//        loginButton.setTitleColor(.white, for: .normal)
+//        loginButton.isEnabled = true
+//    }
+//
+//    func disableLoginButton() {
+//        loginButton.backgroundColor = .unabledButtonColor
+//        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+//        loginButton.isEnabled = false
+//    }
     
     @objc func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
@@ -333,6 +353,10 @@ private extension EmailLoginViewController {
     }
     
     func attribute() {
+        
+        self.navigationController?.navigationBar.isHidden = true
+        self.view.backgroundColor = .white
+        
         [idTextField,passwordTextField].forEach {
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
             $0.layer.borderColor = UIColor.textFieldBorder.cgColor
@@ -340,5 +364,44 @@ private extension EmailLoginViewController {
             $0.addLeftPadding(padding: 20.0)
             $0.delegate = self
         }
+        
+        emailLoginLabel.text = "이메일로 로그인"
+        emailLoginLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
+        emailLoginLabel.textColor = .blackTextColor
+        
+        idLabel.text = "아이디(이메일)"
+        idLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
+        idLabel.textColor = .blackTextColor
+        
+        idTextField.placeholder = "이메일 주소를 입력해주세요"
+        passwordLabel.text = "비밀번호"
+        passwordTextField.placeholder = "비밀번호를 입력해주세요"
+        passwordTextField.isSecureTextEntry = true
+       
+        keepLoginLabel.text = "로그인 상태 유지"
+        keepLoginLabel.font = .systemFont(ofSize: 14.0, weight: .medium)
+        keepLoginLabel.textColor = UIColor(red: 51/255, green: 51/255, blue: 51/255, alpha: 1.0)
+        
+        noneUserLabel.text = "아직 F!nder 회원이 아니라면?"
+        noneUserLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
+        noneUserLabel.textColor = .darkGrayTextColor
     }
+}
+
+extension Reactive where Base : UIControl {
+    
+    public var isHighlighted: Observable<Bool> {
+        self.base.rx.methodInvoked(#selector(setter: self.base.isHighlighted))
+          .compactMap { $0.first as? Bool }
+          .startWith(self.base.isHighlighted)
+          .distinctUntilChanged()
+          .share()
+      }
+      public var isSelected: Observable<Bool> {
+        self.base.rx.methodInvoked(#selector(setter: self.base.isSelected))
+          .compactMap { $0.first as? Bool }
+          .startWith(self.base.isSelected)
+          .distinctUntilChanged()
+          .share()
+      }
 }

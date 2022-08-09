@@ -13,20 +13,85 @@ import RxSwift
 class EmailLoginViewModel : Reactor {
     
     let initialState: State
+    var loginRequest: SendLogin
+    let userAuthRepository = UserAuthRepository.shared
+    let userAPI = UserInfoAPI()
     
     init() {
-        self.initialState = State()
+        self.initialState = State(userToken: "", errorMessage: "")
+        self.loginRequest = SendLogin(email: "", password: "")
     }
     
     enum Action {
-        
+        case IdTextFieldIsFilled
+        case passwordTextFieldIsFilled
+        case tapLoginButton(String,String)
     }
     
     enum Mutation {
+        case isIdTextFieldFilled(Bool)
+        case isPasswordTextFieldFilled(Bool)
+//        case setUserLoginInfo
+        case loginFail(String)
+        case loginSuccess(String)
+    }
+    
+    func mutate(action: EmailLoginViewModel.Action) -> Observable<Mutation> {
+        switch action {
+        case .IdTextFieldIsFilled:
+            return Observable.just(.isIdTextFieldFilled(true))
+        case .passwordTextFieldIsFilled:
+            return Observable.just(.isPasswordTextFieldFilled(false))
+        case .tapLoginButton(let id, let password):
+
+            self.loginRequest.email = id
+            self.loginRequest.password = password
+            
+            print("self.loginRequest.email : \(self.loginRequest.email)")
+            print(loginRequest)
+            
+//            let signUpAPI = SignUpAPI()
+//            signUpAPI.requestLogin(email: <#T##String#>, password: <#T##String#>, completionHandler: <#T##(Result<LoginResponse, Error>) -> Void#>)
+//
+            let loginResult = self.userAuthRepository.loginUserServer(loginRequest: self.loginRequest)
+            
+            return loginResult.map({ loginBase -> Mutation in
+                if loginBase.success {
+                    return .loginSuccess(loginBase.response?.accessToken ?? "nil")
+                } else {
+                    return .loginFail(loginBase.errorResponse?.errorMessages[0] ?? "nil")
+                }
+            })
+        }
+    }
+    
+    func reduce(state: EmailLoginViewModel.State, mutation: EmailLoginViewModel.Mutation) -> EmailLoginViewModel.State {
+        var newState = state
         
+        switch mutation {
+            
+        case .isIdTextFieldFilled(_):
+            newState.isIdTextFieldFilled = true
+        case .isPasswordTextFieldFilled(_):
+            newState.isPasswordTextFieldFilled = true
+        case .loginSuccess(let token) :
+            newState.isLoginSuccess = true
+            newState.userToken = token
+        case .loginFail(let errorMessage):
+            newState.isLoginFail = true
+            newState.errorMessage = errorMessage
+//        case .setUserLoginInfo:
+//            newState.
+        }
+        return newState
     }
     
     struct State {
-        
+        var isIdTextFieldFilled: Bool = false
+        var isPasswordTextFieldFilled: Bool = false
+        var isLoginSuccess: Bool = false
+        var isLoginFail:Bool = false
+        var userToken:String = ""
+        var errorMessage:String = ""
     }
 }

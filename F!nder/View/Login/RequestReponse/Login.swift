@@ -2,14 +2,14 @@
 //  Login.swift
 //  F!nder
 //
-//  Created by 장선영 on 2022/06/30.
+//  Created by 장선영 on 2022/08/09.
 //
 
 import Foundation
 
 struct SendLogin {
-    let email: String
-    let password: String
+    var email: String
+    var password: String
     
     var parameters : [String: String] { [
         "email": email,
