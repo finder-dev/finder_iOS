@@ -48,7 +48,6 @@ class EmailLoginViewController: UIViewController, View {
         $0.backgroundColor = .unabledButtonColor
         $0.setTitleColor(.unabledButtonTextColor, for: .normal)
         $0.isEnabled = false
-//        $0.addTarget(self, action: #selector(didTapLoginButton),for: .touchUpInside)
     }
     
     private lazy var signUpButton = UIButton().then {
@@ -65,18 +64,21 @@ class EmailLoginViewController: UIViewController, View {
         // Action
         // 1. textfield 두개 활성화 감지 -> 로그인 버튼 활성화
         // 2. 로그인 버튼 탭 -> 로그인 API
-//        idTextField.rx.controlEvent([.editingChanged])
-//            .map { Reactor.Action.IdTextFieldIsFilled }
-//            .bind(to: reactor.action)
-//            .disposed(by: disposeBag)
-//
-//        passwordTextField.rx.controlEvent([.editingChanged])
-//            .map { Reactor.Action.passwordTextFieldIsFilled }
-//            .bind(to: reactor.action)
-//            .disposed(by: disposeBag)
+        idTextField.rx.controlEvent([.editingChanged])
+            .map { Reactor.Action.IdTextFieldIsFilled }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        passwordTextField.rx.controlEvent([.editingChanged])
+            .map { Reactor.Action.passwordTextFieldIsFilled }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
         
         loginButton.rx.tap
             .filter { self.idTextField.hasText && self.passwordTextField.hasText }
+            .do(onNext: {
+                self.disableLoginButton()
+            })
             .map {
                 Reactor.Action.tapLoginButton( self.idTextField.text!,
                                                self.passwordTextField.text!)
@@ -85,6 +87,19 @@ class EmailLoginViewController: UIViewController, View {
             .disposed(by: disposeBag)
 
         // State
+        
+        // 로그인 버튼 활성화
+        reactor.state
+            .map { $0.isLoginButtonEnabled }
+            .distinctUntilChanged()
+            .filter { $0 }
+            .map { _ in reactor.getServiceTermViewmodelForCreatingTask()}
+            .bind(onNext: {
+                DispatchQueue.main.async {
+                    self.enableLoginButton()
+                }
+            })
+            .disposed(by: disposeBag)
         
         // 로그인 성공 -> 토큰 저장, 화면 전환
         reactor.state.map { $0.userToken }
@@ -106,6 +121,7 @@ class EmailLoginViewController: UIViewController, View {
                 print("실패 : 이메일 로그인")
                 DispatchQueue.main.async {
                     self.presentCutomAlertVC(target: "emailLogin", title: "로그인 실패", message: message)
+                    self.enableLoginButton()
                 }
             })
     }
@@ -122,10 +138,10 @@ class EmailLoginViewController: UIViewController, View {
         attribute()
         
         passwordTextField.delegate = self
-        passwordTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
 }
 
+//
 extension EmailLoginViewController: AlertMessageDelegate {
     func okButtonTapped(from: String) {
         if from == "successEmailLogin" {
@@ -141,38 +157,23 @@ extension EmailLoginViewController: AlertMessageDelegate {
 
 // MARK - Button actions
 private extension EmailLoginViewController {
+    
     @objc func didTapSignUpButton() {
         let nextVC = InsertUserInfoViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
-//    @objc func didTapLoginButton() {
-//       print("didTapLoginButton")
-//        guard let email = idTextField.text else {
-//            return
-//        }
-//
-//        guard let password = passwordTextField.text else {
-//            return
-//        }
-//
-//        loginButton.backgroundColor = .unabledButtonColor
-//        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-//        loginButton.isEnabled = false
-//
-//    }
-//
-//    func enableLoginButton() {
-//        loginButton.backgroundColor = .mainTintColor
-//        loginButton.setTitleColor(.white, for: .normal)
-//        loginButton.isEnabled = true
-//    }
-//
-//    func disableLoginButton() {
-//        loginButton.backgroundColor = .unabledButtonColor
-//        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-//        loginButton.isEnabled = false
-//    }
+    func enableLoginButton() {
+        loginButton.backgroundColor = .mainTintColor
+        loginButton.setTitleColor(.white, for: .normal)
+        loginButton.isEnabled = true
+    }
+
+    func disableLoginButton() {
+        loginButton.backgroundColor = .unabledButtonColor
+        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        loginButton.isEnabled = false
+    }
     
     @objc func didTapBackButton() {
         self.navigationController?.popViewController(animated: true)
@@ -235,39 +236,14 @@ private extension EmailLoginViewController {
 
 // MARK - TextFieldDelegate
 extension EmailLoginViewController: UITextFieldDelegate {
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        if !textField.text!.isEmpty {
-            checkEverythingFilled()
-        }
-    }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
-        checkEverythingFilled()
         return true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        checkEverythingFilled()
         self.view.endEditing(true)
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        checkEverythingFilled()
-        return true
-    }
-    
-    func checkEverythingFilled() {
-        if idTextField.hasText && passwordTextField.hasText {
-            loginButton.isEnabled = true
-            loginButton.setTitleColor(.white, for: .normal)
-            loginButton.backgroundColor = .mainTintColor
-        } else {
-            loginButton.backgroundColor = .unabledButtonColor
-            loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-            loginButton.isEnabled = false
-        }
     }
 }
 
@@ -386,22 +362,4 @@ private extension EmailLoginViewController {
         noneUserLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
         noneUserLabel.textColor = .darkGrayTextColor
     }
-}
-
-extension Reactive where Base : UIControl {
-    
-    public var isHighlighted: Observable<Bool> {
-        self.base.rx.methodInvoked(#selector(setter: self.base.isHighlighted))
-          .compactMap { $0.first as? Bool }
-          .startWith(self.base.isHighlighted)
-          .distinctUntilChanged()
-          .share()
-      }
-      public var isSelected: Observable<Bool> {
-        self.base.rx.methodInvoked(#selector(setter: self.base.isSelected))
-          .compactMap { $0.first as? Bool }
-          .startWith(self.base.isSelected)
-          .distinctUntilChanged()
-          .share()
-      }
 }

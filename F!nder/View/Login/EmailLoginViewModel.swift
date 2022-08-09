@@ -46,17 +46,14 @@ class EmailLoginViewModel : Reactor {
 
             self.loginRequest.email = id
             self.loginRequest.password = password
-            
-            print("self.loginRequest.email : \(self.loginRequest.email)")
-            print(loginRequest)
-            
-//            let signUpAPI = SignUpAPI()
-//            signUpAPI.requestLogin(email: <#T##String#>, password: <#T##String#>, completionHandler: <#T##(Result<LoginResponse, Error>) -> Void#>)
-//
+
             let loginResult = self.userAuthRepository.loginUserServer(loginRequest: self.loginRequest)
             
             return loginResult.map({ loginBase -> Mutation in
                 if loginBase.success {
+//                    return Observable.concat([
+//                        Observable.just()
+//                    ])
                     return .loginSuccess(loginBase.response?.accessToken ?? "nil")
                 } else {
                     return .loginFail(loginBase.errorResponse?.errorMessages[0] ?? "nil")
@@ -72,8 +69,20 @@ class EmailLoginViewModel : Reactor {
             
         case .isIdTextFieldFilled(_):
             newState.isIdTextFieldFilled = true
+            if newState.isPasswordTextFieldFilled && newState.isIdTextFieldFilled {
+                newState.isLoginButtonEnabled = true
+            } else {
+                newState.isLoginButtonEnabled = false
+            }
         case .isPasswordTextFieldFilled(_):
+            
             newState.isPasswordTextFieldFilled = true
+            if newState.isPasswordTextFieldFilled && newState.isIdTextFieldFilled {
+                newState.isLoginButtonEnabled = true
+            } else {
+                newState.isLoginButtonEnabled = false
+            }
+            
         case .loginSuccess(let token) :
             newState.isLoginSuccess = true
             newState.userToken = token
@@ -89,9 +98,17 @@ class EmailLoginViewModel : Reactor {
     struct State {
         var isIdTextFieldFilled: Bool = false
         var isPasswordTextFieldFilled: Bool = false
+        var isLoginButtonEnabled: Bool = false
+        @Pulse var didTapLoginButton: Bool = false
+        
         var isLoginSuccess: Bool = false
         var isLoginFail:Bool = false
         var userToken:String = ""
         var errorMessage:String = ""
+    }
+    
+    // TODO : 추후 수정
+    func getServiceTermViewmodelForCreatingTask() -> EmailLoginViewModel {
+        return EmailLoginViewModel()
     }
 }
