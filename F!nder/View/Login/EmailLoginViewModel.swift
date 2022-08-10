@@ -23,8 +23,8 @@ class EmailLoginViewModel : Reactor {
     }
     
     enum Action {
-        case IdTextFieldIsFilled
-        case passwordTextFieldIsFilled
+        case IdTextFieldIsFilled(Bool)
+        case passwordTextFieldIsFilled(Bool)
         case tapLoginButton(String,String)
     }
     
@@ -38,10 +38,13 @@ class EmailLoginViewModel : Reactor {
     
     func mutate(action: EmailLoginViewModel.Action) -> Observable<Mutation> {
         switch action {
-        case .IdTextFieldIsFilled:
-            return Observable.just(.isIdTextFieldFilled(true))
-        case .passwordTextFieldIsFilled:
-            return Observable.just(.isPasswordTextFieldFilled(false))
+            
+        case .IdTextFieldIsFilled(let isFilled):
+            return Observable.just(.isIdTextFieldFilled(isFilled))
+            
+        case .passwordTextFieldIsFilled(let isFilled):
+            return Observable.just(.isPasswordTextFieldFilled(isFilled))
+            
         case .tapLoginButton(let id, let password):
 
             self.loginRequest.email = id
@@ -67,16 +70,18 @@ class EmailLoginViewModel : Reactor {
         
         switch mutation {
             
-        case .isIdTextFieldFilled(_):
-            newState.isIdTextFieldFilled = true
+        case .isIdTextFieldFilled(let isFilled):
+            newState.isIdTextFieldFilled = isFilled
+            
             if newState.isPasswordTextFieldFilled && newState.isIdTextFieldFilled {
                 newState.isLoginButtonEnabled = true
             } else {
                 newState.isLoginButtonEnabled = false
             }
-        case .isPasswordTextFieldFilled(_):
             
-            newState.isPasswordTextFieldFilled = true
+        case .isPasswordTextFieldFilled(let isFilled):
+            newState.isPasswordTextFieldFilled = isFilled
+            
             if newState.isPasswordTextFieldFilled && newState.isIdTextFieldFilled {
                 newState.isLoginButtonEnabled = true
             } else {
@@ -89,8 +94,6 @@ class EmailLoginViewModel : Reactor {
         case .loginFail(let errorMessage):
             newState.isLoginFail = true
             newState.errorMessage = errorMessage
-//        case .setUserLoginInfo:
-//            newState.
         }
         return newState
     }

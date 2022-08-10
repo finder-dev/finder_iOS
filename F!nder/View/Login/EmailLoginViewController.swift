@@ -69,12 +69,19 @@ class EmailLoginViewController: UIViewController, View {
         // 1. textfield 두개 활성화 감지 -> 로그인 버튼 활성화
         // 2. 로그인 버튼 탭 -> 로그인 API
         idTextField.rx.controlEvent([.editingChanged])
-            .map { Reactor.Action.IdTextFieldIsFilled }
+            .map {
+                self.idTextField.hasText ?
+                Reactor.Action.IdTextFieldIsFilled(true) : Reactor.Action.IdTextFieldIsFilled(false)
+            }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         passwordTextField.rx.controlEvent([.editingChanged])
-            .map { Reactor.Action.passwordTextFieldIsFilled }
+            .map {
+                self.passwordTextField.hasText ?
+                Reactor.Action.passwordTextFieldIsFilled(true) :
+                Reactor.Action.passwordTextFieldIsFilled(false)
+            }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -112,12 +119,8 @@ class EmailLoginViewController: UIViewController, View {
         reactor.state
             .map { $0.isLoginButtonEnabled }
             .distinctUntilChanged()
-            .filter { $0 }
-            .map { _ in reactor.getServiceTermViewmodelForCreatingTask()}
-            .bind(onNext: {
-                DispatchQueue.main.async {
-                    self.enableLoginButton()
-                }
+            .subscribe (onNext:{
+                self.updateButtonState(enable: $0)
             })
             .disposed(by: disposeBag)
         
@@ -178,6 +181,14 @@ private extension EmailLoginViewController {
     @objc func didTapSignUpButton() {
         let nextVC = InsertUserInfoViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    func updateButtonState(enable: Bool) {
+        if enable {
+            enableLoginButton()
+        } else {
+            disableLoginButton()
+        }
     }
     
     func enableLoginButton() {
