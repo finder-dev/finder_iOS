@@ -9,17 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, AlertMessageDelegate {
-    func okButtonTapped(from: String) {
-        if from == "email" {
-            self.codeAuthButton.isEnabled = true
-            self.codeAuthButton.setTitleColor(.white, for: .normal)
-            self.codeAuthButton.backgroundColor = .mainTintColor
-        } else if from == "auth" {
-            
-        }
-    }
-    
+class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     let network = SignUpAPI()
     var passwordIsSame = false {
         didSet {
@@ -50,52 +40,26 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
         $0.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
     }
     
-    private lazy var headerTitle = UILabel().then {
-        $0.text = "회원가입"
-        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textAlignment = .center
-    }
     
-    private lazy var insertUserInfoImageView = UIImageView().then {
-        $0.image = UIImage(named: "signin_step1_orange")
-    }
+    var headerTitle = UILabel()
+    var insertUserInfoImageView = UIImageView()
+    var insertUserInfoLabel = UILabel()
+    var setupProfileImageView = UIImageView()
+    var setupProfileLabel = UILabel()
+    var completeSignUpImageView = UIImageView()
+    var completeSignUpLabel = UILabel()
+    var caretLeftImageView1 = UIImageView()
+    var caretLeftImageView2 = UIImageView()
     
-    private lazy var insertUserInfoLabel = UILabel().then {
-        $0.text = "정보 입력"
-        $0.textColor = .mainTintColor
-        $0.font = .systemFont(ofSize: 14.0, weight: .medium)
-        $0.textAlignment = .center
-    }
-    
-    private lazy var setupProfileImageView = UIImageView().then {
-        $0.image = UIImage(named: "signin_step2_gray")
-    }
-    
-    private lazy var setupProfileLabel = UILabel().then {
-        $0.text = "프로필 설정"
-        $0.textColor = .lightGrayTextColor
-        $0.font = .systemFont(ofSize: 14.0, weight: .medium)
-        $0.textAlignment = .center
-    }
-    
-    private lazy var completeSignUpImageView = UIImageView().then {
-        $0.image = UIImage(named: "signin_step3_gray")
-    }
-    
-    private lazy var completeSignUpLabel = UILabel().then {
-        $0.text = "가입완료"
-        $0.textColor = .lightGrayTextColor
-        $0.font = .systemFont(ofSize: 14.0, weight: .medium)
-        $0.textAlignment = .center
-    }
-    
-    private lazy var caretLeftImageView1 = UIImageView().then {
-        $0.image = UIImage(named: "btn_caretleft_bold")
-    }
-    
-    private lazy var caretLeftImageView2 = UIImageView().then {
-        $0.image = UIImage(named: "btn_caretleft_bold")
-    }
+    var idLabel = UILabel()
+    var idTextField = UITextField()
+    var codeLabel = UILabel()
+    var codeTextField = UITextField()
+    var passwordLabel = UILabel()
+    var passwordTextField = UITextField()
+    var passwordCheckLabel = UILabel()
+    var passwordInfoLabel = UILabel()
+    var passwordCheckTextField = UITextField()
     
     private lazy var nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
@@ -107,16 +71,7 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
 //        $0.isEnabled = true
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
-    
-    private lazy var idLabel = UILabel().then {
-        $0.text = "아이디(이메일)"
-        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textColor = .blackTextColor
-    }
-    
-    private lazy var idTextField = UITextField().then {
-        $0.placeholder = "이메일을 인증해주세요"
-    }
+
     
     private lazy var requestAuthButton = UIButton().then {
         $0.setTitle("인증요청", for: .normal)
@@ -125,16 +80,7 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.addTarget(self, action: #selector(didTapRequestAuthButton), for: .touchUpInside)
     }
-    
-    private lazy var codeLabel = UILabel().then {
-        $0.text = "코드번호"
-        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textColor = .blackTextColor
-    }
-    
-    private lazy var codeTextField = UITextField().then {
-        $0.placeholder = "코드번호를 입력해주세요"
-    }
+
     
     private lazy var codeAuthButton = UIButton().then {
         $0.setTitle("인증확인", for: .normal)
@@ -143,33 +89,6 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.isEnabled = false
         $0.addTarget(self, action: #selector(didTapCodeAuthButton), for: .touchUpInside)
-    }
-    
-    private lazy var passwordLabel = UILabel().then {
-        $0.text = "비밀번호"
-        $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textColor = .blackTextColor
-    }
-    private lazy var passwordTextField = UITextField().then {
-        $0.placeholder = "비밀번호를 입력해주세요"
-        $0.isSecureTextEntry = true
-    }
-    
-    private lazy var passwordInfoLabel = UILabel().then {
-        $0.text = "영문, 숫자 포함 8~ 16자"
-        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
-        $0.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
-    }
-    
-    private lazy var passwordCheckTextField = UITextField().then {
-        $0.placeholder = "비밀번호를 재입력해주세요"
-        $0.isSecureTextEntry = true
-    }
-    
-    private lazy var passwordCheckLabel = UILabel().then {
-        $0.text = "비밀번호를 다시 한번 입력해주세요"
-        $0.font = .systemFont(ofSize: 12.0, weight: .regular)
-        $0.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
     }
     
     override func viewDidLoad() {
@@ -182,6 +101,20 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate, Alert
         passwordCheckTextField.delegate = self
         passwordCheckTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
+}
+
+extension InsertUserInfoViewController: AlertMessageDelegate {
+    
+    func okButtonTapped(from: String) {
+        if from == "email" {
+            self.codeAuthButton.isEnabled = true
+            self.codeAuthButton.setTitleColor(.white, for: .normal)
+            self.codeAuthButton.backgroundColor = .mainTintColor
+        } else if from == "auth" {
+            
+        }
+    }
+    
 }
 
 extension InsertUserInfoViewController {
@@ -502,28 +435,61 @@ private extension InsertUserInfoViewController {
             $0.addLeftPadding(padding: 20.0)
             $0.delegate = self
         }
+        
+        headerTitle.text = "회원가입"
+        headerTitle.font = .systemFont(ofSize: 16.0, weight: .bold)
+        headerTitle.textAlignment = .center
+        
+        insertUserInfoImageView.image = UIImage(named: "signin_step1_orange")
+
+        insertUserInfoLabel.text = "정보 입력"
+        insertUserInfoLabel.textColor = .mainTintColor
+
+        setupProfileImageView.image = UIImage(named: "signin_step2_gray")
+     
+        setupProfileLabel.text = "프로필 설정"
+        setupProfileLabel.textColor = .lightGrayTextColor
+
+        completeSignUpImageView.image = UIImage(named: "signin_step3_gray")
+        
+        completeSignUpLabel.text = "가입완료"
+        completeSignUpLabel.textColor = .lightGrayTextColor
+        
+        [insertUserInfoLabel, setupProfileLabel, completeSignUpLabel].forEach {
+            $0.font = .systemFont(ofSize: 14.0, weight: .medium)
+            $0.textAlignment = .center
+        }
+        
+        [caretLeftImageView1,caretLeftImageView2].forEach {
+            $0.image = UIImage(named: "btn_caretleft_bold")
+        }
+        
+        idLabel.text = "아이디(이메일)"
+        idTextField.placeholder = "이메일을 인증해주세요"
+        
+        codeLabel.text = "코드번호"
+        codeTextField.placeholder = "코드번호를 입력해주세요"
+        
+        passwordLabel.text = "비밀번호"
+        passwordTextField.placeholder = "비밀번호를 입력해주세요"
+        passwordTextField.isSecureTextEntry = true
+        
+        passwordInfoLabel.text = "영문, 숫자 포함 8~ 16자"
+        passwordCheckTextField.placeholder = "비밀번호를 재입력해주세요"
+        passwordCheckTextField.isSecureTextEntry = true
+        passwordCheckLabel.text = "비밀번호를 다시 한번 입력해주세요"
+        
+        [idLabel,codeLabel,passwordLabel].forEach {
+            $0.font = .systemFont(ofSize: 16.0, weight: .bold)
+            $0.textColor = .blackTextColor
+        }
+        
+        [passwordInfoLabel,passwordCheckLabel].forEach {
+            $0.font = .systemFont(ofSize: 12.0, weight: .regular)
+            $0.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
+        }
+       
     }
+    
 }
 
-extension Dictionary {
-  func percentEncoded() -> Data? {
-    return map { key, value in
-      let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-      let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
-      return escapedKey + "=" + escapedValue
-    }
-    .joined(separator: "&")
-    .data(using: .utf8)
-  }
-}
-
-extension CharacterSet {
-  static let urlQueryValueAllowed: CharacterSet = {
-    let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
-    let subDelimitersToEncode = "!$&'()*+,;="
-
-    var allowed = CharacterSet.urlQueryAllowed
-    allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
-    return allowed
-  }()
-}

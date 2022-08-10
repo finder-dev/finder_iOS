@@ -65,7 +65,7 @@ class EmailLoginViewController: UIViewController, View {
     
     func bind(reactor: EmailLoginViewModel) {
         
-        // Action
+        // MARK : - Action
         // 1. textfield 두개 활성화 감지 -> 로그인 버튼 활성화
         // 2. 로그인 버튼 탭 -> 로그인 API
         idTextField.rx.controlEvent([.editingChanged])
@@ -94,7 +94,6 @@ class EmailLoginViewController: UIViewController, View {
         [idTextField,passwordTextField].forEach {
             $0.rx.controlEvent([.editingDidEndOnExit])
                 .subscribe { _ in
-                    print("editng End")
                 }.disposed(by: disposeBag)
         }
 
@@ -102,13 +101,12 @@ class EmailLoginViewController: UIViewController, View {
         view.rx.tapGesture()
             .when(.recognized)
             .subscribe { _ in
-                print("did tap view")
                 self.view.endEditing(true)
             }
             .disposed(by: disposeBag)
         
         
-        // State
+        // MARK : - State
         
         // 로그인 버튼 활성화
         reactor.state
@@ -343,7 +341,7 @@ private extension EmailLoginViewController {
             $0.layer.borderColor = UIColor.textFieldBorder.cgColor
             $0.layer.borderWidth = 1.0
             $0.addLeftPadding(padding: 20.0)
-            $0.delegate = self
+//            $0.delegate = self
         }
         
         emailLoginLabel.text = "이메일로 로그인"
