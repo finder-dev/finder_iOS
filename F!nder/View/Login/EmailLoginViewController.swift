@@ -12,10 +12,13 @@ import Then
 import ReactorKit
 import RxSwift
 import RxCocoa
+import RxGesture
 
+/*
+ * finder에 가입한 아이디로 로그인
+ */
 class EmailLoginViewController: UIViewController, View {
-    
-    
+
     var isCheckButtonTapped = false
     let network = SignUpAPI()
     let userInfoNetwork = UserInfoAPI()
@@ -61,6 +64,7 @@ class EmailLoginViewController: UIViewController, View {
     var disposeBag = DisposeBag()
     
     func bind(reactor: EmailLoginViewModel) {
+        
         // Action
         // 1. textfield 두개 활성화 감지 -> 로그인 버튼 활성화
         // 2. 로그인 버튼 탭 -> 로그인 API
@@ -85,7 +89,25 @@ class EmailLoginViewController: UIViewController, View {
             }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        // 키보드의 return 누른 경우 키보드내리기
+        [idTextField,passwordTextField].forEach {
+            $0.rx.controlEvent([.editingDidEndOnExit])
+                .subscribe { _ in
+                    print("editng End")
+                }.disposed(by: disposeBag)
+        }
 
+        // 화면 탭 시 키보드 내리기
+        view.rx.tapGesture()
+            .when(.recognized)
+            .subscribe { _ in
+                print("did tap view")
+                self.view.endEditing(true)
+            }
+            .disposed(by: disposeBag)
+        
+        
         // State
         
         // 로그인 버튼 활성화
@@ -136,12 +158,9 @@ class EmailLoginViewController: UIViewController, View {
         }
         layout()
         attribute()
-        
-        passwordTextField.delegate = self
     }
 }
 
-//
 extension EmailLoginViewController: AlertMessageDelegate {
     func okButtonTapped(from: String) {
         if from == "successEmailLogin" {
@@ -230,20 +249,6 @@ private extension EmailLoginViewController {
                 print("오류")
             }
         }
-    }
-    
-}
-
-// MARK - TextFieldDelegate
-extension EmailLoginViewController: UITextFieldDelegate {
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
 }
 

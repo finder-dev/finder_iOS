@@ -11,7 +11,9 @@ import RxMoya
 
 enum UserAuthAPIService {
     case login(loginRequest: SendLogin)
+    case getUserInfo
 }
+
 //https://finder777.com/api/login
 extension UserAuthAPIService : TargetType {
     var baseURL: URL {
@@ -25,6 +27,8 @@ extension UserAuthAPIService : TargetType {
         switch self {
         case .login:
             return "/api/login"
+        case .getUserInfo:
+            return "/api/users"
         }
     }
     
@@ -32,6 +36,8 @@ extension UserAuthAPIService : TargetType {
         switch self {
         case .login:
             return .post
+        case .getUserInfo:
+            return .get
         }
     }
     
@@ -39,6 +45,8 @@ extension UserAuthAPIService : TargetType {
         switch self {
         case .login(let loginRequest):
             return .requestData(loginRequest.parameters.percentEncoded()!)
+        case .getUserInfo:
+            return .requestPlain
         }
     }
     
@@ -46,6 +54,12 @@ extension UserAuthAPIService : TargetType {
         switch self {
         case .login:
              return nil
+        case .getUserInfo:
+            guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
+                print("오류 : token 없음")
+                return nil
+            }
+            return ["Authorization" : "Bearer +\(token)"]
         }
     }
     

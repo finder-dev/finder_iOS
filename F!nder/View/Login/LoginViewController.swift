@@ -17,6 +17,9 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 
+/*
+ * 로그인 시작 초기 화면
+ */
 class LoginViewController: UIViewController, View {
     
     var logoImageView = UIImageView()
@@ -80,7 +83,6 @@ class LoginViewController: UIViewController, View {
             .bind(onNext: showServicTerm)
             .disposed(by: disposeBag)
     }
-    
 
     
     func presentEmailLoginVC(reator: EmailLoginViewModel) {

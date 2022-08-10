@@ -11,6 +11,7 @@ import RxMoya
 import Moya
 
 final class UserAuthRepository : NSObject {
+    
     static let shared = UserAuthRepository()
     private var disposeBag = DisposeBag()
     

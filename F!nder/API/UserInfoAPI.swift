@@ -20,6 +20,7 @@ struct UserInfoAPI {
         var requestURL = URLRequest(url: (urlComponents?.url)!)
         requestURL.httpMethod = "GET"
         requestURL.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        
         let task = URLSession.shared.dataTask(with: requestURL) { data, response, error in
             guard let data = data,error == nil else {
                 debugPrint("error - \(error?.localizedDescription)")
