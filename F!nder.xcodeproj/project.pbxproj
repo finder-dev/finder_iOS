@@ -23,6 +23,7 @@
 		2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */; };
 		2B27643C28732BB800C37C9A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27643B28732BB800C37C9A /* SearchViewController.swift */; };
 		2B27643E28732DAD00C37C9A /* Label+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27643D28732DAD00C37C9A /* Label+Extensions.swift */; };
+		2B2775F529BA1B2F0046B9D6 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2775F429BA1B2F0046B9D6 /* PanModal */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -96,11 +97,9 @@
 		2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */; };
 		2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */; };
 		2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */; };
-		47C901E401B9A68D70C32D71 /* Pods_F_nder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9FB53E490C6BE68D4C07EB0 /* Pods_F_nder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		17F7E96666C4F6E0434D9E08 /* Pods-F!nder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F!nder.debug.xcconfig"; path = "Target Support Files/Pods-F!nder/Pods-F!nder.debug.xcconfig"; sourceTree = "<group>"; };
 		2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfo.swift; sourceTree = "<group>"; };
 		2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
@@ -182,8 +181,6 @@
 		2BE8BB5C2875D14D0013F75B /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		2BE8BB5E2875D8250013F75B /* AlertTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewCell.swift; sourceTree = "<group>"; };
 		2BE8BB602875D9BF0013F75B /* AlertTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTableViewModel.swift; sourceTree = "<group>"; };
-		55FB97CC9C9D2775C3172810 /* Pods-F!nder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-F!nder.release.xcconfig"; path = "Target Support Files/Pods-F!nder/Pods-F!nder.release.xcconfig"; sourceTree = "<group>"; };
-		D9FB53E490C6BE68D4C07EB0 /* Pods_F_nder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_F_nder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,8 +195,8 @@
 				2BAEB1C828A2050B00D737C7 /* ReactiveMoya in Frameworks */,
 				2BC3C27A2854E0430094F5EB /* Then in Frameworks */,
 				2BB7610228A157E50011CEBC /* RxCocoa in Frameworks */,
-				47C901E401B9A68D70C32D71 /* Pods_F_nder.framework in Frameworks */,
 				2BB760FD28A152290011CEBC /* ReactorKit in Frameworks */,
+				2B2775F529BA1B2F0046B9D6 /* PanModal in Frameworks */,
 				2BB7610428A157E50011CEBC /* RxRelay in Frameworks */,
 				2B881DE928A3EFFC00ECD31A /* RxGesture in Frameworks */,
 				2B0252C4288EE5B50078D7F2 /* KakaoSDKAuth in Frameworks */,
@@ -219,14 +216,6 @@
 				2B09DF222861E5E000FE19DC /* Login */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2B09DF04285B585900FE19DC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				D9FB53E490C6BE68D4C07EB0 /* Pods_F_nder.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		2B09DF182861DED500FE19DC /* OnBoarding */ = {
@@ -470,8 +459,6 @@
 			children = (
 				2BBEABB52854DA93002573DE /* F!nder */,
 				2BBEABB42854DA93002573DE /* Products */,
-				2B09DF04285B585900FE19DC /* Frameworks */,
-				56D52F5FCE91D54F9E50BA21 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -514,15 +501,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		56D52F5FCE91D54F9E50BA21 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				17F7E96666C4F6E0434D9E08 /* Pods-F!nder.debug.xcconfig */,
-				55FB97CC9C9D2775C3172810 /* Pods-F!nder.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -530,11 +508,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2BBEABC72854DA94002573DE /* Build configuration list for PBXNativeTarget "F!nder" */;
 			buildPhases = (
-				811E3F2DA5471E48A0B6C2BC /* [CP] Check Pods Manifest.lock */,
 				2BBEABAF2854DA93002573DE /* Sources */,
 				2BBEABB02854DA93002573DE /* Frameworks */,
 				2BBEABB12854DA93002573DE /* Resources */,
-				EBAD30BC4BDA595CD2E3B7E4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -553,6 +529,7 @@
 				2BAEB1C728A2050B00D737C7 /* ReactiveMoya */,
 				2BAEB1C928A2050B00D737C7 /* RxMoya */,
 				2B881DE828A3EFFC00ECD31A /* RxGesture */,
+				2B2775F429BA1B2F0046B9D6 /* PanModal */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -590,6 +567,7 @@
 				2BB7610028A157E50011CEBC /* XCRemoteSwiftPackageReference "RxSwift" */,
 				2BAEB1C428A2050B00D737C7 /* XCRemoteSwiftPackageReference "Moya" */,
 				2B881DE728A3EFFC00ECD31A /* XCRemoteSwiftPackageReference "RxGesture" */,
+				2B2775F329BA1B2F0046B9D6 /* XCRemoteSwiftPackageReference "PanModal" */,
 			);
 			productRefGroup = 2BBEABB42854DA93002573DE /* Products */;
 			projectDirPath = "";
@@ -612,48 +590,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		811E3F2DA5471E48A0B6C2BC /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-F!nder-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EBAD30BC4BDA595CD2E3B7E4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-F!nder/Pods-F!nder-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-F!nder/Pods-F!nder-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-F!nder/Pods-F!nder-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		2BBEABAF2854DA93002573DE /* Sources */ = {
@@ -868,7 +804,6 @@
 		};
 		2BBEABC82854DA94002573DE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 17F7E96666C4F6E0434D9E08 /* Pods-F!nder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -899,7 +834,6 @@
 		};
 		2BBEABC92854DA94002573DE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55FB97CC9C9D2775C3172810 /* Pods-F!nder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -968,6 +902,14 @@
 				minimumVersion = 5.6.0;
 			};
 		};
+		2B2775F329BA1B2F0046B9D6 /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		2B881DE728A3EFFC00ECD31A /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture";
@@ -1025,6 +967,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2B09DF03285B583C00FE19DC /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		2B2775F429BA1B2F0046B9D6 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2B2775F329BA1B2F0046B9D6 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
 		};
 		2B881DE828A3EFFC00ECD31A /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;
