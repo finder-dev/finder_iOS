@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import MaterialComponents.MaterialBottomSheet
 
 /*
  * 커뮤니티 상세 보기 뷰
@@ -390,14 +389,8 @@ extension CommunityDetailViewController {
             
         } else {
             let bottomSheetVC = BottomSheetViewController()
-            
-            let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
-            bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
-            
-            present(bottomSheet, animated: true)
-
+            presentPanModal(bottomSheetVC)
         }
-
     }
     
     @objc func didTapSaveButton() {

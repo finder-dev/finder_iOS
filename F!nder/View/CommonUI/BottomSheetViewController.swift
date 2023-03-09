@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import PanModal
 
 class BottomSheetViewController: UIViewController {
 
@@ -36,6 +37,7 @@ extension BottomSheetViewController: UITableViewDataSource, UITableViewDelegate 
         
         cell.textLabel?.text = data
         cell.textLabel?.textAlignment = .left
+        cell.selectionStyle = .none
         
         cell.textLabel?.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(32.0)
@@ -93,6 +95,29 @@ extension BottomSheetViewController: AlertMessage2Delegate {
     
 }
 
+
+// MARK: PanModal Setting
+
+extension BottomSheetViewController: PanModalPresentable {
+    var panScrollable: UIScrollView? {
+        return nil
+    }
+
+    var shortFormHeight: PanModalHeight {
+        let height = tableView.contentSize.height
+        return .contentHeight(height)
+    }
+    
+    var longFormHeight: PanModalHeight {
+        let height = tableView.contentSize.height
+        return .contentHeight(height)
+    }
+    
+    var showDragIndicator: Bool {
+        return false
+    }
+}
+
 private extension BottomSheetViewController {
     func layout() {
         self.view.addSubview(tableView)
@@ -106,5 +131,6 @@ private extension BottomSheetViewController {
         self.view.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.isScrollEnabled = false
     }
 }

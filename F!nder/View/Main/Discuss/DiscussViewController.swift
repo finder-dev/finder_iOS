@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-import MaterialComponents.MaterialBottomSheet
+import PanModal
 
 enum DiscussViewStatus {
     case noData
@@ -17,7 +17,7 @@ enum DiscussViewStatus {
 /*
  * 토론 목록들을 보여주는 view controller
  */
-class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MDCBottomSheetControllerDelegate {
+class DiscussViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let headerView = UIView()
     let headerTitle = UILabel()
@@ -188,14 +188,8 @@ private extension DiscussViewController {
         print("didTapCategoryButton")
         let bottomSheetVC = BottomSheetViewController()
         bottomSheetVC.titles = ["불나게 진행중인 토론","아쉽게 마감한 토론"]
-        
-        let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
-        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 150
-        bottomSheet.delegate = self
-        
-        present(bottomSheet, animated: true)
+        presentPanModal(bottomSheetVC)
     }
-    
 }
 
 

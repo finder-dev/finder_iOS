@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import SwiftUI
-import MaterialComponents.MaterialBottomSheet
+import PanModal
 
 /*
  * 토론 상세 뷰 입니다.
@@ -307,13 +307,8 @@ extension DiscussDetailViewController {
     
     // 바텀 시트 보여주기
     @objc func didTapRightBarButton() {
-        print("didTapRightBarButton")
         let bottomSheetVC = BottomSheetViewController()
-        
-        let bottomSheet : MDCBottomSheetController = MDCBottomSheetController(contentViewController: bottomSheetVC)
-        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 200
-        
-        present(bottomSheet, animated: true)
+        presentPanModal(bottomSheetVC)
     }
 }
 
