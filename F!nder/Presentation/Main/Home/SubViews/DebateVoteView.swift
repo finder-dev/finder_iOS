@@ -63,7 +63,7 @@ private extension DebateVoteView {
     func addSubview() {
         [debateTitleLabel,debateTimeLabel, buttonACountLabel, buttonBCountLabel,
          buttonA, buttonB, buttonAImageView, buttonBImageView, buttonStackView].forEach {
-            self.self.addSubview($0)
+            self.addSubview($0)
         }
         
         [buttonA, buttonB].forEach {

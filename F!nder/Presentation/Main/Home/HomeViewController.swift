@@ -40,10 +40,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var searchView = UIView()
     var searchImageView = UIImageView()
     var searchLabel = UILabel()
-    var userInfoLabel = UILabel()
-    var addLabel = UILabel()
-    var mbtiInfoLabel = UILabel()
-    var mbtiImageView = UIImageView()
+    let userMBTIView = UserMBTIView()
     
     var lineView = UIView()
     var balanceGameLabel = UILabel()
@@ -102,19 +99,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
 extension HomeViewController {
     
-    func setupUserPage(mbti:String) {
-        let mbti = MBTI.getMBTI(mbti)
-        mbtiInfoLabel.text = mbti.mbtiMessage
-        mbtiImageView.image = mbti.mbtiImage
-    }
-    
     func setupUserData() {
-        let userMBTI = UserDefaultsData.userMBTI
-        let userNickName = UserDefaultsData.userNickName
-        
-        userInfoLabel.text = "\(userMBTI ?? "nil") \(userNickName ?? "nil")"
-        
-        setupUserPage(mbti: userMBTI ?? "nil")
         
         debateNetwork.requestHotDebate { [self] result in
             switch result {
@@ -264,24 +249,6 @@ private extension HomeViewController {
         searchView.layer.borderWidth = 2.0
         searchView.layer.borderColor = UIColor.mainTintColor.cgColor
         
-        userInfoLabel.text = "INFJ 수완"
-        userInfoLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
-        userInfoLabel.textColor = .blackTextColor
-        addLabel.text = "님,"
-        addLabel.font = .systemFont(ofSize: 16.0, weight: .regular)
-        addLabel.textColor = .blackTextColor
-        addLabel.textAlignment = .left
-        
-        mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
-        mbtiInfoLabel.numberOfLines = 0
-        mbtiInfoLabel.font = .systemFont(ofSize: 16.0, weight: .medium)
-        mbtiInfoLabel.textColor = .textGrayColor
-        mbtiInfoLabel.setLineHeight(lineHeight: 25.0)
-        
-        mbtiImageView.image = UIImage(named: "main character")
-        mbtiImageView.contentMode = .scaleAspectFit
-        mbtiImageView.clipsToBounds = false
-        
         lineView.backgroundColor = .mainTintColor
         
         balanceGameLabel.text = "🔥HOT한 밸런스 게임! 당신의 선택은?"
@@ -325,10 +292,7 @@ private extension HomeViewController {
     func innerViewLayout() {
         
         [searchView,
-        userInfoLabel,
-         addLabel,
-        mbtiInfoLabel,
-        mbtiImageView,
+         userMBTIView,
         lineView,
         balanceGameLabel,
         noBalanceGameDataView,
@@ -348,32 +312,14 @@ private extension HomeViewController {
             $0.height.equalTo(54.0)
         }
         
-        userInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(searchView.snp.bottom).offset(36.0)
-            $0.leading.equalTo(searchView.snp.leading)
-        }
- 
-        addLabel.snp.makeConstraints {
-            $0.leading.equalTo(userInfoLabel.snp.trailing)
-            $0.bottom.equalTo(userInfoLabel)
-        }
-        
-        
-        mbtiInfoLabel.snp.makeConstraints {
-            $0.top.equalTo(userInfoLabel.snp.bottom).offset(8.0)
-            $0.leading.equalTo(userInfoLabel.snp.leading)
-        }
-        
-        mbtiImageView.snp.makeConstraints {
-            $0.width.equalTo(155.0)
-            $0.height.equalTo(140.0)
-            $0.trailing.equalTo(searchView.snp.trailing)
+        userMBTIView.snp.makeConstraints {
             $0.top.equalTo(searchView.snp.bottom).offset(8.0)
+            $0.leading.trailing.equalToSuperview()
         }
-        
+    
         lineView.snp.makeConstraints {
             $0.height.equalTo(2.0)
-            $0.top.equalTo(mbtiImageView.snp.bottom).offset(20.0)
+            $0.top.equalTo(userMBTIView.snp.bottom).offset(20.0)
             $0.leading.trailing.equalTo(innerView)
         }
         

@@ -18,7 +18,7 @@ enum UserDefaultsData {
     static var userEmail
     @UserDefaultsWrapper(key: "userMBTI", defaultValue: "")
     static var userMBTI
-    @UserDefaultsWrapper(key: "userNickName", defaultValue: "")
+    @UserDefaultsWrapper(key: "userNickName", defaultValue: "test")
     static var userNickName
     
 }
