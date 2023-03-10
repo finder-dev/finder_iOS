@@ -39,11 +39,18 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     var searchView = UIView()
     var searchImageView = UIImageView()
-    var searchLabel = UILabel()
+    var searchLabel = FinderLabel(text: "알고싶은 MBTI가 있나요?",
+                                  font: .systemFont(ofSize: 14.0, weight: .medium),
+                                  textColor: .grey3)
+    
     let userMBTIView = UserMBTIView()
     
     var lineView = UIView()
-    var balanceGameLabel = UILabel()
+    var balanceGameLabel = FinderLabel(text: "🔥HOT한 밸런스 게임! 당신의 선택은?",
+                                       font: .systemFont(ofSize: 20.0, weight: .bold),
+                                       textColor: .black1,
+                                       textAlignment: .center)
+    
     var goBalanceGameButton = UIButton()
     
     var noBalanceGameDataView = UIView()
@@ -54,7 +61,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     let lineView2 = UIView()
     let tableView = UITableView()
-    var communityLabel = UILabel()
+    let communityLabel = FinderLabel(text: "💬 급상승 중인 파인더들의 수다",
+                                     font: .systemFont(ofSize: 20.0, weight: .bold),
+                                     textColor: .black1)
     
     var bannerButton = UIButton()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
@@ -248,11 +257,12 @@ private extension HomeViewController {
 
         searchView.layer.borderWidth = 2.0
         searchView.layer.borderColor = UIColor.mainTintColor.cgColor
+        searchImageView.image = UIImage(named: "search")
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapSearchView))
+        searchView.addGestureRecognizer(gesture)
         
         lineView.backgroundColor = .mainTintColor
-        
-        balanceGameLabel.text = "🔥HOT한 밸런스 게임! 당신의 선택은?"
-        balanceGameLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
+        lineView2.backgroundColor = UIColor(red: 228/255, green: 229/255, blue: 233/255, alpha: 1.0)
         
         goBalanceGameButton.layer.cornerRadius = 18.0
         goBalanceGameButton.layer.borderWidth = 1.0
@@ -263,15 +273,8 @@ private extension HomeViewController {
         bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
         bannerButton.addTarget(self, action: #selector(didTapBannerButton), for: .touchUpInside)
         
-        lineView2.backgroundColor = UIColor(red: 228/255, green: 229/255, blue: 233/255, alpha: 1.0)
-        
-        communityLabel.text = "💬 급상승 중인 파인더들의 수다"
-        communityLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
-        communityLabel.textColor = UIColor(red: 44/255, green: 44/255, blue: 44/255, alpha: 1.0)
-        
         goBalanceGameButton.addTarget(self, action: #selector(didTapGoBalanceGameButton), for: .touchUpInside)
-                
-        searchBarAttribute()
+        
         noBalanceGameViewAttribute()
     }
     
@@ -384,17 +387,6 @@ private extension HomeViewController {
             $0.leading.equalTo(searchImageView.snp.trailing).offset(8.0)
             $0.centerY.equalTo(searchView)
         }
-    }
-    
-    func searchBarAttribute() {
-        searchImageView.image = UIImage(named: "search")
-        
-        searchLabel.text = "알고싶은 MBTI가 있나요?"
-        searchLabel.font = .systemFont(ofSize: 14.0, weight: .medium)
-        searchLabel.textColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapSearchView))
-        searchView.addGestureRecognizer(gesture)
     }
     
     @objc func didTapSearchView() {

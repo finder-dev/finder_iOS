@@ -171,7 +171,7 @@ private extension SavedViewController {
 
         headerLabel.text = "저장"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
+        headerLabel.textColor = .black1
         headerLabel.textAlignment = .center
     }
     

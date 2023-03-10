@@ -261,7 +261,7 @@ private extension DiscussViewController {
         
         headerTitle.text = "토론"
         headerTitle.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerTitle.textColor = .blackTextColor
+        headerTitle.textColor = .black1
         headerTitle.textAlignment = .center
         
         addButton.setImage(UIImage(named: "plus"), for: .normal)
@@ -272,7 +272,7 @@ private extension DiscussViewController {
         
         categoryLabel.text = "불나게 진행중인 토론"
         categoryLabel.font = .systemFont(ofSize: 18.0, weight: .bold)
-        categoryLabel.textColor = .blackTextColor
+        categoryLabel.textColor = .black1
             
         categoryButton.setImage(UIImage(named: "btn_caretleft"), for: .normal)
         categoryButton.addTarget(self, action: #selector(didTapCategoryButton), for: .touchUpInside)

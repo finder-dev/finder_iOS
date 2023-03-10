@@ -90,7 +90,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate{
         let backButton  = UIBarButtonItem()
         backButton.title = ""
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-        self.navigationController?.navigationBar.tintColor = .blackTextColor
+        self.navigationController?.navigationBar.tintColor = .black1
         self.navigationItem.title = "커뮤니티"
     }
     
@@ -570,11 +570,11 @@ extension CommunityDetailViewController {
          
          mbtiCategoryLabel.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
          mbtiCategoryLabel.layer.cornerRadius = 5.0
-         mbtiCategoryLabel.textColor = .blackTextColor
+         mbtiCategoryLabel.textColor = .black1
          mbtiCategoryLabel.font = .systemFont(ofSize: 12.0, weight: .medium)
          mbtiCategoryLabel.textAlignment = .center
         
-        titleLabel.textColor = .blackTextColor
+        titleLabel.textColor = .black1
         titleLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
         titleLabel.numberOfLines = 0
         
@@ -650,7 +650,7 @@ extension CommunityDetailViewController {
 
         headerLabel.text = "커뮤니티"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
+        headerLabel.textColor = .black1
         headerLabel.textAlignment = .center
         
         thumbsUpButton.setTitle(" 추천", for: .normal)

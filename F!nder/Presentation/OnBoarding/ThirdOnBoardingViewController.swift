@@ -58,7 +58,7 @@ private extension ThirdOnBoardingViewController {
     func attribute() {
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTitleLabel.text = "세상에 나쁜 \nMBTI는 없다"
-        mainTitleLabel.textColor = .blackTextColor
+        mainTitleLabel.textColor = .black1
         mainTitleLabel.numberOfLines = 0
         mainTitleLabel.font = .systemFont(ofSize: 24.0, weight: .bold)
         

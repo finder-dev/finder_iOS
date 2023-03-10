@@ -12,7 +12,7 @@ final class DebateVoteView: UIView {
 
     let debateTitleLabel = FinderLabel(text: "친구의 깻잎, 10 장이 엉겨붙었는데 \n애인이 떼줘도 된다 애인이 떼줘도 된다?",
                                        font: .systemFont(ofSize: 16.0, weight: .medium),
-                                       textColor: .blackTextColor,
+                                       textColor: .black1,
                                        textAlignment: .center)
     
     var debateTimeLabel = FinderLabel(text: "남은 시간 D-3",

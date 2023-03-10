@@ -138,7 +138,7 @@ extension MakeDiscussViewController {
         rightBarButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = rightBarButton
         self.navigationItem.leftBarButtonItem = leftBarButton
-        self.navigationController?.navigationBar.tintColor = .blackTextColor
+        self.navigationController?.navigationBar.tintColor = .black1
         self.navigationItem.rightBarButtonItem?.tintColor = .lightGray
     }
     

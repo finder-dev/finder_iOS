@@ -232,10 +232,10 @@ extension DialogViewController {
         mainLabel.text = "MBTI 선택"
         mainLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
         mainLabel.textAlignment = .center
-        mainLabel.textColor = .blackTextColor
+        mainLabel.textColor = .black1
         
         closeButton.setImage(UIImage(named: "ic_baseline-close"), for: .normal)
-        closeButton.setTitleColor(.blackTextColor, for: .normal)
+        closeButton.setTitleColor(.black1, for: .normal)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         
         confirmButton.setTitle("확인", for: .normal)
@@ -263,7 +263,7 @@ extension DialogViewController {
          JButton,
          PButton].forEach {
             $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .regular)
-            $0.setTitleColor(.blackTextColor, for: .normal)
+            $0.setTitleColor(.black1, for: .normal)
             $0.layer.borderColor = UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1.0).cgColor
             $0.layer.borderWidth = 1.0
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
@@ -376,7 +376,7 @@ extension DialogViewController {
     
     func disableButtonState(button: UIButton) {
         button.backgroundColor = .white
-        button.setTitleColor(.blackTextColor, for: .normal)
+        button.setTitleColor(.black1, for: .normal)
     }
     
     func enableConfirmButton() {

@@ -143,7 +143,7 @@ private extension SettingViewController {
         
         [accountLabel,serviceTermLabel].forEach {
             $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-            $0.textColor = .blackTextColor
+            $0.textColor = .black1
         }
         
         accountLabel.text = "계정"
@@ -248,7 +248,7 @@ private extension SettingViewController {
 
         headerLabel.text = "설정"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
+        headerLabel.textColor = .black1
         headerLabel.textAlignment = .center
         
         backButton.setImage(UIImage(named: "backButton"), for: .normal)

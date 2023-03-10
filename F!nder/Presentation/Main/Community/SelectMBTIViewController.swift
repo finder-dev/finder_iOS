@@ -249,10 +249,10 @@ private extension SelectMBTIViewController {
         mainLabel.text = "MBTI 선택"
         mainLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
         mainLabel.textAlignment = .center
-        mainLabel.textColor = .blackTextColor
+        mainLabel.textColor = .black1
         
         closeButton.setImage(UIImage(named: "ic_baseline-close"), for: .normal)
-        closeButton.setTitleColor(.blackTextColor, for: .normal)
+        closeButton.setTitleColor(.black1, for: .normal)
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         
         confirmButton.setTitle("확인", for: .normal)

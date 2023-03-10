@@ -96,7 +96,7 @@ private extension DiscussTableViewCell {
         
         discussLabel.numberOfLines = 2
         discussLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
-        discussLabel.textColor = .blackTextColor
+        discussLabel.textColor = .black1
         
         peopleCountLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
         peopleCountLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)

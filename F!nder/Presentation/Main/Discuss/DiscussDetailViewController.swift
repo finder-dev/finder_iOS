@@ -594,7 +594,7 @@ extension DiscussDetailViewController {
     
     func setupDiscussViewAttribute() {
         discussTitle.font = .systemFont(ofSize: 16.0, weight: .medium)
-        discussTitle.textColor = .blackTextColor
+        discussTitle.textColor = .black1
         discussTitle.textAlignment = .center
         discussTitle.numberOfLines = 0
         
@@ -644,7 +644,7 @@ extension DiscussDetailViewController {
         let backButton  = UIBarButtonItem()
         backButton.title = ""
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-        self.navigationController?.navigationBar.tintColor = .blackTextColor
+        self.navigationController?.navigationBar.tintColor = .black1
         self.navigationItem.title = "토론"
     }
     

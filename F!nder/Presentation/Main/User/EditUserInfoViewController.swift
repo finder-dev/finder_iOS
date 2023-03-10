@@ -243,7 +243,7 @@ private extension EditUserInfoViewController {
         self.view.backgroundColor = .white
         [nickNameLabel,passswordLabel,mbtiLabel].forEach {
             $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-            $0.textColor = .blackTextColor
+            $0.textColor = .black1
         }
         
         nickNameLabel.text = "닉네임"
@@ -407,7 +407,7 @@ private extension EditUserInfoViewController {
 
         headerLabel.text = "개인 정보 수정"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
+        headerLabel.textColor = .black1
         headerLabel.textAlignment = .center
         
         backButton.setImage(UIImage(named: "ic_baseline-close"), for: .normal)

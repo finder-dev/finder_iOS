@@ -481,7 +481,7 @@ private extension InsertUserInfoViewController {
         
         [idLabel,codeLabel,passwordLabel].forEach {
             $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-            $0.textColor = .blackTextColor
+            $0.textColor = .black1
         }
         
         [passwordInfoLabel,passwordCheckLabel].forEach {

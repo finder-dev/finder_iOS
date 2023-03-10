@@ -12,10 +12,10 @@ final class UserMBTIView: UIView {
     
     let userMBTILabel = FinderLabel(text: "INFJ",
                                     font: .systemFont(ofSize: 20.0, weight: .bold),
-                                    textColor: .blackTextColor)
+                                    textColor: .black1)
     let userNameLabel = FinderLabel(text: "\(UserDefaultsData.userNickName)님,",
                                     font: .systemFont(ofSize: 20.0, weight: .bold),
-                                    textColor: .blackTextColor)
+                                    textColor: .black1)
     let emptyLabel = UILabel()
     let mbtiMessageLabel = FinderLabel(text: "",
                                        font: .systemFont(ofSize: 16.0, weight: .medium),

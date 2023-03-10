@@ -81,7 +81,7 @@ private extension AlertMessageViewController {
         alertView.backgroundColor = .white
         
         titleLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
-        titleLabel.textColor = .blackTextColor
+        titleLabel.textColor = .black1
         titleLabel.textAlignment = .center
         
         textLabel.font = .systemFont(ofSize: 14.0, weight: .regular)

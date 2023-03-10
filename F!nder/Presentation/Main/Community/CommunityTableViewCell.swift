@@ -179,11 +179,11 @@ private extension CommunityTableViewCell {
         
         mbtiCategoryLabel.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
         mbtiCategoryLabel.layer.cornerRadius = 5.0
-        mbtiCategoryLabel.textColor = .blackTextColor
+        mbtiCategoryLabel.textColor = .black1
         mbtiCategoryLabel.font = .systemFont(ofSize: 12.0, weight: .medium)
         mbtiCategoryLabel.textAlignment = .center
         
-        titleLabel.textColor = .blackTextColor
+        titleLabel.textColor = .black1
         titleLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
 //        timeLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
         contentLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)

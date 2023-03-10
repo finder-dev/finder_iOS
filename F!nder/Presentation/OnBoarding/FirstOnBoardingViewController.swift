@@ -58,7 +58,7 @@ private extension FirstOnBoardingViewController {
     func attribute() {
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTitleLabel.text = "궁금한 MBTI한테 \n바로 물어보세요"
-        mainTitleLabel.textColor = .blackTextColor
+        mainTitleLabel.textColor = .black1
         mainTitleLabel.numberOfLines = 0
         mainTitleLabel.font = .systemFont(ofSize: 24.0, weight: .bold)
         

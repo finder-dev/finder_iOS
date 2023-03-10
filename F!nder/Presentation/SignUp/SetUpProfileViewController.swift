@@ -84,7 +84,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     private lazy var MBTILabel = UILabel().then {
         $0.text = "MBTI"
         $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textColor = .blackTextColor
+        $0.textColor = .black1
     }
     
     private lazy var MBTITextField = UITextField().then {
@@ -104,7 +104,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     private lazy var nickNameLabel = UILabel().then {
         $0.text = "닉네임"
         $0.font = .systemFont(ofSize: 16.0, weight: .bold)
-        $0.textColor = .blackTextColor
+        $0.textColor = .black1
     }
     
     private lazy var nickNameTextField = UITextField().then {

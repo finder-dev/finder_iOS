@@ -54,7 +54,7 @@ class CommunityViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.backgroundColor = .white
         setupHeaderView()
         layout()
-        latestButton.setTitleColor(.blackTextColor, for: .normal)
+        latestButton.setTitleColor(.black1, for: .normal)
         commentButton.isHidden = true
     }
     
@@ -276,7 +276,7 @@ private extension CommunityViewController {
         
         headerLabel.text = "커뮤니티"
         headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .blackTextColor
+        headerLabel.textColor = .black1
         headerLabel.textAlignment = .center
         
         headerLine.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)

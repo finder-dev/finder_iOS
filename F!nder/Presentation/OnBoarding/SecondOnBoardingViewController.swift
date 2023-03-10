@@ -58,7 +58,7 @@ private extension SecondOnBoardingViewController {
     func attribute() {
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         mainTitleLabel.text = "마음 놓고 \n토론하세요"
-        mainTitleLabel.textColor = .blackTextColor
+        mainTitleLabel.textColor = .black1
         mainTitleLabel.numberOfLines = 0
         mainTitleLabel.font = .systemFont(ofSize: 24.0, weight: .bold)
         

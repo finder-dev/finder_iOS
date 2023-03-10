@@ -115,7 +115,7 @@ extension DebateCommentTableViewCell {
         }
         
         commentLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
-        commentLabel.textColor = .blackTextColor
+        commentLabel.textColor = .black1
         commentLabel.numberOfLines = 0
         
         commentLabel.text = "test"

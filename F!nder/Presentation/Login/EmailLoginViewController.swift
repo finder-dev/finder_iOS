@@ -55,7 +55,7 @@ class EmailLoginViewController: UIViewController, View {
     
     private lazy var signUpButton = UIButton().then {
         $0.setTitle("회원가입", for: .normal)
-        $0.setTitleColor(.blackTextColor, for: .normal)
+        $0.setTitleColor(.black1, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .bold)
         $0.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
         
@@ -358,11 +358,11 @@ private extension EmailLoginViewController {
         
         emailLoginLabel.text = "이메일로 로그인"
         emailLoginLabel.font = .systemFont(ofSize: 20.0, weight: .bold)
-        emailLoginLabel.textColor = .blackTextColor
+        emailLoginLabel.textColor = .black1
         
         idLabel.text = "아이디(이메일)"
         idLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        idLabel.textColor = .blackTextColor
+        idLabel.textColor = .black1
         
         idTextField.placeholder = "이메일 주소를 입력해주세요"
         passwordLabel.text = "비밀번호"
