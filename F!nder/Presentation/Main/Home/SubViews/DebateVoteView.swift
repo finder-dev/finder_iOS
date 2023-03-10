@@ -8,10 +8,17 @@
 import UIKit
 import SnapKit
 
-class DebateVoteView: UIView {
+final class DebateVoteView: UIView {
 
-    var balaceGameTitleLabel = UILabel()
-    var balanceGameTimeLabel = UILabel()
+    let debateTitleLabel = FinderLabel(text: "친구의 깻잎, 10 장이 엉겨붙었는데 \n애인이 떼줘도 된다 애인이 떼줘도 된다?",
+                                       font: .systemFont(ofSize: 16.0, weight: .medium),
+                                       textColor: .blackTextColor,
+                                       textAlignment: .center)
+    
+    var debateTimeLabel = FinderLabel(text: "남은 시간 D-3",
+                                      font: .systemFont(ofSize: 12.0, weight: .regular),
+                                      textColor: UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 1.0),
+                                      textAlignment: .center)
     var buttonA = UIButton()
     var buttonACountLabel = UILabel()
     var buttonB = UIButton()
@@ -19,7 +26,7 @@ class DebateVoteView: UIView {
     var buttonBCountLabel = UILabel()
     var buttonAImageView = UIImageView()
     var buttonBImageView = UIImageView()
-    var AgreeButtonConstraints: NSLayoutConstraint!
+    var agreeButtonConstraints: NSLayoutConstraint!
     var disAgreeButtonConstraints: NSLayoutConstraint!
     
     override init(frame: CGRect) {
@@ -34,8 +41,8 @@ class DebateVoteView: UIView {
     }
     
     func setupData(_ data: HotDebateSuccessResponse) {
-        balaceGameTitleLabel.text = data.title
-        balanceGameTimeLabel.text = data.deadline
+        debateTitleLabel.text = data.title
+        debateTimeLabel.text = data.deadline
         buttonACountLabel.text = "\(data.optionACount)"
         buttonBCountLabel.text = "\(data.optionBCount)"
         buttonA.setTitle(data.optionA, for: .normal)
@@ -54,7 +61,7 @@ class DebateVoteView: UIView {
 private extension DebateVoteView {
     
     func addSubview() {
-        [balaceGameTitleLabel,balanceGameTimeLabel, buttonACountLabel, buttonBCountLabel,
+        [debateTitleLabel,debateTimeLabel, buttonACountLabel, buttonBCountLabel,
          buttonA, buttonB, buttonAImageView, buttonBImageView, buttonStackView].forEach {
             self.self.addSubview($0)
         }
@@ -65,20 +72,20 @@ private extension DebateVoteView {
     }
     
     func setLayout() {
-        balaceGameTitleLabel.snp.makeConstraints {
+        debateTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(30)
             $0.top.equalTo(self.snp.top)
         }
         
-        balanceGameTimeLabel.snp.makeConstraints {
+        debateTimeLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(balaceGameTitleLabel.snp.bottom).offset(4.0)
+            $0.top.equalTo(debateTitleLabel.snp.bottom).offset(4.0)
         }
         
         buttonStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20.0)
-            $0.top.equalTo(balaceGameTitleLabel.snp.bottom).offset(75.0)
+            $0.top.equalTo(debateTitleLabel.snp.bottom).offset(75.0)
             $0.height.equalTo(55.0)
             $0.bottom.equalToSuperview().inset(36.0)
         }
@@ -101,22 +108,15 @@ private extension DebateVoteView {
             $0.trailing.equalTo(buttonStackView)
         }
         
-        AgreeButtonConstraints = self.buttonACountLabel.topAnchor.constraint(equalTo: balanceGameTimeLabel.bottomAnchor, constant: 22.0)
-        disAgreeButtonConstraints = self.buttonBCountLabel.topAnchor.constraint(equalTo: balanceGameTimeLabel.bottomAnchor, constant: 22.0)
-        AgreeButtonConstraints.isActive = true
+        agreeButtonConstraints = self.buttonACountLabel.topAnchor.constraint(equalTo: debateTimeLabel.bottomAnchor,
+                                                                             constant: 22.0)
+        disAgreeButtonConstraints = self.buttonBCountLabel.topAnchor.constraint(equalTo: debateTimeLabel.bottomAnchor,
+                                                                                constant: 22.0)
+        agreeButtonConstraints.isActive = true
         disAgreeButtonConstraints.isActive = true
     }
     
     func setupView() {
-        balaceGameTitleLabel.text = "친구의 깻잎, 10 장이 엉겨붙었는데 \n애인이 떼줘도 된다 애인이 떼줘도 된다?"
-        balaceGameTitleLabel.font = .systemFont(ofSize: 16.0, weight: .medium)
-        balaceGameTitleLabel.textColor = .blackTextColor
-        balaceGameTitleLabel.textAlignment = .center
-        balaceGameTitleLabel.numberOfLines = 0
-        
-        balanceGameTimeLabel.text = "남은 시간 D-3"
-        balanceGameTimeLabel.font = .systemFont(ofSize: 12.0, weight: .regular)
-        balanceGameTimeLabel.textColor = UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 1.0)
         
         [buttonACountLabel,buttonBCountLabel].forEach {
             $0.font = .systemFont(ofSize: 44.0, weight: .bold)
@@ -160,7 +160,7 @@ private extension DebateVoteView {
     
     func selectA() {
 
-        AgreeButtonConstraints.constant = 11.0
+        agreeButtonConstraints.constant = 11.0
         disAgreeButtonConstraints.constant = 22.0
 
         buttonAImageView.isHidden = false
@@ -177,7 +177,7 @@ private extension DebateVoteView {
     
     func selectB() {
         
-        AgreeButtonConstraints.constant = 22.0
+        agreeButtonConstraints.constant = 22.0
         disAgreeButtonConstraints.constant = 11.0
 
         buttonBImageView.isHidden = false
