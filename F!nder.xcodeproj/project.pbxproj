@@ -31,6 +31,7 @@
 		2B27761029BAEE0B0046B9D6 /* FinderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27760F29BAEE0B0046B9D6 /* FinderLabel.swift */; };
 		2B27761229BB09B50046B9D6 /* UserMBTIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761129BB09B50046B9D6 /* UserMBTIView.swift */; };
 		2B27761429BB196C0046B9D6 /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761329BB196C0046B9D6 /* HomeHeaderView.swift */; };
+		2B27761629BB1CFE0046B9D6 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761529BB1CFE0046B9D6 /* SearchBarView.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -127,6 +128,7 @@
 		2B27760F29BAEE0B0046B9D6 /* FinderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderLabel.swift; sourceTree = "<group>"; };
 		2B27761129BB09B50046B9D6 /* UserMBTIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMBTIView.swift; sourceTree = "<group>"; };
 		2B27761329BB196C0046B9D6 /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
+		2B27761529BB1CFE0046B9D6 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				2B27760C29BADC5E0046B9D6 /* DebateVoteView.swift */,
 				2B27761129BB09B50046B9D6 /* UserMBTIView.swift */,
 				2B27761329BB196C0046B9D6 /* HomeHeaderView.swift */,
+				2B27761529BB1CFE0046B9D6 /* SearchBarView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 				2B557B1128885C1C0057CC9D /* AlertMessage2ViewController.swift in Sources */,
 				2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */,
 				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
+				2B27761629BB1CFE0046B9D6 /* SearchBarView.swift in Sources */,
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
 				2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */,
 				2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */,

@@ -31,13 +31,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let headerView = HomeHeaderView()
     var scrollView = UIScrollView()
     var innerView = UIView()
-
-    var searchView = UIView()
-    var searchImageView = UIImageView()
-    var searchLabel = FinderLabel(text: "알고싶은 MBTI가 있나요?",
-                                  font: .systemFont(ofSize: 14.0, weight: .medium),
-                                  textColor: .grey3)
-    
+    let searchView = SearchBarView()
     let userMBTIView = UserMBTIView()
     
     var lineView = UIView()
@@ -219,18 +213,13 @@ private extension HomeViewController {
         }
         
         scrollViewLayout()
-        searchBarLayout()
         noBalanceGameViewLayout()
-        communityTableViewLayout()
     }
     
     func attribute() {
       
         headerView.alarmButton.addTarget(self, action: #selector(didTapAlaramButton), for: .touchUpInside)
 
-        searchView.layer.borderWidth = 2.0
-        searchView.layer.borderColor = UIColor.mainTintColor.cgColor
-        searchImageView.image = UIImage(named: "search")
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapSearchView))
         searchView.addGestureRecognizer(gesture)
         
@@ -247,6 +236,10 @@ private extension HomeViewController {
         bannerButton.addTarget(self, action: #selector(didTapBannerButton), for: .touchUpInside)
         
         goBalanceGameButton.addTarget(self, action: #selector(didTapGoBalanceGameButton), for: .touchUpInside)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
         
         noBalanceGameViewAttribute()
     }
@@ -266,19 +259,11 @@ private extension HomeViewController {
     
     func innerViewLayout() {
         
-        [searchView,
-         userMBTIView,
-        lineView,
-        balanceGameLabel,
-        noBalanceGameDataView,
-        debateVoteView,
-        goBalanceGameButton,
-        bannerButton,
-         lineView2,
-         communityLabel].forEach {
+        [searchView, userMBTIView, lineView, balanceGameLabel, noBalanceGameDataView,
+         debateVoteView, goBalanceGameButton,bannerButton, lineView2, communityLabel,
+         tableView].forEach {
            self.innerView.addSubview($0)
        }
-        
         
         searchView.snp.makeConstraints {
             $0.top.equalTo(innerView)
@@ -337,47 +322,12 @@ private extension HomeViewController {
             $0.top.equalTo(lineView2.snp.bottom).offset(56.0)
             $0.leading.equalTo(innerView).inset(20.0)
         }
-    }
-}
-
-// SearchBar UI 설정
-private extension HomeViewController {
-    
-    func searchBarLayout() {
-        [searchImageView,
-         searchLabel].forEach {
-            self.searchView.addSubview($0)
-        }
         
-        searchImageView.snp.makeConstraints {
-            $0.centerY.equalTo(searchView)
-            $0.leading.equalTo(searchView).inset(20.0)
-            $0.width.height.equalTo(24.0)
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(communityLabel.snp.bottom).offset(12.0)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
-        
-        searchLabel.snp.makeConstraints {
-            $0.leading.equalTo(searchImageView.snp.trailing).offset(8.0)
-            $0.centerY.equalTo(searchView)
-        }
-    }
-    
-    @objc func didTapSearchView() {
-        print("didtapSearchView")
-//        let nextVC = SearchViewController()
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-        self.presentCutomAlert1VC(target: "tapSearch", title: "아직 공사 중!", message: "조금만 기다려주세요♥")
-    }
-    
-    func presentCutomAlert1VC(target:String,
-                              title:String,
-                              message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
     }
 }
 
@@ -399,6 +349,25 @@ private extension HomeViewController {
             nextVC.debateID = debateID
             self.navigationController?.pushViewController(nextVC, animated: true)
         }
+    }
+    
+    @objc func didTapSearchView() {
+        print("didtapSearchView")
+//        let nextVC = SearchViewController()
+//        self.navigationController?.pushViewController(nextVC, animated: true)
+        self.presentCutomAlert1VC(target: "tapSearch", title: "아직 공사 중!", message: "조금만 기다려주세요♥")
+    }
+    
+    func presentCutomAlert1VC(target:String,
+                              title:String,
+                              message:String) {
+        let nextVC = AlertMessageViewController()
+        nextVC.titleLabelText = title
+        nextVC.textLabelText = message
+        nextVC.delegate = self
+        nextVC.target = target
+        nextVC.modalPresentationStyle = .overCurrentContext
+        self.present(nextVC, animated: true)
     }
     
     func noBalanceGameViewLayout() {
@@ -423,20 +392,3 @@ private extension HomeViewController {
         goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
     }
 }
-
-private extension HomeViewController {
-    func communityTableViewLayout() {
-        self.innerView.addSubview(tableView)
-        
-        tableView.snp.makeConstraints {
-            $0.top.equalTo(communityLabel.snp.bottom).offset(12.0)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
-        }
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
-    }
-}
-
