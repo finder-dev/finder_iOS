@@ -32,7 +32,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate{
     let lineView2 = UIView()
     let emptyView = UIView()
     var communityId : Int?
-    var communityUserId :String?
+    var communityUserId :Int?
     
     var textFieldView = UIView()
     var commentTextField = UITextField()
@@ -163,7 +163,7 @@ extension CommunityDetailViewController {
         }
         
         self.commentDataList = communityData
-        self.communityUserId = "\(data.userId)"
+        self.communityUserId = data.userId
         self.writerID = data.userId
         self.likeCount = data.likeCount
         tableView.reloadData()
@@ -373,10 +373,6 @@ extension CommunityDetailViewController {
     
     @objc func didTapDotButton() {
         let userId = UserDefaultsData.userId
-        
-        guard let userId = userId else {
-            return
-        }
         
         if userId == communityUserId {
             DispatchQueue.main.async {
