@@ -27,13 +27,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func okButtonTapped(from: String) {
         
     }
-    
-    // 헤더 components
-    var mainLogoImageView = UIImageView()
-    var alarmButton = UIButton()
-    var messageButton = UIButton()
-    
-    // 스크롤 components
+
+    let headerView = HomeHeaderView()
     var scrollView = UIScrollView()
     var innerView = UIView()
 
@@ -85,10 +80,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
-                
-        [alarmButton,messageButton].forEach {
-            $0.isHidden = true
-        }
 
         layout()
         attribute()
@@ -211,36 +202,20 @@ extension HomeViewController {
 private extension HomeViewController {
     func layout() {
         
-        [mainLogoImageView,
-         alarmButton,
-         messageButton,
-         scrollView,
-         ].forEach {
+        [headerView, scrollView].forEach {
             self.view.addSubview($0)
         }
         
         let safeArea = self.view.safeAreaLayoutGuide
         
-        mainLogoImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(24.0)
-            $0.top.equalTo(safeArea.snp.top).offset(10.0)
-        }
-        
-        alarmButton.snp.makeConstraints {
-            $0.centerY.equalTo(mainLogoImageView)
-            $0.trailing.equalToSuperview().inset(20.0)
-            $0.width.height.equalTo(24.0)
-        }
-
-        messageButton.snp.makeConstraints {
-            $0.centerY.equalTo(mainLogoImageView)
-            $0.trailing.equalTo(alarmButton.snp.leading).offset(-12.0)
-            $0.width.height.equalTo(24.0)
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(safeArea.snp.top)
+            $0.leading.trailing.equalToSuperview()
         }
         
         scrollView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalTo(safeArea)
-            $0.top.equalTo(mainLogoImageView.snp.bottom).offset(30.0)
+            $0.top.equalTo(headerView.snp.bottom).offset(24.0)
         }
         
         scrollViewLayout()
@@ -250,10 +225,8 @@ private extension HomeViewController {
     }
     
     func attribute() {
-        mainLogoImageView.image = UIImage(named: "main_logo")
-        messageButton.setImage(UIImage(named: "message"), for: .normal)
-        alarmButton.setImage(UIImage(named: "ic_notification"), for: .normal)
-        alarmButton.addTarget(self, action: #selector(didTapAlaramButton), for: .touchUpInside)
+      
+        headerView.alarmButton.addTarget(self, action: #selector(didTapAlaramButton), for: .touchUpInside)
 
         searchView.layer.borderWidth = 2.0
         searchView.layer.borderColor = UIColor.mainTintColor.cgColor
@@ -281,7 +254,6 @@ private extension HomeViewController {
     func scrollViewLayout() {
         
         scrollView.addSubview(innerView)
-        innerView.translatesAutoresizingMaskIntoConstraints = false
         
         innerView.snp.makeConstraints {
             $0.edges.equalTo(scrollView)
