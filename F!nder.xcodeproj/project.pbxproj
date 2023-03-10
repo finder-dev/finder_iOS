@@ -24,6 +24,7 @@
 		2B27643C28732BB800C37C9A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27643B28732BB800C37C9A /* SearchViewController.swift */; };
 		2B27643E28732DAD00C37C9A /* Label+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27643D28732DAD00C37C9A /* Label+Extensions.swift */; };
 		2B2775F529BA1B2F0046B9D6 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 2B2775F429BA1B2F0046B9D6 /* PanModal */; };
+		2B2775FC29BACFE30046B9D6 /* MBTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2775FB29BACFE30046B9D6 /* MBTI.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -113,6 +114,7 @@
 		2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		2B27643B28732BB800C37C9A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		2B27643D28732DAD00C37C9A /* Label+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Label+Extensions.swift"; sourceTree = "<group>"; };
+		2B2775FB29BACFE30046B9D6 /* MBTI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTI.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +170,7 @@
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2BBEABBF2854DA94002573DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2BBEABC22854DA94002573DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		2BBEABC42854DA94002573DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BBEABC42854DA94002573DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "F!nder/Info.plist"; sourceTree = SOURCE_ROOT; };
 		2BE5F0CC286DCCB50016480A /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		2BE5F0CE286DD3550016480A /* SendSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSignUp.swift; sourceTree = "<group>"; };
 		2BE7BE492873169E0062EB5A /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -245,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */,
-				2BBEABC42854DA94002573DE /* Info.plist */,
 				2B09DF202861E05C00FE19DC /* Colors.swift */,
 				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
 			);
@@ -290,6 +291,14 @@
 				2B881DEA28A3F7D500ECD31A /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2B2775FD29BAD3A40046B9D6 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				2B2775FB29BACFE30046B9D6 /* MBTI.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		2B3E25952861FC5600C85193 /* SignUp */ = {
@@ -395,6 +404,7 @@
 		2BA8F2562868904100D64F0E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				2B2775FD29BAD3A40046B9D6 /* Enums */,
 				2B2775F829BAC8B60046B9D6 /* Entities */,
 			);
 			path = Domain;
@@ -511,6 +521,7 @@
 			isa = PBXGroup;
 			children = (
 				2BA8F25928689AB100D64F0E /* F!nder.entitlements */,
+				2BBEABC42854DA94002573DE /* Info.plist */,
 				2B2775F629BAC8750046B9D6 /* Application */,
 				2BA8F2562868904100D64F0E /* Domain */,
 				2B09DEFD285B512100FE19DC /* Presentation */,
@@ -669,6 +680,7 @@
 				2BAEB1C228A2041000D737C7 /* UserAuthAPIService.swift in Sources */,
 				2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */,
 				2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */,
+				2B2775FC29BACFE30046B9D6 /* MBTI.swift in Sources */,
 				2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */,
 				2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */,
 				2B557B1128885C1C0057CC9D /* AlertMessage2ViewController.swift in Sources */,

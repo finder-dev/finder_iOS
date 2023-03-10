@@ -83,6 +83,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         print("viewWillAppear")
         setupUserData()
+        setupUserPage(mbti: "INFP")
     }
     
     override func viewDidLoad() {
@@ -123,61 +124,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
 extension HomeViewController {
     
     func setupUserPage(mbti:String) {
-        
-        switch mbti {
-        case "INFJ":
-            mbtiInfoLabel.text = "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
-            mbtiImageView.image = UIImage(named: "Frame 7594")
-        case "INFP":
-            mbtiInfoLabel.text = "오늘은 집 밖으로 \n나가볼까요?"
-            mbtiImageView.image = UIImage(named: "Frame 7593")
-        case "ISFJ":
-            mbtiInfoLabel.text = "어떤 독특한 일이 \n일어날까요?"
-            mbtiImageView.image = UIImage(named: "Frame 7595")
-        case "ISFP":
-            mbtiInfoLabel.text = "오늘은 어떤 것에 \n꽂혀볼까요?"
-            mbtiImageView.image = UIImage(named: "Frame 7595")
-        case "INTJ":
-            mbtiInfoLabel.text = "어떤 호기심으로 \n가득차셨나요?"
-            mbtiImageView.image = UIImage(named: "Frame 7594")
-        case "INTP":
-            mbtiInfoLabel.text = "어떤 곳에 열정을 \n불태워볼까요?"
-            mbtiImageView.image = UIImage(named: "Frame 7592")
-        case "ISTJ":
-            mbtiInfoLabel.text = "민첩한 하루 되세요!"
-            mbtiImageView.image = UIImage(named: "Frame 7593")
-        case "ISTP":
-            mbtiInfoLabel.text = "만능 재주꾼의 시간이에요!"
-            mbtiImageView.image = UIImage(named: "Frame 7592")
-        case "ENFJ":
-            mbtiInfoLabel.text = "카리스마 넘치는 \n하루 보내세요!"
-            mbtiImageView.image = UIImage(named: "Frame 7595")
-        case "ENFP":
-            mbtiInfoLabel.text = "오늘은 어떤 상상을 \n하셨나요?"
-            mbtiImageView.image = UIImage(named: "Frame 7592")
-        case "ESFJ":
-            mbtiInfoLabel.text = "오늘 계획도 \n완벽 수행 각!"
-            mbtiImageView.image = UIImage(named: "Frame 7594")
-        case "ESFP":
-            mbtiInfoLabel.text = "어떤 재밌는 일이 \n기다리고 있을까요?"
-            mbtiImageView.image = UIImage(named: "Frame 7595")
-        case "ENTJ":
-            mbtiInfoLabel.text = "오늘도 쿨한 하루 \n보내셨나요?"
-            mbtiImageView.image = UIImage(named: "Frame 7593")
-        case "ENTP":
-            mbtiInfoLabel.text = "자신감 충만한 \n하루 되세요!"
-            mbtiImageView.image = UIImage(named: "Frame 7593")
-        case "ESTJ":
-            mbtiInfoLabel.text = "오늘도 알찬 \n하루 보내세요"
-            mbtiImageView.image = UIImage(named: "Frame 7592")
-        case "ESTP":
-            mbtiInfoLabel.text = "스릴 넘치는 \n하루 보내세요!"
-            mbtiImageView.image = UIImage(named: "Frame 7594")
-        default:
-            mbtiInfoLabel.text = ""
-        }
-                    
-                    
+        let mbti = MBTI.getMBTI(mbti)
+        mbtiInfoLabel.text = mbti.mbtiMessage
+        mbtiImageView.image = mbti.mbtiImage
     }
     
     func setupUserData() {
