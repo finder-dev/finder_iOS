@@ -23,11 +23,8 @@ enum discussDataStatus {
     case yesData
 }
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AlertMessageDelegate {
-    func okButtonTapped(from: String) {
-        
-    }
-
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     let headerView = HomeHeaderView()
     var scrollView = UIScrollView()
     var innerView = UIView()
@@ -355,19 +352,11 @@ private extension HomeViewController {
         print("didtapSearchView")
 //        let nextVC = SearchViewController()
 //        self.navigationController?.pushViewController(nextVC, animated: true)
-        self.presentCutomAlert1VC(target: "tapSearch", title: "아직 공사 중!", message: "조금만 기다려주세요♥")
-    }
-    
-    func presentCutomAlert1VC(target:String,
-                              title:String,
-                              message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
+//        self.presentCutomAlert(target: "tapSearch", title: "아직 공사 중!", message: "조금만 기다려주세요♥")
+        self.showPopUp1(title: "아직 공사 중!",
+                        message: "조금만 기다려주세요♥",
+                        buttonText: "확인",
+                        buttonAction: {})
     }
     
     func noBalanceGameViewLayout() {
