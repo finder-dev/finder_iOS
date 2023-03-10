@@ -206,16 +206,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2B09DEFD285B512100FE19DC /* View */ = {
+		2B09DEFD285B512100FE19DC /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2B2775F929BAC98D0046B9D6 /* Utils */,
 				2BA51BCC287977D100D87533 /* CommonUI */,
 				2B6826B5286DF95C006AF742 /* Main */,
 				2B09DF182861DED500FE19DC /* OnBoarding */,
 				2B3E25952861FC5600C85193 /* SignUp */,
 				2B09DF222861E5E000FE19DC /* Login */,
 			);
-			path = View;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		2B09DF182861DED500FE19DC /* OnBoarding */ = {
@@ -240,18 +241,55 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		2B27643A287325FB00C37C9A /* Utility */ = {
+		2B27643A287325FB00C37C9A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */,
+				2BBEABC42854DA94002573DE /* Info.plist */,
 				2B09DF202861E05C00FE19DC /* Colors.swift */,
-				2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */,
-				2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */,
-				2BE5F0CC286DCCB50016480A /* View+Extensions.swift */,
-				2B27643D28732DAD00C37C9A /* Label+Extensions.swift */,
+				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2B2775F629BAC8750046B9D6 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2BBEABB62854DA93002573DE /* AppDelegate.swift */,
+				2BBEABB82854DA93002573DE /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		2B2775F829BAC8B60046B9D6 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				2BA8F25C286C8DCB00D64F0E /* SignUp */,
+				2BB455E62883F848001139E5 /* Debate */,
+				2BB455EB2883FCC2001139E5 /* Community */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		2B2775F929BAC98D0046B9D6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2B2775FA29BAC9970046B9D6 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		2B2775FA29BAC9970046B9D6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
 				2BE8BB592873360D0013F75B /* CALayer+Extension.swift */,
+				2B27643D28732DAD00C37C9A /* Label+Extensions.swift */,
+				2BE5F0CC286DCCB50016480A /* View+Extensions.swift */,
+				2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */,
+				2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */,
 				2B881DEA28A3F7D500ECD31A /* Extensions.swift */,
 			);
-			path = Utility;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2B3E25952861FC5600C85193 /* SignUp */ = {
@@ -354,14 +392,12 @@
 			path = CommonUI;
 			sourceTree = "<group>";
 		};
-		2BA8F2562868904100D64F0E /* Model */ = {
+		2BA8F2562868904100D64F0E /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				2BB455EB2883FCC2001139E5 /* Community */,
-				2BB455E62883F848001139E5 /* Debate */,
-				2BA8F25C286C8DCB00D64F0E /* SignUp */,
+				2B2775F829BAC8B60046B9D6 /* Entities */,
 			);
-			path = Model;
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		2BA8F25C286C8DCB00D64F0E /* SignUp */ = {
@@ -378,6 +414,7 @@
 		2BAEB1CD28A27DEE00D737C7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				2B09DF01285B56F200FE19DC /* Storage.swift */,
 				2BAEB1CF28A27E0500D737C7 /* Repository */,
 				2BAEB1CE28A27DFF00D737C7 /* Network */,
 			);
@@ -473,18 +510,13 @@
 		2BBEABB52854DA93002573DE /* F!nder */ = {
 			isa = PBXGroup;
 			children = (
-				2BAEB1CD28A27DEE00D737C7 /* Data */,
 				2BA8F25928689AB100D64F0E /* F!nder.entitlements */,
-				2BBEABB62854DA93002573DE /* AppDelegate.swift */,
-				2BBEABB82854DA93002573DE /* SceneDelegate.swift */,
-				2B09DF01285B56F200FE19DC /* Storage.swift */,
-				2BA8F2562868904100D64F0E /* Model */,
-				2B27643A287325FB00C37C9A /* Utility */,
+				2B2775F629BAC8750046B9D6 /* Application */,
+				2BA8F2562868904100D64F0E /* Domain */,
+				2B09DEFD285B512100FE19DC /* Presentation */,
+				2BAEB1CD28A27DEE00D737C7 /* Data */,
+				2B27643A287325FB00C37C9A /* Resources */,
 				2B6826B4286DF7A1006AF742 /* API */,
-				2B09DEFD285B512100FE19DC /* View */,
-				2BBEABBF2854DA94002573DE /* Assets.xcassets */,
-				2BBEABC12854DA94002573DE /* LaunchScreen.storyboard */,
-				2BBEABC42854DA94002573DE /* Info.plist */,
 			);
 			path = "F!nder";
 			sourceTree = "<group>";
