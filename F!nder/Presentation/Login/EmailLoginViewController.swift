@@ -129,7 +129,8 @@ class EmailLoginViewController: UIViewController, View {
             .filter { $0 != "" }
             .distinctUntilChanged()
             .subscribe(onNext: { token in
-                UserDefaults.standard.set(token, forKey: "accessToken")
+                UserDefaultsData.accessToken = token
+                
                 DispatchQueue.main.async {
                     self.presentCutomAlertVC(target: "successEmailLogin", title: "로그인 성공", message: "로그인에 성공하였습니다.")
                 }
@@ -240,11 +241,11 @@ private extension EmailLoginViewController {
                     let userEmail = response.response?.email ?? "nil"
                     let userMBTI = response.response?.mbti ?? "nil"
                     let userNickName = response.response?.nickname ?? "nil"
-    
-                    UserDefaults.standard.set(userId, forKey: "userId")
-                    UserDefaults.standard.set(userEmail, forKey: "userEmail")
-                    UserDefaults.standard.set(userMBTI, forKey: "userMBTI")
-                    UserDefaults.standard.set(userNickName, forKey: "userNickName")
+                    
+                    UserDefaultsData.userId = userId
+                    UserDefaultsData.userEmail = userEmail
+                    UserDefaultsData.userMBTI = userMBTI
+                    UserDefaultsData.userNickName = userNickName
                     
                     DispatchQueue.main.async {
                         let nextVC = MainTabBarController()

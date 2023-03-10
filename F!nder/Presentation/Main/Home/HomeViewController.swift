@@ -112,11 +112,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             balanceGameView.isHidden = false
             noBalanceGameDataView.isHidden = true
         }
-        guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
-            print("오류 : token 없음")
-            return
-        }
         
+        let token = UserDefaultsData.accessToken
         print(token)
     }
 }
@@ -130,8 +127,8 @@ extension HomeViewController {
     }
     
     func setupUserData() {
-        let userMBTI = UserDefaults.standard.string(forKey: "userMBTI")
-        let userNickName = UserDefaults.standard.string(forKey: "userNickName")
+        let userMBTI = UserDefaultsData.userMBTI
+        let userNickName = UserDefaultsData.userNickName
         
         userInfoLabel.text = "\(userMBTI ?? "nil") \(userNickName ?? "nil")"
         

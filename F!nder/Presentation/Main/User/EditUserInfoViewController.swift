@@ -369,9 +369,9 @@ private extension EditUserInfoViewController {
                         
                         let userMBTI = response.response?.mbti ?? "nil"
                         let userNickName = response.response?.nickname ?? "nil"
-        
-                        UserDefaults.standard.set(userMBTI, forKey: "userMBTI")
-                        UserDefaults.standard.set(userNickName, forKey: "userNickName")
+                        
+                        UserDefaultsData.userMBTI = userMBTI
+                        UserDefaultsData.userNickName = userNickName
                     }
                 }
                 print(response.response)

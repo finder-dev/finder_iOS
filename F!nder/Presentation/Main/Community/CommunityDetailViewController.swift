@@ -372,7 +372,7 @@ extension CommunityDetailViewController {
     }
     
     @objc func didTapDotButton() {
-        let userId = UserDefaults.standard.string(forKey: "userId")
+        let userId = UserDefaultsData.userId
         
         guard let userId = userId else {
             return

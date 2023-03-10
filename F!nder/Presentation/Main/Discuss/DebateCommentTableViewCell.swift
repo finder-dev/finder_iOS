@@ -125,9 +125,9 @@ extension DebateCommentTableViewCell {
     }
     
     @objc func didTapDotButton() {
-        print("didTapDotButton")
-        let userIdString = UserDefaults.standard.string(forKey: "userId") ?? "-2"
-        if self.userID != Int(userIdString)! {
+        let userId = UserDefaultsData.userId
+        
+        if self.userID != userId {
             print("userID 다름")
             self.delegate.report(answerID: self.answerID)
         } else {

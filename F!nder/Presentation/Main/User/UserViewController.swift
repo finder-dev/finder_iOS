@@ -68,8 +68,8 @@ class UserViewController: UIViewController, AlertMessage2Delegate, AlertMessageD
     }
     
     func addData() {
-        let userNickName = UserDefaults.standard.string(forKey: "userNickName")
-        let userEmail = UserDefaults.standard.string(forKey: "userEmail")
+        let userNickName = UserDefaultsData.userNickName
+        let userEmail = UserDefaultsData.userEmail
         userNameLabel.text = userNickName
         userEmailLabel.text = userEmail
     }
