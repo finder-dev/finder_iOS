@@ -373,14 +373,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		2B27760E29BAEDFC0046B9D6 /* Label */ = {
-			isa = PBXGroup;
-			children = (
-				2B27760F29BAEE0B0046B9D6 /* FinderLabel.swift */,
-			);
-			path = Label;
-			sourceTree = "<group>";
-		};
 		2B27762929BCBF3E0046B9D6 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,7 +484,6 @@
 		2BA51BCC287977D100D87533 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2B27760E29BAEDFC0046B9D6 /* Label */,
 				2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */,
 				2B557B1028885C1C0057CC9D /* AlertMessage2ViewController.swift */,
 				2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */,
@@ -500,6 +491,7 @@
 				2B27761F29BC4DB70046B9D6 /* BarView.swift */,
 				2B27762729BC709A0046B9D6 /* FinderButton.swift */,
 				2B27763129BCD0F00046B9D6 /* FinderTextField.swift */,
+				2B27760F29BAEE0B0046B9D6 /* FinderLabel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";

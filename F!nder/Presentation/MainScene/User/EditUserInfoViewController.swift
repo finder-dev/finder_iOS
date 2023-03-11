@@ -104,8 +104,8 @@ extension EditUserInfoViewController: UITextFieldDelegate {
                 nextButton.setTitleColor(.white, for: .normal)
             } else {
                 nextButton.isEnabled = false
-                nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-                nextButton.backgroundColor = .unabledButtonColor
+                nextButton.setTitleColor(.grey8, for: .normal)
+                nextButton.backgroundColor = .grey7
             }
         } else {
             if nickNameCheckButton.isEnabled == false && !mbti.isEmpty && passwordIsSame {
@@ -114,8 +114,8 @@ extension EditUserInfoViewController: UITextFieldDelegate {
                 nextButton.setTitleColor(.white, for: .normal)
             } else {
                 nextButton.isEnabled = false
-                nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-                nextButton.backgroundColor = .unabledButtonColor
+                nextButton.setTitleColor(.grey8, for: .normal)
+                nextButton.backgroundColor = .grey7
             }
         }
     }
@@ -282,8 +282,8 @@ private extension EditUserInfoViewController {
         
         nextButton.setTitle("변경", for: .normal)
         nextButton.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
-        nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-        nextButton.backgroundColor = .unabledButtonColor
+        nextButton.setTitleColor(.grey8, for: .normal)
+        nextButton.backgroundColor = .grey7
 //        nextButton.isEnabled = false
         // TODO : for test
         nextButton.isEnabled = true
@@ -295,8 +295,8 @@ private extension EditUserInfoViewController {
         guard let nickName = nickNameTextField.text else {
             return
         }
-        nickNameCheckButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-        nickNameCheckButton.backgroundColor = .unabledButtonColor
+        nickNameCheckButton.setTitleColor(.grey8, for: .normal)
+        nickNameCheckButton.backgroundColor = .grey7
         nickNameCheckButton.isEnabled = false
         
         userAPI.requestCheckNickname(nickname: nickName) { [self] result in

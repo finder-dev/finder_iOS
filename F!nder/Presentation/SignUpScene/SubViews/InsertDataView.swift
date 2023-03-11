@@ -24,7 +24,7 @@ final class InsertDataView: UIView {
     public init(dataType: SignupInsertDataType) {
         super.init(frame: .zero)
         
-        self.titleLabel.text = dataType.rawValue
+        titleLabel.text = dataType.rawValue
         textField.placeholder = dataType.placeHolder
         requestButton.setTitle(dataType.buttonTitle, for: .normal)
         
@@ -71,6 +71,8 @@ final class InsertDataView: UIView {
         
         insertStackView.axis = .horizontal
         insertStackView.spacing = 12.0
+        
+        requestButton.isEnabled = false
     }
 }
 

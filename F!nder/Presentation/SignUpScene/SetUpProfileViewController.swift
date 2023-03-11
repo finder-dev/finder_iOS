@@ -146,8 +146,8 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     private lazy var nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
-        $0.setTitleColor(.unabledButtonTextColor, for: .normal)
-        $0.backgroundColor = .unabledButtonColor
+        $0.setTitleColor(.grey8, for: .normal)
+        $0.backgroundColor = .grey7
         $0.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
     }
     
@@ -277,8 +277,8 @@ private extension SetUpProfileViewController {
                 nextButton.setTitleColor(.white, for: .normal)
                 nextButton.isEnabled = true
             } else {
-                nextButton.backgroundColor = .unabledButtonColor
-                nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+                nextButton.backgroundColor = .grey7
+                nextButton.setTitleColor(.grey8, for: .normal)
                 nextButton.isEnabled = false
             }
         }

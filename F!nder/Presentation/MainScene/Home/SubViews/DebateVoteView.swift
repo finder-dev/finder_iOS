@@ -170,9 +170,9 @@ private extension DebateVoteView {
         buttonACountLabel.textColor = selectedColor
         
         buttonBImageView.isHidden = true
-        buttonB.backgroundColor = .unabledButtonColor
-        buttonB.setTitleColor(.unabledButtonTextColor, for: .normal)
-        buttonBCountLabel.textColor = .unabledButtonTextColor
+        buttonB.backgroundColor = .grey7
+        buttonB.setTitleColor(.grey8, for: .normal)
+        buttonBCountLabel.textColor = .grey8
     }
     
     func selectB() {
@@ -187,8 +187,8 @@ private extension DebateVoteView {
         buttonBCountLabel.textColor = selectedColor
         
         buttonAImageView.isHidden = true
-        buttonA.backgroundColor = .unabledButtonColor
-        buttonA.setTitleColor(.unabledButtonTextColor, for: .normal)
-        buttonACountLabel.textColor = .unabledButtonTextColor
+        buttonA.backgroundColor = .grey7
+        buttonA.setTitleColor(.grey8, for: .normal)
+        buttonACountLabel.textColor = .grey8
     }
 }

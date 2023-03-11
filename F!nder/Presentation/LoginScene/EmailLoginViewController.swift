@@ -48,8 +48,8 @@ class EmailLoginViewController: UIViewController, View {
     
     private lazy var loginButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
-        $0.backgroundColor = .unabledButtonColor
-        $0.setTitleColor(.unabledButtonTextColor, for: .normal)
+        $0.backgroundColor = .grey7
+        $0.setTitleColor(.grey8, for: .normal)
         $0.isEnabled = false
     }
     
@@ -199,8 +199,8 @@ private extension EmailLoginViewController {
     }
 
     func disableLoginButton() {
-        loginButton.backgroundColor = .unabledButtonColor
-        loginButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        loginButton.backgroundColor = .grey7
+        loginButton.setTitleColor(.grey8, for: .normal)
         loginButton.isEnabled = false
     }
     

@@ -256,9 +256,9 @@ private extension SelectMBTIViewController {
         closeButton.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
         
         confirmButton.setTitle("확인", for: .normal)
-        confirmButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        confirmButton.setTitleColor(.grey8, for: .normal)
         confirmButton.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .bold)
-        confirmButton.backgroundColor = .unabledButtonColor
+        confirmButton.backgroundColor = .grey7
         confirmButton.addTarget(self, action: #selector(didTapConfirmButton), for: .touchUpInside)
         confirmButton.isEnabled = false
                 

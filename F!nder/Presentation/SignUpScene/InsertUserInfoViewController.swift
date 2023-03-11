@@ -64,8 +64,8 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     private lazy var nextButton = UIButton().then {
         $0.setTitle("다음", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
-        $0.setTitleColor(.unabledButtonTextColor, for: .normal)
-        $0.backgroundColor = .unabledButtonColor
+        $0.setTitleColor(.grey8, for: .normal)
+        $0.backgroundColor = .grey7
         $0.isEnabled = false
         // TODO : for test
 //        $0.isEnabled = true
@@ -126,8 +126,8 @@ extension InsertUserInfoViewController {
             nextButton.setTitleColor(.white, for: .normal)
         } else {
             nextButton.isEnabled = false
-            nextButton.setTitleColor(.unabledButtonTextColor, for: .normal)
-            nextButton.backgroundColor = .unabledButtonColor
+            nextButton.setTitleColor(.grey8, for: .normal)
+            nextButton.backgroundColor = .grey7
         }
     }
     
@@ -181,8 +181,8 @@ private extension InsertUserInfoViewController {
         }
         
         requestAuthButton.isEnabled = false
-        requestAuthButton.backgroundColor = .unabledButtonColor
-        requestAuthButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+        requestAuthButton.backgroundColor = .grey7
+        requestAuthButton.setTitleColor(.grey8, for: .normal)
         
         network.requestAuthEmail(email: email) { [self] result in
             switch result {
@@ -232,8 +232,8 @@ private extension InsertUserInfoViewController {
                 if response.success {
                     DispatchQueue.main.async {
                         codeAuthButton.isEnabled = false
-                        codeAuthButton.backgroundColor = .unabledButtonColor
-                        codeAuthButton.setTitleColor(.unabledButtonTextColor, for: .normal)
+                        codeAuthButton.backgroundColor = .grey7
+                        codeAuthButton.setTitleColor(.grey8, for: .normal)
                         self.presentCutomAlertVC(target: "auth",
                                             title: "이메일 인증 완료",
                                             message: "인증되었습니다.")
