@@ -46,7 +46,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     
     private lazy var insertUserInfoLabel = UILabel().then {
         $0.text = "정보 입력"
-        $0.textColor = .lightGrayTextColor
+        $0.textColor = .grey5
         $0.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.textAlignment = .center
     }
@@ -68,7 +68,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     
     private lazy var completeSignUpLabel = UILabel().then {
         $0.text = "가입완료"
-        $0.textColor = .lightGrayTextColor
+        $0.textColor = .grey5
         $0.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.textAlignment = .center
     }

@@ -38,6 +38,7 @@
 		2B27762629BC6ABB0046B9D6 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762529BC6ABA0046B9D6 /* OnBoarding.swift */; };
 		2B27762829BC709A0046B9D6 /* FinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762729BC709A0046B9D6 /* FinderButton.swift */; };
 		2B27762B29BCBF530046B9D6 /* SignUpProcessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762A29BCBF530046B9D6 /* SignUpProcessView.swift */; };
+		2B27762E29BCC9CC0046B9D6 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762D29BCC9CC0046B9D6 /* BaseViewController.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -140,6 +141,7 @@
 		2B27762529BC6ABA0046B9D6 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
 		2B27762729BC709A0046B9D6 /* FinderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderButton.swift; sourceTree = "<group>"; };
 		2B27762A29BCBF530046B9D6 /* SignUpProcessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProcessView.swift; sourceTree = "<group>"; };
+		2B27762D29BCC9CC0046B9D6 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -235,25 +237,26 @@
 		2B09DEFD285B512100FE19DC /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				2B27762C29BCC9B90046B9D6 /* Base */,
+				2BA51BCC287977D100D87533 /* Common */,
 				2B2775F929BAC98D0046B9D6 /* Utils */,
-				2BA51BCC287977D100D87533 /* CommonUI */,
-				2B6826B5286DF95C006AF742 /* Main */,
-				2B09DF182861DED500FE19DC /* OnBoarding */,
-				2B3E25952861FC5600C85193 /* SignUp */,
-				2B09DF222861E5E000FE19DC /* Login */,
+				2B6826B5286DF95C006AF742 /* MainScene */,
+				2B09DF182861DED500FE19DC /* OnBoardingScene */,
+				2B3E25952861FC5600C85193 /* SignUpScene */,
+				2B09DF222861E5E000FE19DC /* LoginScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
 		};
-		2B09DF182861DED500FE19DC /* OnBoarding */ = {
+		2B09DF182861DED500FE19DC /* OnBoardingScene */ = {
 			isa = PBXGroup;
 			children = (
 				2B27762329BC61EE0046B9D6 /* OnBoardingViewController.swift */,
 			);
-			path = OnBoarding;
+			path = OnBoardingScene;
 			sourceTree = "<group>";
 		};
-		2B09DF222861E5E000FE19DC /* Login */ = {
+		2B09DF222861E5E000FE19DC /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
 				2B09DF07285B58BF00FE19DC /* LoginViewController.swift */,
@@ -261,7 +264,7 @@
 				2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */,
 				2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */,
 			);
-			path = Login;
+			path = LoginScene;
 			sourceTree = "<group>";
 		};
 		2B27643A287325FB00C37C9A /* Resources */ = {
@@ -379,7 +382,15 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
-		2B3E25952861FC5600C85193 /* SignUp */ = {
+		2B27762C29BCC9B90046B9D6 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2B27762D29BCC9CC0046B9D6 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		2B3E25952861FC5600C85193 /* SignUpScene */ = {
 			isa = PBXGroup;
 			children = (
 				2B27762929BCBF3E0046B9D6 /* SubViews */,
@@ -390,7 +401,7 @@
 				2BA8F25228671DB200D64F0E /* DialogViewController.swift */,
 				2BA8F2542867270400D64F0E /* Storyboard.storyboard */,
 			);
-			path = SignUp;
+			path = SignUpScene;
 			sourceTree = "<group>";
 		};
 		2B6826B4286DF7A1006AF742 /* API */ = {
@@ -404,7 +415,7 @@
 			path = API;
 			sourceTree = "<group>";
 		};
-		2B6826B5286DF95C006AF742 /* Main */ = {
+		2B6826B5286DF95C006AF742 /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
 				2BE7BE492873169E0062EB5A /* MainTabBarController.swift */,
@@ -414,7 +425,7 @@
 				2BA51BC62877296600D87533 /* Saved */,
 				2BA51BC72877296C00D87533 /* User */,
 			);
-			path = Main;
+			path = MainScene;
 			sourceTree = "<group>";
 		};
 		2BA51BBF28771E5500D87533 /* Alert */ = {
@@ -470,7 +481,7 @@
 			path = User;
 			sourceTree = "<group>";
 		};
-		2BA51BCC287977D100D87533 /* CommonUI */ = {
+		2BA51BCC287977D100D87533 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				2B27760E29BAEDFC0046B9D6 /* Label */,
@@ -481,7 +492,7 @@
 				2B27761F29BC4DB70046B9D6 /* BarView.swift */,
 				2B27762729BC709A0046B9D6 /* FinderButton.swift */,
 			);
-			path = CommonUI;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		2BA8F2562868904100D64F0E /* Domain */ = {
@@ -741,6 +752,7 @@
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
+				2B27762E29BCC9CC0046B9D6 /* BaseViewController.swift in Sources */,
 				2B27762B29BCBF530046B9D6 /* SignUpProcessView.swift in Sources */,
 				2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */,
 				2BB455E02883EEB6001139E5 /* Logout.swift in Sources */,

@@ -448,12 +448,12 @@ private extension InsertUserInfoViewController {
         setupProfileImageView.image = UIImage(named: "signin_step2_gray")
      
         setupProfileLabel.text = "프로필 설정"
-        setupProfileLabel.textColor = .lightGrayTextColor
+        setupProfileLabel.textColor = .grey5
 
         completeSignUpImageView.image = UIImage(named: "signin_step3_gray")
         
         completeSignUpLabel.text = "가입완료"
-        completeSignUpLabel.textColor = .lightGrayTextColor
+        completeSignUpLabel.textColor = .grey5
         
         [insertUserInfoLabel, setupProfileLabel, completeSignUpLabel].forEach {
             $0.font = .systemFont(ofSize: 14.0, weight: .medium)
