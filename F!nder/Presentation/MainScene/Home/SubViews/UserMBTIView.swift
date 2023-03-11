@@ -19,7 +19,7 @@ final class UserMBTIView: UIView {
     let emptyLabel = UILabel()
     let mbtiMessageLabel = FinderLabel(text: "",
                                        font: .systemFont(ofSize: 16.0, weight: .medium),
-                                       textColor: .textGrayColor)
+                                       textColor: .grey6)
     let mbtiImageView = UIImageView()
     let userLabelStackView = UIStackView()
     let labelStackView = UIStackView()

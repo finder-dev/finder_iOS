@@ -316,7 +316,7 @@ private extension LoginViewController {
         
         [serviceLabel1,serviceLabel2].forEach {
             $0.font = .systemFont(ofSize: 12.0, weight: .regular)
-            $0.textColor = .textGrayColor
+            $0.textColor = .grey6
         }
         
         emailLoginButton.setTitle("이메일로 시작하기", for: .normal)
