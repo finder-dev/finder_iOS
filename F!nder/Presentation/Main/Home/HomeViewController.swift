@@ -30,8 +30,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var innerView = UIView()
     let searchView = SearchBarView()
     let userMBTIView = UserMBTIView()
-    
-    var lineView = UIView()
+    let barView1 = BarView(barHeight: 3.0, barColor: .mainTintColor)
     var balanceGameLabel = FinderLabel(text: "🔥HOT한 밸런스 게임! 당신의 선택은?",
                                        font: .systemFont(ofSize: 20.0, weight: .bold),
                                        textColor: .black1,
@@ -40,8 +39,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     let emptyDebateView = EmptyDebateView()
     let debateVoteView = DebateVoteView()
     var goBalanceGameButton = UIButton()
-    
-    let lineView2 = UIView()
+    let barView2 = BarView(barHeight: 10.0, barColor: .grey4)
     let tableView = UITableView()
     let communityLabel = FinderLabel(text: "💬 급상승 중인 파인더들의 수다",
                                      font: .systemFont(ofSize: 20.0, weight: .bold),
@@ -79,9 +77,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             emptyDebateView.isHidden = true
             goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
         }
-        
-        let token = UserDefaultsData.accessToken
-        print(token)
     }
 }
 
@@ -215,10 +210,6 @@ private extension HomeViewController {
 
         let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapSearchView))
         searchView.addGestureRecognizer(gesture)
-        
-        lineView.backgroundColor = .mainTintColor
-        lineView2.backgroundColor = UIColor(red: 228/255, green: 229/255, blue: 233/255, alpha: 1.0)
-        
         goBalanceGameButton.layer.cornerRadius = 18.0
         goBalanceGameButton.layer.borderWidth = 1.0
         goBalanceGameButton.layer.borderColor = UIColor.mainTintColor.cgColor
@@ -245,8 +236,8 @@ private extension HomeViewController {
             $0.height.equalTo(1180)
         }
                 
-        [searchView, userMBTIView, lineView, balanceGameLabel, emptyDebateView,
-         debateVoteView, goBalanceGameButton,bannerButton, lineView2, communityLabel,
+        [searchView, userMBTIView, barView1, balanceGameLabel, emptyDebateView,
+         debateVoteView, goBalanceGameButton,bannerButton, barView2, communityLabel,
          tableView].forEach {
            self.innerView.addSubview($0)
        }
@@ -263,14 +254,13 @@ private extension HomeViewController {
             $0.leading.trailing.equalToSuperview()
         }
     
-        lineView.snp.makeConstraints {
-            $0.height.equalTo(2.0)
+        barView1.snp.makeConstraints {
             $0.top.equalTo(userMBTIView.snp.bottom).offset(20.0)
             $0.leading.trailing.equalTo(innerView)
         }
         
         balanceGameLabel.snp.makeConstraints {
-            $0.top.equalTo(lineView.snp.bottom).offset(53.0)
+            $0.top.equalTo(barView1.snp.bottom).offset(53.0)
             $0.centerX.equalTo(innerView)
         }
         
@@ -298,14 +288,13 @@ private extension HomeViewController {
             $0.height.equalTo(100.0)
         }
         
-        lineView2.snp.makeConstraints {
+        barView2.snp.makeConstraints {
             $0.top.equalTo(bannerButton.snp.bottom).offset(36.0)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(10.0)
         }
         
         communityLabel.snp.makeConstraints {
-            $0.top.equalTo(lineView2.snp.bottom).offset(56.0)
+            $0.top.equalTo(barView2.snp.bottom).offset(56.0)
             $0.leading.equalTo(innerView).inset(20.0)
         }
         
@@ -314,11 +303,6 @@ private extension HomeViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
-    }
-    
-    func innerViewLayout() {
-        
-        
     }
 }
 

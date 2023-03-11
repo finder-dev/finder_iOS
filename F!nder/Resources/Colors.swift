@@ -18,6 +18,9 @@ extension UIColor {
     static let onboardGrayTextColor = UIColor(red: 126/255, green: 133/255, blue: 137/255, alpha: 1.0)
     static let textGrayColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
     static let selectedDebateColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
+    
     static let black1 = UIColor(red: 44/255, green: 44/255, blue: 44/255, alpha: 1.0)
     static let grey3 = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
+    static let grey4 = UIColor(red: 242/255, green: 243/255, blue: 247/255, alpha: 1.0)
+    
 }
