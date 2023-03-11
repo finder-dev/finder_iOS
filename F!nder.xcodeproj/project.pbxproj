@@ -11,14 +11,10 @@
 		2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */; };
 		2B0252C2288EE5B50078D7F2 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 2B0252C1288EE5B50078D7F2 /* KakaoSDK */; };
 		2B0252C4288EE5B50078D7F2 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2B0252C3288EE5B50078D7F2 /* KakaoSDKAuth */; };
-		2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */; };
 		2B09DF02285B56F200FE19DC /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF01285B56F200FE19DC /* Storage.swift */; };
 		2B09DF06285B585900FE19DC /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2B09DF05285B585900FE19DC /* SnapKit */; };
 		2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF07285B58BF00FE19DC /* LoginViewController.swift */; };
 		2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */; };
-		2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF192861DF0800FE19DC /* FirstOnBoardingViewController.swift */; };
-		2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF1B2861DF2000FE19DC /* SecondOnBoardingViewController.swift */; };
-		2B09DF1E2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF1D2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift */; };
 		2B09DF212861E05C00FE19DC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF202861E05C00FE19DC /* Colors.swift */; };
 		2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */; };
 		2B27643C28732BB800C37C9A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27643B28732BB800C37C9A /* SearchViewController.swift */; };
@@ -38,6 +34,9 @@
 		2B27761E29BC4A690046B9D6 /* EmptyDebateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */; };
 		2B27762029BC4DB70046B9D6 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761F29BC4DB70046B9D6 /* BarView.swift */; };
 		2B27762229BC4FEE0046B9D6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762129BC4FEE0046B9D6 /* HomeViewModel.swift */; };
+		2B27762429BC61EE0046B9D6 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762329BC61EE0046B9D6 /* OnBoardingViewController.swift */; };
+		2B27762629BC6ABB0046B9D6 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762529BC6ABA0046B9D6 /* OnBoarding.swift */; };
+		2B27762829BC709A0046B9D6 /* FinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762729BC709A0046B9D6 /* FinderButton.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -115,13 +114,9 @@
 /* Begin PBXFileReference section */
 		2B0252BC288D89F30078D7F2 /* ChangeUserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserInfo.swift; sourceTree = "<group>"; };
 		2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
-		2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		2B09DF01285B56F200FE19DC /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		2B09DF07285B58BF00FE19DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2B09DF0A285B649D00FE19DC /* Button+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extensions.swift"; sourceTree = "<group>"; };
-		2B09DF192861DF0800FE19DC /* FirstOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnBoardingViewController.swift; sourceTree = "<group>"; };
-		2B09DF1B2861DF2000FE19DC /* SecondOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnBoardingViewController.swift; sourceTree = "<group>"; };
-		2B09DF1D2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnBoardingViewController.swift; sourceTree = "<group>"; };
 		2B09DF202861E05C00FE19DC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		2B09DF232861E61200FE19DC /* EmailLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewController.swift; sourceTree = "<group>"; };
 		2B27643B28732BB800C37C9A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +135,9 @@
 		2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDebateView.swift; sourceTree = "<group>"; };
 		2B27761F29BC4DB70046B9D6 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		2B27762129BC4FEE0046B9D6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		2B27762329BC61EE0046B9D6 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		2B27762529BC6ABA0046B9D6 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
+		2B27762729BC709A0046B9D6 /* FinderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderButton.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -248,10 +246,7 @@
 		2B09DF182861DED500FE19DC /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
-				2B09DEFB285B511D00FE19DC /* OnBoardingViewController.swift */,
-				2B09DF192861DF0800FE19DC /* FirstOnBoardingViewController.swift */,
-				2B09DF1B2861DF2000FE19DC /* SecondOnBoardingViewController.swift */,
-				2B09DF1D2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift */,
+				2B27762329BC61EE0046B9D6 /* OnBoardingViewController.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -323,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				2B2775FB29BACFE30046B9D6 /* MBTI.swift */,
+				2B27762529BC6ABA0046B9D6 /* OnBoarding.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -472,6 +468,7 @@
 				2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */,
 				2B27761929BB21CA0046B9D6 /* Popup1ViewController.swift */,
 				2B27761F29BC4DB70046B9D6 /* BarView.swift */,
+				2B27762729BC709A0046B9D6 /* FinderButton.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -722,8 +719,8 @@
 				2BAEB1C028A2039B00D737C7 /* Login.swift in Sources */,
 				2B557B0B288843AB0057CC9D /* DebateCommentTableViewCell.swift in Sources */,
 				2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */,
-				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,
 				2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */,
+				2B27762829BC709A0046B9D6 /* FinderButton.swift in Sources */,
 				2BE7BE4A2873169E0062EB5A /* MainTabBarController.swift in Sources */,
 				2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */,
 				2B09DF242861E61200FE19DC /* EmailLoginViewController.swift in Sources */,
@@ -758,13 +755,13 @@
 				2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */,
 				2BAEB1C228A2041000D737C7 /* UserAuthAPIService.swift in Sources */,
 				2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */,
+				2B27762429BC61EE0046B9D6 /* OnBoardingViewController.swift in Sources */,
 				2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */,
 				2B2775FC29BACFE30046B9D6 /* MBTI.swift in Sources */,
 				2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */,
 				2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */,
 				2B557B1128885C1C0057CC9D /* AlertMessage2ViewController.swift in Sources */,
 				2B557B032886F49D0057CC9D /* DetailCommunity.swift in Sources */,
-				2B09DF1C2861DF2000FE19DC /* SecondOnBoardingViewController.swift in Sources */,
 				2B27761629BB1CFE0046B9D6 /* SearchBarView.swift in Sources */,
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
 				2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */,
@@ -784,13 +781,12 @@
 				2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */,
 				2B27762229BC4FEE0046B9D6 /* HomeViewModel.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,
+				2B27762629BC6ABB0046B9D6 /* OnBoarding.swift in Sources */,
 				2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */,
 				2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */,
 				2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
-				2B09DF1E2861DF3B00FE19DC /* ThirdOnBoardingViewController.swift in Sources */,
 				2B27761429BB196C0046B9D6 /* HomeHeaderView.swift in Sources */,
-				2B09DEFC285B511D00FE19DC /* OnBoardingViewController.swift in Sources */,
 				2BB455EF2884044D001139E5 /* MakeDebate.swift in Sources */,
 				2BE7BE4E2873176C0062EB5A /* DiscussViewController.swift in Sources */,
 				2B27760029BAD7140046B9D6 /* UserDefaultsWrapper.swift in Sources */,
