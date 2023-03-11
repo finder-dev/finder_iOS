@@ -59,7 +59,6 @@
 		2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */; };
 		2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */; };
 		2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */; };
-		2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */; };
 		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
 		2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */; };
 		2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */; };
@@ -161,7 +160,6 @@
 		2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussDetailViewController.swift; sourceTree = "<group>"; };
 		2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDiscussViewController.swift; sourceTree = "<group>"; };
 		2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewCell.swift; sourceTree = "<group>"; };
-		2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewModel.swift; sourceTree = "<group>"; };
 		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
 		2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIViewController.swift; sourceTree = "<group>"; };
 		2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageViewController.swift; sourceTree = "<group>"; };
@@ -355,7 +353,6 @@
 			isa = PBXGroup;
 			children = (
 				2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */,
-				2BA51BC22877204B00D87533 /* HomeCommunityTableViewModel.swift */,
 			);
 			path = CommunityTableView;
 			sourceTree = "<group>";
@@ -723,7 +720,6 @@
 				2B557B07288712AD0057CC9D /* SaveCommunity.swift in Sources */,
 				2B27761229BB09B50046B9D6 /* UserMBTIView.swift in Sources */,
 				2BAEB1C028A2039B00D737C7 /* Login.swift in Sources */,
-				2BA51BC32877204B00D87533 /* HomeCommunityTableViewModel.swift in Sources */,
 				2B557B0B288843AB0057CC9D /* DebateCommentTableViewCell.swift in Sources */,
 				2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */,
 				2B09DF1A2861DF0800FE19DC /* FirstOnBoardingViewController.swift in Sources */,

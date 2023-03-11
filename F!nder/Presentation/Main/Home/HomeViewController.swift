@@ -25,14 +25,13 @@ enum discussDataStatus {
     case yesData
 }
 
-final class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
     var viewModel: HomeViewModel?
     let disposeBag = DisposeBag()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
-    var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
     var hotCommunityData = [HotCommunitySuccessResponse]()
     let debateNetwork = DebateAPI()
     let communityNetwork = CommunityAPI()
@@ -136,6 +135,21 @@ final class HomeViewController: UIViewController, UITableViewDataSource, UITable
                                  buttonAction: {})
             })
             .disposed(by: disposeBag)
+        
+        self.viewModel?.output.hotCommunityTableViewDataSource
+            .bind(to: tableView.rx.items(cellIdentifier: HomeCommunityTableViewCell.identifier, cellType: HomeCommunityTableViewCell.self)) { index, item, cell in
+                cell.setupCell(data: item, index: index + 1)
+            }
+            .disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(HotCommunitySuccessResponse.self)
+            .subscribe(onNext: { item in
+                let nextVC = CommunityDetailViewController()
+                nextVC.communityId = item.communityId
+                self.navigationController?.pushViewController(nextVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
     }
 }
 
@@ -192,31 +206,6 @@ extension HomeViewController {
         guard let data = data else { return}
         self.hotCommunityData = data
         self.tableView.reloadData()
-    }
-}
-
-extension HomeViewController {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hotCommunityData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeCommunityTableViewCell.identifier, for: indexPath) as? HomeCommunityTableViewCell else {
-            print("오류 - Home : communityTableview cell을 찾을 수 없습니다.")
-            return UITableViewCell()
-        }
-        
-        let data = hotCommunityData[indexPath.row]
-        cell.setupCell(data: data, index: indexPath.row + 1)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = hotCommunityData[indexPath.row]
-        let nextVC = CommunityDetailViewController()
-        nextVC.communityId = data.communityId
-        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
@@ -338,8 +327,7 @@ private extension HomeViewController {
         goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         
         bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
+        tableView.register(HomeCommunityTableViewCell.self,
+                           forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
     }
 }
