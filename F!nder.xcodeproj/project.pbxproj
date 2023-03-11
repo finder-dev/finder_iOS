@@ -35,6 +35,7 @@
 		2B27761829BB20010046B9D6 /* ViewController+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761729BB20010046B9D6 /* ViewController+Ex.swift */; };
 		2B27761A29BB21CA0046B9D6 /* Popup1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761929BB21CA0046B9D6 /* Popup1ViewController.swift */; };
 		2B27761C29BB29940046B9D6 /* Control+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761B29BB29940046B9D6 /* Control+Ex.swift */; };
+		2B27761E29BC4A690046B9D6 /* EmptyDebateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -135,6 +136,7 @@
 		2B27761729BB20010046B9D6 /* ViewController+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Ex.swift"; sourceTree = "<group>"; };
 		2B27761929BB21CA0046B9D6 /* Popup1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup1ViewController.swift; sourceTree = "<group>"; };
 		2B27761B29BB29940046B9D6 /* Control+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Control+Ex.swift"; sourceTree = "<group>"; };
+		2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDebateView.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				2B27761129BB09B50046B9D6 /* UserMBTIView.swift */,
 				2B27761329BB196C0046B9D6 /* HomeHeaderView.swift */,
 				2B27761529BB1CFE0046B9D6 /* SearchBarView.swift */,
+				2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				2BB455ED2883FD04001139E5 /* HotCommunity.swift in Sources */,
 				2B27761829BB20010046B9D6 /* ViewController+Ex.swift in Sources */,
 				2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */,
+				2B27761E29BC4A690046B9D6 /* EmptyDebateView.swift in Sources */,
 				2B09DF02285B56F200FE19DC /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

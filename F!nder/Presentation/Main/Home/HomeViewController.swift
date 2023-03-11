@@ -37,13 +37,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                        textColor: .black1,
                                        textAlignment: .center)
     
+    let emptyDebateView = EmptyDebateView()
+    let debateVoteView = DebateVoteView()
     var goBalanceGameButton = UIButton()
-    
-    var noBalanceGameDataView = UIView()
-    var noBalanceGameImageView = UIImageView()
-    var noBalanceGameLabelImageView = UIImageView()
-    
-    var debateVoteView = DebateVoteView()
     
     let lineView2 = UIView()
     let tableView = UITableView()
@@ -52,11 +48,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                      textColor: .black1)
     
     var bannerButton = UIButton()
-    var balanceGameDataStatus : balanceGameDataStatus = .yesData
+    
+    var balanceGameDataStatus : balanceGameDataStatus = .noData
     var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
     var hotCommunityData = [HotCommunitySuccessResponse]()
-    
-//    let userInfoNetwork = UserInfoAPI()
     let debateNetwork = DebateAPI()
     let communityNetwork = CommunityAPI()
     var debateID :Int?
@@ -77,10 +72,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         if balanceGameDataStatus == .noData {
             debateVoteView.isHidden = true
-            noBalanceGameDataView.isHidden = false
+            emptyDebateView.isHidden = false
+            goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
         } else {
             debateVoteView.isHidden = false
-            noBalanceGameDataView.isHidden = true
+            emptyDebateView.isHidden = true
+            goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
         }
         
         let token = UserDefaultsData.accessToken
@@ -210,7 +207,6 @@ private extension HomeViewController {
         }
         
         scrollViewLayout()
-        noBalanceGameViewLayout()
     }
     
     func attribute() {
@@ -237,8 +233,6 @@ private extension HomeViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
-        
-        noBalanceGameViewAttribute()
     }
     
     func scrollViewLayout() {
@@ -250,13 +244,8 @@ private extension HomeViewController {
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(1180)
         }
-        
-        innerViewLayout()
-    }
-    
-    func innerViewLayout() {
-        
-        [searchView, userMBTIView, lineView, balanceGameLabel, noBalanceGameDataView,
+                
+        [searchView, userMBTIView, lineView, balanceGameLabel, emptyDebateView,
          debateVoteView, goBalanceGameButton,bannerButton, lineView2, communityLabel,
          tableView].forEach {
            self.innerView.addSubview($0)
@@ -285,7 +274,7 @@ private extension HomeViewController {
             $0.centerX.equalTo(innerView)
         }
         
-        noBalanceGameDataView.snp.makeConstraints {
+        emptyDebateView.snp.makeConstraints {
             $0.top.equalTo(balanceGameLabel.snp.bottom).offset(20.0)
             $0.leading.trailing.equalTo(innerView)
         }
@@ -326,6 +315,11 @@ private extension HomeViewController {
             $0.bottom.equalToSuperview()
         }
     }
+    
+    func innerViewLayout() {
+        
+        
+    }
 }
 
 private extension HomeViewController {
@@ -357,27 +351,5 @@ private extension HomeViewController {
                         message: "조금만 기다려주세요♥",
                         buttonText: "확인",
                         buttonAction: {})
-    }
-    
-    func noBalanceGameViewLayout() {
-        [noBalanceGameImageView,noBalanceGameLabelImageView].forEach {
-            self.noBalanceGameDataView.addSubview($0)
-        }
-        
-        noBalanceGameImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(noBalanceGameDataView.snp.top).inset(4.0)
-        }
-        
-        noBalanceGameLabelImageView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(noBalanceGameImageView.snp.bottom).offset(16.0)
-        }
-    }
-    
-    func noBalanceGameViewAttribute() {
-        noBalanceGameImageView.image = UIImage(named: "main character grey_home")
-        noBalanceGameLabelImageView.image = UIImage(named: "Group 986336")
-        goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
     }
 }
