@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import SafariServices
+import RxSwift
+import RxCocoa
 
 /*
  * 메인 탭 바 진입 시 가장 먼저 보이는 홈 뷰 컨트롤러입니다.
@@ -23,60 +25,117 @@ enum discussDataStatus {
     case yesData
 }
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+final class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let headerView = HomeHeaderView()
-    var scrollView = UIScrollView()
-    var innerView = UIView()
-    let searchView = SearchBarView()
-    let userMBTIView = UserMBTIView()
-    let barView1 = BarView(barHeight: 3.0, barColor: .mainTintColor)
-    var balanceGameLabel = FinderLabel(text: "🔥HOT한 밸런스 게임! 당신의 선택은?",
-                                       font: .systemFont(ofSize: 20.0, weight: .bold),
-                                       textColor: .black1,
-                                       textAlignment: .center)
+    // MARK: - Properties
     
-    let emptyDebateView = EmptyDebateView()
-    let debateVoteView = DebateVoteView()
-    var goBalanceGameButton = UIButton()
-    let barView2 = BarView(barHeight: 10.0, barColor: .grey4)
-    let tableView = UITableView()
-    let communityLabel = FinderLabel(text: "💬 급상승 중인 파인더들의 수다",
-                                     font: .systemFont(ofSize: 20.0, weight: .bold),
-                                     textColor: .black1)
-    
-    var bannerButton = UIButton()
-    
-    var balanceGameDataStatus : balanceGameDataStatus = .noData
+    var viewModel: HomeViewModel?
+    let disposeBag = DisposeBag()
+    var balanceGameDataStatus : balanceGameDataStatus = .yesData
     var communityTableViewModel : HomeCommunityTableViewModel = HomeCommunityTableViewModel()
     var hotCommunityData = [HotCommunitySuccessResponse]()
     let debateNetwork = DebateAPI()
     let communityNetwork = CommunityAPI()
     var debateID :Int?
     
+    // MARK: - Views
+    
+    let headerView = HomeHeaderView()
+    let scrollView = UIScrollView()
+    let innerView = UIView()
+    let searchView = SearchBarView()
+    let userMBTIView = UserMBTIView()
+    let barView1 = BarView(barHeight: 3.0, barColor: .mainTintColor)
+    let balanceGameLabel = FinderLabel(text: "🔥HOT한 밸런스 게임! 당신의 선택은?",
+                                       font: .systemFont(ofSize: 20.0, weight: .bold),
+                                       textColor: .black1,
+                                       textAlignment: .center)
+    
+    let emptyDebateView = EmptyDebateView()
+    let debateVoteView = DebateVoteView()
+    let goBalanceGameButton = UIButton()
+    let barView2 = BarView(barHeight: 10.0, barColor: .grey4)
+    let tableView = UITableView()
+    let communityLabel = FinderLabel(text: "💬 급상승 중인 파인더들의 수다",
+                                     font: .systemFont(ofSize: 20.0, weight: .bold),
+                                     textColor: .black1)
+    
+    let bannerButton = UIButton()
+    
+    // MARK: - Life Cycle
+    
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear")
         setupUserData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.navigationController?.navigationBar.isHidden = true
-
+    
         layout()
         attribute()
+        bindViewModel()
+
+    }
+    
+    func bindViewModel() {
         
-        if balanceGameDataStatus == .noData {
-            debateVoteView.isHidden = true
-            emptyDebateView.isHidden = false
-            goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
-        } else {
-            debateVoteView.isHidden = false
-            emptyDebateView.isHidden = true
-            goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
-        }
+        headerView.alarmButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                let nextVC = AlertViewController()
+                nextVC.alertStatus = .yesAlert
+                self?.navigationController?.pushViewController(nextVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        bannerButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let url = URL(string: "https://www.16personalities.com/ko") else {
+                    print("오류 - HomeViewController : 유효하지 않은 url ")
+                    return
+                }
+                
+                let safariVC = SFSafariViewController(url: url)
+                self?.present(safariVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        goBalanceGameButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                if self?.balanceGameDataStatus == .noData {
+                    // 토론 생성 view
+                    self?.navigationController?.pushViewController(MakeDiscussViewController(), animated: true)
+                } else {
+                    // 토론 자세히 보기 view
+                    let nextVC = DiscussDetailViewController()
+                    if let debateID = self?.debateID {
+                        nextVC.debateID = debateID
+                        self?.navigationController?.pushViewController(nextVC, animated: true)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        searchView.rx.tapGesture()
+            .subscribe(onNext: { [weak self] _ in
+//                let nextVC = SearchViewController()
+//                self.navigationController?.pushViewController(nextVC, animated: true)
+           
+                self?.showPopUp1(title: "아직 공사 중!",
+                                 message: "조금만 기다려주세요♥",
+                                 buttonText: "확인",
+                                 buttonAction: {})
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -90,18 +149,15 @@ extension HomeViewController {
                 if response.success {
                     print("성공 : 가장 많이 참여한 토론 조회")
                     print("response.response?.debateId : \(response.response?.debateId)")
-                    print("debateID : \(debateID)")
                     guard let response = response.response else {
                         return
                     }
 
                     debateID = response.debateId
-                    print("debateID : \(debateID)")
                     DispatchQueue.main.async {
                         setupDebateView(data: response)
                     }
                 } else {
-                    print("실패 : 가장 많이 참여한 토론 조회")
                     print(response.errorResponse?.errorMessages)
                 }
             case .failure(_):
@@ -164,25 +220,8 @@ extension HomeViewController {
     }
 }
 
-extension HomeViewController {
-    @objc func didTapAlaramButton() {
-        let nextVC = AlertViewController()
-        nextVC.alertStatus = .yesAlert
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-    
-    @objc func didTapBannerButton() {
-        guard let url = URL(string: "https://www.16personalities.com/ko") else {
-            print("오류 - HomeViewController : 유효하지 않은 url ")
-            return
-        }
-        
-        let safariVC = SFSafariViewController(url: url)
-        present(safariVC, animated: true)
-    }
-}
-
 private extension HomeViewController {
+    
     func layout() {
         
         [headerView, scrollView].forEach {
@@ -201,33 +240,6 @@ private extension HomeViewController {
             $0.top.equalTo(headerView.snp.bottom).offset(24.0)
         }
         
-        scrollViewLayout()
-    }
-    
-    func attribute() {
-      
-        headerView.alarmButton.addTarget(self, action: #selector(didTapAlaramButton), for: .touchUpInside)
-
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapSearchView))
-        searchView.addGestureRecognizer(gesture)
-        goBalanceGameButton.layer.cornerRadius = 18.0
-        goBalanceGameButton.layer.borderWidth = 1.0
-        goBalanceGameButton.layer.borderColor = UIColor.mainTintColor.cgColor
-        goBalanceGameButton.setTitleColor(.mainTintColor, for: .normal)
-        goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
-        
-        bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
-        bannerButton.addTarget(self, action: #selector(didTapBannerButton), for: .touchUpInside)
-        
-        goBalanceGameButton.addTarget(self, action: #selector(didTapGoBalanceGameButton), for: .touchUpInside)
-        
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
-    }
-    
-    func scrollViewLayout() {
-        
         scrollView.addSubview(innerView)
         
         innerView.snp.makeConstraints {
@@ -235,7 +247,7 @@ private extension HomeViewController {
             $0.width.equalTo(scrollView.snp.width)
             $0.height.equalTo(1180)
         }
-                
+        
         [searchView, userMBTIView, barView1, balanceGameLabel, emptyDebateView,
          debateVoteView, goBalanceGameButton,bannerButton, barView2, communityLabel,
          tableView].forEach {
@@ -304,36 +316,30 @@ private extension HomeViewController {
             $0.bottom.equalToSuperview()
         }
     }
-}
-
-private extension HomeViewController {
     
-    @objc func didTapGoBalanceGameButton() {
+    func attribute() {
+        self.view.backgroundColor = .white
+        self.navigationController?.navigationBar.isHidden = true
+        
         if balanceGameDataStatus == .noData {
-            print("here1")
-            // 토론 생성 view
-            self.navigationController?.pushViewController(MakeDiscussViewController(), animated: true)
+            debateVoteView.isHidden = true
+            emptyDebateView.isHidden = false
+            goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
         } else {
-            // 토론 자세히 보기 view
-            let nextVC = DiscussDetailViewController()
-            guard let debateID = self.debateID else {
-                print("no debateID")
-                self.navigationController?.pushViewController(nextVC, animated: true)
-                return
-            }
-            nextVC.debateID = debateID
-            self.navigationController?.pushViewController(nextVC, animated: true)
+            debateVoteView.isHidden = false
+            emptyDebateView.isHidden = true
+            goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
         }
-    }
-    
-    @objc func didTapSearchView() {
-        print("didtapSearchView")
-//        let nextVC = SearchViewController()
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-//        self.presentCutomAlert(target: "tapSearch", title: "아직 공사 중!", message: "조금만 기다려주세요♥")
-        self.showPopUp1(title: "아직 공사 중!",
-                        message: "조금만 기다려주세요♥",
-                        buttonText: "확인",
-                        buttonAction: {})
+
+        goBalanceGameButton.layer.cornerRadius = 18.0
+        goBalanceGameButton.layer.borderWidth = 1.0
+        goBalanceGameButton.layer.borderColor = UIColor.mainTintColor.cgColor
+        goBalanceGameButton.setTitleColor(.mainTintColor, for: .normal)
+        goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
+        
+        bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(HomeCommunityTableViewCell.self, forCellReuseIdentifier: HomeCommunityTableViewCell.identifier)
     }
 }

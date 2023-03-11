@@ -37,6 +37,7 @@
 		2B27761C29BB29940046B9D6 /* Control+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761B29BB29940046B9D6 /* Control+Ex.swift */; };
 		2B27761E29BC4A690046B9D6 /* EmptyDebateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */; };
 		2B27762029BC4DB70046B9D6 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27761F29BC4DB70046B9D6 /* BarView.swift */; };
+		2B27762229BC4FEE0046B9D6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27762129BC4FEE0046B9D6 /* HomeViewModel.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -139,6 +140,7 @@
 		2B27761B29BB29940046B9D6 /* Control+Ex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Control+Ex.swift"; sourceTree = "<group>"; };
 		2B27761D29BC4A690046B9D6 /* EmptyDebateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDebateView.swift; sourceTree = "<group>"; };
 		2B27761F29BC4DB70046B9D6 /* BarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		2B27762129BC4FEE0046B9D6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */,
+				2B27762129BC4FEE0046B9D6 /* HomeViewModel.swift */,
 				2B27760329BADB170046B9D6 /* SubViews */,
 				2B27760529BADB660046B9D6 /* Search */,
 				2BA51BBF28771E5500D87533 /* Alert */,
@@ -783,6 +786,7 @@
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2B27760D29BADC5E0046B9D6 /* DebateVoteView.swift in Sources */,
 				2BB455DA28832A89001139E5 /* EditUserInfoViewController.swift in Sources */,
+				2B27762229BC4FEE0046B9D6 /* HomeViewModel.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,
 				2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */,
 				2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */,

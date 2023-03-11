@@ -52,7 +52,7 @@ class MainTabBarController: UITabBarController {
     
     private func setUpTabBar() {
         
-        let firstViewController = HomeViewController()
+        let firstViewController = HomeViewController(viewModel: HomeViewModel())
         let secondViewController = DiscussViewController()
         let thirdViewController = CommunityViewController()
         let fourthViewController = SavedViewController()
