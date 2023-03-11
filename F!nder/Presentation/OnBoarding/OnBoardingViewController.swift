@@ -2,200 +2,150 @@
 //  OnBoardingViewController.swift
 //  F!nder
 //
-//  Created by 장선영 on 2022/06/16.
+//  Created by 장선영 on 2023/03/11.
 //
 
 import UIKit
+import SnapKit
 
-import UIKit
-
-class OnBoardingViewController: UIPageViewController {
-
-    var pages = [UIViewController]()
+final class OnBoardingViewController: UIViewController {
     
-    let skipButton = UIButton()
+    let titleLabel = FinderLabel(text: "궁금한 MBTI한테\n바로 물어보세요",
+                                 font: .systemFont(ofSize: 24.0, weight: .bold),
+                                 textColor: .black1)
+    let subTitleLabel = FinderLabel(text: "오해와 진실! 여기서 다 풀어요",
+                                    font: .systemFont(ofSize: 16.0, weight: .regular),
+                                    textColor: .grey2)
+ 
+    let scrollView = UIScrollView()
+    let stackView = UIStackView()
     let pageControl = UIPageControl()
-    let nextButton = UIButton()
-    let initialPage = 0
-
-    // animations
-    var pageControlBottomAnchor: NSLayoutConstraint?
-    var skipButtonTopAnchor: NSLayoutConstraint?
-    var nextButtonTopAnchor: NSLayoutConstraint?
-   
+    let skipButton = UIButton()
+    let startButton = FinderButton(buttonText: "시작하기", buttonHeight: 54.0)
+    
+    let onBoardImages: [UIImage] = [UIImage(named: "img_onboarding1") ?? UIImage(),
+                                    UIImage(named: "img_onboarding2") ?? UIImage(),
+                                    UIImage(named: "img_onboarding3") ?? UIImage()]
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setup()
-        style()
         layout()
+        attribute()
     }
 }
 
-extension OnBoardingViewController {
-    
-    func setup() {
-        dataSource = self
-        delegate = self
-        
-        pageControl.addTarget(self, action: #selector(pageControlTapped(_:)), for: .valueChanged)
+// MARK: ScrollView delegate
 
-        let page1 = FirstOnBoardingViewController()
-        let page2 = SecondOnBoardingViewController()
-        let page3 = ThirdOnBoardingViewController()
+extension OnBoardingViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        pages.append(page1)
-        pages.append(page2)
-        pages.append(page3)
-        
-        setViewControllers([pages[initialPage]], direction: .forward, animated: true, completion: nil)
+        let value = scrollView.contentOffset.x / scrollView.frame.size.width
+        setPageControlSelectedPage(currentPage: Int(round(value)))
     }
     
-    func style() {
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.currentPageIndicatorTintColor = .mainTintColor
-        pageControl.pageIndicatorTintColor = .systemGray2
-        pageControl.numberOfPages = pages.count
-        pageControl.currentPage = initialPage
+    func setPageControlSelectedPage(currentPage:Int) {
+        changeView(currentPage)
+    }
+}
 
-        skipButton.translatesAutoresizingMaskIntoConstraints = false
+private extension OnBoardingViewController {
+    
+    func layout() {
+        [titleLabel, subTitleLabel, scrollView, pageControl, skipButton, startButton].forEach {
+            self.view.addSubview($0)
+        }
+        
+        let safeArea = view.safeAreaLayoutGuide
+               
+        titleLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(24.0)
+            $0.top.equalTo(safeArea).inset(30)
+        }
+        
+        subTitleLabel.snp.makeConstraints {
+            $0.leading.equalTo(titleLabel)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
+        }
+        
+        scrollView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.height.equalTo(239.0)
+        }
+        
+        scrollView.addSubview(stackView)
+        
+        stackView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(scrollView.contentLayoutGuide)
+            $0.height.equalToSuperview()
+        }
+        
+        pageControl.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(scrollView.snp.bottom).offset(30)
+            $0.height.equalTo(8)
+        }
+        
+        skipButton.snp.makeConstraints {
+            $0.bottom.equalTo(safeArea).inset(30)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(39.0)
+            $0.width.equalTo(80.0)
+        }
+        
+        startButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(24.0)
+            $0.bottom.equalTo(safeArea).inset(30)
+        }
+    }
+    
+    func attribute() {
+        self.view.backgroundColor = .white
+    
+        scrollView.delegate = self
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        stackView.axis = .horizontal
+        stackView.spacing = 0
+        
+        pageControl.numberOfPages = onBoardImages.count
+        pageControl.currentPageIndicatorTintColor = .mainTintColor
+        
+        for image in onBoardImages {
+            let imageView = UIImageView()
+            imageView.image = image
+            imageView.contentMode = .scaleAspectFit
+            imageView.clipsToBounds = false
+            imageView.heightAnchor.constraint(equalToConstant: 239).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+            stackView.addArrangedSubview(imageView)
+        }
+        
+        skipButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .regular)
         skipButton.setTitleColor(.mainTintColor, for: .normal)
         skipButton.setTitle("SKIP", for: .normal)
-        skipButton.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .regular)
-        skipButton.addTarget(self, action: #selector(skipTapped(_:)), for: .primaryActionTriggered)
-        
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.setTitle("시작하기", for: .normal)
-        nextButton.setTitleColor(.white, for: .normal)
-        nextButton.backgroundColor = .mainTintColor
-        nextButton.isHidden = true
-        nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
+        skipButton.isHidden = false
+        skipButton.addTarget(self, action: #selector(tapSkipButton), for: .touchUpInside)
+        startButton.addTarget(self, action: #selector(tapSkipButton), for: .touchUpInside)
     }
     
-    @objc func didTapNextButton() {
+    @objc func tapSkipButton() {
         let nextVC = LoginViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
-    func layout() {
-        view.addSubview(pageControl)
-        view.addSubview(skipButton)
-        view.addSubview(nextButton)
-
-        NSLayoutConstraint.activate([
-            pageControl.widthAnchor.constraint(equalTo: view.widthAnchor),
-            pageControl.heightAnchor.constraint(equalToConstant: 20),
-            pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -100),
-
-            nextButton.heightAnchor.constraint(equalToConstant: 54.0),
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24.0),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -24.0),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -26.0),
-            skipButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            skipButton.bottomAnchor.constraint(equalTo: view.bottomAnchor,constant: -67.0)
-        ])
-    }
-}
-
-// MARK: - DataSource
-
-extension OnBoardingViewController: UIPageViewControllerDataSource {
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-
-        guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
+    func changeView(_ page: Int) {
+        pageControl.currentPage = page
+        let onBoarding = OnBoarding.getOnBoardingPage(page)
+        titleLabel.text = onBoarding.title
+        subTitleLabel.text = onBoarding.subTitle
         
-        if currentIndex == 0 {
-            return nil             // wrap last
-        } else {
-            return pages[currentIndex - 1]  // go previous
-        }
-    }
-        
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        
-        guard let currentIndex = pages.firstIndex(of: viewController) else { return nil }
-
-        if currentIndex < pages.count - 1 {
-            return pages[currentIndex + 1]  // go next
-        } else {
-            return nil             // wrap first
-        }
-    }
-}
-
-// MARK: - Delegates
-
-extension OnBoardingViewController: UIPageViewControllerDelegate {
-    
-    // How we keep our pageControl in sync with viewControllers
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
-        guard let viewControllers = pageViewController.viewControllers else { return }
-        guard let currentIndex = pages.firstIndex(of: viewControllers[0]) else { return }
-        
-        pageControl.currentPage = currentIndex
-        animateControlsIfNeeded()
-    }
-    
-    private func animateControlsIfNeeded() {
-        let lastPage = pageControl.currentPage == pages.count - 1
-        
-        if lastPage {
-            nextButton.isHidden = false
+        if page == 2 {
             skipButton.isHidden = true
+            startButton.isHidden = false
         } else {
-            nextButton.isHidden = true
             skipButton.isHidden = false
+            startButton.isHidden = true
         }
-
-        UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
     }
-}
-
-// MARK: - Actions
-
-extension OnBoardingViewController {
-
-    @objc func pageControlTapped(_ sender: UIPageControl) {
-        setViewControllers([pages[sender.currentPage]], direction: .forward, animated: true, completion: nil)
-        animateControlsIfNeeded()
-    }
-
-    @objc func skipTapped(_ sender: UIButton) {
-        let lastPage = pages.count - 1
-        pageControl.currentPage = lastPage
-        
-        goToSpecificPage(index: lastPage, ofViewControllers: pages)
-        animateControlsIfNeeded()
-//        let nextVC = LoginViewController()
-//        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-}
-
-// MARK: - Extensions
-
-extension UIPageViewController {
-
-    func goToNextPage(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
-        guard let currentPage = viewControllers?[0] else { return }
-        guard let nextPage = dataSource?.pageViewController(self, viewControllerAfter: currentPage) else { return }
-        
-        setViewControllers([nextPage], direction: .forward, animated: animated, completion: completion)
-    }
-    
-    func goToPreviousPage(animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
-        guard let currentPage = viewControllers?[0] else { return }
-        guard let prevPage = dataSource?.pageViewController(self, viewControllerBefore: currentPage) else { return }
-        
-        setViewControllers([prevPage], direction: .forward, animated: animated, completion: completion)
-    }
-    
-    func goToSpecificPage(index: Int, ofViewControllers pages: [UIViewController]) {
-           setViewControllers([pages[index]], direction: .forward, animated: true, completion: nil)
-       }
-
 }
