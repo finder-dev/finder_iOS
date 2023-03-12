@@ -28,9 +28,7 @@ final class InsertDataView: UIView {
         textField.placeholder = dataType.placeHolder
         requestButton.setTitle(dataType.buttonTitle, for: .normal)
         
-        titleLabel.isHidden = dataType.rawValue == "" ? true : false
-        requestButton.isHidden = dataType.buttonTitle == "" ? true : false
-        subTitleLabel.isHidden = dataType == .password ? false : true
+        changeView(by: dataType)
         
         addView()
         setLayout()
@@ -72,7 +70,36 @@ final class InsertDataView: UIView {
         insertStackView.axis = .horizontal
         insertStackView.spacing = 12.0
         
-        requestButton.isEnabled = false
+        requestButton.changesSelectionAsPrimaryAction = true
+        requestButton.isSelected = false
+//        requestButton.isEnabled = false
+    }
+    
+    func changeView(by type: SignupInsertDataType) {
+        titleLabel.isHidden = type.rawValue == "" ? true : false
+        requestButton.isHidden = type.buttonTitle == "" ? true : false
+        subTitleLabel.isHidden = type == .password ? false : true
+        
+        switch type {
+        case .id:
+            textField.keyboardType = .emailAddress
+        case .code:
+            textField.keyboardType = .numberPad
+        case .password:
+            textField.isSecureTextEntry = true
+        case .passwordCheck:
+            textField.isSecureTextEntry = true
+        case .mbti:
+            textField.isUserInteractionEnabled = false
+            let button = UIButton()
+            button.setImage(UIImage(named: "btn_caretleft_gray"), for: .normal)
+            button.frame = CGRect(x: 0, y: 0, width: 24.0, height: 24.0)
+            
+            textField.rightView = button
+            textField.rightViewMode = .always
+        case .nickname:
+            break
+        }
     }
 }
 
