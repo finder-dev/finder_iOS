@@ -295,10 +295,10 @@ private extension CommunityViewController {
         
         selectedMBTILabel.text = "전체"
         selectedMBTILabel.font = .systemFont(ofSize: 14.0, weight: .medium)
-        selectedMBTILabel.textColor = .mainTintColor
+        selectedMBTILabel.textColor = .primary
         selectedMBTILabel.textAlignment = .center
         
-        mbtiLabelLine.backgroundColor = .mainTintColor
+        mbtiLabelLine.backgroundColor = .primary
         //"backButton"
     }
     

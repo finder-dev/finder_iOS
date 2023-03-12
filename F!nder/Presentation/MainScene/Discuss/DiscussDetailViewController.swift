@@ -369,7 +369,7 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
     
     
     func selectedButton(button:UIButton, option:String) {
-        button.backgroundColor = .selectedDebateColor
+        button.backgroundColor = .secondary
         button.setTitleColor(.white, for: .normal)
         
         if option == "B" {
@@ -377,13 +377,13 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
 //            disagreeCounts.snp.makeConstraints {
 //                $0.top.equalTo(timeLabel.snp.bottom).offset(11.0)
 //            }
-            disagreeCounts.textColor = .selectedDebateColor
+            disagreeCounts.textColor = .secondary
         } else {
             agreeButtonConstraints.constant = 11.0
 //            agreeCounts.snp.makeConstraints {
 //                $0.top.equalTo(timeLabel.snp.bottom).offset(11.0)
 //            }
-            agreeCounts.textColor = .selectedDebateColor
+            agreeCounts.textColor = .secondary
         }
     }
     

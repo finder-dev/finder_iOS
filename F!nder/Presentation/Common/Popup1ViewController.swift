@@ -95,7 +95,7 @@ private extension Popup1ViewController {
         labelStackView.spacing = 8
         
         okButton.setTitle("확인", for: .normal)
-        okButton.backgroundColor = .mainTintColor
+        okButton.backgroundColor = .primary
         okButton.setTitleColor(.white, for: .normal)
     }
 }

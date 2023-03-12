@@ -277,7 +277,7 @@ private extension DiscussViewController {
         categoryButton.setImage(UIImage(named: "btn_caretleft"), for: .normal)
         categoryButton.addTarget(self, action: #selector(didTapCategoryButton), for: .touchUpInside)
         
-        lineView.backgroundColor = .mainTintColor
+        lineView.backgroundColor = .primary
     }
 }
 

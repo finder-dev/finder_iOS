@@ -35,7 +35,7 @@ private extension SearchBarView {
     
     func setupView() {
         self.layer.borderWidth = 2.0
-        self.layer.borderColor = UIColor.mainTintColor.cgColor
+        self.layer.borderColor = UIColor.primary.cgColor
         
         searchImageView.image = UIImage(named: "search")
     }

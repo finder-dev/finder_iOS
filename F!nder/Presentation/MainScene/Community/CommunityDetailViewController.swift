@@ -171,7 +171,7 @@ extension CommunityDetailViewController {
     
     func likeButton() {
         thumbsUpButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
-        thumbsUpButton.setTitleColor(.mainTintColor, for: .normal)
+        thumbsUpButton.setTitleColor(.primary, for: .normal)
     }
     
     func disLikeButton() {
@@ -404,7 +404,7 @@ extension CommunityDetailViewController {
                     if response.message == "save success" {
                         DispatchQueue.main.async {
                             saveButton.setImage(UIImage(named: "saved2"), for: .normal)
-                            navigationItem.rightBarButtonItems?[0].tintColor = .mainTintColor
+                            navigationItem.rightBarButtonItems?[0].tintColor = .primary
                         }
                     } else {
                         DispatchQueue.main.async {
@@ -655,7 +655,7 @@ extension CommunityDetailViewController {
         
         thumbsUpButton.setTitle(" 추천", for: .normal)
         thumbsUpButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
-        thumbsUpButton.setTitleColor(.mainTintColor, for: .normal)
+        thumbsUpButton.setTitleColor(.primary, for: .normal)
         thumbsUpButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         thumbsUpButton.addTarget(self, action: #selector(didTapThumbsUpButton), for: .touchUpInside)
     }

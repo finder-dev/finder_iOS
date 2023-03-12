@@ -102,6 +102,6 @@ private extension DiscussTableViewCell {
         peopleCountLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
         
         timeLabel.font = .systemFont(ofSize: 14.0, weight: .bold)
-        timeLabel.textColor = .mainTintColor
+        timeLabel.textColor = .primary
     }
 }

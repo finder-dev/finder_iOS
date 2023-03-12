@@ -46,7 +46,7 @@ extension MakeDiscussViewController {
         
         if !title.isEmpty && !optionA.isEmpty && !optionB.isEmpty {
             rightBarButton.isEnabled = true
-            rightBarButton.tintColor = .mainTintColor
+            rightBarButton.tintColor = .primary
         } else {
             rightBarButton.isEnabled = false
             rightBarButton.tintColor = .lightGray

@@ -44,7 +44,7 @@ final class HomeViewController: UIViewController {
     let innerView = UIView()
     let searchView = SearchBarView()
     let userMBTIView = UserMBTIView()
-    let barView1 = BarView(barHeight: 3.0, barColor: .mainTintColor)
+    let barView1 = BarView(barHeight: 3.0, barColor: .primary)
     let balanceGameLabel = FinderLabel(text: "🔥HOT한 밸런스 게임! 당신의 선택은?",
                                        font: .systemFont(ofSize: 20.0, weight: .bold),
                                        textColor: .black1,
@@ -322,8 +322,8 @@ private extension HomeViewController {
 
         goBalanceGameButton.layer.cornerRadius = 18.0
         goBalanceGameButton.layer.borderWidth = 1.0
-        goBalanceGameButton.layer.borderColor = UIColor.mainTintColor.cgColor
-        goBalanceGameButton.setTitleColor(.mainTintColor, for: .normal)
+        goBalanceGameButton.layer.borderColor = UIColor.primary.cgColor
+        goBalanceGameButton.setTitleColor(.primary, for: .normal)
         goBalanceGameButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         
         bannerButton.setImage(UIImage(named: "img_banner"), for: .normal)

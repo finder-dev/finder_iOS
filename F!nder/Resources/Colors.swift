@@ -9,10 +9,11 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    static let mainTintColor = UIColor(red: 255/255, green: 102/255, blue: 9/255, alpha: 1.0)
     static let darkGrayTextColor = UIColor(red: 62/255, green: 62/255, blue: 62/255, alpha: 1.0)
     static let textFieldBorder = UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1.0)
-    static let selectedDebateColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
+    
+    static let primary = UIColor(red: 255/255, green: 102/255, blue: 9/255, alpha: 1.0)
+    static let secondary = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
     
     static let black1 = UIColor(red: 44/255, green: 44/255, blue: 44/255, alpha: 1.0)
     static let grey2 = UIColor(red: 126/255, green: 133/255, blue: 137/255, alpha: 1.0)

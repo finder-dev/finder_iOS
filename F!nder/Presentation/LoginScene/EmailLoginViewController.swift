@@ -169,7 +169,7 @@ extension EmailLoginViewController: AlertMessageDelegate {
             print("============getData=========")
             getData()
         } else if from == "emailLogin" {
-            loginButton.backgroundColor = .mainTintColor
+            loginButton.backgroundColor = .primary
             loginButton.setTitleColor(.white, for: .normal)
             loginButton.isEnabled = true
         }
@@ -193,7 +193,7 @@ private extension EmailLoginViewController {
     }
     
     func enableLoginButton() {
-        loginButton.backgroundColor = .mainTintColor
+        loginButton.backgroundColor = .primary
         loginButton.setTitleColor(.white, for: .normal)
         loginButton.isEnabled = true
     }

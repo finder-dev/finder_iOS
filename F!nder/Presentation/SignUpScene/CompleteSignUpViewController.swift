@@ -23,7 +23,7 @@ class CompleteSignUpViewController: UIViewController {
     
     private lazy var completeSignUpButton = UIButton().then {
         $0.setTitle("회원가입 완료", for: .normal)
-        $0.backgroundColor = .mainTintColor
+        $0.backgroundColor = .primary
         $0.setTitleColor(.white, for: .normal)
         $0.addTarget(self, action: #selector(didTapCompleteSignUpButton),for: .touchUpInside)
     }

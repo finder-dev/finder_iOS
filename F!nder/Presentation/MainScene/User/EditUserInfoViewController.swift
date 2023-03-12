@@ -14,7 +14,7 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
     func okButtonTapped(from: String) {
         if from == "DuplicatedNickName" {
             nickNameCheckButton.setTitleColor(.white, for: .normal)
-            nickNameCheckButton.backgroundColor = .mainTintColor
+            nickNameCheckButton.backgroundColor = .primary
             nickNameCheckButton.isEnabled = true
         } else if from == "changeUserInfo" {
             self.navigationController?.popViewController(animated: true)
@@ -64,8 +64,8 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
         self.present(nextVC, animated: true)
     }
 
-    func sendValue(value: String) {
-        MBTITextField.text = value
+    func selectMBTI(mbti: String) {
+        MBTITextField.text = mbti
         checkEnableNextButtonOrNot()
     }
     
@@ -100,7 +100,7 @@ extension EditUserInfoViewController: UITextFieldDelegate {
         if password.isEmpty {
             if nickNameCheckButton.isEnabled == false && !mbti.isEmpty {
                 nextButton.isEnabled = true
-                nextButton.backgroundColor = .mainTintColor
+                nextButton.backgroundColor = .primary
                 nextButton.setTitleColor(.white, for: .normal)
             } else {
                 nextButton.isEnabled = false
@@ -110,7 +110,7 @@ extension EditUserInfoViewController: UITextFieldDelegate {
         } else {
             if nickNameCheckButton.isEnabled == false && !mbti.isEmpty && passwordIsSame {
                 nextButton.isEnabled = true
-                nextButton.backgroundColor = .mainTintColor
+                nextButton.backgroundColor = .primary
                 nextButton.setTitleColor(.white, for: .normal)
             } else {
                 nextButton.isEnabled = false
@@ -134,7 +134,7 @@ extension EditUserInfoViewController: UITextFieldDelegate {
         } else {
             print("불일치")
             passwordCheckLabel.text = "동일하지 않은 비밀번호입니다"
-            passwordCheckLabel.textColor = .mainTintColor
+            passwordCheckLabel.textColor = .primary
             passwordIsSame = false
         }
     }
@@ -252,7 +252,7 @@ private extension EditUserInfoViewController {
         
         [nickNameCheckButton,idCheckButton].forEach {
             $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .mainTintColor
+            $0.backgroundColor = .primary
             $0.widthAnchor.constraint(equalToConstant: 71.0).isActive = true
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
             $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)

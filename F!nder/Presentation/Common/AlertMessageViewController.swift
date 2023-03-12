@@ -88,7 +88,7 @@ private extension AlertMessageViewController {
         textLabel.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
         
         okButton.setTitle("확인", for: .normal)
-        okButton.backgroundColor = .mainTintColor
+        okButton.backgroundColor = .primary
         okButton.setTitleColor(.white, for: .normal)
         
         okButton.addTarget(self, action: #selector(didTapOKButton), for: .touchUpInside)

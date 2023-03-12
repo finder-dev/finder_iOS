@@ -29,7 +29,7 @@ final class FinderButton: UIButton {
     override var isEnabled: Bool {
         didSet {
             if isEnabled {
-                self.backgroundColor = .mainTintColor
+                self.backgroundColor = .primary
                 self.setTitleColor(.white, for: .normal)
             } else {
                 self.backgroundColor = .grey7
@@ -38,10 +38,21 @@ final class FinderButton: UIButton {
         }
     }
     
+    override var isSelected: Bool {
+        didSet {
+            if isSelected {
+                self.backgroundColor = .grey7
+                self.setTitleColor(.grey8, for: .normal)
+            } else {
+                self.backgroundColor = .primary
+                self.setTitleColor(.white, for: .normal)
+            }
+        }
+    }
+    
     func attribute() {
         translatesAutoresizingMaskIntoConstraints = false
-
-        self.backgroundColor = .mainTintColor
-        self.setTitleColor(.white, for: .normal)
+//        self.backgroundColor = .mainTintColor
+//        self.setTitleColor(.white, for: .normal)
     }
 }

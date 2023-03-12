@@ -57,7 +57,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     
     private lazy var setupProfileLabel = UILabel().then {
         $0.text = "프로필 설정"
-        $0.textColor = .mainTintColor
+        $0.textColor = .primary
         $0.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.textAlignment = .center
     }
@@ -118,7 +118,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
     private lazy var nickNameCheckButton = UIButton().then {
         $0.setTitle("중복확인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .mainTintColor
+        $0.backgroundColor = .primary
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.addTarget(self, action: #selector(didTapNickNameCheckButton), for: .touchUpInside)
     }
@@ -163,9 +163,9 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         nickNameCheckButton.isHidden = true
     }
     
-    func sendValue(value: String) {
-        MBTITextField.text = value
-        print("from dialogView - \(value)")
+    func selectMBTI(mbti: String) {
+        MBTITextField.text = mbti
+        print("from dialogView - \(mbti)")
         enableNextButton()
     }
     

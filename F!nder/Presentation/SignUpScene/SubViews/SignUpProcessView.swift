@@ -19,7 +19,7 @@ final class SignUpProcessView: UIView {
     let insertImageView = UIImageView(image: UIImage(named: "signin_step1_orange"))
     let insertLabel = FinderLabel(text: " 정보 입력",
                                   font: .systemFont(ofSize: 14.0, weight: .medium),
-                                  textColor: .mainTintColor,
+                                  textColor: .primary,
                                   textAlignment: .center)
     
     let settingImageView = UIImageView(image: UIImage(named: "signin_step2_gray"))
@@ -131,7 +131,7 @@ private extension SignUpProcessView {
             insertImageView.image = UIImage(named: "signin_step1_orange")
             settingImageView.image = UIImage(named: "signin_step2_gray")
             completeImageView.image = UIImage(named: "signin_step3_gray")
-            insertLabel.textColor = .mainTintColor
+            insertLabel.textColor = .primary
             settingLabel.textColor = .grey5
             completeLabel.textColor = .grey5
             
@@ -140,7 +140,7 @@ private extension SignUpProcessView {
             settingImageView.image = UIImage(named: "signin_step2_orange")
             completeImageView.image = UIImage(named: "signin_step3_gray")
             insertLabel.textColor = .grey5
-            settingLabel.textColor = .mainTintColor
+            settingLabel.textColor = .primary
             completeLabel.textColor = .grey5
             
         case .completeSignUp:
@@ -149,7 +149,7 @@ private extension SignUpProcessView {
             completeImageView.image = UIImage(named: "signin_step3_orange")
             insertLabel.textColor = .grey5
             settingLabel.textColor = .grey5
-            completeLabel.textColor = .mainTintColor
+            completeLabel.textColor = .primary
         }
     }
 }

@@ -336,7 +336,7 @@ private extension WriteCommunityViewController {
     
     func attribute() {
         selectMBTIView.layer.cornerRadius = 21.0
-        selectMBTIView.layer.borderColor = UIColor.mainTintColor.cgColor
+        selectMBTIView.layer.borderColor = UIColor.primary.cgColor
         selectMBTIView.layer.borderWidth = 1.0
         questionButton.setImage(UIImage(named: "Group 986375"), for: .normal)
         questionButton.addTarget(self, action: #selector(didTapQuestionButton), for: .touchUpInside)
@@ -384,7 +384,7 @@ private extension WriteCommunityViewController {
         
         selectMBTILabel.text = "대상 MBTI 선택"
         selectMBTILabel.font = .systemFont(ofSize: 14.0, weight: .medium)
-        selectMBTILabel.textColor = .mainTintColor
+        selectMBTILabel.textColor = .primary
         
         selectMBTIImage.image = UIImage(named: "header_login")
         

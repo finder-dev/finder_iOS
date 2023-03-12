@@ -84,7 +84,7 @@ private extension SelectMBTIViewController {
     
     func isSelected(button:UIButton) {
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .mainTintColor
+        button.backgroundColor = .primary
         
         guard let mbti = button.title(for: .normal) else {
             print("오류 - selectMBTI dialLog : mbti가 버튼에 지정되어 있지 않습니다.")
@@ -92,7 +92,7 @@ private extension SelectMBTIViewController {
         }
         selectedMBTI = mbti
         confirmButton.isEnabled = true
-        confirmButton.backgroundColor = .mainTintColor
+        confirmButton.backgroundColor = .primary
         confirmButton.setTitleColor(.white, for: .normal)
     }
     

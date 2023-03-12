@@ -11,7 +11,7 @@ import SnapKit
 import SwiftUI
 
 protocol DialogViewControllerDelegate {
-    func sendValue(value : String)
+    func selectMBTI(mbti : String)
 }
 
 class DialogViewController: UIViewController {
@@ -133,7 +133,7 @@ class DialogViewController: UIViewController {
     
     @objc func didTapConfirmButton() {
         let mbti = mbtiArray.joined()
-        delegate.sendValue(value: mbti)
+        delegate.selectMBTI(mbti: mbti)
         self.dismiss(animated: true)
     }
     
@@ -370,7 +370,7 @@ extension DialogViewController {
     }
     
     func enableButtonState(button: UIButton) {
-        button.backgroundColor = .mainTintColor
+        button.backgroundColor = .primary
         button.setTitleColor(.white, for: .normal)
     }
     
@@ -381,7 +381,7 @@ extension DialogViewController {
     
     func enableConfirmButton() {
         confirmButton.setTitleColor(.white, for: .normal)
-        confirmButton.backgroundColor = .mainTintColor
+        confirmButton.backgroundColor = .primary
         confirmButton.isEnabled = true
     }
 }

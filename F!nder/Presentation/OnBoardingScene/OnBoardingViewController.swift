@@ -109,7 +109,7 @@ private extension OnBoardingViewController {
         stackView.spacing = 0
         
         pageControl.numberOfPages = onBoardImages.count
-        pageControl.currentPageIndicatorTintColor = .mainTintColor
+        pageControl.currentPageIndicatorTintColor = .primary
         
         for image in onBoardImages {
             let imageView = UIImageView()
@@ -122,7 +122,7 @@ private extension OnBoardingViewController {
         }
         
         skipButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .regular)
-        skipButton.setTitleColor(.mainTintColor, for: .normal)
+        skipButton.setTitleColor(.primary, for: .normal)
         skipButton.setTitle("SKIP", for: .normal)
         skipButton.isHidden = false
         skipButton.addTarget(self, action: #selector(tapSkipButton), for: .touchUpInside)

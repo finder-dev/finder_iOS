@@ -76,7 +76,7 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     private lazy var requestAuthButton = UIButton().then {
         $0.setTitle("인증요청", for: .normal)
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .mainTintColor
+        $0.backgroundColor = .primary
         $0.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .medium)
         $0.addTarget(self, action: #selector(didTapRequestAuthButton), for: .touchUpInside)
     }
@@ -109,7 +109,7 @@ extension InsertUserInfoViewController: AlertMessageDelegate {
         if from == "email" {
             self.codeAuthButton.isEnabled = true
             self.codeAuthButton.setTitleColor(.white, for: .normal)
-            self.codeAuthButton.backgroundColor = .mainTintColor
+            self.codeAuthButton.backgroundColor = .primary
         } else if from == "auth" {
             
         }
@@ -122,7 +122,7 @@ extension InsertUserInfoViewController {
     func checkEnableNextButtonOrNot() {
         if passwordIsSame && emailAuth && codeAuth {
             nextButton.isEnabled = true
-            nextButton.backgroundColor = .mainTintColor
+            nextButton.backgroundColor = .primary
             nextButton.setTitleColor(.white, for: .normal)
         } else {
             nextButton.isEnabled = false
@@ -144,7 +144,7 @@ extension InsertUserInfoViewController {
         } else {
             print("불일치")
             passwordCheckLabel.text = "동일하지 않은 비밀번호입니다"
-            passwordCheckLabel.textColor = .mainTintColor
+            passwordCheckLabel.textColor = .primary
             passwordIsSame = false
         }
     }
@@ -201,7 +201,7 @@ private extension InsertUserInfoViewController {
                                             title: "코드번호 발송 실패",
                                             message: "코드번호 발송을 실패했습니다.")
                         requestAuthButton.isEnabled = true
-                        requestAuthButton.backgroundColor = .mainTintColor
+                        requestAuthButton.backgroundColor = .primary
                         requestAuthButton.setTitleColor(.white, for: .normal)
                         emailAuth = false
                         
@@ -247,7 +247,7 @@ private extension InsertUserInfoViewController {
                                             message: "이메일 인증을 실패했습니다")
                         
                         codeAuthButton.isEnabled = true
-                        codeAuthButton.backgroundColor = .mainTintColor
+                        codeAuthButton.backgroundColor = .primary
                         codeAuthButton.setTitleColor(.white, for: .normal)
                         codeAuth = false
                     }
@@ -443,7 +443,7 @@ private extension InsertUserInfoViewController {
         insertUserInfoImageView.image = UIImage(named: "signin_step1_orange")
 
         insertUserInfoLabel.text = "정보 입력"
-        insertUserInfoLabel.textColor = .mainTintColor
+        insertUserInfoLabel.textColor = .primary
 
         setupProfileImageView.image = UIImage(named: "signin_step2_gray")
      

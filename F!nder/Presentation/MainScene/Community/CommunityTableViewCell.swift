@@ -61,8 +61,8 @@ class CommunityTableViewCell: UITableViewCell {
                 
         if data.likeUser {
             recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
-            recommentButton.tintColor = .mainTintColor
-            recommentLabel.textColor = .mainTintColor
+            recommentButton.tintColor = .primary
+            recommentLabel.textColor = .primary
         } else {
             recommentButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
             recommentLabel.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
