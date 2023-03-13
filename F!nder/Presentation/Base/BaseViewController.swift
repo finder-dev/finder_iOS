@@ -12,7 +12,6 @@ import SnapKit
 class BaseViewController: UIViewController {
     
     private let scrollView = UIScrollView()
-    let contentView = UIView()
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

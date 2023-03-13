@@ -102,7 +102,7 @@ final class SignUpViewController: BaseViewController {
         mbtiInsertView.rx.tapGesture()
             .skip(1)
             .subscribe(onNext: { [weak self] _ in
-                let nextVC = DialogViewController()
+                let nextVC = SelectMBTIElementViewController()
                 nextVC.modalPresentationStyle = .overFullScreen
                 nextVC.delegate = self
                 self?.present(nextVC, animated: true)
@@ -190,7 +190,7 @@ final class SignUpViewController: BaseViewController {
     }
 }
 
-extension SignUpViewController: DialogViewControllerDelegate {
+extension SignUpViewController: MBTIElementViewControllerDelegate {
     func selectMBTI(mbti: String) {
         self.mbtiInsertView.textField.text = mbti
         self.viewModel?.input.mbti.onNext(mbti)

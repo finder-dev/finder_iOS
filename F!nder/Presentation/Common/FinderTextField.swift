@@ -25,7 +25,7 @@ final class FinderTextField: UITextField {
         translatesAutoresizingMaskIntoConstraints = false
         
         self.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
-        self.layer.borderColor = UIColor.textFieldBorder.cgColor
+        self.layer.borderColor = UIColor.grey1.cgColor
         self.layer.borderWidth = 1.0
         self.addLeftPadding(padding: 20.0)
     }

@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate, AlertMessageDelegate {
+class EditUserInfoViewController: UIViewController, MBTIElementViewControllerDelegate, AlertMessageDelegate {
     
     func okButtonTapped(from: String) {
         if from == "DuplicatedNickName" {
@@ -51,14 +51,14 @@ class EditUserInfoViewController: UIViewController, DialogViewControllerDelegate
         $0.placeholder = "MBTI를 선택해주세요"
         $0.addLeftPadding(padding: 20.0)
         $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
-        $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+        $0.layer.borderColor = UIColor.grey1.cgColor
         $0.layer.borderWidth = 1.0
         $0.addTarget(self, action: #selector(didTapMBTITextField), for: .touchDown)
     }
     
     @objc func didTapMBTITextField() {
         print("didTapMBTITextFiedl")
-        let nextVC = DialogViewController()
+        let nextVC = SelectMBTIElementViewController()
         nextVC.delegate = self
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
@@ -267,7 +267,7 @@ private extension EditUserInfoViewController {
         [nickNameTextField,passwordTextField,passwordTextField2].forEach {
             $0.addLeftPadding(padding: 20.0)
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
-            $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+            $0.layer.borderColor = UIColor.grey1.cgColor
             $0.layer.borderWidth = 1.0
         }
         

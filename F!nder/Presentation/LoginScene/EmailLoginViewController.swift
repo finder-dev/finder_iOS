@@ -350,7 +350,7 @@ private extension EmailLoginViewController {
         
         [idTextField,passwordTextField].forEach {
             $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
-            $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+            $0.layer.borderColor = UIColor.grey1.cgColor
             $0.layer.borderWidth = 1.0
             $0.addLeftPadding(padding: 20.0)
 //            $0.delegate = self

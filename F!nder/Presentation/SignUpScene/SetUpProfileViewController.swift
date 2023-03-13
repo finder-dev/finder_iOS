@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate, AlertMessageDelegate {
+class SetUpProfileViewController: UIViewController, MBTIElementViewControllerDelegate, AlertMessageDelegate {
     func okButtonTapped(from: String) {
        
     }
@@ -96,7 +96,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         $0.placeholder = "MBTI를 선택해주세요"
         $0.addLeftPadding(padding: 20.0)
         $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
-        $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+        $0.layer.borderColor = UIColor.grey1.cgColor
         $0.layer.borderWidth = 1.0
         $0.addTarget(self, action: #selector(didTapMBTITextField), for: .touchDown)
     }
@@ -111,7 +111,7 @@ class SetUpProfileViewController: UIViewController, DialogViewControllerDelegate
         $0.placeholder = "6자 이내로 적어주세요"
         $0.addLeftPadding(padding: 20.0)
         $0.heightAnchor.constraint(equalToConstant: 54.0).isActive = true
-        $0.layer.borderColor = UIColor.textFieldBorder.cgColor
+        $0.layer.borderColor = UIColor.grey1.cgColor
         $0.layer.borderWidth = 1.0
     }
     
@@ -261,7 +261,7 @@ private extension SetUpProfileViewController {
     
     @objc func didTapMBTITextField() {
         print("didTapMBTITextFiedl")
-        let nextVC = DialogViewController()
+        let nextVC = SelectMBTIElementViewController()
         nextVC.delegate = self
         nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
