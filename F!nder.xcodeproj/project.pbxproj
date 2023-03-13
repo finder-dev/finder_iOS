@@ -43,6 +43,7 @@
 		2B27763229BCD0F00046B9D6 /* FinderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27763129BCD0F00046B9D6 /* FinderTextField.swift */; };
 		2B27763429BCD1B10046B9D6 /* SignupInsertDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27763329BCD1B10046B9D6 /* SignupInsertDataType.swift */; };
 		2B27763629BDBE270046B9D6 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27763529BDBE270046B9D6 /* SignUpViewModel.swift */; };
+		2B27763A29BE181E0046B9D6 /* MBTIElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B27763929BE181E0046B9D6 /* MBTIElementView.swift */; };
 		2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */; };
 		2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */; };
 		2B3E259B2863597E00C85193 /* CompleteSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */; };
@@ -69,7 +70,7 @@
 		2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */; };
 		2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */; };
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
-		2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* DialogViewController.swift */; };
+		2BA8F25328671DB200D64F0E /* SelectMBTIElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */; };
 		2BA8F2552867270400D64F0E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA8F2542867270400D64F0E /* Storyboard.storyboard */; };
 		2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponse.swift */; };
 		2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCode.swift */; };
@@ -150,6 +151,7 @@
 		2B27763129BCD0F00046B9D6 /* FinderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderTextField.swift; sourceTree = "<group>"; };
 		2B27763329BCD1B10046B9D6 /* SignupInsertDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInsertDataType.swift; sourceTree = "<group>"; };
 		2B27763529BDBE270046B9D6 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		2B27763929BE181E0046B9D6 /* MBTIElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTIElementView.swift; sourceTree = "<group>"; };
 		2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpProfileViewController.swift; sourceTree = "<group>"; };
 		2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsertUserInfoViewController.swift; sourceTree = "<group>"; };
 		2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteSignUpViewController.swift; sourceTree = "<group>"; };
@@ -175,7 +177,7 @@
 		2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageViewController.swift; sourceTree = "<group>"; };
 		2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		2BA8F25228671DB200D64F0E /* DialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogViewController.swift; sourceTree = "<group>"; };
+		2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIElementViewController.swift; sourceTree = "<group>"; };
 		2BA8F2542867270400D64F0E /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		2BA8F2572868906200D64F0E /* SendEmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailResponse.swift; sourceTree = "<group>"; };
 		2BA8F25928689AB100D64F0E /* F!nder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "F!nder.entitlements"; sourceTree = "<group>"; };
@@ -392,6 +394,23 @@
 			path = Base;
 			sourceTree = "<group>";
 		};
+		2B27763729BE17EE0046B9D6 /* SelectMBTIElement */ = {
+			isa = PBXGroup;
+			children = (
+				2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */,
+				2B27763829BE18030046B9D6 /* SubViews */,
+			);
+			path = SelectMBTIElement;
+			sourceTree = "<group>";
+		};
+		2B27763829BE18030046B9D6 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				2B27763929BE181E0046B9D6 /* MBTIElementView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		2B3E25952861FC5600C85193 /* SignUpScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,7 +420,7 @@
 				2B3E2598286358BF00C85193 /* InsertUserInfoViewController.swift */,
 				2B3E25962861FC6A00C85193 /* SetUpProfileViewController.swift */,
 				2B3E259A2863597E00C85193 /* CompleteSignUpViewController.swift */,
-				2BA8F25228671DB200D64F0E /* DialogViewController.swift */,
+				2B27763729BE17EE0046B9D6 /* SelectMBTIElement */,
 				2BA8F2542867270400D64F0E /* Storyboard.storyboard */,
 			);
 			path = SignUpScene;
@@ -795,12 +814,13 @@
 				2BE8BB5A2873360D0013F75B /* CALayer+Extension.swift in Sources */,
 				2B0252BF288EE4B10078D7F2 /* BottomSheetViewController.swift in Sources */,
 				2BAB6DAF2885B98A001DEE35 /* DetailDebate.swift in Sources */,
-				2BA8F25328671DB200D64F0E /* DialogViewController.swift in Sources */,
+				2BA8F25328671DB200D64F0E /* SelectMBTIElementViewController.swift in Sources */,
 				2B27762029BC4DB70046B9D6 /* BarView.swift in Sources */,
 				2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */,
 				2B27763429BCD1B10046B9D6 /* SignupInsertDataType.swift in Sources */,
 				2BA2E9AF287F10FB005DFE96 /* DiscussTableViewCell.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
+				2B27763A29BE181E0046B9D6 /* MBTIElementView.swift in Sources */,
 				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,
 				2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
