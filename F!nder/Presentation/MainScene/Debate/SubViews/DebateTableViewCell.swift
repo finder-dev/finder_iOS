@@ -12,17 +12,18 @@ final class DebateTableViewCell: UITableViewCell {
     
     static let identifier = "DebateTableViewCell"
     
-    let innerView = UIView()
-    let discussLabel = FinderLabel(text: "",
-                                   font: .systemFont(ofSize: 18.0, weight: .medium))
-    let personImageView = UIImageView()
-    let peopleCountLabel = FinderLabel(text: "",
-                                       font: .systemFont(ofSize: 14.0, weight: .regular),
-                                       textColor: .grey6)
-    let timeLabel = FinderLabel(text: "",
-                                font: .systemFont(ofSize: 14.0, weight: .bold),
-                                textColor: .primary)
-
+    private let innerView = UIView()
+    private let discussLabel = FinderLabel(text: "",
+                                           font: .systemFont(ofSize: 18.0, weight: .medium))
+    private let personImageView = UIImageView()
+    private let peopleCountLabel = FinderLabel(text: "",
+                                               font: .systemFont(ofSize: 14.0, weight: .regular),
+                                               textColor: .grey6)
+    private let timeLabel = FinderLabel(text: "",
+                                        font: .systemFont(ofSize: 14.0, weight: .bold),
+                                        textColor: .primary)
+    private let barView = BarView(barHeight: 1.0, barColor: .grey9)
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -33,18 +34,6 @@ final class DebateTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-//        innerView.backgroundColor = .yellow
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // cell간 간격 주기
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
     }
     
     func setupCell(data: DebateTableModel) {
@@ -59,15 +48,15 @@ private extension DebateTableViewCell {
     func addView(){
         self.contentView.addSubview(innerView)
         
-        [discussLabel, personImageView, peopleCountLabel, timeLabel].forEach {
+        [discussLabel, personImageView, peopleCountLabel, timeLabel, barView].forEach {
             innerView.addSubview($0)
         }
     }
     
     func setLayout() {
         innerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.height.equalTo(130)
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
         }
         
         discussLabel.snp.makeConstraints {
@@ -76,8 +65,8 @@ private extension DebateTableViewCell {
         
         personImageView.snp.makeConstraints {
             $0.width.height.equalTo(20.0)
-            $0.leading.equalTo(discussLabel)
-            $0.bottom.equalToSuperview().inset(20.0)
+            $0.leading.bottom.equalToSuperview().inset(20.0)
+            $0.top.equalTo(discussLabel.snp.bottom).offset(17.0)
         }
         
         peopleCountLabel.snp.makeConstraints {
@@ -89,10 +78,14 @@ private extension DebateTableViewCell {
             $0.centerY.equalTo(personImageView)
             $0.trailing.equalToSuperview().inset(20.0)
         }
+        
+        barView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
     
     func setupView() {
-        backgroundColor = UIColor(red: 247/255, green: 248/255, blue: 252/255, alpha: 1.0)
+        backgroundColor = .grey10
         innerView.backgroundColor = .white
         discussLabel.numberOfLines = 2
         personImageView.image = UIImage(named: "icon-user-mono")

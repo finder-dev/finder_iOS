@@ -25,6 +25,8 @@ final class DebateTableView: UITableView {
         separatorStyle = .none
         register(DebateTableViewCell.self,
                  forCellReuseIdentifier: DebateTableViewCell.identifier)
+        self.rowHeight = UITableView.automaticDimension
+        self.estimatedRowHeight = 130.0
     }
 }
 
