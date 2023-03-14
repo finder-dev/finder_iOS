@@ -24,6 +24,16 @@ struct debateContent : Codable {
     let joinCount: Int
     let debateState: String
     let deadline: String
+
+    
+    var toEntity: DebateTableModel {
+        
+       return DebateTableModel(debateId: debateId,
+                               debateTitle: title,
+                               joinState: "\(joinCount)명 참여",
+                               debateState: debateState,
+                               deadLine: deadline)
+    }
 }
 
 struct EveryDebateErrorResponse: Codable {
