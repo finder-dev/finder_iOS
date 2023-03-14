@@ -23,8 +23,8 @@ final class DebateTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         separatorStyle = .none
-        register(DiscussTableViewCell.self,
-                 forCellReuseIdentifier: DiscussTableViewCell.identifier)
+        register(DebateTableViewCell.self,
+                 forCellReuseIdentifier: DebateTableViewCell.identifier)
     }
 }
 

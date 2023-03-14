@@ -61,7 +61,7 @@
 		2B881DEB28A3F7D500ECD31A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B881DEA28A3F7D500ECD31A /* Extensions.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
-		2BA2E9AF287F10FB005DFE96 /* DiscussTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AE287F10FB005DFE96 /* DiscussTableViewCell.swift */; };
+		2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */; };
 		2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */; };
 		2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */; };
 		2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */; };
@@ -98,6 +98,7 @@
 		2BB455F128845B70001139E5 /* EveryCommunity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455F028845B70001139E5 /* EveryCommunity.swift */; };
 		2BB4B8F229C08838007D7004 /* EmptyDebateListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F129C08838007D7004 /* EmptyDebateListView.swift */; };
 		2BB4B8F429C089D4007D7004 /* DebateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F329C089D4007D7004 /* DebateTableView.swift */; };
+		2BB4B8F629C09062007D7004 /* DebateTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F529C09062007D7004 /* DebateTableModel.swift */; };
 		2BB760FD28A152290011CEBC /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB760FC28A152290011CEBC /* ReactorKit */; };
 		2BB760FF28A152460011CEBC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB760FE28A152460011CEBC /* LoginViewModel.swift */; };
 		2BB7610228A157E50011CEBC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB7610128A157E50011CEBC /* RxCocoa */; };
@@ -172,7 +173,7 @@
 		2B881DEA28A3F7D500ECD31A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
-		2BA2E9AE287F10FB005DFE96 /* DiscussTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussTableViewCell.swift; sourceTree = "<group>"; };
+		2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussDetailViewController.swift; sourceTree = "<group>"; };
 		2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDiscussViewController.swift; sourceTree = "<group>"; };
 		2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewCell.swift; sourceTree = "<group>"; };
@@ -207,6 +208,7 @@
 		2BB455F028845B70001139E5 /* EveryCommunity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryCommunity.swift; sourceTree = "<group>"; };
 		2BB4B8F129C08838007D7004 /* EmptyDebateListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDebateListView.swift; sourceTree = "<group>"; };
 		2BB4B8F329C089D4007D7004 /* DebateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableView.swift; sourceTree = "<group>"; };
+		2BB4B8F529C09062007D7004 /* DebateTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableModel.swift; sourceTree = "<group>"; };
 		2BB760FE28A152460011CEBC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,9 +309,7 @@
 		2B2775F829BAC8B60046B9D6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				2BA8F25C286C8DCB00D64F0E /* SignUp */,
-				2BB455E62883F848001139E5 /* Debate */,
-				2BB455EB2883FCC2001139E5 /* Community */,
+				2BB4B8F529C09062007D7004 /* DebateTableModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -486,7 +486,6 @@
 			children = (
 				2BAB811A29C0812800002987 /* SubViews */,
 				2BE7BE4D2873176C0062EB5A /* DebateListViewController.swift */,
-				2BA2E9AE287F10FB005DFE96 /* DiscussTableViewCell.swift */,
 				2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */,
 				2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */,
 				2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */,
@@ -554,6 +553,7 @@
 				2BAB811B29C0813D00002987 /* DebateListHeaderView.swift */,
 				2BB4B8F129C08838007D7004 /* EmptyDebateListView.swift */,
 				2BB4B8F329C089D4007D7004 /* DebateTableView.swift */,
+				2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -572,6 +572,9 @@
 		2BAEB1CE28A27DFF00D737C7 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				2BB455EB2883FCC2001139E5 /* Community */,
+				2BB455E62883F848001139E5 /* Debate */,
+				2BA8F25C286C8DCB00D64F0E /* SignUp */,
 				2BAEB1D128A27E1B00D737C7 /* UserAuthScene */,
 			);
 			path = Network;
@@ -839,7 +842,8 @@
 				2B27762029BC4DB70046B9D6 /* BarView.swift in Sources */,
 				2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */,
 				2B27763429BCD1B10046B9D6 /* SignupInsertDataType.swift in Sources */,
-				2BA2E9AF287F10FB005DFE96 /* DiscussTableViewCell.swift in Sources */,
+				2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */,
+				2BB4B8F629C09062007D7004 /* DebateTableModel.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BAB811929C0798200002987 /* BaseNavigationController.swift in Sources */,
 				2B27763A29BE181E0046B9D6 /* MBTIElementView.swift in Sources */,

@@ -8,21 +8,27 @@
 import UIKit
 import SnapKit
 
-class DiscussTableViewCell: UITableViewCell {
+final class DebateTableViewCell: UITableViewCell {
     
-    static let identifier = "DiscussTableViewCell"
+    static let identifier = "DebateTableViewCell"
     
     let innerView = UIView()
-    
-    let discussLabel = UILabel()
+    let discussLabel = FinderLabel(text: "",
+                                   font: .systemFont(ofSize: 18.0, weight: .medium))
     let personImageView = UIImageView()
-    let peopleCountLabel = UILabel()
-    let timeLabel = UILabel()
+    let peopleCountLabel = FinderLabel(text: "",
+                                       font: .systemFont(ofSize: 14.0, weight: .regular),
+                                       textColor: .grey6)
+    let timeLabel = FinderLabel(text: "",
+                                font: .systemFont(ofSize: 14.0, weight: .bold),
+                                textColor: .primary)
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        attribute()
-        layout()
+
+        addView()
+        setupView()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -41,32 +47,27 @@ class DiscussTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
     }
     
-    func setupCell(data: debateContent) {
-    
-        personImageView.image = UIImage(named: "icon-user-mono")
-//        timeLabel.text = "D-6"
-        
-        discussLabel.text = data.title
-        peopleCountLabel.text = "\(data.joinCount)명 참여"
-        timeLabel.text = data.deadline
+    func setupCell(data: DebateTableModel) {
+        discussLabel.text = data.debateTitle
+        peopleCountLabel.text = data.joinState
+        timeLabel.text = data.deadLine
     }
-
 }
 
-private extension DiscussTableViewCell {
-    func layout() {
+private extension DebateTableViewCell {
+    
+    func addView(){
         self.contentView.addSubview(innerView)
         
+        [discussLabel, personImageView, peopleCountLabel, timeLabel].forEach {
+            innerView.addSubview($0)
+        }
+    }
+    
+    func setLayout() {
         innerView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.height.equalTo(130)
-        }
-        
-        [discussLabel,
-         personImageView,
-         peopleCountLabel,
-         timeLabel].forEach {
-            innerView.addSubview($0)
         }
         
         discussLabel.snp.makeConstraints {
@@ -90,18 +91,10 @@ private extension DiscussTableViewCell {
         }
     }
     
-    func attribute() {
+    func setupView() {
         backgroundColor = UIColor(red: 247/255, green: 248/255, blue: 252/255, alpha: 1.0)
         innerView.backgroundColor = .white
-        
         discussLabel.numberOfLines = 2
-        discussLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
-        discussLabel.textColor = .black1
-        
-        peopleCountLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
-        peopleCountLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
-        
-        timeLabel.font = .systemFont(ofSize: 14.0, weight: .bold)
-        timeLabel.textColor = .primary
+        personImageView.image = UIImage(named: "icon-user-mono")
     }
 }

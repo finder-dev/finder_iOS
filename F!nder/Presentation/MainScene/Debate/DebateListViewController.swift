@@ -192,10 +192,10 @@ extension DebateListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DiscussTableViewCell.identifier, for: indexPath) as? DiscussTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateTableViewCell.identifier, for: indexPath) as? DebateTableViewCell else {
             return UITableViewCell()
         }
-        let data = tableViewData[indexPath.row]
+        let data = tableViewData[indexPath.row].toEntity
         cell.setupCell(data:data)
         return cell
     }
