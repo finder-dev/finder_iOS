@@ -112,7 +112,7 @@ final class HomeViewController: UIViewController {
             .subscribe(onNext: { [weak self] _ in
                 if self?.balanceGameDataStatus == .noData {
                     // 토론 생성 view
-                    self?.navigationController?.pushViewController(MakeDiscussViewController(), animated: true)
+                    self?.navigationController?.pushViewController(MakeDebateViewController(), animated: true)
                 } else {
                     // 토론 자세히 보기 view
                     let nextVC = DiscussDetailViewController()

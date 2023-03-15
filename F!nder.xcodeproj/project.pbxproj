@@ -63,7 +63,7 @@
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
 		2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */; };
 		2BA2E9B1287F17CE005DFE96 /* DiscussDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */; };
-		2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */; };
+		2BA2E9B32880424B005DFE96 /* MakeDebateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B22880424B005DFE96 /* MakeDebateViewController.swift */; };
 		2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */; };
 		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
 		2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */; };
@@ -176,7 +176,7 @@
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussDetailViewController.swift; sourceTree = "<group>"; };
-		2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDiscussViewController.swift; sourceTree = "<group>"; };
+		2BA2E9B22880424B005DFE96 /* MakeDebateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebateViewController.swift; sourceTree = "<group>"; };
 		2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
 		2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIViewController.swift; sourceTree = "<group>"; };
@@ -486,11 +486,11 @@
 		2BA51BC52877295D00D87533 /* Debate */ = {
 			isa = PBXGroup;
 			children = (
-				2BAB811A29C0812800002987 /* SubViews */,
 				2BE7BE4D2873176C0062EB5A /* DebateListViewController.swift */,
 				2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */,
+				2BAB811A29C0812800002987 /* SubViews */,
 				2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */,
-				2BA2E9B22880424B005DFE96 /* MakeDiscussViewController.swift */,
+				2BA2E9B22880424B005DFE96 /* MakeDebateViewController.swift */,
 				2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */,
 			);
 			path = Debate;
@@ -799,7 +799,7 @@
 				2B3E259D286362B400C85193 /* SignUpAPI.swift in Sources */,
 				2B27643C28732BB800C37C9A /* SearchViewController.swift in Sources */,
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
-				2BA2E9B32880424B005DFE96 /* MakeDiscussViewController.swift in Sources */,
+				2BA2E9B32880424B005DFE96 /* MakeDebateViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2B27762E29BCC9CC0046B9D6 /* BaseViewController.swift in Sources */,
 				2B27762B29BCBF530046B9D6 /* SignUpProcessView.swift in Sources */,
