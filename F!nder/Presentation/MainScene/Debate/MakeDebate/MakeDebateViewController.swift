@@ -9,22 +9,25 @@ import UIKit
 import SnapKit
 import RxSwift
 
-final class MakeDebateViewController: BaseViewController, UITextFieldDelegate {
+final class MakeDebateViewController: BaseViewController {
+    
+    // MARK: - Properties
+    
+    var viewModel: MakeDebateViewModel?
+    let debateNetwork = DebateAPI()
+    
+    // MARK: - Views
     
     let debateTitleTextField = UITextField()
     let textFieldA = UITextField()
     let textFieldB = UITextField()
-    
     let lineView1 = BarView(barHeight: 1.0, barColor: .grey11)
     let lineView2 = BarView(barHeight: 9.0, barColor: .grey10)
     let lineView3 = BarView(barHeight: 1.0, barColor: .grey11)
-    
     let infoLabel = FinderLabel(text: "토론은 일주일간 진행됩니다. \n올리면 수정, 삭제가 안되니 신중하게 적어주세요!",
                                 font: .systemFont(ofSize: 16.0, weight: .regular),
                                 textColor: .grey3)
-    
-    let debateNetwork = DebateAPI()
-    
+
     let completeButton = UIBarButtonItem(title: "완료",
                                          style: .plain,
                                          target: nil,
@@ -33,6 +36,18 @@ final class MakeDebateViewController: BaseViewController, UITextFieldDelegate {
                                                      style: .plain,
                                                      target: nil,
                                                      action: nil)
+    
+    // MARK: - Life Cycle
+    
+    init(viewModel: MakeDebateViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -93,12 +108,6 @@ final class MakeDebateViewController: BaseViewController, UITextFieldDelegate {
         completeButton.isEnabled = false
         self.navigationItem.rightBarButtonItem = completeButton
         self.navigationItem.leftBarButtonItem = closeButton
-        self.navigationItem.rightBarButtonItem?.tintColor = .lightGray
-        
-        [debateTitleTextField,textFieldA,textFieldB].forEach {
-            $0.delegate = self
-            $0.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-        }
         
         debateTitleTextField.placeholder = "토론 제목을 입력하세요."
         textFieldA.placeholder = "A선택지를 8자 이내로 입력해주세요"
@@ -113,39 +122,60 @@ final class MakeDebateViewController: BaseViewController, UITextFieldDelegate {
     }
     
     override func bindViewModel() {
-//        completeButton.rx.tap
-//            .subscribe(onNext: { [weak self] in
-//
-//            })
-//            .disposed(by: disposeBag)
-        
+
         closeButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
             })
             .disposed(by: disposeBag)
-    }
-}
-
-// textField
-extension MakeDebateViewController {
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let title = debateTitleTextField.text,
-              let optionA = textFieldA.text,
-              let optionB = textFieldB.text else {
-            return
-        }
         
-        if !title.isEmpty && !optionA.isEmpty && !optionB.isEmpty {
-            completeButton.isEnabled = true
-            completeButton.tintColor = .primary
-        } else {
-            completeButton.isEnabled = false
-            completeButton.tintColor = .lightGray
-        }
+        // MARK: Input
+        
+        completeButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.completeButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        debateTitleTextField.rx.text
+            .distinctUntilChanged()
+            .bind { [weak self] text in
+                self?.viewModel?.input.debateTitle.onNext(text)
+            }
+            .disposed(by: disposeBag)
+        
+        textFieldA.rx.text
+            .distinctUntilChanged()
+            .bind { [weak self] text in
+                self?.viewModel?.input.optionA.onNext(text)
+            }
+            .disposed(by: disposeBag)
+        
+        textFieldB.rx.text
+            .distinctUntilChanged()
+            .bind { [weak self] text in
+                self?.viewModel?.input.optionB.onNext(text)
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: Output
+        
+        self.viewModel?.output.isFilled
+            .subscribe(onNext: { [weak self] isFilled in
+                if isFilled {
+                    self?.completeButton.isEnabled = true
+                    self?.completeButton.tintColor = .primary
+                } else {
+                    self?.completeButton.isEnabled = false
+                    self?.completeButton.tintColor = .lightGray
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
+
+// TODO: 네트워크 로직 추후 수정
 extension MakeDebateViewController {
     
     @objc func didTapRightBarButton() {

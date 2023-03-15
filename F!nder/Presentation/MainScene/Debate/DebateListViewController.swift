@@ -105,7 +105,7 @@ final class DebateListViewController: BaseViewController {
     override func bindViewModel() {
         addBarButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                let nextVC = MakeDebateViewController()
+                let nextVC = MakeDebateViewController(viewModel: MakeDebateViewModel())
                 self?.navigationController?.pushViewController(nextVC, animated: true)
             })
             .disposed(by: disposeBag)

@@ -100,6 +100,8 @@
 		2BB4B8F429C089D4007D7004 /* DebateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F329C089D4007D7004 /* DebateTableView.swift */; };
 		2BB4B8F629C09062007D7004 /* DebateTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F529C09062007D7004 /* DebateTableModel.swift */; };
 		2BB4B8F829C095B2007D7004 /* DebateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */; };
+		2BB4B8FB29C17EE8007D7004 /* MakeDebateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */; };
+		2BB4B8FD29C181CC007D7004 /* DebateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8FC29C181CC007D7004 /* DebateModel.swift */; };
 		2BB760FD28A152290011CEBC /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB760FC28A152290011CEBC /* ReactorKit */; };
 		2BB760FF28A152460011CEBC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB760FE28A152460011CEBC /* LoginViewModel.swift */; };
 		2BB7610228A157E50011CEBC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB7610128A157E50011CEBC /* RxCocoa */; };
@@ -211,6 +213,8 @@
 		2BB4B8F329C089D4007D7004 /* DebateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableView.swift; sourceTree = "<group>"; };
 		2BB4B8F529C09062007D7004 /* DebateTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableModel.swift; sourceTree = "<group>"; };
 		2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateListViewModel.swift; sourceTree = "<group>"; };
+		2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebateViewModel.swift; sourceTree = "<group>"; };
+		2BB4B8FC29C181CC007D7004 /* DebateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateModel.swift; sourceTree = "<group>"; };
 		2BB760FE28A152460011CEBC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -312,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				2BB4B8F529C09062007D7004 /* DebateTableModel.swift */,
+				2BB4B8FC29C181CC007D7004 /* DebateModel.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -489,8 +494,8 @@
 				2BE7BE4D2873176C0062EB5A /* DebateListViewController.swift */,
 				2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */,
 				2BAB811A29C0812800002987 /* SubViews */,
+				2BB4B8F929C17EC6007D7004 /* MakeDebate */,
 				2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */,
-				2BA2E9B22880424B005DFE96 /* MakeDebateViewController.swift */,
 				2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */,
 			);
 			path = Debate;
@@ -643,6 +648,15 @@
 				2B557B0E288855DF0057CC9D /* NewCommunity.swift */,
 			);
 			path = Community;
+			sourceTree = "<group>";
+		};
+		2BB4B8F929C17EC6007D7004 /* MakeDebate */ = {
+			isa = PBXGroup;
+			children = (
+				2BA2E9B22880424B005DFE96 /* MakeDebateViewController.swift */,
+				2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */,
+			);
+			path = MakeDebate;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {
@@ -812,8 +826,10 @@
 				2BB455E52883F7EA001139E5 /* DebateAPI.swift in Sources */,
 				2B27643E28732DAD00C37C9A /* Label+Extensions.swift in Sources */,
 				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
+				2BB4B8FB29C17EE8007D7004 /* MakeDebateViewModel.swift in Sources */,
 				2BE7BE4C2873173B0062EB5A /* HomeViewController.swift in Sources */,
 				2BB455E82883F855001139E5 /* HotDebate.swift in Sources */,
+				2BB4B8FD29C181CC007D7004 /* DebateModel.swift in Sources */,
 				2B27761A29BB21CA0046B9D6 /* Popup1ViewController.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */,
