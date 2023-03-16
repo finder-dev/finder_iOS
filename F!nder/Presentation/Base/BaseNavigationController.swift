@@ -24,7 +24,7 @@ private extension BaseNavigationController {
         backButtonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.clear]
         
         let barButtonAppearance = UIBarButtonItemAppearance(style: .plain)
-        barButtonAppearance.normal.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 14.0, weight: .medium)]
+        barButtonAppearance.normal.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 14.0, weight: .medium), .foregroundColor: UIColor.black]
         
         let backButtonImage = UIImage(named: "backButton")?.withAlignmentRectInsets(UIEdgeInsets(top: 0.0, left: -8.0, bottom: 0.0, right: 0.0))
         

@@ -102,6 +102,7 @@
 		2BB4B8F829C095B2007D7004 /* DebateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */; };
 		2BB4B8FB29C17EE8007D7004 /* MakeDebateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */; };
 		2BB4B8FD29C181CC007D7004 /* DebateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8FC29C181CC007D7004 /* DebateModel.swift */; };
+		2BB4B90129C1951A007D7004 /* CommentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B90029C1951A007D7004 /* CommentTableView.swift */; };
 		2BB760FD28A152290011CEBC /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB760FC28A152290011CEBC /* ReactorKit */; };
 		2BB760FF28A152460011CEBC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB760FE28A152460011CEBC /* LoginViewModel.swift */; };
 		2BB7610228A157E50011CEBC /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB7610128A157E50011CEBC /* RxCocoa */; };
@@ -215,6 +216,7 @@
 		2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateListViewModel.swift; sourceTree = "<group>"; };
 		2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebateViewModel.swift; sourceTree = "<group>"; };
 		2BB4B8FC29C181CC007D7004 /* DebateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateModel.swift; sourceTree = "<group>"; };
+		2BB4B90029C1951A007D7004 /* CommentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableView.swift; sourceTree = "<group>"; };
 		2BB760FE28A152460011CEBC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,8 +497,7 @@
 				2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */,
 				2BAB811A29C0812800002987 /* SubViews */,
 				2BB4B8F929C17EC6007D7004 /* MakeDebate */,
-				2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */,
-				2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */,
+				2BB4B8FE29C1851F007D7004 /* DebateDetail */,
 			);
 			path = Debate;
 			sourceTree = "<group>";
@@ -657,6 +658,24 @@
 				2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */,
 			);
 			path = MakeDebate;
+			sourceTree = "<group>";
+		};
+		2BB4B8FE29C1851F007D7004 /* DebateDetail */ = {
+			isa = PBXGroup;
+			children = (
+				2BB4B8FF29C194FA007D7004 /* SubViews */,
+				2BA2E9B0287F17CE005DFE96 /* DiscussDetailViewController.swift */,
+			);
+			path = DebateDetail;
+			sourceTree = "<group>";
+		};
+		2BB4B8FF29C194FA007D7004 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				2B557B0A288843AB0057CC9D /* DebateCommentTableViewCell.swift */,
+				2BB4B90029C1951A007D7004 /* CommentTableView.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {
@@ -894,6 +913,7 @@
 				2B881DEB28A3F7D500ECD31A /* Extensions.swift in Sources */,
 				2BB455EA2883FCBD001139E5 /* CommunityAPI.swift in Sources */,
 				2BAB811C29C0813D00002987 /* DebateListHeaderView.swift in Sources */,
+				2BB4B90129C1951A007D7004 /* CommentTableView.swift in Sources */,
 				2BB455ED2883FD04001139E5 /* HotCommunity.swift in Sources */,
 				2B27761829BB20010046B9D6 /* ViewController+Ex.swift in Sources */,
 				2B3E25972861FC6A00C85193 /* SetUpProfileViewController.swift in Sources */,
