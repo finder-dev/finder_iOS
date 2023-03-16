@@ -8,6 +8,11 @@
 import UIKit
 import SnapKit
 
+enum DebateVoteViewAt {
+    case home
+    case detail
+}
+
 final class DebateVoteView: UIView {
 
     let debateTitleLabel = FinderLabel(text: "친구의 깻잎, 10 장이 엉겨붙었는데 \n애인이 떼줘도 된다 애인이 떼줘도 된다?",
@@ -15,22 +20,50 @@ final class DebateVoteView: UIView {
                                        textColor: .black1,
                                        textAlignment: .center)
     
-    var debateTimeLabel = FinderLabel(text: "남은 시간 D-3",
+    let debateTimeLabel = FinderLabel(text: "남은 시간 D-3",
                                       font: .systemFont(ofSize: 12.0, weight: .regular),
                                       textColor: UIColor(red: 154/255, green: 154/255, blue: 154/255, alpha: 1.0),
                                       textAlignment: .center)
     var buttonA = UIButton()
-    var buttonACountLabel = UILabel()
+    let buttonACountLabel = FinderLabel(text: "0",
+                                        font: .systemFont(ofSize: 44.0, weight: .bold),
+                                        textColor: .grey3, textAlignment: .center)
+    
     var buttonB = UIButton()
     var buttonStackView = UIStackView()
-    var buttonBCountLabel = UILabel()
+    let buttonBCountLabel = FinderLabel(text: "0",
+                                        font: .systemFont(ofSize: 44.0, weight: .bold),
+                                        textColor: .grey3, textAlignment: .center)
     var buttonAImageView = UIImageView()
     var buttonBImageView = UIImageView()
+    let userMBTILabel = FinderLabel(text: "ENTJ",
+                                    font: .systemFont(ofSize: 12.0, weight: .regular),
+                                    textColor: .grey6)
+    let dotLabel = FinderLabel(text: "•",
+                               font: .systemFont(ofSize: 12.0, weight: .regular),
+                               textColor: .grey6)
+    let userNameLabel = FinderLabel(text: "수완완",
+                                    font: .systemFont(ofSize: 12.0, weight: .regular),
+                                    textColor: .grey6)
+    let commentCountLabel = FinderLabel(text: "댓글 3",
+                                        font: .systemFont(ofSize: 12.0, weight: .regular),
+                                        textColor: .grey6)
     var agreeButtonConstraints: NSLayoutConstraint!
     var disAgreeButtonConstraints: NSLayoutConstraint!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    public init(at: DebateVoteViewAt) {
+        switch at {
+        case .home:
+            [userMBTILabel, userNameLabel, commentCountLabel, dotLabel].forEach {
+                $0.isHidden = true
+            }
+        case .detail:
+            [userMBTILabel, userNameLabel, commentCountLabel, dotLabel].forEach {
+                $0.isHidden = false
+            }
+        }
+        
+        super.init(frame: .zero)
         addSubview()
         setLayout()
         setupView()
@@ -62,7 +95,8 @@ private extension DebateVoteView {
     
     func addSubview() {
         [debateTitleLabel,debateTimeLabel, buttonACountLabel, buttonBCountLabel,
-         buttonA, buttonB, buttonAImageView, buttonBImageView, buttonStackView].forEach {
+         buttonA, buttonB, buttonAImageView, buttonBImageView, buttonStackView,
+         userMBTILabel, dotLabel, userNameLabel, commentCountLabel].forEach {
             self.addSubview($0)
         }
         
@@ -80,14 +114,13 @@ private extension DebateVoteView {
         
         debateTimeLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(debateTitleLabel.snp.bottom).offset(4.0)
+            $0.top.equalTo(debateTitleLabel.snp.bottom).offset(6.0)
         }
         
         buttonStackView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20.0)
             $0.top.equalTo(debateTitleLabel.snp.bottom).offset(75.0)
             $0.height.equalTo(55.0)
-            $0.bottom.equalToSuperview().inset(36.0)
         }
         
         buttonACountLabel.snp.makeConstraints {
@@ -108,6 +141,27 @@ private extension DebateVoteView {
             $0.trailing.equalTo(buttonStackView)
         }
         
+        userMBTILabel.snp.makeConstraints {
+            $0.top.equalTo(buttonStackView.snp.bottom).offset(37.0)
+            $0.leading.equalTo(buttonStackView)
+            $0.bottom.equalToSuperview().inset(16.0)
+        }
+        
+        dotLabel.snp.makeConstraints {
+            $0.centerY.equalTo(userMBTILabel)
+            $0.leading.equalTo(userMBTILabel.snp.trailing).offset(8.0)
+        }
+        
+        userNameLabel.snp.makeConstraints {
+            $0.centerY.equalTo(userMBTILabel)
+            $0.leading.equalTo(dotLabel.snp.trailing).offset(8.0)
+        }
+        
+        commentCountLabel.snp.makeConstraints {
+            $0.centerY.equalTo(userNameLabel)
+            $0.trailing.equalTo(buttonStackView)
+        }
+        
         agreeButtonConstraints = self.buttonACountLabel.topAnchor.constraint(equalTo: debateTimeLabel.bottomAnchor,
                                                                              constant: 22.0)
         disAgreeButtonConstraints = self.buttonBCountLabel.topAnchor.constraint(equalTo: debateTimeLabel.bottomAnchor,
@@ -117,13 +171,7 @@ private extension DebateVoteView {
     }
     
     func setupView() {
-        
-        [buttonACountLabel,buttonBCountLabel].forEach {
-            $0.font = .systemFont(ofSize: 44.0, weight: .bold)
-            $0.textColor = UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0)
-            $0.text = "0"
-            $0.textAlignment = .center
-        }
+        debateTitleLabel.setLineHeight(lineHeight: 24.0)
         
         buttonA.setTitle("test", for: .normal)
         buttonB.setTitle("test", for: .normal)
@@ -133,7 +181,7 @@ private extension DebateVoteView {
         
         [buttonA,buttonB].forEach {
             $0.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .bold)
-            $0.setTitleColor(UIColor(red: 188/255, green: 188/255, blue: 188/255, alpha: 1.0), for: .normal)
+            $0.setTitleColor(.grey3, for: .normal)
             $0.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
             $0.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         }
@@ -141,8 +189,8 @@ private extension DebateVoteView {
         buttonA.contentHorizontalAlignment = .left
         buttonB.contentHorizontalAlignment = .right
         
-        buttonA.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 0, right: 0)
-        buttonB.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20.0)
+        buttonA.titleEdgeInsets.left = 20.0
+        buttonB.titleEdgeInsets.right = 20.0
                 
         [buttonAImageView,buttonBImageView].forEach {
             $0.image = UIImage(named: "Frame 986295")

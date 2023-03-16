@@ -51,7 +51,7 @@ final class HomeViewController: UIViewController {
                                        textAlignment: .center)
     
     let emptyDebateView = EmptyDebateView()
-    let debateVoteView = DebateVoteView()
+    let debateVoteView = DebateVoteView(at: .home)
     let goBalanceGameButton = UIButton()
     let barView2 = BarView(barHeight: 10.0, barColor: .grey4)
     let tableView = UITableView()
@@ -116,10 +116,12 @@ final class HomeViewController: UIViewController {
                 } else {
                     // 토론 자세히 보기 view
                     let nextVC = DiscussDetailViewController()
-                    if let debateID = self?.debateID {
-                        nextVC.debateID = debateID
-                        self?.navigationController?.pushViewController(nextVC, animated: true)
-                    }
+                    // TODO : 서버 오픈되면 수정
+                    self?.navigationController?.pushViewController(nextVC, animated: true)
+//                    if let debateID = self?.debateID {
+//                        nextVC.debateID = debateID
+//                        self?.navigationController?.pushViewController(nextVC, animated: true)
+//                    }
                 }
             })
             .disposed(by: disposeBag)

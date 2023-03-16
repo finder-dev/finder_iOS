@@ -19,8 +19,8 @@ final class MakeDebateViewController: BaseViewController {
     // MARK: - Views
     
     let debateTitleTextField = UITextField()
-    let textFieldA = UITextField()
-    let textFieldB = UITextField()
+    let optionATextField = UITextField()
+    let optionBTextField = UITextField()
     let lineView1 = BarView(barHeight: 1.0, barColor: .grey11)
     let lineView2 = BarView(barHeight: 9.0, barColor: .grey10)
     let lineView3 = BarView(barHeight: 1.0, barColor: .grey11)
@@ -54,7 +54,7 @@ final class MakeDebateViewController: BaseViewController {
     
     override func addView() {
         
-        [debateTitleTextField, textFieldA, textFieldB, lineView1, lineView2, lineView3,
+        [debateTitleTextField, optionATextField, optionBTextField, lineView1, lineView2, lineView3,
          infoLabel].forEach {
             self.view.addSubview($0)
         }
@@ -74,20 +74,20 @@ final class MakeDebateViewController: BaseViewController {
             $0.top.equalTo(debateTitleTextField.snp.bottom)
         }
         
-        textFieldA.snp.makeConstraints {
+        optionATextField.snp.makeConstraints {
             $0.top.equalTo(lineView1.snp.bottom).offset(15.5)
             $0.leading.trailing.equalToSuperview().inset(20.0)
             $0.height.equalTo(52.0)
         }
         
-        textFieldB.snp.makeConstraints {
-            $0.top.equalTo(textFieldA.snp.bottom).offset(12.0)
-            $0.leading.trailing.equalTo(textFieldA)
+        optionBTextField.snp.makeConstraints {
+            $0.top.equalTo(optionATextField.snp.bottom).offset(12.0)
+            $0.leading.trailing.equalTo(optionATextField)
             $0.height.equalTo(52.0)
         }
         
         lineView2.snp.makeConstraints {
-            $0.top.equalTo(textFieldB.snp.bottom).offset(24.0)
+            $0.top.equalTo(optionBTextField.snp.bottom).offset(24.0)
             $0.leading.trailing.equalToSuperview()
         }
         
@@ -110,10 +110,10 @@ final class MakeDebateViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = closeButton
         
         debateTitleTextField.placeholder = "토론 제목을 입력하세요."
-        textFieldA.placeholder = "A선택지를 8자 이내로 입력해주세요"
-        textFieldB.placeholder = "B선택지를 8자 이내로 입력해주세요"
+        optionATextField.placeholder = "A선택지를 8자 이내로 입력해주세요"
+        optionBTextField.placeholder = "B선택지를 8자 이내로 입력해주세요"
         
-        [textFieldA,textFieldB].forEach {
+        [optionATextField,optionBTextField].forEach {
             $0.backgroundColor = .grey11.withAlphaComponent(0.5)
             $0.addLeftPadding(padding: 12.0)
         }
@@ -144,14 +144,14 @@ final class MakeDebateViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        textFieldA.rx.text
+        optionATextField.rx.text
             .distinctUntilChanged()
             .bind { [weak self] text in
                 self?.viewModel?.input.optionA.onNext(text)
             }
             .disposed(by: disposeBag)
         
-        textFieldB.rx.text
+        optionBTextField.rx.text
             .distinctUntilChanged()
             .bind { [weak self] text in
                 self?.viewModel?.input.optionB.onNext(text)
@@ -182,8 +182,8 @@ extension MakeDebateViewController {
         print("didTapRightBarButton")
         
         guard let title = debateTitleTextField.text,
-              let optionA = textFieldA.text,
-              let optionB = textFieldB.text else {
+              let optionA = optionATextField.text,
+              let optionB = optionBTextField.text else {
             return
         }
     
