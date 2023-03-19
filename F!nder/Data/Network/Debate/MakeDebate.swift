@@ -11,6 +11,7 @@ struct MakeDebateResponse : Codable {
     let success: Bool
     let response: MakeDebateSuccessResponse?
     let errorResponse: ErrorReponseDTO?
+}
 
 struct MakeDebateSuccessResponse : Codable {
     let debateId: Int

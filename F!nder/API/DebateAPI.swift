@@ -176,7 +176,7 @@ struct DebateAPI {
     
     // 토론 자세히 보기
     func requestDebateDetail(debateID:Int,
-                             completionHandler: @escaping (Result<DetailDebateResponse,Error>)-> Void) {
+                             completionHandler: @escaping (Result<DetailDebateResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/\(debateID)")
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
@@ -197,7 +197,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(DetailDebateResponse.self, from: data) else {
+            guard let json = try? decoder.decode(DetailDebateResponseDTO.self, from: data) else {
                 print("json decode error\(error?.localizedDescription)")
                 return
             }

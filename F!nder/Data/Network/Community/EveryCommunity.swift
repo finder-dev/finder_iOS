@@ -23,6 +23,7 @@ struct EveryCommunityResponse : Codable {
     let success: Bool
     let response: EveryCommunitySuccessResponse?
     let errorResponse: ErrorReponseDTO?
+}
 
 struct EveryCommunitySuccessResponse : Codable {
     let content: [content]

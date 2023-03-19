@@ -11,6 +11,7 @@ struct SendEmailResponse: Codable {
     let success : Bool
     let response : SendEmailSuccessResponse?
     let errorResponse : ErrorReponseDTO?
+}
 
 struct SendEmailSuccessResponse : Codable {
     let message: String

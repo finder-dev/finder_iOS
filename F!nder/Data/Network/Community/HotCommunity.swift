@@ -11,6 +11,7 @@ struct HotCommunityResponse : Codable {
     let success: Bool
     let response: [HotCommunitySuccessResponse]
     let errorResponse: ErrorReponseDTO?
+}
 
 struct HotCommunitySuccessResponse : Codable {
     let communityId: Int

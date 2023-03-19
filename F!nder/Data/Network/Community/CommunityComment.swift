@@ -19,6 +19,7 @@ struct CommunityCommentResponse : Codable {
     let success: Bool
     let response: CommunityCommentSuccessResponse?
     let errorResponse: ErrorReponseDTO?
+}
 
 struct CommunityCommentSuccessResponse : Codable {
     let communityAnswerId: Int
