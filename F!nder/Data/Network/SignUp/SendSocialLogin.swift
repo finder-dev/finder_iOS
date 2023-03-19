@@ -22,7 +22,7 @@ struct SendSocialLogin {
 struct SocialLoginResponse : Codable {
     let success: Bool
     let response: SocialLoginSuccessResponse?
-    let errorResponse: SocailLoginErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct SocialLoginSuccessResponse: Codable {
@@ -31,9 +31,4 @@ struct SocialLoginSuccessResponse: Codable {
     let accessTokenExpireTime: String
     let refreshToken: String
     let refreshTokenExpireTime: String
-}
-
-struct SocailLoginErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

@@ -24,7 +24,7 @@ struct SendSignUp {
 struct SignUpResponse : Codable {
     let success: Bool
     let response: SignUpSuccessResponse?
-    let errorResponse: SignUpErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct SignUpSuccessResponse: Codable {
@@ -33,9 +33,4 @@ struct SignUpSuccessResponse: Codable {
     let accessTokenExpireTime: String
     let refreshToken: String
     let refreshTokenExpireTime: String
-}
-
-struct SignUpErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

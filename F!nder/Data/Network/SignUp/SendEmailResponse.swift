@@ -10,16 +10,10 @@ import Foundation
 struct SendEmailResponse: Codable {
     let success : Bool
     let response : SendEmailSuccessResponse?
-    let errorResponse : SendEmailErrorResponse?
-}
+    let errorResponse : ErrorReponseDTO?
 
 struct SendEmailSuccessResponse : Codable {
     let message: String
-}
-
-struct SendEmailErrorResponse : Codable {
-    let status : Int
-    let errorMessages : [String]
 }
 
 struct SendEmail : Codable {

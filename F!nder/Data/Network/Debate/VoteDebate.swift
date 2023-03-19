@@ -10,15 +10,10 @@ import Foundation
 struct VoteDebateResponse : Codable {
     let success: Bool
     let response: VoteDebateSuccessResponse?
-    let errorResponse: VoteDebateErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct VoteDebateSuccessResponse : Codable {
     let message: String
     let option:String
-}
-
-struct VoteDebateErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

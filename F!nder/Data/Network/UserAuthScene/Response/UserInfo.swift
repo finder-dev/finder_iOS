@@ -10,7 +10,7 @@ import Foundation
 struct UserInfoResponse : Codable {
     let success: Bool
     let response: UserInfoSuccessResponse?
-    let errorResponse: UserInfoErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct UserInfoSuccessResponse : Codable {
@@ -20,7 +20,3 @@ struct UserInfoSuccessResponse : Codable {
     let nickname: String
 }
 
-struct UserInfoErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
-}

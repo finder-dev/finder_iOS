@@ -10,14 +10,9 @@ import Foundation
 struct SaveCommunityResponse : Codable {
     let success: Bool
     let response: SaveCommunitySuccessResponse?
-    let errorResponse: SaveCommunityErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct SaveCommunitySuccessResponse : Codable {
     let message: String
-}
-
-struct SaveCommunityErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

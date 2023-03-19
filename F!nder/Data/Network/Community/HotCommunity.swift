@@ -10,15 +10,9 @@ import Foundation
 struct HotCommunityResponse : Codable {
     let success: Bool
     let response: [HotCommunitySuccessResponse]
-    let errorResponse: HotCommunityErrorResponse?
-}
+    let errorResponse: ErrorReponseDTO?
 
 struct HotCommunitySuccessResponse : Codable {
     let communityId: Int
     let title: String
-}
-
-struct HotCommunityErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

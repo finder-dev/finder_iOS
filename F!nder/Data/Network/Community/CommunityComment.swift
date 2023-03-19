@@ -18,14 +18,8 @@ struct CommunityComment {
 struct CommunityCommentResponse : Codable {
     let success: Bool
     let response: CommunityCommentSuccessResponse?
-    let errorResponse: CommunityCommentErrorResponse?
-}
+    let errorResponse: ErrorReponseDTO?
 
 struct CommunityCommentSuccessResponse : Codable {
     let communityAnswerId: Int
-}
-
-struct CommunityCommentErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

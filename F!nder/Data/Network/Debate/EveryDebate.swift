@@ -10,7 +10,7 @@ import Foundation
 struct EveryDebateResponse : Codable {
     let success: Bool
     let response: EveryDebateSuccessResponse?
-    let errorResponse: EveryDebateErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct EveryDebateSuccessResponse : Codable {
@@ -34,9 +34,4 @@ struct debateContent : Codable {
                                debateState: debateState,
                                deadLine: deadline)
     }
-}
-
-struct EveryDebateErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

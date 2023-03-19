@@ -10,15 +10,10 @@ import Foundation
 struct ChangeUserInfoResponse : Codable {
     let success: Bool
     let response: ChangeUserInfoSuccessResponse?
-    let errorResponse: ChangeUserInfoErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct ChangeUserInfoSuccessResponse : Codable {
     let mbti: String
     let nickname: String
-}
-
-struct ChangeUserInfoErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

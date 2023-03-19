@@ -24,14 +24,10 @@ struct NewCommunity {
 struct NewCommunityResponse : Codable {
     let success: Bool
     let response: NewCommunitySuccessResponse?
-    let errorResponse: NewCommunityErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct NewCommunitySuccessResponse : Codable {
     let communityId: Int
 }
 
-struct NewCommunityErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
-}

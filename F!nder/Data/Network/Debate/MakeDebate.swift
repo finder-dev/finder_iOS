@@ -10,14 +10,8 @@ import Foundation
 struct MakeDebateResponse : Codable {
     let success: Bool
     let response: MakeDebateSuccessResponse?
-    let errorResponse: MakeDebateErrorResponse?
-}
+    let errorResponse: ErrorReponseDTO?
 
 struct MakeDebateSuccessResponse : Codable {
     let debateId: Int
-}
-
-struct MakeDebateErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

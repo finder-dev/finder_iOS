@@ -22,8 +22,7 @@ struct EveryCommunity {
 struct EveryCommunityResponse : Codable {
     let success: Bool
     let response: EveryCommunitySuccessResponse?
-    let errorResponse: EveryCommunityErrorResponse?
-}
+    let errorResponse: ErrorReponseDTO?
 
 struct EveryCommunitySuccessResponse : Codable {
     let content: [content]
@@ -43,9 +42,4 @@ struct content : Codable {
     let answerCount: Int
     let isQuestion: Bool
     let createTime: String
-}
-
-struct EveryCommunityErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

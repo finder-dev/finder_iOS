@@ -19,14 +19,9 @@ struct SendCode {
 struct SendCodeResponse: Codable {
     let success : Bool
     let response : SendCodeSuccessResponse?
-    let errorResponse : SendCodeErrorResponse?
+    let errorResponse : ErrorReponseDTO?
 }
 
 struct SendCodeSuccessResponse : Codable {
     let message: String
-}
-
-struct SendCodeErrorResponse : Codable {
-    let status : Int
-    let errorMessages : [String]
 }

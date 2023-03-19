@@ -20,7 +20,7 @@ struct SendLogin {
 struct LoginResponse : Codable {
     let success: Bool
     let response: LoginSuccessResponse?
-    let errorResponse: LoginErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct LoginSuccessResponse: Codable {
@@ -29,9 +29,4 @@ struct LoginSuccessResponse: Codable {
     let accessTokenExpireTime: String
     let refreshToken: String
     let refreshTokenExpireTime: String
-}
-
-struct LoginErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

@@ -10,14 +10,10 @@ import Foundation
 struct DebateCommentResponse : Codable {
     let success: Bool
     let response: DebateCommentSuccessResponse?
-    let errorResponse: DebateCommentErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct DebateCommentSuccessResponse : Codable {
     let debateAnswerId: Int
 }
 
-struct DebateCommentErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
-}

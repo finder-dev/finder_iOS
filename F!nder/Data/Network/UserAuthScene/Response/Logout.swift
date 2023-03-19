@@ -10,14 +10,9 @@ import Foundation
 struct LogoutResponse : Codable {
     let success: Bool
     let response: LogoutSuccessResponse?
-    let errorResponse: LogoutErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct LogoutSuccessResponse : Codable {
     let message: String
-}
-
-struct LogoutErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

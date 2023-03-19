@@ -10,7 +10,7 @@ import Foundation
 struct DetailCommunityResponse : Codable {
     let success: Bool
     let response: DetailCommunitySuccessResponse?
-    let errorResponse: DetailCommunityErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct DetailCommunitySuccessResponse : Codable {
@@ -28,7 +28,7 @@ struct DetailCommunitySuccessResponse : Codable {
     let answerCount: Int
     let isQuestion: Bool
     let createTime: String
-    let answerHistDtos : [answerHistDtos]?
+    let answerHistDtos : [AnswerDTO]?
 }
 
 struct DetailContent : Codable {
@@ -46,9 +46,4 @@ struct DetailContent : Codable {
     let answerCount: Int
     let isQuestion: Bool
     let createTime: String
-}
-
-struct DetailCommunityErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }

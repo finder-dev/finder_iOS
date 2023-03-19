@@ -10,7 +10,7 @@ import Foundation
 struct HotDebateResponse : Codable {
     let success: Bool
     let response: HotDebateSuccessResponse?
-    let errorResponse: HotDebateErrorResponse?
+    let errorResponse: ErrorReponseDTO?
 }
 
 struct HotDebateSuccessResponse : Codable {
@@ -23,9 +23,4 @@ struct HotDebateSuccessResponse : Codable {
     let join: Bool
     let joinOption: String?
     let deadline: String
-}
-
-struct HotDebateErrorResponse: Codable {
-    let status: Int
-    let errorMessages: [String]
 }
