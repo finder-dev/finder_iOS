@@ -19,4 +19,17 @@ extension UIViewController {
 
         present(popUp, animated: false)
     }
+    
+    func showPopUp2(title: String, message: String,
+                    leftButtonText: String, rightButtonText: String,
+                    leftButtonAction: @escaping () -> Void, rightButtonAction: @escaping () -> Void) {
+
+        let popUp = Popup2ViewController(title: title, message: message,
+                                         leftButtonText: leftButtonText,
+                                         rightButtonText: rightButtonText,
+                                         leftButtonAction: leftButtonAction,
+                                         rightButtonAction: rightButtonAction)
+
+        present(popUp, animated: false)
+    }
 }
