@@ -9,19 +9,21 @@ import UIKit
 import SnapKit
 
 protocol CommentCellDelegate {
-    func report(answerID:Int)
-    func delete(answerID:Int)
+    func report(userID:Int)
+    func delete(commentID:Int)
 }
 
-class DebateCommentTableViewCell: UITableViewCell {
+final class CommentTableViewCell: UITableViewCell {
 
-    static let identifier = " DebateCommentTableViewCell"
+    static let identifier = "CommentTableViewCell"
     
     let innerView = UIView()
     let userMBTILabel = UILabel()
     let userNameLabel = UILabel()
     let timeLabel = UILabel()
-    let commentLabel = UILabel()
+    let commentLabel = FinderLabel(text: "",
+                                   font: .systemFont(ofSize: 14.0, weight: .regular),
+                                   textColor: .black1)
     let dotButton = UIButton()
     
     var userID: Int = -1
@@ -38,33 +40,18 @@ class DebateCommentTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
-    func setupCell(data:answerHistDtos) {
+    func setupCell(data: Answer) {
         userMBTILabel.text = data.userMBTI
         userNameLabel.text = " • \(data.userNickname)"
-//        userNameLabel.text = data.userNickname
         timeLabel.text = data.createTime
         commentLabel.text = data.answerContent
         userID = data.userId
         answerID = data.answerId
-        
-    }
-    
-    func setupCell() {
-        userMBTILabel.text = "test"
-        userNameLabel.text = "test"
-        timeLabel.text = "test"
-        commentLabel.text = "test"
     }
 }
 
-extension DebateCommentTableViewCell {
+extension CommentTableViewCell {
     func layout() {
         self.contentView.addSubview(innerView)
         
@@ -100,10 +87,10 @@ extension DebateCommentTableViewCell {
         
         commentLabel.snp.makeConstraints {
             $0.top.equalTo(userMBTILabel.snp.bottom).offset(4.0)
-            $0.leading.trailing.equalToSuperview().inset(20.0)
+            $0.leading.equalToSuperview().inset(20.0)
+            $0.trailing.equalToSuperview().inset(60.0)
             $0.bottom.equalToSuperview().inset(16.0)
         }
-       
     }
     
     func attribute() {
@@ -114,12 +101,6 @@ extension DebateCommentTableViewCell {
             $0.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
         }
         
-        commentLabel.font = .systemFont(ofSize: 14.0, weight: .regular)
-        commentLabel.textColor = .black1
-        commentLabel.numberOfLines = 0
-        
-        commentLabel.text = "test"
-        
         dotButton.setImage(UIImage(named: "icon-dots-mono"), for: .normal)
         dotButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
     }
@@ -128,12 +109,9 @@ extension DebateCommentTableViewCell {
         let userId = UserDefaultsData.userId
         
         if self.userID != userId {
-            print("userID 다름")
-            self.delegate.report(answerID: self.answerID)
+            self.delegate.report(userID: self.answerID)
         } else {
-            print("userID 같음")
-            self.delegate.delete(answerID: self.answerID)
+            self.delegate.delete(commentID: self.answerID)
         }
     }
-    
 }

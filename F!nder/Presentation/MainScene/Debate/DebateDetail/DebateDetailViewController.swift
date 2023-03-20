@@ -9,15 +9,17 @@ import UIKit
 import SnapKit
 import SwiftUI
 import PanModal
+import RxSwift
+import RxCocoa
 
 /*
  * 토론 상세 뷰 입니다.
  */
-final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate{
+final class DebateDetailViewController: BaseViewController {
     
     // MARK: - Properties
     
-    var commentDataList = [answerHistDtos]()
+    var viewModel: DebateDetailViewModel?
     var debateID : Int?
     var writerID = -1
     let debateNetwork = DebateAPI()
@@ -29,16 +31,24 @@ final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate
     let spaceView = BarView(barHeight: 24.0, barColor: .white)
     let debateDetailView = DebateVoteView(at: .detail)
     var barView = BarView(barHeight: 10.0, barColor: .grey10)
-    var commentView = UIView()
     var commentTextField = UITextField()
     let addCommentButton = UIButton()
-    var btnView = UIButton()
-    let tableView = CommentTableView()
+    let commentTableView = CommentTableView()
     let reportButton = UIBarButtonItem(image: UIImage(named: "icon-siren-mono"),
                                          style: .plain,
                                          target: nil,
                                          action: nil)
-    lazy var constraint = commentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    lazy var tableViewHeightConstraint = commentTableView.heightAnchor.constraint(equalToConstant: 200.0)
+    // MARK: - Life Cycle
+    
+    init(viewModel: DebateDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,11 +58,9 @@ final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate
     override func addView() {
         super.addView()
         
-        [spaceView, debateDetailView, barView, tableView].forEach {
+        [spaceView, debateDetailView, barView, commentTableView].forEach {
             stackView.addArrangedSubview($0)
         }
-        
-        self.view.addSubview(commentView)
         
         [commentTextField, addCommentButton].forEach {
             commentView.addSubview($0)
@@ -62,14 +70,10 @@ final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate
     override func setLayout() {
         super.setLayout()
         
-        commentView.snp.makeConstraints {
-            $0.bottom.leading.trailing.equalToSuperview()
-            $0.height.equalTo(78.0)
-        }
-        
         commentTextField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20.0)
             $0.centerY.equalToSuperview()
+            $0.top.bottom.equalToSuperview().inset(18.0)
             $0.height.equalTo(42.0)
         }
         
@@ -77,6 +81,12 @@ final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate
             $0.width.height.equalTo(34.0)
             $0.trailing.top.bottom.equalTo(commentTextField).inset(4.0)
         }
+
+        tableViewHeightConstraint.isActive = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        tableViewHeightConstraint.constant = commentTableView.contentSize.height
     }
     
     override func setupView() {
@@ -84,6 +94,7 @@ final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = false
         self.navigationItem.rightBarButtonItem = reportButton
+        self.scrollView.contentInset.bottom = 70
         
         commentView.backgroundColor = .white
         commentView.layer.borderWidth = 1.0
@@ -98,31 +109,102 @@ final class DiscussDetailViewController: BaseViewController, UITextFieldDelegate
         addCommentButton.setImage(UIImage(named: "ic:baseline-arrow-forward") ?? UIImage(),
                                   for: .normal)
         addCommentButton.layer.cornerRadius = 17.0
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-
-    // 옵저버 등록
-    override func viewWillAppear(_ animated: Bool) {
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(reportDebateUser), name: Notification.Name("reportUser"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(blockDebateUser), name: Notification.Name("blockUser"), object: nil)
     }
     
-    // 옵저버 해제
-    override func viewWillDisappear(_ animated: Bool) {
+    override func bindViewModel() {
+        super.bindViewModel()
         
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("blockUser"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("reportUser"), object: nil)
+        reportButton.rx.tap
+            .bind { [weak self] in
+                let bottomSheetVC = BottomSheetViewController()
+                bottomSheetVC.delegate = self
+                self?.presentPanModal(bottomSheetVC)
+            }
+            .disposed(by: disposeBag)
         
-        super.viewWillDisappear(animated)
+        // MARK: Input
+        
+        debateDetailView.buttonA.rx.tap
+            .throttle(.seconds(3), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.viewModel?.input.optionAButtonTrigger.onNext(())
+            }.disposed(by: disposeBag)
+        
+        debateDetailView.buttonB.rx.tap
+            .throttle(.seconds(3), scheduler: MainScheduler.instance)
+            .bind { [weak self] in
+                self?.viewModel?.input.optionBButtonTrigger.onNext(())
+            }.disposed(by: disposeBag)
+        
+        addCommentButton.rx.tap
+            .bind { [weak self] in
+                guard let comment = self?.commentTextField.text else { return }
+                self?.viewModel?.input.addCommentTrigger.onNext(comment)
+            }
+            .disposed(by: disposeBag)
+        
+        
+        // MARK: Output
+
+        self.viewModel?.output.answerTableViewDataSource
+            .bind(to: self.commentTableView.rx.items(
+                cellIdentifier: CommentTableViewCell.identifier,
+                cellType: CommentTableViewCell.self)) { index, item, cell in
+                    
+                cell.setupCell(data: item)
+                cell.delegate = self
+            }
+            .disposed(by: disposeBag)
     }
 }
 
+extension DebateDetailViewController: BottomSheetDelegate {
+    func selectedIndex(idx: Int) {
+        // 차단
+        if idx == 0 {
+            
+            showPopUp2(title: "해당 사용자를 차단하시겠습니까?",
+                       message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
+                       leftButtonText: "취소", rightButtonText: "차단",
+                       leftButtonAction: {}, rightButtonAction: { [weak self] in
+                self?.viewModel?.input.blockButtonTrigger.onNext(())
+            })
+        // 신고
+        } else if idx == 1 {
+          
+            showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
+                       message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                       leftButtonText: "취소", rightButtonText: "신고", leftButtonAction: {}, rightButtonAction: { [weak self] in
+                self?.viewModel?.input.reportButtonTrigger.onNext(())
+            })
+        }
+    }
+}
+
+extension DebateDetailViewController: CommentCellDelegate {
+    
+    func report(userID: Int) {
+        showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
+                   message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                   leftButtonText: "취소", rightButtonText: "신고",
+                   leftButtonAction: {}, rightButtonAction: { [weak self] in
+            self?.viewModel?.input.reportUserTrigger.onNext(userID)
+        })
+    }
+    
+    func delete(commentID: Int) {
+        showPopUp2(title: "댓글을 삭제하시겠습니까?",
+                   message: "",
+                   leftButtonText: "네", rightButtonText: "아니오",
+                   leftButtonAction: {}, rightButtonAction: { [weak self] in
+            self?.viewModel?.input.deleteCommentTrigger.onNext(commentID)
+        })
+    }
+}
+
+
 // API - Fetch Data
-extension DiscussDetailViewController {
+extension DebateDetailViewController {
     // 서버로 부터 데이터 받기
     func fetchDebateData(debateID: Int) {
         print("fetchDebateData")
@@ -148,7 +230,7 @@ extension DiscussDetailViewController {
     }
 
     // 받은 데이터 ui에 넣기
-    func fetchData(data:DetailDebateSuccessResponse) {
+    func fetchData(data:DetailDebateResponseDTO.DetailDebateSuccessDTO) {
 //
 //        guard let commentDataList = data.answerHistDtos else {return}
 //        self.commentDataList = commentDataList
@@ -157,106 +239,8 @@ extension DiscussDetailViewController {
     }
 }
 
-// 댓글 Tableview delegate, datasource
-extension DiscussDetailViewController: UITableViewDelegate, UITableViewDataSource  {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        commentDataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
-            print("오류 : tableview Cell을 찾을 수 없습니다. ")
-            return UITableViewCell()
-        }
-        
-        if !commentDataList.isEmpty {
-            print("!commentDataList.isEmpty")
-            let data = commentDataList[indexPath.row]
-            cell.setupCell(data: data)
-            cell.delegate = self
-        }
-        
-        return cell
-    }
-}
-
-// 댓글에서 점버튼 눌렀을 때
-extension DiscussDetailViewController: CommentCellDelegate {
-    
-    func report(answerID: Int) {
-        presentCutomAlert2VC(target: "reportComment",
-                             title: "해당 사용자를 신고하시겠습니까?",
-                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "신고")
-        self.answerID = answerID
-       
-    }
-    
-    func delete(answerID: Int) {
-        presentCutomAlert2VC(target: "deleteComment",
-                             title: "댓글을 삭제하시겠습니까?",
-                             message: "",
-                             leftButtonTitle: "네",
-                             rightButtonTitle: "아니요")
-        self.answerID = answerID
-    }
-    
-}
-
-// 댓글 TextField 이동
-extension DiscussDetailViewController {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-          view.endEditing(true)
-      }
-
-      func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-          commentTextField.resignFirstResponder()
-          return true
-      }
-
-//    @objc private func keyboardWillHide(_ notification: Notification) {
-//        print("keyboardWillHide")
-//        self.view.frame.origin.y = 0
-//    }
-
-    
-//    @objc private func keyboardWillShow(_ notification: Notification) {
-//        if let keyboardFrame:NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-//            let keyboardRectangle = keyboardFrame.cgRectValue
-//            UIView.animate(withDuration: 0.3
-//                           , animations: {
-//
-//                let keyboardHeight = keyboardRectangle.height
-//                if self.view.frame.origin.y == 0 {
-//                    let bottomSpace = self.view.frame.height - (self.textFieldView.frame.origin.y + self.textFieldView.frame.height)
-//                    self.view.frame.origin.y -= keyboardHeight
-//                }
-//            })
-//        }
-//    }
-}
-
 // Button tap actions
-extension DiscussDetailViewController {
-    @objc func blockDebateUser() {
-        print("===========blockDebateUser")
-        presentCutomAlert2VC(target: "blockDebateUser",
-                             title: "해당 사용자를 차단하시겠습니까?",
-                             message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "차단")
-    }
-    
-    @objc func reportDebateUser() {
-        print("===========reportDebateUser")
-        presentCutomAlert2VC(target: "reportButton",
-                             title: "해당 사용자를 신고하시겠습니까?",
-                             message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                             leftButtonTitle: "취소",
-                             rightButtonTitle: "신고")
-    }
+extension DebateDetailViewController {
     
     @objc func didTapAgreeButton() {
         print("didTapAgreeButton")
@@ -316,16 +300,10 @@ extension DiscussDetailViewController {
             }
         }
     }
-    
-    // 바텀 시트 보여주기
-    @objc func didTapRightBarButton() {
-        let bottomSheetVC = BottomSheetViewController()
-        presentPanModal(bottomSheetVC)
-    }
 }
 
 // 커스텀 AlertView Delegate
-extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delegate {
+extension DebateDetailViewController: AlertMessageDelegate, AlertMessage2Delegate {
     func presentCutomAlert2VC(target:String,
                               title:String,
                               message:String,
@@ -381,17 +359,7 @@ extension DiscussDetailViewController: AlertMessageDelegate, AlertMessage2Delega
 
 }
 
-private extension DiscussDetailViewController {
-    func layout() {
-        
-        tableView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(barView.snp.bottom)
-            $0.bottom.equalTo(commentView.snp.top)
-        }
-        
-        constraint.isActive = true
-    }
+private extension DebateDetailViewController {
     
     @objc func didTapTextFieldButton() {
         print("didTapTextFieldButton")
@@ -418,7 +386,7 @@ private extension DiscussDetailViewController {
 }
 
 
-extension DiscussDetailViewController {
+extension DebateDetailViewController {
     func reportDebate() {
         debateNetwork.reportDebate(debateId: debateID!) { result in
             switch result {

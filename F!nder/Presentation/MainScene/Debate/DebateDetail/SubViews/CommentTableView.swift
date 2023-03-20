@@ -22,8 +22,10 @@ final class CommentTableView: UITableView {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .white
         separatorStyle = .none
-        register(DebateCommentTableViewCell.self,
-                 forCellReuseIdentifier: DebateCommentTableViewCell.identifier)
+        register(CommentTableViewCell.self,
+                 forCellReuseIdentifier: CommentTableViewCell.identifier)
+        
+        self.isScrollEnabled = false
         self.rowHeight = UITableView.automaticDimension
         self.estimatedRowHeight = 130.0
     }

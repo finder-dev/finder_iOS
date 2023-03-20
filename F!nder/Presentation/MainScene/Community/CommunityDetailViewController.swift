@@ -39,7 +39,7 @@ class CommunityDetailViewController: UIViewController, UITextFieldDelegate{
     var btnView = UIButton()
     var textFieldYValue = CGFloat(0)
     let tableView = UITableView()
-    var commentDataList = [answerHistDtos]()
+    var commentDataList = [AnswerDTO]()
 
     let communityNetwork = CommunityAPI()
     var answerID = -1
@@ -186,7 +186,7 @@ extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSou
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(DebateCommentTableViewCell.self, forCellReuseIdentifier: DebateCommentTableViewCell.identifier)
+        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,7 +194,7 @@ extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DebateCommentTableViewCell.identifier, for: indexPath) as? DebateCommentTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else {
             print("오류 : tableview Cell을 찾을 수 없습니다. ")
             return UITableViewCell()
         }
@@ -202,7 +202,7 @@ extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSou
         if !commentDataList.isEmpty {
             print("!commentDataList.isEmpty")
             let data = commentDataList[indexPath.row]
-            cell.setupCell(data: data)
+//            cell.setupCell(data: data)
             cell.delegate = self
         }
         
@@ -213,23 +213,23 @@ extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSou
 
 // cell의 닷 선택시 실행
 extension CommunityDetailViewController: CommentCellDelegate  {
-    func report(answerID: Int) {
+    func report(userID: Int) {
         
         presentCutomAlert2VC(target: "reportCommunityComment",
                              title: "해당 사용자를 신고하시겠습니까?",
                              message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
                              leftButtonTitle: "취소",
                              rightButtonTitle: "신고")
-        self.answerID = answerID
+        self.answerID = userID
     }
     
-    func delete(answerID: Int) {
+    func delete(commentID: Int) {
         presentCutomAlert2VC(target: "deleteCommunityComment",
                              title: "댓글을 삭제하시겠습니까?",
                              message: "",
                              leftButtonTitle: "네",
                              rightButtonTitle: "아니요")
-        self.answerID = answerID
+        self.answerID = commentID
     }
 }
 

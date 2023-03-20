@@ -115,7 +115,7 @@ final class HomeViewController: UIViewController {
                     self?.navigationController?.pushViewController(MakeDebateViewController(viewModel: MakeDebateViewModel()), animated: true)
                 } else {
                     // 토론 자세히 보기 view
-                    let nextVC = DiscussDetailViewController()
+                    let nextVC = DebateDetailViewController(viewModel: DebateDetailViewModel())
                     // TODO : 서버 오픈되면 수정
                     self?.navigationController?.pushViewController(nextVC, animated: true)
 //                    if let debateID = self?.debateID {
