@@ -11,15 +11,16 @@ import SnapKit
 
 class BaseViewController: UIViewController {
     
-    private let scrollView = UIScrollView()
+    let scrollView = UIScrollView()
     let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
         return stackView
     }()
-    
+    let commentView = UIView()
     let disposeBag = DisposeBag()
+    lazy var commentViewBottomConstraint: NSLayoutConstraint = commentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,9 @@ class BaseViewController: UIViewController {
     }
 
     func addView() {
-        self.view.addSubview(scrollView)
+        [scrollView, commentView].forEach {
+            self.view.addSubview($0)
+        }
         scrollView.addSubview(stackView)
     }
     
@@ -50,6 +53,12 @@ class BaseViewController: UIViewController {
         scrollView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(safeArea)
         }
+        
+        commentView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        commentViewBottomConstraint.isActive = true
         
         stackView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(scrollView.contentLayoutGuide)
@@ -67,7 +76,7 @@ private extension BaseViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(keyboardWillShow(_:)),
-            name: UIResponder.keyboardDidShowNotification,
+            name: UIResponder.keyboardWillShowNotification,
             object: nil
         )
         NotificationCenter.default.addObserver(
@@ -79,7 +88,7 @@ private extension BaseViewController {
     }
     
     private func removeKeyboardObserver() {
-        NotificationCenter.default.removeObserver(UIResponder.keyboardDidShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
     }
     
@@ -89,14 +98,27 @@ private extension BaseViewController {
                   return
               }
         keyboardFrame = self.stackView.convert(keyboardFrame, from: nil)
+        let keyboardHeight = keyboardFrame.size.height
+        
         var contentInset = scrollView.contentInset
-        contentInset.bottom = keyboardFrame.size.height
+        contentInset.bottom += keyboardHeight
         scrollView.contentInset.bottom = contentInset.bottom
+        commentViewBottomConstraint.constant = -keyboardHeight
+        
+        UIView.animate(withDuration: 0.3,
+                       animations: { self.view.layoutIfNeeded()},
+                       completion: nil)
     }
 
     @objc func keyboardWillHide(_ notification: NSNotification) {
-        scrollView.contentInset = UIEdgeInsets.zero
+        
+        scrollView.contentInset.bottom = commentView.bounds.size.height
         scrollView.scrollIndicatorInsets = self.scrollView.contentInset
+        commentViewBottomConstraint.constant = .zero
+        
+        UIView.animate(withDuration: 0.3,
+                       animations: { self.view.layoutIfNeeded()},
+                       completion: nil)
     }
     
     func hideKeyboard() {
