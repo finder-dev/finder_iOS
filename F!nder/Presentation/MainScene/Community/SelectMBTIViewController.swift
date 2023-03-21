@@ -13,7 +13,7 @@ import SnapKit
  */
 
 protocol SelectMBTIViewControllerDelegate {
-    func sendValue(value : String)
+    func selectedMBTI(mbti : String)
 }
 
 class SelectMBTIViewController: UIViewController {
@@ -69,7 +69,7 @@ private extension SelectMBTIViewController {
     }
     
     @objc func didTapConfirmButton() {
-        delegate.sendValue(value: selectedMBTI)
+        delegate.selectedMBTI(mbti: selectedMBTI)
         self.dismiss(animated: true)
     }
     

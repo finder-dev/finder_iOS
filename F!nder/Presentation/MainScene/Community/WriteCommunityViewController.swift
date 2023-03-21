@@ -143,8 +143,8 @@ extension WriteCommunityViewController : PHPickerViewControllerDelegate {
 // 선택한 MBTI 보여주기
 extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
     
-    func sendValue(value: String) {
-        selectMBTILabel.text = value
+    func selectedMBTI(mbti: String) {
+        selectMBTILabel.text = mbti
     }
     
     @objc func didTapCloseButton() {
