@@ -8,30 +8,41 @@
 import UIKit
 import SnapKit
 
-class CommunityTableViewCell: UITableViewCell {
+final class CommunityTableViewCell: UITableViewCell {
     
     static let identifier = "CommunityTableViewCell"
     
     let innerView = UIView()
-    
-    let titleLabel = UILabel()
-    let contentLabel = UILabel()
-    let mbtiCategoryLabel = UILabel()
+    let titleLabel = FinderLabel(text: "",
+                                 font: .systemFont(ofSize: 18.0, weight: .medium),
+                                 textColor: .black1)
+    let contentLabel = FinderLabel(text: "",
+                                   font: .systemFont(ofSize: 16.0, weight: .regular),
+                                   textColor: .grey6)
+    let mbtiCategoryView = BarView(barHeight: 30.0,
+                                   barColor: .grey11.withAlphaComponent(0.5))
+    let mbtiCategoryLabel = FinderLabel(text: "",
+                                        font: .systemFont(ofSize: 12.0, weight: .medium),
+                                        textColor: .black1,
+                                        textAlignment: .center)
     let questionImageView = UIImageView()
     let userMBTILabel = UILabel()
+    let dotView = BarView(barHeight: 4.0, barColor: .grey6)
     let userNameLabel = UILabel()
     let timeLabel = UILabel()
-    
-    let lineView = UIView()
-    let commentLabel = UILabel()
+    let commentLabel = FinderLabel(text: "",
+                                   font: .systemFont(ofSize: 14.0, weight: .bold),
+                                   textColor: .grey13)
     let commentImageView = UIImageView()
     let recommentButton = UIButton()
-    let recommentLabel = UILabel()
+    let lineView1 = BarView(barHeight: 1.0, barColor: .grey11)
+    let lineView2 = BarView(barHeight: 1.0, barColor: .grey12)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addView()
         attribute()
-        layout()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -42,81 +53,62 @@ class CommunityTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // cell간 간격 주기
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0))
-    }
-    
+
     func setupCellData(data: content) {
         mbtiCategoryLabel.text = data.communityMBTI
         titleLabel.text = data.communityTitle
         contentLabel.text = data.communityContent
         userMBTILabel.text = data.userMBTI
-        userNameLabel.text = " • \(data.userNickname)"
+        userNameLabel.text = data.userNickname
         timeLabel.text = data.createTime
-        recommentLabel.text = "\(data.likeCount)"
         commentLabel.text = "\(data.answerCount)"
-                
-        if data.likeUser {
-            recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
-            recommentButton.tintColor = .primary
-            recommentLabel.textColor = .primary
-        } else {
-            recommentButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
-            recommentLabel.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
-        }
+        recommentButton.setTitle(" \(data.likeCount)", for: .normal)
         
-        if !data.isQuestion {
-            questionImageView.isHidden = true
-        } else {
-            questionImageView.isHidden = false
-        }
+        recommentButton.isEnabled = data.likeUser ? true : false
+        questionImageView.isHidden = data.isQuestion ? false : true
     }
 }
 
 private extension CommunityTableViewCell {
-    func layout() {
+    
+    func addView() {
         self.contentView.addSubview(innerView)
         
-        innerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.height.equalTo(265.5)
-        }
-                
-        [mbtiCategoryLabel,
-         questionImageView,
-         titleLabel,
-         contentLabel,
-         userMBTILabel,
-         userNameLabel,
-         timeLabel,
-         lineView,
-         recommentButton,
-         recommentLabel,
-         commentImageView,
-         commentLabel].forEach {
+        [mbtiCategoryView, questionImageView, titleLabel, contentLabel, userMBTILabel, dotView,
+         userNameLabel, timeLabel,lineView1, recommentButton, commentImageView,
+         commentLabel, lineView2].forEach {
             innerView.addSubview($0)
         }
+        
+        mbtiCategoryView.addSubview(mbtiCategoryLabel)
+    }
+    
+    func setLayout() {
 
-        mbtiCategoryLabel.snp.makeConstraints {
+        innerView.snp.makeConstraints {
+            $0.leading.trailing.top.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
+        }
+
+        mbtiCategoryView.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(20.0)
             $0.top.equalToSuperview().inset(15.5)
             $0.width.equalTo(43.0)
-            $0.height.equalTo(30.0)
+        }
+        
+        mbtiCategoryLabel.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
         }
         
         questionImageView.snp.makeConstraints {
-            $0.leading.equalTo(mbtiCategoryLabel.snp.trailing).offset(8.0)
-            $0.centerY.equalTo(mbtiCategoryLabel)
+            $0.leading.equalTo(mbtiCategoryView.snp.trailing).offset(8.0)
+            $0.centerY.equalTo(mbtiCategoryView)
             $0.height.equalTo(34.0)
             $0.width.equalTo(47.0)
         }
         
         titleLabel.snp.makeConstraints{
-            $0.leading.equalTo(mbtiCategoryLabel)
-            $0.trailing.equalToSuperview().inset(20.0)
+            $0.leading.trailing.equalToSuperview().inset(20.0)
             $0.top.equalTo(mbtiCategoryLabel.snp.bottom).offset(20.0)
         }
         
@@ -126,12 +118,18 @@ private extension CommunityTableViewCell {
         }
         
         userMBTILabel.snp.makeConstraints {
-            $0.leading.equalTo(mbtiCategoryLabel)
+            $0.leading.equalTo(mbtiCategoryView)
             $0.top.equalTo(contentLabel.snp.bottom).offset(16.0)
         }
         
+        dotView.snp.makeConstraints {
+            $0.width.equalTo(4.0)
+            $0.leading.equalTo(userMBTILabel.snp.trailing).offset(8.0)
+            $0.centerY.equalTo(userMBTILabel)
+        }
+        
         userNameLabel.snp.makeConstraints {
-            $0.leading.equalTo(userMBTILabel.snp.trailing)
+            $0.leading.equalTo(dotView.snp.trailing).offset(8.0)
             $0.top.equalTo(userMBTILabel)
         }
         
@@ -140,70 +138,55 @@ private extension CommunityTableViewCell {
             $0.top.equalTo(userMBTILabel)
         }
         
-        lineView.snp.makeConstraints {
-            $0.height.equalTo(1.0)
+        lineView1.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20.0)
-            $0.top.equalTo(timeLabel.snp.bottom).offset(15.5)
+            $0.top.equalTo(userMBTILabel.snp.bottom).offset(15.5)
         }
         
         recommentButton.snp.makeConstraints {
             $0.leading.equalTo(userMBTILabel)
-            $0.width.height.equalTo(24.0)
-            $0.top.equalTo(lineView.snp.bottom).offset(15.5)
-        }
-        
-        recommentLabel.snp.makeConstraints {
-            $0.leading.equalTo(recommentButton.snp.trailing).offset(4.0)
-            $0.centerY.equalTo(recommentButton)
+            $0.height.equalTo(24.0)
+            $0.top.equalTo(lineView1.snp.bottom).offset(15.5)
+            $0.bottom.equalToSuperview().inset(16.0)
         }
         
         commentImageView.snp.makeConstraints {
             $0.width.height.equalTo(24.0)
             $0.centerY.equalTo(recommentButton)
-            $0.leading.equalTo(recommentLabel.snp.trailing).offset(24.0)
+            $0.leading.equalTo(recommentButton.snp.trailing).offset(24.0)
         }
         
         commentLabel.snp.makeConstraints {
             $0.leading.equalTo(commentImageView.snp.trailing).offset(4.0)
             $0.centerY.equalTo(commentImageView)
         }
+        
+        lineView2.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
     
     func attribute() {
-        backgroundColor = UIColor(red: 247/255, green: 248/255, blue: 252/255, alpha: 1.0)
+        backgroundColor = .grey10
         innerView.backgroundColor = .white
-//        backgroundColor = .clear
-//        innerView.backgroundColor = .clear
         
         questionImageView.image = UIImage(named: "Group 986359")
-        
-        mbtiCategoryLabel.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
-        mbtiCategoryLabel.layer.cornerRadius = 5.0
-        mbtiCategoryLabel.textColor = .black1
-        mbtiCategoryLabel.font = .systemFont(ofSize: 12.0, weight: .medium)
-        mbtiCategoryLabel.textAlignment = .center
-        
-        titleLabel.textColor = .black1
-        titleLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
-//        timeLabel.font = .systemFont(ofSize: 18.0, weight: .medium)
-        contentLabel.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
-        contentLabel.font = .systemFont(ofSize: 16.0, weight: .regular)
+        commentImageView.image = UIImage(named: "icon-chat-bubble-dots-mono")
+        mbtiCategoryView.layer.cornerRadius = 5.0
+        dotView.layer.cornerRadius = 2.0
+        titleLabel.numberOfLines = 1
         contentLabel.numberOfLines = 2
-
+        contentLabel.setLineHeight(lineHeight: 24.0)
+        
         [userMBTILabel,userNameLabel,timeLabel].forEach {
             $0.textColor = UIColor(red: 113/255, green: 113/255, blue: 113/255, alpha: 1.0)
             $0.font = .systemFont(ofSize: 12.0, weight: .regular)
         }
-        
-        lineView.backgroundColor = UIColor(red: 237/255, green: 237/255, blue: 237/255, alpha: 1.0)
-
-//        recommentButton.isEnabled = false
-        commentImageView.image = UIImage(named: "icon-chat-bubble-dots-mono")
-        
-        [recommentLabel,commentLabel].forEach {
-            $0.font = .systemFont(ofSize: 14.0, weight: .bold)
-            $0.textColor = UIColor(red: 153/255, green: 153/255, blue: 153/255, alpha: 1.0)
-        }
-    }
     
+        recommentButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .bold)
+        recommentButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
+        recommentButton.setImage(UIImage(named: "icon-thumb-up"), for: .disabled)
+        recommentButton.setTitleColor(.grey13, for: .disabled)
+        recommentButton.setTitleColor(.primary, for: .normal)
+    }
 }
