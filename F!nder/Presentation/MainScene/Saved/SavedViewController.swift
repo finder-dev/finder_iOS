@@ -15,7 +15,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     let headerView = UIView()
     let tableView = UITableView()
     
-    var tableViewData = [content]()
+    var tableViewData = [CommunityTableDTO]()
     var pageCount = 0
     var isLastPage = false
     var dataStatus : dataStatus = .yesData {

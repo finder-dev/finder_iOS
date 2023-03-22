@@ -21,13 +21,13 @@ struct NewCommunity {
     ]}
 }
 
-struct NewCommunityResponse : Codable {
+struct NewCommunityResponseDTO: Codable {
     let success: Bool
-    let response: NewCommunitySuccessResponse?
+    let response: NewCommunitySuccessDTO?
     let errorResponse: ErrorReponseDTO?
 }
 
-struct NewCommunitySuccessResponse : Codable {
+struct NewCommunitySuccessDTO: Codable {
     let communityId: Int
 }
 

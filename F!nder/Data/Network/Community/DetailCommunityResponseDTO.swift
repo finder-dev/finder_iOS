@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct DetailCommunityResponse : Codable {
+struct DetailCommunityResponseDTO: Codable {
     let success: Bool
-    let response: DetailCommunitySuccessResponse?
+    let response: DetailCommunitySuccessDTO?
     let errorResponse: ErrorReponseDTO?
 }
 
-struct DetailCommunitySuccessResponse : Codable {
+struct DetailCommunitySuccessDTO: Codable {
     let communityId: Int
     let communityTitle: String
     let communityContent: String

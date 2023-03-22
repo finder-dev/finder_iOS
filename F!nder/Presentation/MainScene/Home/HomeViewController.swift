@@ -32,7 +32,7 @@ final class HomeViewController: UIViewController {
     var viewModel: HomeViewModel?
     let disposeBag = DisposeBag()
     var balanceGameDataStatus : balanceGameDataStatus = .yesData
-    var hotCommunityData = [HotCommunitySuccessResponse]()
+    var hotCommunityData = [HotCommunitySuccessDTO]()
     let debateNetwork = DebateAPI()
     let communityNetwork = CommunityAPI()
     var debateID :Int?
@@ -144,7 +144,7 @@ final class HomeViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.modelSelected(HotCommunitySuccessResponse.self)
+        tableView.rx.modelSelected(HotCommunitySuccessDTO.self)
             .subscribe(onNext: { item in
                 let nextVC = CommunityDetailViewController()
                 nextVC.communityId = item.communityId
@@ -204,7 +204,7 @@ extension HomeViewController {
         goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
     }
     
-    func setupCommunityView(data: [HotCommunitySuccessResponse]?) {
+    func setupCommunityView(data: [HotCommunitySuccessDTO]?) {
         guard let data = data else { return}
         self.hotCommunityData = data
         self.tableView.reloadData()

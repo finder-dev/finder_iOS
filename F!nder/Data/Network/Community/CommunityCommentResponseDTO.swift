@@ -15,12 +15,12 @@ struct CommunityComment {
     ]}
 }
 
-struct CommunityCommentResponse : Codable {
+struct CommunityCommentResponseDTO: Codable {
     let success: Bool
-    let response: CommunityCommentSuccessResponse?
+    let response: CommunityCommentSuccessDTO?
     let errorResponse: ErrorReponseDTO?
 }
 
-struct CommunityCommentSuccessResponse : Codable {
+struct CommunityCommentSuccessDTO: Codable {
     let communityAnswerId: Int
 }

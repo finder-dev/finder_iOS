@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct SaveCommunityResponse : Codable {
+struct SaveCommunityResponseDTO: Codable {
     let success: Bool
-    let response: SaveCommunitySuccessResponse?
+    let response: SaveCommunitySuccessDTO?
     let errorResponse: ErrorReponseDTO?
 }
 
-struct SaveCommunitySuccessResponse : Codable {
+struct SaveCommunitySuccessDTO: Codable {
     let message: String
 }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct HotCommunityResponse : Codable {
+struct HotCommunityResponseDTO: Codable {
     let success: Bool
-    let response: [HotCommunitySuccessResponse]
+    let response: [HotCommunitySuccessDTO]
     let errorResponse: ErrorReponseDTO?
 }
 
-struct HotCommunitySuccessResponse : Codable {
+struct HotCommunitySuccessDTO: Codable {
     let communityId: Int
     let title: String
 }

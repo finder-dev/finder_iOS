@@ -16,7 +16,7 @@ final class HomeViewModel {
     }
     
     struct Output {
-        var hotCommunityTableViewDataSource = BehaviorSubject<[HotCommunitySuccessResponse]>(value: [])
+        var hotCommunityTableViewDataSource = BehaviorSubject<[HotCommunitySuccessDTO]>(value: [])
     }
     
     let input = Input()
@@ -33,12 +33,12 @@ final class HomeViewModel {
 
 // TestData
 extension HomeViewModel {
-    func returnCommunityTableViewData() -> [HotCommunitySuccessResponse] {
-        let array = [HotCommunitySuccessResponse(communityId: 0, title: "testest"),
-                     HotCommunitySuccessResponse(communityId: 0, title: "testest"),
-                     HotCommunitySuccessResponse(communityId: 0, title: "testest"),
-                     HotCommunitySuccessResponse(communityId: 0, title: "testest"),
-                     HotCommunitySuccessResponse(communityId: 0, title: "testest")]
+    func returnCommunityTableViewData() -> [HotCommunitySuccessDTO] {
+        let array = [HotCommunitySuccessDTO(communityId: 0, title: "testest"),
+                     HotCommunitySuccessDTO(communityId: 0, title: "testest"),
+                     HotCommunitySuccessDTO(communityId: 0, title: "testest"),
+                     HotCommunitySuccessDTO(communityId: 0, title: "testest"),
+                     HotCommunitySuccessDTO(communityId: 0, title: "testest")]
         return array
     }
 }

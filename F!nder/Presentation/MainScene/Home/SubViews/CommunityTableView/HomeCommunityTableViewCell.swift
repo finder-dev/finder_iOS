@@ -32,7 +32,7 @@ class HomeCommunityTableViewCell: UITableViewCell {
 
     }
     
-    func setupCell(data: HotCommunitySuccessResponse, index:Int) {
+    func setupCell(data: HotCommunitySuccessDTO, index:Int) {
         numberLabel.text = "\(index)"
         communityTitleLabel.text = data.title
     }

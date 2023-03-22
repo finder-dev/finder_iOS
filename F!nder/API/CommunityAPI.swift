@@ -12,7 +12,7 @@ struct CommunityAPI {
     var isPaginating = false
     
     // 커뮤니티 댓글순 조회
-    func requestHotCommunity(completionHandler: @escaping (Result<HotCommunityResponse,Error>)-> Void) {
+    func requestHotCommunity(completionHandler: @escaping (Result<HotCommunityResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/hot")
         
@@ -31,7 +31,7 @@ struct CommunityAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(HotCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(HotCommunityResponseDTO.self, from: data) else {
                 print("오류 : HotCommunityResponse jsonDecode 실패")
                 return
             }
@@ -50,7 +50,7 @@ struct CommunityAPI {
     func requestEveryCommuityData(mbti:String?,
                                   orderBy: String,
                                   page: Int,
-                                  completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
+                                  completionHandler: @escaping (Result<EveryCommunityResponseDTO,Error>)-> Void) {
         
         var urlComponents = URLComponents()
         if mbti == nil {
@@ -79,7 +79,7 @@ struct CommunityAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(EveryCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(EveryCommunityResponseDTO.self, from: data) else {
                 print("오류 : HotCommunityResponse jsonDecode 실패")
                 return
             }
@@ -96,7 +96,7 @@ struct CommunityAPI {
     
     // 커뮤니티 상세 조회
     func requestCommunityDetail(communityID:Int,
-                                completionHandler: @escaping (Result<DetailCommunityResponse,Error>)-> Void) {
+                                completionHandler: @escaping (Result<DetailCommunityResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityID)")
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
@@ -117,7 +117,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(DetailCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(DetailCommunityResponseDTO.self, from: data) else {
                 print("requestCommunityDetail : decode 에러")
                 return
             }
@@ -137,7 +137,7 @@ struct CommunityAPI {
     
     // 커뮤니티 글 저장, 취소
     func requestSave(communityID:Int,
-                     completionHandler: @escaping (Result<SaveCommunityResponse,Error>)-> Void) {
+                     completionHandler: @escaping (Result<SaveCommunityResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityID)/save")
         
@@ -159,7 +159,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SaveCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SaveCommunityResponseDTO.self, from: data) else {
                 print("requestCommunitySave : decode 에러")
                 return
             }
@@ -178,7 +178,7 @@ struct CommunityAPI {
     
     // 사용자가 저장한 커뮤니티 글 불러오기
     func requestSavedCommuityList(page: Int,
-                                  completionHandler: @escaping (Result<EveryCommunityResponse,Error>)-> Void) {
+                                  completionHandler: @escaping (Result<EveryCommunityResponseDTO,Error>)-> Void) {
         
         var urlComponents = URLComponents(string: "https://finder777.com/api/users/save?page=\(page)")!
         
@@ -198,7 +198,7 @@ struct CommunityAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(EveryCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(EveryCommunityResponseDTO.self, from: data) else {
                 print("오류 : HotCommunityResponse jsonDecode 실패")
                 return
             }
@@ -215,7 +215,7 @@ struct CommunityAPI {
     
     func requestNewComment(communityId:Int,
                            content:String,
-                           completionHandler: @escaping (Result<CommunityCommentResponse,Error>)-> Void) {
+                           completionHandler: @escaping (Result<CommunityCommentResponseDTO,Error>)-> Void) {
         
         let commentData = CommunityComment(content: content)
         let bodyData = commentData.parameters.percentEncoded()
@@ -238,7 +238,7 @@ struct CommunityAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(CommunityCommentResponse.self, from: data) else {
+            guard let json = try? decoder.decode(CommunityCommentResponseDTO.self, from: data) else {
                 print("오류 : CommunityCommentResponse jsonDecode 실패")
                 return
             }
@@ -258,7 +258,7 @@ struct CommunityAPI {
                              content:String,
                              mbti:String,
                              isQuestion:Bool,
-                             completionHandler: @escaping (Result<NewCommunityResponse,Error>)-> Void) {
+                             completionHandler: @escaping (Result<NewCommunityResponseDTO,Error>)-> Void) {
         
         let newCommunity = NewCommunity(title: title, content: content, mbti: mbti, isQuestion: isQuestion)
         let bodyData = newCommunity.parameters.percentEncoded()
@@ -281,7 +281,7 @@ struct CommunityAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(NewCommunityResponse.self, from: data) else {
+            guard let json = try? decoder.decode(NewCommunityResponseDTO.self, from: data) else {
                 print("오류 : NewCommunityResponse jsonDecode 실패")
                 return
             }
