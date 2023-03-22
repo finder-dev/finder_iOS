@@ -12,7 +12,8 @@ import RxRelay
 final class CommunityViewModel {
     
     struct Input {
-        
+        var sortButtonTrigger = PublishSubject<String>()
+        var mbtiTrigger = PublishSubject<String>()
     }
     
     struct Output {

@@ -6,10 +6,7 @@
 //
 
 import UIKit
-enum dataStatus {
-    case noData
-    case yesData
-}
+
 class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let headerView = UIView()
@@ -18,7 +15,7 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
     var tableViewData = [CommunityTableDTO]()
     var pageCount = 0
     var isLastPage = false
-    var dataStatus : dataStatus = .yesData {
+    var dataStatus: DataStatus = .isPresent {
         didSet {
             layout()
         }
@@ -61,10 +58,10 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     print("requestSavedCommuityList pageCount : \(pageCount)")
                     DispatchQueue.main.async {
                         if tableViewData.isEmpty {
-                            dataStatus = .noData
+                            dataStatus = .isEmpty
                             tableView.isHidden = true
                         } else {
-                            dataStatus = .yesData
+                            dataStatus = .isPresent
                             tableView.isHidden = false
                             tableView.reloadData()
                             tableView.tableFooterView?.isHidden = true
@@ -139,7 +136,7 @@ extension SavedViewController {
 private extension SavedViewController {
     func layout() {
         setupHeaderView()
-        if dataStatus == .yesData {
+        if dataStatus == .isPresent {
             yesDataView()
         } else {
             noDataView()

@@ -9,11 +9,6 @@ import UIKit
 import SnapKit
 import RxSwift
 
-enum CommunityDataStatus {
-    case noData
-    case yesData
-}
-
 /*
  * 커뮤니티 글 리스트 뷰컨트롤러입니다.
  */
@@ -22,11 +17,7 @@ final class CommunityViewController: BaseViewController {
     // MARK: - Properties
     
     var viewModel: CommunityViewModel?
-    var communityDataStatus : CommunityDataStatus = .yesData {
-        didSet {
-        }
-    }
-    
+    var communityDataStatus: DataStatus = .isPresent
     var communityNetwork = CommunityAPI()
     var communityList = [CommunityTableDTO]()
     var tableViewData = [CommunityTableDTO]()
@@ -124,6 +115,20 @@ final class CommunityViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        // MARK: Input
+        
+        sortView.latestButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.sortButtonTrigger.onNext("CREATE_TIME")
+            }
+            .disposed(by: disposeBag)
+        
+        sortView.commentButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.sortButtonTrigger.onNext("ANSWER_COUNT")
+            }
+            .disposed(by: disposeBag)
+        
         // MARK: Output
         
         self.viewModel?.output.communityTableViewDataSource
@@ -137,13 +142,15 @@ final class CommunityViewController: BaseViewController {
 extension CommunityViewController: SelectMBTIViewControllerDelegate {
     func selectedMBTI(mbti: String) {
         sortView.mbtiLabel.text = mbti
-        tableViewData = []
-        pageCount = 0
-        if mbti == "전체" {
-            setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
-        } else {
-            setupData(mbti: mbti, orderBy: "CREATE_TIME", page: pageCount)
-        }
+        self.viewModel?.input.mbtiTrigger.onNext(mbti)
+        
+//        tableViewData = []
+//        pageCount = 0
+//        if mbti == "전체" {
+//            setupData(mbti: nil, orderBy: "CREATE_TIME", page: pageCount)
+//        } else {
+//            setupData(mbti: mbti, orderBy: "CREATE_TIME", page: pageCount)
+//        }
     }
 }
 
@@ -173,10 +180,10 @@ private extension CommunityViewController {
                             print("pageCount : \(pageCount)")
                             DispatchQueue.main.async {
                                 if tableViewData.isEmpty {
-                                    communityDataStatus = .noData
+                                    communityDataStatus = .isEmpty
                                     tableView.isHidden = true
                                 } else {
-                                    communityDataStatus = .yesData
+                                    communityDataStatus = .isPresent
                                     tableView.isHidden = false
                                     tableView.reloadData()
                                     tableView.tableFooterView?.isHidden = true

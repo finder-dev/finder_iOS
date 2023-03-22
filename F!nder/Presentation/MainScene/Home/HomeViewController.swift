@@ -15,23 +15,13 @@ import RxCocoa
  * 메인 탭 바 진입 시 가장 먼저 보이는 홈 뷰 컨트롤러입니다.
  */
 
-enum balanceGameDataStatus {
-    case noData
-    case yesData
-}
-
-enum discussDataStatus {
-    case noData
-    case yesData
-}
-
 final class HomeViewController: UIViewController {
     
     // MARK: - Properties
     
     var viewModel: HomeViewModel?
     let disposeBag = DisposeBag()
-    var balanceGameDataStatus : balanceGameDataStatus = .yesData
+    var balanceGameDataStatus: DataStatus = .isPresent
     var hotCommunityData = [HotCommunitySuccessDTO]()
     let debateNetwork = DebateAPI()
     let communityNetwork = CommunityAPI()
@@ -110,7 +100,7 @@ final class HomeViewController: UIViewController {
         
         goBalanceGameButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                if self?.balanceGameDataStatus == .noData {
+                if self?.balanceGameDataStatus == .isEmpty {
                     // 토론 생성 view
                     self?.navigationController?.pushViewController(MakeDebateViewController(viewModel: MakeDebateViewModel()), animated: true)
                 } else {
@@ -312,7 +302,7 @@ private extension HomeViewController {
         self.view.backgroundColor = .white
         self.navigationController?.navigationBar.isHidden = true
         
-        if balanceGameDataStatus == .noData {
+        if balanceGameDataStatus == .isEmpty {
             debateVoteView.isHidden = true
             emptyDebateView.isHidden = false
             goBalanceGameButton.setTitle("토론 만들러 가기 > ", for: .normal)
