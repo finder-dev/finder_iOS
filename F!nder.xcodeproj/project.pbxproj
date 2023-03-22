@@ -72,6 +72,9 @@
 		2B9C522629C9B67900567B36 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C522529C9B67900567B36 /* CommunityViewModel.swift */; };
 		2B9C522A29CAD1E300567B36 /* CommunityTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C522929CAD1E300567B36 /* CommunityTable.swift */; };
 		2B9C522C29CAD63700567B36 /* DataStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C522B29CAD63700567B36 /* DataStatus.swift */; };
+		2B9C523029CADAF400567B36 /* MBTICollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C522F29CADAF300567B36 /* MBTICollectionViewCell.swift */; };
+		2B9C523229CADC1E00567B36 /* MBTICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C523129CADC1E00567B36 /* MBTICollectionView.swift */; };
+		2B9C523429CADCDF00567B36 /* MBTICollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C523329CADCDF00567B36 /* MBTICollectionViewFlowLayout.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
 		2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */; };
@@ -202,6 +205,9 @@
 		2B9C522529C9B67900567B36 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		2B9C522929CAD1E300567B36 /* CommunityTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTable.swift; sourceTree = "<group>"; };
 		2B9C522B29CAD63700567B36 /* DataStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStatus.swift; sourceTree = "<group>"; };
+		2B9C522F29CADAF300567B36 /* MBTICollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTICollectionViewCell.swift; sourceTree = "<group>"; };
+		2B9C523129CADC1E00567B36 /* MBTICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTICollectionView.swift; sourceTree = "<group>"; };
+		2B9C523329CADCDF00567B36 /* MBTICollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MBTICollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableViewCell.swift; sourceTree = "<group>"; };
@@ -530,6 +536,25 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
+		2B9C523529CAE37A00567B36 /* SelectMBTI */ = {
+			isa = PBXGroup;
+			children = (
+				2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */,
+				2B9C523629CAE38500567B36 /* MBTICollectionView */,
+			);
+			path = SelectMBTI;
+			sourceTree = "<group>";
+		};
+		2B9C523629CAE38500567B36 /* MBTICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				2B9C523129CADC1E00567B36 /* MBTICollectionView.swift */,
+				2B9C522F29CADAF300567B36 /* MBTICollectionViewCell.swift */,
+				2B9C523329CADCDF00567B36 /* MBTICollectionViewFlowLayout.swift */,
+			);
+			path = MBTICollectionView;
+			sourceTree = "<group>";
+		};
 		2BA51BBF28771E5500D87533 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,8 +571,8 @@
 				2BE7BE4F287317A90062EB5A /* CommunityViewController.swift */,
 				2B9C522529C9B67900567B36 /* CommunityViewModel.swift */,
 				2B9C522029C9A8B400567B36 /* SubViews */,
+				2B9C523529CAE37A00567B36 /* SelectMBTI */,
 				2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */,
-				2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */,
 				2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */,
 			);
 			path = Community;
@@ -907,10 +932,12 @@
 				2BA2E9B32880424B005DFE96 /* MakeDebateViewController.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2B27762E29BCC9CC0046B9D6 /* BaseViewController.swift in Sources */,
+				2B9C523229CADC1E00567B36 /* MBTICollectionView.swift in Sources */,
 				2B27762B29BCBF530046B9D6 /* SignUpProcessView.swift in Sources */,
 				2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */,
 				2BB455E02883EEB6001139E5 /* Logout.swift in Sources */,
 				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
+				2B9C523429CADCDF00567B36 /* MBTICollectionViewFlowLayout.swift in Sources */,
 				2B9C521C29C990EE00567B36 /* CommentView.swift in Sources */,
 				2B20B55F29C6F7F8008AA709 /* ReplyDTO.swift in Sources */,
 				2B20B55629C6EF8E008AA709 /* Reply.swift in Sources */,
@@ -938,6 +965,7 @@
 				2BAEB1CC28A2084600D737C7 /* UserAuthRepository.swift in Sources */,
 				2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */,
 				2BAEB1C228A2041000D737C7 /* UserAuthAPIService.swift in Sources */,
+				2B9C523029CADAF400567B36 /* MBTICollectionViewCell.swift in Sources */,
 				2BB455DE2883EA45001139E5 /* UserInfoAPI.swift in Sources */,
 				2B27762429BC61EE0046B9D6 /* OnBoardingViewController.swift in Sources */,
 				2B20B55D29C6F7D8008AA709 /* AnswerDTO.swift in Sources */,

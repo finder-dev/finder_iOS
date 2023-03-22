@@ -100,9 +100,8 @@ final class CommunityViewController: BaseViewController {
         
         sortView.caretButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                let nextVC = SelectMBTIViewController()
+                let nextVC = SelectMBTIViewController(viewCase: .withEvery)
                 nextVC.delegate = self
-                nextVC.modalPresentationStyle = .overFullScreen
                 self?.present(nextVC, animated: true)
             })
             .disposed(by: disposeBag)

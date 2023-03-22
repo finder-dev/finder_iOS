@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 enum MBTI: String, CaseIterable {
+    case every = "전체"
     case infj = "INFJ"
     case infp = "INFP"
     case isfj = "ISFJ"
@@ -28,6 +29,8 @@ enum MBTI: String, CaseIterable {
     
     var mbtiMessage: String {
         switch self {
+        case .every:
+            return ""
         case .infj:
             return "오늘은 하고 싶은 말 \n다 하고 오셨나요?"
         case .infp:
@@ -65,6 +68,8 @@ enum MBTI: String, CaseIterable {
     
     var mbtiImage: UIImage {
         switch self {
+        case .every:
+            return UIImage()
         case .infj:
             return UIImage(named: "Frame 7594") ?? UIImage()
         case .infp:

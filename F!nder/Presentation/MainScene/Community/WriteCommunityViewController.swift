@@ -213,18 +213,14 @@ extension WriteCommunityViewController :SelectMBTIViewControllerDelegate {
     }
     
     @objc func didTapSelectMBTIView() {
-        print("didTapSelectMBTIView")
-        let nextVC = SelectMBTIViewController()
+        let nextVC = SelectMBTIViewController(viewCase: .withoutEvery)
         nextVC.delegate = self
-        nextVC.everyButtonisEnabled = true
-        nextVC.modalPresentationStyle = .overCurrentContext
         self.present(nextVC, animated: true)
     }
     
     @objc func didTapContentTextView() {
         view.endEditing(true)
     }
-    
     
     @objc func didTapAlbumButton() {
 //        setUpPHPickerVC()
