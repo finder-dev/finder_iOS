@@ -34,27 +34,11 @@ class MainTabBarController: UITabBarController {
         self.tabBar.tintColor = .primary
     }
     
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        var tabFrame = self.tabBar.frame
-//        tabFrame.size.height = 75.0
-//        tabFrame.origin.y = self.view.frame.size.height - 75.0
-//        self.tabBar.frame = tabFrame
-//    }
-//    
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        var tabFrame = self.tabBar.frame
-//        tabFrame.size.height = 75.0
-//        tabFrame.origin.y = self.view.frame.size.height - 75.0
-//        self.tabBar.frame = tabFrame
-//    }
-    
     private func setUpTabBar() {
         
         let firstViewController = HomeViewController(viewModel: HomeViewModel())
         let secondViewController = DebateListViewController(viewModel: DebateListViewModel())
-        let thirdViewController = CommunityViewController()
+        let thirdViewController = CommunityViewController(viewModel: CommunityViewModel())
         let fourthViewController = SavedViewController()
         let fifthViewController = UserViewController()
 
@@ -81,12 +65,3 @@ class MainTabBarController: UITabBarController {
         
     }
 }
-
-
-//extension UITabBar {
-//    override open func sizeThatFits(_ size: CGSize) -> CGSize {
-//    var sizeThatFits = super.sizeThatFits(size)
-//    sizeThatFits.height = 75 // 원하는 길이
-//    return sizeThatFits
-//   }
-//}

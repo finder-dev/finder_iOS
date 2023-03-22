@@ -49,12 +49,7 @@ final class CommunityTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-
-    func setupCellData(data: content) {
+    func setupCellData(data: CommunityTableDTO) {
         mbtiCategoryLabel.text = data.communityMBTI
         titleLabel.text = data.communityTitle
         contentLabel.text = data.communityContent
@@ -167,6 +162,7 @@ private extension CommunityTableViewCell {
     }
     
     func attribute() {
+        self.selectionStyle = .none
         backgroundColor = .grey10
         innerView.backgroundColor = .white
         

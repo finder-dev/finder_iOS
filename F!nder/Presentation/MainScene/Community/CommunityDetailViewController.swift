@@ -132,7 +132,7 @@ extension CommunityDetailViewController {
         }
     }
     
-    func addData(data: DetailCommunitySuccessResponse) {
+    func addData(data: DetailCommunitySuccessDTO) {
         mbtiCategoryLabel.text = data.communityMBTI
         timeLabel.text = data.createTime
         userMBTILabel.text = data.userMBTI

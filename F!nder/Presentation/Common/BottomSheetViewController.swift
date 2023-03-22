@@ -9,18 +9,21 @@ import UIKit
 import SnapKit
 import PanModal
 
+protocol BottomSheetDelegate {
+    func selectedIndex(idx: Int)
+}
+
 class BottomSheetViewController: UIViewController {
 
     let tableView = UITableView()
     var titles: [String] = ["차단","신고","닫기"]
-    var userId: Int = -1
+    var delegate: BottomSheetDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         layout()
         attribute()
-        
     }
 }
 
@@ -56,45 +59,16 @@ extension BottomSheetViewController: UITableViewDataSource, UITableViewDelegate 
         // 차단
         if indexPath.row == 0 {
             self.dismiss(animated: true)
-            NotificationCenter.default.post(name: Notification.Name("blockUser"),object: nil)
+            self.delegate?.selectedIndex(idx: indexPath.row)
             // 신고
         } else if indexPath.row == 1 {
             self.dismiss(animated: true)
-            NotificationCenter.default.post(name: Notification.Name("reportUser"),object: nil)
+            self.delegate?.selectedIndex(idx: indexPath.row)
         } else if indexPath.row == 2 {
             self.dismiss(animated: true)
         }
     }
 }
-
-extension BottomSheetViewController: AlertMessage2Delegate {
-    
-    func presentCutomAlert2VC(target:String,
-                              title:String,
-                              message:String,
-                              leftButtonTitle:String,
-                              rightButtonTitle:String) {
-        let nextVC = AlertMessage2ViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.leftButtonTitle = leftButtonTitle
-        nextVC.rightButtonTitle = rightButtonTitle
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
-    }
-    
-    func leftButtonTapped(from: String) {
-        
-    }
-    
-    func rightButtonTapped(from: String) {
-        
-    }
-    
-}
-
 
 // MARK: PanModal Setting
 

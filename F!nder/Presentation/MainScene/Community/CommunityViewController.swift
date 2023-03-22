@@ -17,24 +17,39 @@ enum CommunityDataStatus {
 /*
  * 커뮤니티 글 리스트 뷰컨트롤러입니다.
  */
-final class CommunityViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+final class CommunityViewController: BaseViewController {
 
+    // MARK: - Properties
+    
+    var viewModel: CommunityViewModel?
+    var communityDataStatus : CommunityDataStatus = .yesData {
+        didSet {
+        }
+    }
+    
+    var communityNetwork = CommunityAPI()
+    var communityList = [CommunityTableDTO]()
+    var tableViewData = [CommunityTableDTO]()
+    var isLastPage = false
+    var pageCount = 0
+
+    // MARK: - Views
+    
     private let sortView = CommunitySortView()
     private let noDataImageView = UIImageView()
     private let tableView = CommunityTableView()
     private let writeButton = UIButton()
     
-    var communityDataStatus : CommunityDataStatus = .yesData {
-        didSet {
-        }
-    }
-    var communityNetwork = CommunityAPI()
+    // MARK: - Life Cycle
     
-    var communityList = [content]()
-    var tableViewData = [content]()
-
-    var isLastPage = false
-    var pageCount = 0
+    init(viewModel: CommunityViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,11 +58,7 @@ final class CommunityViewController: BaseViewController, UITableViewDelegate, UI
     override func addView() {
         super.addView()
         
-        [sortView, tableView].forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
-        [noDataImageView, writeButton].forEach {
+        [sortView, tableView, noDataImageView, writeButton].forEach {
             self.view.addSubview($0)
         }
     }
@@ -61,7 +72,17 @@ final class CommunityViewController: BaseViewController, UITableViewDelegate, UI
             $0.bottom.equalTo(safeArea).inset(26.0)
             $0.trailing.equalTo(safeArea).inset(9.0)
         }
+        
+        sortView.snp.makeConstraints {
+            $0.top.equalTo(safeArea)
+            $0.leading.trailing.equalToSuperview()
+        }
  
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(sortView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
         noDataImageView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(120)
             $0.centerX.equalToSuperview()
@@ -74,6 +95,7 @@ final class CommunityViewController: BaseViewController, UITableViewDelegate, UI
         
         writeButton.setImage(UIImage(named: "floating"), for: .normal)
         noDataImageView.image = UIImage(named: "Group 986337")
+        noDataImageView.isHidden = true
     }
     
     override func bindViewModel() {
@@ -93,6 +115,22 @@ final class CommunityViewController: BaseViewController, UITableViewDelegate, UI
                 self?.present(nextVC, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(CommunityTableDTO.self)
+            .subscribe(onNext: { [weak self] model in
+                let nextVC = CommunityDetailViewController()
+                nextVC.communityId = model.communityId
+                self?.navigationController?.pushViewController(nextVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        // MARK: Output
+        
+        self.viewModel?.output.communityTableViewDataSource
+            .bind(to: tableView.rx.items(cellIdentifier: CommunityTableViewCell.identifier, cellType: CommunityTableViewCell.self)) { index, item, cell in
+                cell.setupCellData(data: item)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -106,30 +144,6 @@ extension CommunityViewController: SelectMBTIViewControllerDelegate {
         } else {
             setupData(mbti: mbti, orderBy: "CREATE_TIME", page: pageCount)
         }
-    }
-}
-
-// TableView Datasource, Delegate
-extension CommunityViewController {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableViewData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommunityTableViewCell.identifier) as? CommunityTableViewCell else {
-            return UITableViewCell()
-        }
-        let data = tableViewData[indexPath.row]
-        cell.setupCellData(data: data)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = tableViewData[indexPath.row]
-        let nextVC = CommunityDetailViewController()
-        nextVC.communityId = data.communityId
-        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
