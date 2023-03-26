@@ -51,7 +51,7 @@ final class Popup2ViewController: UIViewController {
 
         self.rightButton.addAction(for: .touchUpInside) { _ in
             self.dismiss(animated: false) {
-                leftButtonAction?()
+                rightButtonAction?()
             }
         }
         /// present 시 fullScreen (화면 덮도록)

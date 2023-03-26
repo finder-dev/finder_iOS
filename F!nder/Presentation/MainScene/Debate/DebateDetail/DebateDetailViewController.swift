@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import SwiftUI
 import PanModal
 import RxSwift
 import RxCocoa
@@ -117,7 +116,7 @@ final class DebateDetailViewController: BaseViewController {
         reportButton.rx.tap
             .bind { [weak self] in
                 let bottomSheetVC = BottomSheetViewController()
-                bottomSheetVC.delegate = self
+                bottomSheetVC.delegate = self?.viewModel
                 self?.presentPanModal(bottomSheetVC)
             }
             .disposed(by: disposeBag)
@@ -149,59 +148,47 @@ final class DebateDetailViewController: BaseViewController {
         self.viewModel?.output.answerTableViewDataSource
             .bind(to: self.commentTableView.rx.items(
                 cellIdentifier: CommentTableViewCell.identifier,
-                cellType: CommentTableViewCell.self)) { index, item, cell in
+                cellType: CommentTableViewCell.self)) { [weak self] index, item, cell in
                     
                 cell.setupCell(data: item)
-                cell.delegate = self
+                cell.delegate = self?.viewModel
             }
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.showBlockPopup
+            .subscribe(onNext: { [weak self] userId in
+                self?.showPopUp2(title: "해당 사용자를 차단하시겠습니까?",
+                           message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
+                           leftButtonText: "취소", rightButtonText: "차단",
+                           leftButtonAction: {}, rightButtonAction: { [weak self] in
+                    self?.viewModel?.input.blockUserTrigger.onNext(userId)
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.showReportPopup
+            .subscribe(onNext: { [weak self] userId in
+                
+                self?.showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
+                           message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                           leftButtonText: "취소", rightButtonText: "신고", leftButtonAction: {}, rightButtonAction: {
+                    self?.viewModel?.input.reportUserTrigger.onNext(userId)
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.showDeleteCommentPopup
+            .subscribe(onNext: { [weak self] commentId in
+                self?.showPopUp2(title: "댓글을 삭제하시겠습니까?",
+                           message: "",
+                           leftButtonText: "네", rightButtonText: "아니오",
+                           leftButtonAction: {}, rightButtonAction: {
+                    self?.viewModel?.input.deleteCommentTrigger.onNext(commentId)
+                })
+            })
             .disposed(by: disposeBag)
     }
 }
-
-extension DebateDetailViewController: BottomSheetDelegate {
-    func selectedIndex(idx: Int) {
-        // 차단
-        if idx == 0 {
-            
-            showPopUp2(title: "해당 사용자를 차단하시겠습니까?",
-                       message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
-                       leftButtonText: "취소", rightButtonText: "차단",
-                       leftButtonAction: {}, rightButtonAction: { [weak self] in
-                self?.viewModel?.input.blockButtonTrigger.onNext(())
-            })
-        // 신고
-        } else if idx == 1 {
-          
-            showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
-                       message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                       leftButtonText: "취소", rightButtonText: "신고", leftButtonAction: {}, rightButtonAction: { [weak self] in
-                self?.viewModel?.input.reportButtonTrigger.onNext(())
-            })
-        }
-    }
-}
-
-extension DebateDetailViewController: CommentCellDelegate {
-    
-    func report(userID: Int) {
-        showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
-                   message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                   leftButtonText: "취소", rightButtonText: "신고",
-                   leftButtonAction: {}, rightButtonAction: { [weak self] in
-            self?.viewModel?.input.reportUserTrigger.onNext(userID)
-        })
-    }
-    
-    func delete(commentID: Int) {
-        showPopUp2(title: "댓글을 삭제하시겠습니까?",
-                   message: "",
-                   leftButtonText: "네", rightButtonText: "아니오",
-                   leftButtonAction: {}, rightButtonAction: { [weak self] in
-            self?.viewModel?.input.deleteCommentTrigger.onNext(commentID)
-        })
-    }
-}
-
 
 // API - Fetch Data
 extension DebateDetailViewController {
@@ -302,63 +289,6 @@ extension DebateDetailViewController {
     }
 }
 
-// 커스텀 AlertView Delegate
-extension DebateDetailViewController: AlertMessageDelegate, AlertMessage2Delegate {
-    func presentCutomAlert2VC(target:String,
-                              title:String,
-                              message:String,
-                              leftButtonTitle:String,
-                              rightButtonTitle:String) {
-        let nextVC = AlertMessage2ViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.leftButtonTitle = leftButtonTitle
-        nextVC.rightButtonTitle = rightButtonTitle
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
-    }
-    
-    func presentCutomAlert1VC(target:String,
-                              title:String,
-                              message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
-    }
-    
-    func leftButtonTapped(from: String) {
-        if from == "deleteComment" {
-            print("댓글 삭제")
-            deleteDebateComment()
-        }
-    }
-    
-    func rightButtonTapped(from: String) {
-        if from == "reportButton" {
-            // 토론 신고
-            reportDebate()
-        } else if from == "reportComment" {
-            print("해당 댓글 사용자 신고 완료")
-            reportDebateComment()
-        } else if from == "blockDebateUser" {
-            blockUser()
-        }
-    }
-
-    func okButtonTapped(from: String) {
-        if from == "DeletedDebateComment" || from == "reportedDebateComment" {
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-
-}
-
 private extension DebateDetailViewController {
     
     @objc func didTapTextFieldButton() {
@@ -398,7 +328,7 @@ extension DebateDetailViewController {
                     }
                     print(response.message)
                     DispatchQueue.main.async {
-                        self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+//                        self.presentCutomAlert1VC(target: "successReport", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
                     }
                 } else {
                     print("실패 : 토론 신ㄱ")
@@ -421,7 +351,7 @@ extension DebateDetailViewController {
                     }
                     print(response.message)
                     DispatchQueue.main.async {
-                        self.presentCutomAlert1VC(target: "DeletedDebateComment", title: "댓글 삭제 완료", message: "삭제되었습니다.")
+//                        self.presentCutomAlert1VC(target: "DeletedDebateComment", title: "댓글 삭제 완료", message: "삭제되었습니다.")
                     }
                 } else {
                     print("실패 : 토론 댓글 삭제")
@@ -444,7 +374,7 @@ extension DebateDetailViewController {
                     }
                     print(response.message)
                     DispatchQueue.main.async {
-                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
+//                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 신고 완료", message: "신고되었습니다.")
                     }
                 } else {
                     print("실패 : 토론 댓글 신고")
@@ -469,7 +399,7 @@ extension DebateDetailViewController {
                     }
                     print(response.message)
                     DispatchQueue.main.async {
-                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 차단 완료", message: "차단되었습니다.")
+//                        self.presentCutomAlert1VC(target: "reportedDebateComment", title: "해당 사용자 차단 완료", message: "차단되었습니다.")
                     }
                 } else {
                     print("실패 : 토론 댓글 신고")

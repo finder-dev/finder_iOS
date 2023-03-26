@@ -29,7 +29,7 @@ final class CommentTableViewCell: UITableViewCell {
     var userID: Int = -1
     var answerID: Int = -1
     
-    var delegate: CommentCellDelegate!
+    var delegate: CommentCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -109,9 +109,9 @@ extension CommentTableViewCell {
         let userId = UserDefaultsData.userId
         
         if self.userID != userId {
-            self.delegate.report(userID: self.answerID)
+            self.delegate?.report(userID: self.answerID)
         } else {
-            self.delegate.delete(commentID: self.answerID)
+            self.delegate?.delete(commentID: self.answerID)
         }
     }
 }

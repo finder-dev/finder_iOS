@@ -56,17 +56,9 @@ extension BottomSheetViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // 차단
-        if indexPath.row == 0 {
-            self.dismiss(animated: true)
-            self.delegate?.selectedIndex(idx: indexPath.row)
-            // 신고
-        } else if indexPath.row == 1 {
-            self.dismiss(animated: true)
-            self.delegate?.selectedIndex(idx: indexPath.row)
-        } else if indexPath.row == 2 {
-            self.dismiss(animated: true)
-        }
+        let idx = indexPath.row
+        self.dismiss(animated: true)
+        self.delegate?.selectedIndex(idx: idx)
     }
 }
 

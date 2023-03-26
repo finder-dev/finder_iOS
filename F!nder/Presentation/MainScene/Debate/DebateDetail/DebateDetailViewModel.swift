@@ -13,8 +13,7 @@ final class DebateDetailViewModel {
     struct Input {
         let optionAButtonTrigger = PublishSubject<Void>()
         let optionBButtonTrigger = PublishSubject<Void>()
-        let blockButtonTrigger = PublishSubject<Void>()
-        let reportButtonTrigger = PublishSubject<Void>()
+        let blockUserTrigger = PublishSubject<Int>()
         let reportUserTrigger = PublishSubject<Int>()
         let deleteCommentTrigger = PublishSubject<Int>()
         let addCommentTrigger = PublishSubject<String>()
@@ -23,6 +22,9 @@ final class DebateDetailViewModel {
     struct Output {
         var isFilled = BehaviorSubject<Bool>(value: false)
         var answerTableViewDataSource = BehaviorSubject<[Answer]>(value: [])
+        var showBlockPopup = PublishSubject<Int>()
+        var showReportPopup = PublishSubject<Int>()
+        var showDeleteCommentPopup = PublishSubject<Int>()
     }
     
     let input = Input()
@@ -47,6 +49,13 @@ final class DebateDetailViewModel {
             })
             .disposed(by: disposeBag)
         
+        self.input.blockUserTrigger
+            .subscribe(onNext: { [weak self] userId in
+                self?.block(userId: userId)
+            })
+            .disposed(by: disposeBag)
+        
+        
         self.input.addCommentTrigger
             .subscribe(onNext: { [weak self] comment in
                 self?.addComment(comment: comment)
@@ -57,19 +66,48 @@ final class DebateDetailViewModel {
     }
 }
 
+extension DebateDetailViewModel: BottomSheetDelegate {
+    func selectedIndex(idx: Int) {
+        // TODO: debateUserId 필요
+        let debateUserId = 123
+        
+        // 차단
+        if idx == 0 {
+            self.output.showBlockPopup.onNext(debateUserId)
+        // 신고
+        } else if idx == 1 {
+            self.output.showReportPopup.onNext(debateUserId)
+        }
+    }
+}
+
+extension DebateDetailViewModel: CommentCellDelegate {
+    
+    func report(userID: Int) {
+        self.output.showReportPopup.onNext(userID)
+    }
+    
+    func delete(commentID: Int) {
+        self.output.showDeleteCommentPopup.onNext(commentID)
+    }
+}
+
 private extension DebateDetailViewModel {
     func report(userId: Int) {
-        
+        print("report : \(userId)")
     }
     
     func delete(answerId: Int) {
-        
+        print("delete : \(answerId)")
     }
     
     func addComment(comment: String) {
-
+        print("comment: \(comment)")
     }
 
+    func block(userId: Int) {
+        print("block: \(userId)")
+    }
     
     func returnAnswerTableViewData() -> [Answer] {
         let array = [Answer(answerId: 1,
