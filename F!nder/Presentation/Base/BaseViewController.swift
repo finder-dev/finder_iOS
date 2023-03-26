@@ -101,7 +101,9 @@ private extension BaseViewController {
         let keyboardHeight = keyboardFrame.size.height
         
         var contentInset = scrollView.contentInset
-        contentInset.bottom += keyboardHeight
+        if contentInset.bottom < keyboardHeight {
+            contentInset.bottom += keyboardHeight
+        }
         scrollView.contentInset.bottom = contentInset.bottom
         commentViewBottomConstraint.constant = -keyboardHeight
         
@@ -124,6 +126,7 @@ private extension BaseViewController {
     func hideKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self,
                                                 action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
 
