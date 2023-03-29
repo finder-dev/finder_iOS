@@ -30,8 +30,6 @@ final class DebateDetailViewController: BaseViewController {
     let spaceView = BarView(barHeight: 24.0, barColor: .white)
     let debateDetailView = DebateVoteView(at: .detail)
     var barView = BarView(barHeight: 10.0, barColor: .grey10)
-    var commentTextField = UITextField()
-    let addCommentButton = UIButton()
     let commentTableView = CommentTableView()
     let reportButton = UIBarButtonItem(image: UIImage(named: "icon-siren-mono"),
                                          style: .plain,
@@ -60,27 +58,11 @@ final class DebateDetailViewController: BaseViewController {
         [spaceView, debateDetailView, barView, commentTableView].forEach {
             stackView.addArrangedSubview($0)
         }
-        
-        [commentTextField, addCommentButton].forEach {
-            commentView.addSubview($0)
-        }
     }
     
     override func setLayout() {
         super.setLayout()
-        
-        commentTextField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20.0)
-            $0.centerY.equalToSuperview()
-            $0.top.bottom.equalToSuperview().inset(18.0)
-            $0.height.equalTo(42.0)
-        }
-        
-        addCommentButton.snp.makeConstraints {
-            $0.width.height.equalTo(34.0)
-            $0.trailing.top.bottom.equalTo(commentTextField).inset(4.0)
-        }
-
+    
         tableViewHeightConstraint.isActive = true
     }
     
@@ -95,19 +77,7 @@ final class DebateDetailViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = reportButton
         self.scrollView.contentInset.bottom = 70
         
-        commentView.backgroundColor = .white
-        commentView.layer.borderWidth = 1.0
-        commentView.layer.borderColor = UIColor.grey11.cgColor
-        
-        commentTextField.backgroundColor = .grey11
-        commentTextField.placeholder = "토론에 참여해보세요!"
-        commentTextField.layer.cornerRadius = 20.0
-        commentTextField.addLeftPadding(padding: 16.0)
-        
-        addCommentButton.backgroundColor = .grey1
-        addCommentButton.setImage(UIImage(named: "ic:baseline-arrow-forward") ?? UIImage(),
-                                  for: .normal)
-        addCommentButton.layer.cornerRadius = 17.0
+        commentView.commentTextField.placeholder = "토론에 참여해보세요!"
     }
     
     override func bindViewModel() {
@@ -135,9 +105,9 @@ final class DebateDetailViewController: BaseViewController {
                 self?.viewModel?.input.optionBButtonTrigger.onNext(())
             }.disposed(by: disposeBag)
         
-        addCommentButton.rx.tap
+        commentView.addCommentButton.rx.tap
             .bind { [weak self] in
-                guard let comment = self?.commentTextField.text else { return }
+                guard let comment = self?.commentView.commentTextField.text else { return }
                 self?.viewModel?.input.addCommentTrigger.onNext(comment)
             }
             .disposed(by: disposeBag)
@@ -293,7 +263,7 @@ private extension DebateDetailViewController {
     
     @objc func didTapTextFieldButton() {
         print("didTapTextFieldButton")
-        guard let text = commentTextField.text else { return }
+        guard let text = commentView.commentTextField.text else { return }
         debateNetwork.requestNewComment(debateID: debateID!, content: text) { [self] result in
             switch result {
             case let .success(response) :

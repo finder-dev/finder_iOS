@@ -18,7 +18,7 @@ class BaseViewController: UIViewController {
         stackView.distribution = .fill
         return stackView
     }()
-    let commentView = UIView()
+    let commentView = CommentTextFieldView()
     let disposeBag = DisposeBag()
     lazy var commentViewBottomConstraint: NSLayoutConstraint = commentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
