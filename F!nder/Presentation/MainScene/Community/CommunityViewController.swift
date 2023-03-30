@@ -93,7 +93,7 @@ final class CommunityViewController: BaseViewController {
         
         writeButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
-                let nextVC = WriteCommunityViewController()
+                let nextVC = WriteCommunityViewController(viewModel: WriteCommunityViewModel())
                 self?.navigationController?.pushViewController(nextVC, animated: true)
             })
             .disposed(by: disposeBag)
@@ -107,9 +107,8 @@ final class CommunityViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         tableView.rx.modelSelected(CommunityTableDTO.self)
-            .subscribe(onNext: { [weak self] model in
-                let nextVC = CommunityDetailViewController()
-                nextVC.communityId = model.communityId
+            .subscribe(onNext: { [weak self] item in
+                let nextVC = CommunityDetailViewController(viewModel: CommunityDetailViewModel(communityId: item.communityId))
                 self?.navigationController?.pushViewController(nextVC, animated: true)
             })
             .disposed(by: disposeBag)

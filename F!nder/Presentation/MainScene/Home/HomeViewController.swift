@@ -136,8 +136,7 @@ final class HomeViewController: UIViewController {
         
         tableView.rx.modelSelected(HotCommunitySuccessDTO.self)
             .subscribe(onNext: { item in
-                let nextVC = CommunityDetailViewController()
-                nextVC.communityId = item.communityId
+                let nextVC = CommunityDetailViewController(viewModel: CommunityDetailViewModel(communityId: item.communityId))
                 self.navigationController?.pushViewController(nextVC, animated: true)
             })
             .disposed(by: disposeBag)

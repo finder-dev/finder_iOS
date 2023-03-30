@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 /*
  * 커뮤니티 상세 보기 뷰
@@ -15,6 +16,7 @@ final class CommunityDetailViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: CommunityDetailViewModel?
     var communityId : Int?
     var communityUserId :Int?
     var commentDataList = [AnswerDTO]()
@@ -29,10 +31,19 @@ final class CommunityDetailViewController: BaseViewController {
     let saveButton = UIButton(type: .custom)
     let reportButton = UIButton(type: .custom)
     let communityDetailView = CommunityDetailView()
-    let tableView = UITableView()
+    let tableView = CommentTableView()
 
     // MARK: - Life Cycle
-   
+    
+    init(viewModel: CommunityDetailViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,44 +78,94 @@ final class CommunityDetailViewController: BaseViewController {
         commentView.commentTextField.placeholder = "따뜻한 댓글을 남겨주세요!"
 
         reportButton.setImage(UIImage(named: "icon-dots"), for: [])
-        reportButton.addTarget(self, action: #selector(didTapDotButton), for: .touchUpInside)
         reportButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
-
         saveButton.setImage(UIImage(named: "Frame 986353"), for: [])
-        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
         saveButton.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
 
         let rightBarButton1 = UIBarButtonItem(customView: reportButton)
         let rightBarButton2 = UIBarButtonItem(customView: saveButton)
 
         self.navigationItem.rightBarButtonItems = [rightBarButton1,rightBarButton2]
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.identifier)
-    }
-}
-
-extension CommunityDetailViewController: CommentCellDelegate  {
-    func report(userID: Int) {
-        showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
-                   message:  "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
-                   leftButtonText: "취소", rightButtonText: "신고",
-                   leftButtonAction: { }, rightButtonAction: { self.reportCommunityComment()})
-        
-        self.answerID = userID
     }
     
-    func delete(commentID: Int) {
-        showPopUp2(title: "댓글을 삭제하시겠습니까?",
-                   message: "",
-                   leftButtonText: "네", rightButtonText: "아니오",
-                   leftButtonAction: { self.deleteCommunityComment() }, rightButtonAction: {})
+    override func bindViewModel() {
+        super.bindViewModel()
         
-        self.answerID = commentID
+        // MARK: Input
+        
+        reportButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                let userId = UserDefaultsData.userId
+                
+                if userId == self?.communityUserId {
+                    self?.showPopUp2(title: "글을 삭제하시겠습니까?",
+                               message: "",
+                               leftButtonText: "네", rightButtonText: "아니요",
+                               leftButtonAction: { self?.deleteCommunityPost() }, rightButtonAction: { })
+                    
+                } else {
+                    let bottomSheetVC = BottomSheetViewController()
+                    bottomSheetVC.delegate = self?.viewModel
+                    self?.presentPanModal(bottomSheetVC)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        saveButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.saveButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+
+        communityDetailView.recommendButtonIsSelected
+            .asObservable()
+            .subscribe(onNext: { [weak self] isSelected in
+                self?.viewModel?.input.recommendButtonTrigger.onNext(isSelected)
+            })
+            .disposed(by: disposeBag)
+        
+        commentRelay
+            .asObservable()
+            .subscribe(onNext: { [weak self] comment in
+                self?.viewModel?.input.addCommentTrigger.onNext(comment)
+            })
+            .disposed(by: disposeBag)
+        
+        // MARK: Output
+        
+        self.viewModel?.output.commentTableViewDataSource
+            .bind(to: tableView.rx.items(
+                cellIdentifier: CommentTableViewCell.identifier,
+                cellType: CommentTableViewCell.self)) { [weak self] index, item, cell in
+                    
+                    cell.setupCell(data: item)
+                    cell.delegate = self?.viewModel
+            }
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.showBlockPopup
+            .subscribe(onNext: { [weak self] userId in
+                self?.showPopUp2(title: "해당 사용자를 차단하시겠습니까?",
+                           message: "차단 시, 해당 사용자의 모든 글이 보이지 않습니다.",
+                           leftButtonText: "취소", rightButtonText: "차단",
+                           leftButtonAction: {}, rightButtonAction: { [weak self] in
+                    self?.viewModel?.input.blockUserTrigger.onNext(userId)
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.showReportPopup
+            .subscribe(onNext: { [weak self] userId in
+                
+                self?.showPopUp2(title: "해당 사용자를 신고하시겠습니까?",
+                           message: "허위 신고일 경우, 활동이 제한될 수 있으니 신중히 신고해주세요.",
+                           leftButtonText: "취소", rightButtonText: "신고", leftButtonAction: {}, rightButtonAction: {
+                    self?.viewModel?.input.reportUserTrigger.onNext(userId)
+                })
+            })
+            .disposed(by: disposeBag)
     }
 }
-
 
 // TODO: 서버 오픈되면 수정
 extension CommunityDetailViewController {
@@ -173,31 +234,6 @@ extension CommunityDetailViewController {
     */
 }
 
-// TableView - delegate, datasource
-extension CommunityDetailViewController: UITableViewDelegate, UITableViewDataSource {
-   
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        commentDataList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.identifier, for: indexPath) as? CommentTableViewCell else {
-            print("오류 : tableview Cell을 찾을 수 없습니다. ")
-            return UITableViewCell()
-        }
-        
-        if !commentDataList.isEmpty {
-            print("!commentDataList.isEmpty")
-            let data = commentDataList[indexPath.row]
-//            cell.setupCell(data: data)
-            cell.delegate = self
-        }
-        
-        return cell
-    }
-    
-}
-
 // button events
 extension CommunityDetailViewController {
     @objc func didTapTextFieldButton() {
@@ -236,25 +272,6 @@ extension CommunityDetailViewController {
                    message:  "허위 신고일 경우, 활동이 제한될 수 있으니\n신중히 신고해주세요.",
                    leftButtonText: "취소", rightButtonText: "신고",
                    leftButtonAction: { }, rightButtonAction: { self.reportCommunityPost()})
-    }
-    
-    @objc func didTapBackButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func didTapDotButton() {
-        let userId = UserDefaultsData.userId
-        
-        if userId == communityUserId {
-            showPopUp2(title: "글을 삭제하시겠습니까?",
-                       message: "",
-                       leftButtonText: "네", rightButtonText: "아니요",
-                       leftButtonAction: { self.deleteCommunityPost() }, rightButtonAction: { })
-            
-        } else {
-            let bottomSheetVC = BottomSheetViewController()
-            presentPanModal(bottomSheetVC)
-        }
     }
     
     @objc func didTapSaveButton() {

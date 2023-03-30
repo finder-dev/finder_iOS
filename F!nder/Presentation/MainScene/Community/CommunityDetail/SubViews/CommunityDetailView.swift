@@ -7,8 +7,17 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxRelay
 
 final class CommunityDetailView: UIView {
+    
+    // MARK: Propety
+    
+    let recommendButtonIsSelected = PublishRelay<Bool>()
+    let disposeBag = DisposeBag()
+    
+    // MARK: Views
     
     let mbtiCategoryView = BarView(barHeight: 30.0,
                                    barColor: .grey11.withAlphaComponent(0.5))
@@ -60,7 +69,7 @@ final class CommunityDetailView: UIView {
         if !data.isQuestion {
             questionImageView.isHidden = true
         }
-        recommendButton.isEnabled = data.likeUser ? true : false
+        recommendButton.isSelected = data.likeUser ? true : false
     }
 }
 
@@ -172,15 +181,23 @@ private extension CommunityDetailView {
         }
         
         recommendButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .bold)
-        recommendButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .normal)
-        recommendButton.setImage(UIImage(named: "icon-thumb-up"), for: .disabled)
-        recommendButton.setTitleColor(.grey13, for: .disabled)
-        recommendButton.setTitleColor(.primary, for: .normal)
+        recommendButton.setImage(UIImage(named: "icon-thumb-up-mono"), for: .selected)
+        recommendButton.setImage(UIImage(named: "icon-thumb-up"), for: .normal)
+        recommendButton.setTitleColor(.grey13, for: .normal)
+        recommendButton.setTitleColor(.primary, for: .selected)
         recommendButton.setTitle(" 추천 2", for: .normal)
+        recommendButton.changesSelectionAsPrimaryAction = true
+        recommendButton.isSelected = true
         
         commentButton.setImage(UIImage(named: "icon-chat-bubble-dots-mono"), for: .normal)
         commentButton.setTitle(" 댓글 2", for: .normal)
         commentButton.titleLabel?.font = .systemFont(ofSize: 14.0, weight: .bold)
         commentButton.setTitleColor(.grey13, for: .normal)
+
+        recommendButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.recommendButtonIsSelected.accept(self?.recommendButton.isSelected ?? false)
+            })
+            .disposed(by: disposeBag)
     }
 }

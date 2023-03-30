@@ -127,8 +127,7 @@ extension SavedViewController {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let data = tableViewData[indexPath.row]
-        let nextVC = CommunityDetailViewController()
-        nextVC.communityId = data.communityId
+        let nextVC = CommunityDetailViewController(viewModel: CommunityDetailViewModel(communityId: data.communityId))
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

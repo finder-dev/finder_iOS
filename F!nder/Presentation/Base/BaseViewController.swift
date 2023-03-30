@@ -7,9 +7,18 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 import SnapKit
 
 class BaseViewController: UIViewController {
+    
+    // MARK: Properties
+    
+    let commentRelay = PublishRelay<String>()
+    let disposeBag = DisposeBag()
+    lazy var commentViewBottomConstraint: NSLayoutConstraint = commentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    
+    // MARK: Views
     
     let scrollView = UIScrollView()
     let stackView: UIStackView = {
@@ -19,9 +28,7 @@ class BaseViewController: UIViewController {
         return stackView
     }()
     let commentView = CommentTextFieldView()
-    let disposeBag = DisposeBag()
-    lazy var commentViewBottomConstraint: NSLayoutConstraint = commentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,13 +38,17 @@ class BaseViewController: UIViewController {
         bindViewModel()
         
         addKeyboardObserver()
-        hideKeyboard()
+//        hideKeyboard()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         removeKeyboardObserver()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+          self.view.endEditing(true)
     }
 
     func addView() {
@@ -66,9 +77,18 @@ class BaseViewController: UIViewController {
         }
     }
     
-    func setupView() {}
+    func setupView() { }
 
-    func bindViewModel() {}
+    func bindViewModel() {
+        commentView.addCommentButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                guard let comment = self?.commentView.commentTextField.text else {
+                    return
+                }
+                self?.commentRelay.accept(comment)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 private extension BaseViewController {
