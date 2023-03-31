@@ -100,7 +100,7 @@ final class SignUpViewController: BaseViewController {
             .disposed(by: disposeBag)
         
         mbtiInsertView.rx.tapGesture()
-            .skip(1)
+            .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
                 let nextVC = SelectMBTIElementViewController()
                 nextVC.modalPresentationStyle = .overFullScreen
