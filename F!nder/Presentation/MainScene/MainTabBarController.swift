@@ -20,11 +20,11 @@ class MainTabBarController: BaseTabBarController {
     
     private func setUpTabBar() {
         
-        let firstViewController = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel()))
-        let secondViewController = UINavigationController(rootViewController: DebateListViewController(viewModel: DebateListViewModel()))
-        let thirdViewController = UINavigationController(rootViewController: CommunityViewController(viewModel: CommunityViewModel()))
-        let fourthViewController = UINavigationController(rootViewController: SavedViewController())
-        let fifthViewController = UINavigationController(rootViewController:UserViewController())
+        let firstViewController = BaseNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel()))
+        let secondViewController = BaseNavigationController(rootViewController: DebateListViewController(viewModel: DebateListViewModel()))
+        let thirdViewController = BaseNavigationController(rootViewController: CommunityViewController(viewModel: CommunityViewModel()))
+        let fourthViewController = BaseNavigationController(rootViewController: SavedViewController(viewModel: SavedViewModel()))
+        let fifthViewController = BaseNavigationController(rootViewController: UserViewController())
 
         // TabBar Item 타이틀
         firstViewController.tabBarItem.title = "홈"
