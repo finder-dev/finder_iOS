@@ -83,6 +83,7 @@
 		2BA0184C29D46355008F62F7 /* CommentTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0184B29D46355008F62F7 /* CommentTextFieldView.swift */; };
 		2BA0185029D46D77008F62F7 /* CommunityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA0184F29D46D77008F62F7 /* CommunityDetailView.swift */; };
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
+		2BA2C37D29D6D17E00822D0B /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2C37C29D6D17E00822D0B /* BaseTabBarController.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
 		2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */; };
 		2BA2E9B1287F17CE005DFE96 /* DebateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B0287F17CE005DFE96 /* DebateDetailViewController.swift */; };
@@ -226,6 +227,7 @@
 		2BA0184B29D46355008F62F7 /* CommentTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTextFieldView.swift; sourceTree = "<group>"; };
 		2BA0184F29D46D77008F62F7 /* CommunityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailView.swift; sourceTree = "<group>"; };
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		2BA2C37C29D6D17E00822D0B /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9B0287F17CE005DFE96 /* DebateDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateDetailViewController.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 			children = (
 				2B27762D29BCC9CC0046B9D6 /* BaseViewController.swift */,
 				2BAB811829C0798200002987 /* BaseNavigationController.swift */,
+				2BA2C37C29D6D17E00822D0B /* BaseTabBarController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -1093,6 +1096,7 @@
 				2B27762229BC4FEE0046B9D6 /* HomeViewModel.swift in Sources */,
 				2BE7BE50287317A90062EB5A /* CommunityViewController.swift in Sources */,
 				2B27762629BC6ABB0046B9D6 /* OnBoarding.swift in Sources */,
+				2BA2C37D29D6D17E00822D0B /* BaseTabBarController.swift in Sources */,
 				2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */,
 				2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */,
 				2BA0184C29D46355008F62F7 /* CommentTextFieldView.swift in Sources */,

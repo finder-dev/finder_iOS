@@ -11,45 +11,29 @@ import UIKit
 /*
  * 탭 별 뷰컨트롤러를 관리하는 메인 텝 바 컨트롤러입니다.
  */
-class MainTabBarController: UITabBarController {
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-    }
+class MainTabBarController: BaseTabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTabBar()
-        addShadowToTabBar()
-    }
-    
-    func addShadowToTabBar() {
-        UITabBar.appearance().shadowImage = UIImage()
-        UITabBar.appearance().backgroundImage = UIImage()
-        UITabBar.appearance().backgroundColor = UIColor.white
-        
-        self.tabBar.layer.applyShadow(color: .lightGray, alpha: 0.3, x: 0, y: 0, blur: 12)
-        self.tabBar.tintColor = .primary
     }
     
     private func setUpTabBar() {
         
-        let firstViewController = HomeViewController(viewModel: HomeViewModel())
-        let secondViewController = DebateListViewController(viewModel: DebateListViewModel())
-        let thirdViewController = CommunityViewController(viewModel: CommunityViewModel())
-        let fourthViewController = SavedViewController()
-        let fifthViewController = UserViewController()
+        let firstViewController = UINavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel()))
+        let secondViewController = UINavigationController(rootViewController: DebateListViewController(viewModel: DebateListViewModel()))
+        let thirdViewController = UINavigationController(rootViewController: CommunityViewController(viewModel: CommunityViewModel()))
+        let fourthViewController = UINavigationController(rootViewController: SavedViewController())
+        let fifthViewController = UINavigationController(rootViewController:UserViewController())
 
+        // TabBar Item 타이틀
         firstViewController.tabBarItem.title = "홈"
         secondViewController.tabBarItem.title = "토론"
         thirdViewController.tabBarItem.title = "커뮤니티"
         fourthViewController.tabBarItem.title = "저장"
         fifthViewController.tabBarItem.title = "마이"
-        
 
-        // TabBar Item 의 이미지
+        // TabBar Item 이미지
         firstViewController.tabBarItem.image = UIImage(named: "7611")
         secondViewController.tabBarItem.image = UIImage(named: "Frame 7611")
         thirdViewController.tabBarItem.image = UIImage(named: "986361")
