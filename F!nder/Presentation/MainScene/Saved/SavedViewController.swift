@@ -6,29 +6,29 @@
 //
 
 import UIKit
+import SnapKit
+import RxSwift
 
-class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+final class SavedViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let headerView = UIView()
-    let tableView = UITableView()
+    // MARK: Properties
     
     var tableViewData = [CommunityTableDTO]()
     var pageCount = 0
     var isLastPage = false
-    var dataStatus: DataStatus = .isPresent {
-        didSet {
-            layout()
-        }
-    }
+    var dataStatus: DataStatus = .isPresent
     let communityNetwork = CommunityAPI()
-
+    
+    // MARK: Views
+    
+    let noDataImageView = UIImageView()
+    let tableView = CommunityTableView()
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("saved : - viewDidLoad")
-        self.view.backgroundColor = .white
-//        fetchData(page: pageCount)
-        layout()
-        attribute()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,11 +36,52 @@ class SavedViewController: UIViewController, UITableViewDelegate, UITableViewDat
         pageCount = 0
         tableViewData = []
         fetchData(page: pageCount)
-        layout()
-        attribute()
     }
     
+    override func addView() {
+        
+        [noDataImageView, tableView].forEach {
+            self.view.addSubview($0)
+        }
+    }
     
+    override func setLayout() {
+        let safeArea = self.view.safeAreaLayoutGuide
+        
+        noDataImageView.snp.makeConstraints {
+            $0.width.equalTo(153.0)
+            $0.height.equalTo(133.0)
+            $0.top.equalTo(safeArea.snp.top).inset(120.0)
+            $0.centerX.equalToSuperview()
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(safeArea.snp.bottom).offset(16.0)
+        }
+    }
+    
+    override func setupView() {
+        self.view.backgroundColor = .white
+        self.title = "저장"
+        
+        if dataStatus == .isPresent {
+            noDataImageView.isHidden = true
+            tableView.isHidden = false
+        } else {
+            noDataImageView.isHidden = false
+            tableView.isHidden = true
+        }
+        
+        noDataImageView.image = UIImage(named: "noSavedData")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
+
+// TODO: 서버 오픈시 추후 수정
+extension SavedViewController {
     func fetchData(page:Int) {
         communityNetwork.requestSavedCommuityList(page: page) { [self] result in
             switch result {
@@ -130,73 +171,4 @@ extension SavedViewController {
         let nextVC = CommunityDetailViewController(viewModel: CommunityDetailViewModel(communityId: data.communityId))
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
-}
-
-private extension SavedViewController {
-    func layout() {
-        setupHeaderView()
-        if dataStatus == .isPresent {
-            yesDataView()
-        } else {
-            noDataView()
-        }
-    }
-    
-    func attribute() {
-        
-    }
-}
-
-private extension SavedViewController {
-    func setupHeaderView() {
-        self.view.addSubview(headerView)
-        let safeArea = self.view.safeAreaLayoutGuide
-        
-        headerView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(48.0)
-            $0.top.equalTo(safeArea)
-        }
-
-        let headerLabel = UILabel()
-        headerView.addSubview(headerLabel)
-        
-        headerLabel.snp.makeConstraints {
-            $0.leading.trailing.top.bottom.equalToSuperview()
-        }
-
-        headerLabel.text = "저장"
-        headerLabel.font = .systemFont(ofSize: 16.0, weight: .bold)
-        headerLabel.textColor = .black1
-        headerLabel.textAlignment = .center
-    }
-    
-    func noDataView() {
-        let noDataImageView = UIImageView()
-        noDataImageView.image = UIImage(named: "noSavedData")
-        
-        self.view.addSubview(noDataImageView)
-        
-        noDataImageView.snp.makeConstraints {
-            $0.width.equalTo(153.0)
-            $0.height.equalTo(133.0)
-            $0.top.equalTo(headerView.snp.bottom).offset(120.0)
-            $0.centerX.equalToSuperview()
-        }
-    }
-    
-    func yesDataView() {
-        self.view.addSubview(tableView)
-        
-        tableView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(headerView.snp.bottom).offset(16.0)
-        }
-        
-        tableView.separatorStyle = .none
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CommunityTableViewCell.self, forCellReuseIdentifier: CommunityTableViewCell.identifier)
-    }
-    
 }
