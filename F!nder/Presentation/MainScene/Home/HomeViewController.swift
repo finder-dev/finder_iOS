@@ -117,6 +117,7 @@ final class HomeViewController: UIViewController {
             .disposed(by: disposeBag)
         
         searchView.rx.tapGesture()
+            .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
 //                let nextVC = SearchViewController()
 //                self.navigationController?.pushViewController(nextVC, animated: true)

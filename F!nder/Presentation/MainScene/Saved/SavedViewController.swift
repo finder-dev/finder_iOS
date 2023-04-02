@@ -9,37 +9,38 @@ import UIKit
 import SnapKit
 import RxSwift
 
-final class SavedViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+final class SavedViewController: BaseViewController {
 
     // MARK: Properties
     
+    var viewModel: SavedViewModel?
     var tableViewData = [CommunityTableDTO]()
     var pageCount = 0
     var isLastPage = false
-    var dataStatus: DataStatus = .isPresent
     let communityNetwork = CommunityAPI()
     
     // MARK: Views
     
-    let noDataImageView = UIImageView()
-    let tableView = CommunityTableView()
+    private let noDataImageView = UIImageView()
+    private let tableView = CommunityTableView()
     
     // MARK: - Life Cycle
+    
+    init(viewModel: SavedViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        pageCount = 0
-        tableViewData = []
-        fetchData(page: pageCount)
-    }
-    
     override func addView() {
-        
         [noDataImageView, tableView].forEach {
             self.view.addSubview($0)
         }
@@ -56,27 +57,40 @@ final class SavedViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         tableView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(safeArea.snp.bottom).offset(16.0)
+            $0.edges.equalTo(safeArea)
         }
     }
     
     override func setupView() {
         self.view.backgroundColor = .white
         self.title = "저장"
-        
-        if dataStatus == .isPresent {
-            noDataImageView.isHidden = true
-            tableView.isHidden = false
-        } else {
-            noDataImageView.isHidden = false
-            tableView.isHidden = true
-        }
-        
         noDataImageView.image = UIImage(named: "noSavedData")
+    }
+    
+    override func bindViewModel() {
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        // MARK: Output
+        
+        self.viewModel?.output.communityTableViewDataSource
+            .distinctUntilChanged()
+            .filter({ [weak self] data in
+                self?.noDataImageView.isHidden = !data.isEmpty
+                self?.tableView.isHidden = data.isEmpty
+                return true
+            })
+            .bind(to: tableView.rx.items(
+                cellIdentifier: CommunityTableViewCell.identifier,
+                cellType: CommunityTableViewCell.self)) { index, item, cell in
+                cell.setupCellData(data: item)
+            }
+            .disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(CommunityTableDTO.self)
+            .subscribe(onNext: { [weak self] item in
+                let nextVC = CommunityDetailViewController(viewModel: CommunityDetailViewModel(communityId: item.communityId))
+                self?.navigationController?.pushViewController(nextVC, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -99,10 +113,8 @@ extension SavedViewController {
                     print("requestSavedCommuityList pageCount : \(pageCount)")
                     DispatchQueue.main.async {
                         if tableViewData.isEmpty {
-                            dataStatus = .isEmpty
                             tableView.isHidden = true
                         } else {
-                            dataStatus = .isPresent
                             tableView.isHidden = false
                             tableView.reloadData()
                             tableView.tableFooterView?.isHidden = true
@@ -146,29 +158,4 @@ extension SavedViewController: UIScrollViewDelegate {
             
             return footerView
         }
-}
-
-
-
-// tableview delegate, datasource
-extension SavedViewController {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableViewData.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommunityTableViewCell.identifier) as? CommunityTableViewCell else {
-            return UITableViewCell()
-        }
-        
-        let data = tableViewData[indexPath.row]
-        cell.setupCellData(data:data)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let data = tableViewData[indexPath.row]
-        let nextVC = CommunityDetailViewController(viewModel: CommunityDetailViewModel(communityId: data.communityId))
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
 }
