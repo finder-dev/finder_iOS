@@ -680,7 +680,7 @@
 				2BE7BE53287317DE0062EB5A /* UserViewController.swift */,
 				2BA2C38329DAA3D100822D0B /* UserViewModel.swift */,
 				2BA2C38029D9487D00822D0B /* SubViews */,
-				2BA10F872882CC2400614C2E /* SettingViewController.swift */,
+				2BBDE60229DAA6B300FABE16 /* Setting */,
 				2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */,
 				2BB455DB28832BCE001139E5 /* WebViewController.swift */,
 			);
@@ -849,6 +849,14 @@
 				2B9C521B29C990EE00567B36 /* CommentView.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		2BBDE60229DAA6B300FABE16 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				2BA10F872882CC2400614C2E /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {

@@ -84,7 +84,7 @@ class WebViewController: UIViewController {
     }
     
     @objc func didTapHeaderBackButton() {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
     
     func layout() {

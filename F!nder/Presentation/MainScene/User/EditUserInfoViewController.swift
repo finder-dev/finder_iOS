@@ -415,6 +415,6 @@ private extension EditUserInfoViewController {
     }
     
     @objc func didTapBackButton() {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false)
     }
 }
