@@ -11,10 +11,27 @@ import RxSwift
 
 final class UserViewController: BaseViewController {
     
+    // MARK: - Properties
+    
+    var viewModel: UserViewModel?
+    let signUpNetwork = SignUpAPI()
+    
+    // MARK: - Views
+    
     private let settingButton = UIBarButtonItem(image: UIImage(named: "clarity_settings"),
                                                 style: .plain, target: nil, action: nil)
     private let userInfoView = UserInfoView()
-    let signUpNetwork = SignUpAPI()
+    
+    // MARK: - Life Cycle
+    
+    init(viewModel: UserViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +69,9 @@ final class UserViewController: BaseViewController {
             .subscribe(onNext: { [weak self] in
                 self?.showPopUp2(title: "로그아웃하시겠습니까?", message: "",
                                  leftButtonText: "아니오", rightButtonText: "로그아웃",
-                                 leftButtonAction: {}, rightButtonAction: {})
+                                 leftButtonAction: {}, rightButtonAction: {
+                    self?.viewModel?.input.logoutTrigger.onNext(())
+                })
             })
             .disposed(by: disposeBag)
     }

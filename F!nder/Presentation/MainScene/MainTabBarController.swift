@@ -24,7 +24,7 @@ class MainTabBarController: BaseTabBarController {
         let secondViewController = BaseNavigationController(rootViewController: DebateListViewController(viewModel: DebateListViewModel()))
         let thirdViewController = BaseNavigationController(rootViewController: CommunityViewController(viewModel: CommunityViewModel()))
         let fourthViewController = BaseNavigationController(rootViewController: SavedViewController(viewModel: SavedViewModel()))
-        let fifthViewController = BaseNavigationController(rootViewController: UserViewController())
+        let fifthViewController = BaseNavigationController(rootViewController: UserViewController(viewModel: UserViewModel()))
 
         // TabBar Item 타이틀
         firstViewController.tabBarItem.title = "홈"
