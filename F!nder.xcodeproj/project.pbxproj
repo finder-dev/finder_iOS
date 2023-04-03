@@ -85,6 +85,7 @@
 		2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA10F872882CC2400614C2E /* SettingViewController.swift */; };
 		2BA2C37D29D6D17E00822D0B /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2C37C29D6D17E00822D0B /* BaseTabBarController.swift */; };
 		2BA2C37F29D6D63F00822D0B /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2C37E29D6D63F00822D0B /* SavedViewModel.swift */; };
+		2BA2C38229D9488D00822D0B /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2C38129D9488D00822D0B /* UserInfoView.swift */; };
 		2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */; };
 		2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */; };
 		2BA2E9B1287F17CE005DFE96 /* DebateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2E9B0287F17CE005DFE96 /* DebateDetailViewController.swift */; };
@@ -230,6 +231,7 @@
 		2BA10F872882CC2400614C2E /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		2BA2C37C29D6D17E00822D0B /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		2BA2C37E29D6D63F00822D0B /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
+		2BA2C38129D9488D00822D0B /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		2BA2E9AC287C6A29005DFE96 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9AE287F10FB005DFE96 /* DebateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableViewCell.swift; sourceTree = "<group>"; };
 		2BA2E9B0287F17CE005DFE96 /* DebateDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateDetailViewController.swift; sourceTree = "<group>"; };
@@ -618,6 +620,14 @@
 			path = SubViews;
 			sourceTree = "<group>";
 		};
+		2BA2C38029D9487D00822D0B /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				2BA2C38129D9488D00822D0B /* UserInfoView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		2BA51BBF28771E5500D87533 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +676,7 @@
 			isa = PBXGroup;
 			children = (
 				2BE7BE53287317DE0062EB5A /* UserViewController.swift */,
+				2BA2C38029D9487D00822D0B /* SubViews */,
 				2BA10F872882CC2400614C2E /* SettingViewController.swift */,
 				2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */,
 				2BB455DB28832BCE001139E5 /* WebViewController.swift */,
@@ -1027,6 +1038,7 @@
 				2B00E5C929CAFBBD00F7A829 /* ImageCollectionViewCell.swift in Sources */,
 				2B20B55F29C6F7F8008AA709 /* ReplyDTO.swift in Sources */,
 				2B20B55629C6EF8E008AA709 /* Reply.swift in Sources */,
+				2BA2C38229D9488D00822D0B /* UserInfoView.swift in Sources */,
 				2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */,
 				2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */,
 				2B27761C29BB29940046B9D6 /* Control+Ex.swift in Sources */,

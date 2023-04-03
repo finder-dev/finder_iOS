@@ -18,7 +18,7 @@ struct EveryCommunitySuccessDTO: Codable {
     let last: Bool
 }
 
-struct CommunityTableDTO: Codable {
+struct CommunityTableDTO: Codable, Equatable {
     let communityId: Int
     let communityTitle: String
     let communityContent: String
