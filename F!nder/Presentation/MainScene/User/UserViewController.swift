@@ -60,7 +60,7 @@ final class UserViewController: BaseViewController {
     override func bindViewModel() {
         settingButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                let nextVC = SettingViewController()
+                let nextVC = SettingViewController(viewModel: SettingViewModel())
                 self?.navigationController?.pushViewController(nextVC, animated: true)
             })
             .disposed(by: disposeBag)

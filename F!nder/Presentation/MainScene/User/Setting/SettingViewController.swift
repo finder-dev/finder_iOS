@@ -13,6 +13,7 @@ final class SettingViewController: BaseViewController {
     
     // MARK: - Properties
     
+    var viewModel: SettingViewModel?
     let userNetwork = UserInfoAPI()
     
     // MARK: - Views
@@ -35,6 +36,15 @@ final class SettingViewController: BaseViewController {
                                       textColor: .grey13)
     
     // MARK: - Life Cycle
+    
+    init(viewModel: SettingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -143,7 +153,9 @@ final class SettingViewController: BaseViewController {
                 self?.showPopUp2(title: "정말로 탈퇴하시겠습니까?",
                                  message: "탈퇴 후 계정 복구는 불가합니다.",
                                  leftButtonText: "아니오", rightButtonText: "탈퇴",
-                                 leftButtonAction: { }, rightButtonAction: { })
+                                 leftButtonAction: { }, rightButtonAction: {
+                    self?.viewModel?.input.deleteAccountTrigger.onNext(())
+                })
                 
             })
             .disposed(by: disposeBag)
