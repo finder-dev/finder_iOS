@@ -12,41 +12,34 @@ import WebKit
 /*
  * 이용약관 웹뷰 입니다.
  */
-class WebViewController: UIViewController {
+final class WebViewController: UIViewController {
     
-    private lazy var emptyView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    private let indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.startAnimating()
+        return indicator
     }()
-    
+   
     private lazy var headerView : UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.addSubview(headerTitleLabel)
         view.addSubview(headerBackButton)
         view.layer.masksToBounds = false
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var headerTitleLabel : UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 16.0, weight: .bold)
-        label.textColor = .black
-        label.textAlignment = .center
-        label.text = "서비스 이용약관"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let headerTitleLabel = FinderLabel(text: "서비스 이용약관",
+                                               font: .systemFont(ofSize: 16.0, weight: .bold),
+                                               textColor: .black,
+                                               textAlignment: .center)
+    
     
     private lazy var headerBackButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "ic_baseline-close"), for: .normal)
         button.tintColor = .gray
         button.addTarget(self, action: #selector(didTapHeaderBackButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -56,70 +49,75 @@ class WebViewController: UIViewController {
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preference
         let webView = WKWebView(frame: .zero, configuration: configuration)
-        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.backgroundColor = .yellow
+        webView.navigationDelegate = self
         return webView
     }()
     
-    private var url : URL = URL(string: "https://pineapple-session-93c.notion.site/513cc9a19e4f40c491b43fa025340898")!
+    private let url : URL = URL(string: "https://pineapple-session-93c.notion.site/513cc9a19e4f40c491b43fa025340898")!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        [emptyView,
-         headerView,
-         webView].forEach {
+        
+        [headerView, webView, indicator].forEach {
             self.view.addSubview($0)
         }
         
-//        url = URL(string: "https://www.naver.com")!
         webView.load(URLRequest(url: url))
-        
         layout()
-        
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
+
     @objc func didTapHeaderBackButton() {
         self.dismiss(animated: false)
     }
     
     func layout() {
-        NSLayoutConstraint.activate([
-            emptyView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            emptyView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            emptyView.bottomAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor),
-            
-            webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
-            webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            
-            headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            headerView.topAnchor.constraint(equalTo: self.emptyView.bottomAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 48.0),
-        ])
         
-        headerLayout()
-    }
-    
-    func headerLayout() {
-        NSLayoutConstraint.activate([
-            headerBackButton.heightAnchor.constraint(equalToConstant: 56.0),
-            headerBackButton.widthAnchor.constraint(equalToConstant: 56.0),
-            headerBackButton.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            headerBackButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
-//            headerBackButton.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
-            headerTitleLabel.leadingAnchor.constraint(equalTo: headerBackButton.trailingAnchor),
-            headerTitleLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            headerTitleLabel.centerYAnchor.constraint(equalTo: headerBackButton.centerYAnchor),
-            headerTitleLabel.heightAnchor.constraint(equalToConstant: 24.0)
-        ])
+        let safeArea = self.view.safeAreaLayoutGuide
+        
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(safeArea.snp.top)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(48.0)
+        }
+        
+        headerBackButton.snp.makeConstraints {
+            $0.height.width.equalTo(56.0)
+            $0.leading.centerY.equalTo(headerView)
+            $0.centerY.equalTo(headerView)
+        }
+        
+        headerTitleLabel.snp.makeConstraints {
+            $0.leading.equalTo(headerBackButton.snp.trailing)
+            $0.centerX.centerY.equalTo(headerView)
+        }
+        
+        indicator.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(headerView.snp.bottom).offset(50)
+        }
+        
+        webView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(headerView.snp.bottom)
+        }
     }
 }
 
+extension WebViewController: WKNavigationDelegate {
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        webView.reload()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        indicator.stopAnimating()
+        indicator.isHidden = true
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        indicator.stopAnimating()
+        indicator.isHidden = true
+    }
+}
