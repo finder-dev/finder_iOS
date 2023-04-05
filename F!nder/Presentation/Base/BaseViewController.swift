@@ -16,6 +16,13 @@ class BaseViewController: UIViewController {
     
     let commentRelay = PublishRelay<String>()
     let disposeBag = DisposeBag()
+    var isCommentViewHidden = true {
+        didSet {
+            if !isCommentViewHidden {
+                addCommentView()
+            }
+        }
+    }
     lazy var commentViewBottomConstraint: NSLayoutConstraint = commentView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
     // MARK: Views
@@ -38,7 +45,7 @@ class BaseViewController: UIViewController {
         bindViewModel()
         
         addKeyboardObserver()
-//        hideKeyboard()
+        hideKeyboard()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -52,7 +59,7 @@ class BaseViewController: UIViewController {
     }
 
     func addView() {
-        [scrollView, commentView].forEach {
+        [scrollView].forEach {
             self.view.addSubview($0)
         }
         scrollView.addSubview(stackView)
@@ -64,12 +71,6 @@ class BaseViewController: UIViewController {
         scrollView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(safeArea)
         }
-        
-        commentView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-        }
-        
-        commentViewBottomConstraint.isActive = true
         
         stackView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalTo(scrollView.contentLayoutGuide)
@@ -92,6 +93,17 @@ class BaseViewController: UIViewController {
 }
 
 private extension BaseViewController {
+    
+    func addCommentView() {
+        self.view.addSubview(commentView)
+        
+        commentView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+        }
+        
+        commentViewBottomConstraint.isActive = true
+    }
+    
     private func addKeyboardObserver() {
         NotificationCenter.default.addObserver(
             self,
