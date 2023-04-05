@@ -137,6 +137,7 @@
 		2BB7610428A157E50011CEBC /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 2BB7610328A157E50011CEBC /* RxRelay */; };
 		2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */; };
 		2BBDE60429DBE76200FABE16 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDE60329DBE76200FABE16 /* SettingViewModel.swift */; };
+		2BBDE60729DD546900FABE16 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDE60629DD546900FABE16 /* HeaderView.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -280,6 +281,7 @@
 		2BB760FE28A152460011CEBC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		2BBDE60329DBE76200FABE16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		2BBDE60629DD546900FABE16 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -628,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				2BA2C38129D9488D00822D0B /* UserInfoView.swift */,
+				2BBDE60629DD546900FABE16 /* HeaderView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -683,7 +686,7 @@
 				2BA2C38329DAA3D100822D0B /* UserViewModel.swift */,
 				2BA2C38029D9487D00822D0B /* SubViews */,
 				2BBDE60229DAA6B300FABE16 /* Setting */,
-				2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */,
+				2BBDE60529DD542600FABE16 /* EditUserInfo */,
 				2BB455DB28832BCE001139E5 /* WebViewController.swift */,
 			);
 			path = User;
@@ -860,6 +863,14 @@
 				2BBDE60329DBE76200FABE16 /* SettingViewModel.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		2BBDE60529DD542600FABE16 /* EditUserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */,
+			);
+			path = EditUserInfo;
 			sourceTree = "<group>";
 		};
 		2BBEABAA2854DA93002573DE = {
@@ -1039,6 +1050,7 @@
 				2B27643C28732BB800C37C9A /* SearchViewController.swift in Sources */,
 				2B3E2599286358BF00C85193 /* InsertUserInfoViewController.swift in Sources */,
 				2BA2E9B32880424B005DFE96 /* MakeDebateViewController.swift in Sources */,
+				2BBDE60729DD546900FABE16 /* HeaderView.swift in Sources */,
 				2B09DF212861E05C00FE19DC /* Colors.swift in Sources */,
 				2B27762E29BCC9CC0046B9D6 /* BaseViewController.swift in Sources */,
 				2B9C523229CADC1E00567B36 /* MBTICollectionView.swift in Sources */,
