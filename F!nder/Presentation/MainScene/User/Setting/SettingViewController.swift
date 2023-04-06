@@ -133,7 +133,7 @@ final class SettingViewController: BaseViewController {
         [editAccountButton1, editAccountButton2].forEach({
             $0.rx.tap
                 .subscribe(onNext: { [weak self] in
-                    let nextVC = EditUserInfoViewController()
+                    let nextVC = EditUserInfoViewController(viewModel: EditUserInfoViewModel())
                     nextVC.modalPresentationStyle = .overFullScreen
                     self?.present(nextVC, animated: true)
                 })

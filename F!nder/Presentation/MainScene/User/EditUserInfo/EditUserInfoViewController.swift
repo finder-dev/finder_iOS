@@ -7,24 +7,40 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 import SnapKit
-import Then
 
 final class EditUserInfoViewController: BaseViewController {
+    
+    // MARK: - Properties
+    
+    let viewModel: EditUserInfoViewModel?
+    let userAPI = UserInfoAPI()
+    
+    // MARK: - Views
     
     private let headerView = HeaderView(title: "개인 정보 수정")
     private let nicknameInsertView = InsertDataView(dataType: .nickname)
     private let mbtiInsertView = InsertDataView(dataType: .mbti)
     private let passwordInsertView = InsertDataView(dataType: .password)
     private let passwordCheckInsertView = InsertDataView(dataType: .passwordCheck)
-    
-    let nextButton = UIButton()
-    let userAPI = UserInfoAPI()
+    private let changeButton = FinderButton(buttonText: "변경")
     
     var passwordIsSame = false {
         didSet {
-            checkEnableNextButtonOrNot()
+//            checkEnableNextButtonOrNot()
         }
+    }
+    
+    // MARK: - Life Cycle
+    
+    init(viewModel: EditUserInfoViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -34,7 +50,7 @@ final class EditUserInfoViewController: BaseViewController {
     override func addView() {
         super.addView()
         
-        [headerView].forEach {
+        [headerView, changeButton].forEach {
             self.view.addSubview($0)
         }
         
@@ -52,6 +68,11 @@ final class EditUserInfoViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(safeArea)
         }
+        
+        changeButton.snp.makeConstraints {
+            $0.bottom.equalTo(safeArea.snp.bottom).inset(26.0)
+            $0.leading.trailing.equalToSuperview().inset(24)
+        }
     }
     
     override func setupView() {
@@ -61,14 +82,7 @@ final class EditUserInfoViewController: BaseViewController {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.layoutMargins = UIEdgeInsets(top: 64.0, left: 24.0,
                                                bottom: 26.0, right: 24.0)
-        
-        nextButton.setTitle("변경", for: .normal)
-        nextButton.titleLabel?.font = .systemFont(ofSize: 16.0, weight: .medium)
-        nextButton.setTitleColor(.grey8, for: .normal)
-        nextButton.backgroundColor = .grey7
-        //TODO: for test
-        nextButton.isEnabled = true
-        nextButton.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
+        passwordCheckInsertView.textField.isEnabled = false
     }
     
     override func bindViewModel() {
@@ -88,6 +102,82 @@ final class EditUserInfoViewController: BaseViewController {
                 self?.present(nextVC, animated: true)
             })
             .disposed(by: disposeBag)
+        
+        // MARK: Input
+        
+        nicknameInsertView.requestButton.rx.tap
+            .bind { [weak self] _ in
+                guard let nickname = self?.nicknameInsertView.textField.text else {
+                    self?.showPopUp1(title: "닉네임을 작성해주세요.",
+                                     message: "",
+                                     buttonText: "확인",
+                                     buttonAction: { })
+                    return
+                }
+                self?.viewModel?.input.nickNameConfirm.onNext(nickname)
+            }
+            .disposed(by: disposeBag)
+        
+        passwordInsertView.textField.rx.controlEvent([.editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                guard let password = self?.passwordInsertView.textField.text else { return }
+                self?.viewModel?.input.password.onNext(password)
+                self?.passwordCheckInsertView.textField.text = ""
+                self?.passwordCheckInsertView.subTitleLabel.text = ""
+            })
+            .disposed(by: disposeBag)
+
+        passwordCheckInsertView.textField.rx.controlEvent([.editingDidEndOnExit])
+            .subscribe(onNext: { [weak self] _ in
+                guard let password = self?.passwordCheckInsertView.textField.text else { return }
+                self?.viewModel?.input.passwordCheck.onNext(password)
+            })
+            .disposed(by: disposeBag)
+        
+        changeButton.rx.tap
+            .bind { [weak self] in
+                self?.viewModel?.input.changeButtonTrigger.onNext(())
+            }
+            .disposed(by: disposeBag)
+        
+        // MARK: Output
+        
+        self.viewModel?.output.passwordValidation
+            .subscribe(onNext: { [weak self] isValid in
+                if !isValid {
+                    self?.passwordCheckInsertView.textField.isEnabled = false
+                    self?.showPopUp1(title: "비밀번호를 확인해주세요",
+                                     message: "올바르지 않은 비밀번호 입니다.",
+                                     buttonText: "확인", buttonAction: {
+                        self?.passwordInsertView.textField.text = ""
+                    })
+                } else {
+                    self?.passwordCheckInsertView.textField.isEnabled = true
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.passwordIsChecked
+            .subscribe(onNext: { [weak self] isSame in
+                print("isSame : \(isSame)")
+                self?.passwordCheckInsertView.subTitleLabel.isHidden = false
+                
+                if isSame {
+                    self?.passwordCheckInsertView.subTitleLabel.text = "비밀번호가 일치합니다"
+                    self?.passwordCheckInsertView.subTitleLabel.textColor = .secondary
+
+                } else {
+                    self?.passwordCheckInsertView.subTitleLabel.text = "동일하지 않은 비밀번호입니다"
+                    self?.passwordCheckInsertView.subTitleLabel.textColor = .primary
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        self.viewModel?.output.changeButtonEnabled
+            .subscribe(onNext: { [weak self] isEnabled in
+                self?.changeButton.isEnabled = isEnabled
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -95,80 +185,11 @@ extension EditUserInfoViewController: MBTIElementViewControllerDelegate {
     
     func selectMBTI(mbti: String) {
         mbtiInsertView.textField.text = mbti
-        checkEnableNextButtonOrNot()
+        self.viewModel?.input.mbti.onNext(mbti)
     }
 }
 
-extension EditUserInfoViewController: UITextFieldDelegate {
-    
-    func checkEnableNextButtonOrNot() {
-        print(" checkEnableNextButtonOrNo")
-        guard let mbti = mbtiInsertView.textField.text else {
-            return
-        }
-        
-        guard let password = passwordInsertView.textField.text else {
-            return
-        }
-        
-        
-        if password.isEmpty {
-            if nicknameInsertView.requestButton.isEnabled == false && !mbti.isEmpty {
-                nextButton.isEnabled = true
-                nextButton.backgroundColor = .primary
-                nextButton.setTitleColor(.white, for: .normal)
-            } else {
-                nextButton.isEnabled = false
-                nextButton.setTitleColor(.grey8, for: .normal)
-                nextButton.backgroundColor = .grey7
-            }
-        } else {
-            if nicknameInsertView.requestButton.isEnabled == false && !mbti.isEmpty && passwordIsSame {
-                nextButton.isEnabled = true
-                nextButton.backgroundColor = .primary
-                nextButton.setTitleColor(.white, for: .normal)
-            } else {
-                nextButton.isEnabled = false
-                nextButton.setTitleColor(.grey8, for: .normal)
-                nextButton.backgroundColor = .grey7
-            }
-        }
-    }
-
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        guard let password = passwordCheckInsertView.textField.text else {
-            return
-        }
-        
-        if password == textField.text {
-            passwordCheckInsertView.subTitleLabel.text = "비밀번호가 일치합니다"
-            passwordCheckInsertView.subTitleLabel.textColor = UIColor(red: 81/255, green: 70/255, blue: 241/255, alpha: 1.0)
-            passwordIsSame = true
-            print("일치")
-        } else {
-            print("불일치")
-            passwordCheckInsertView.subTitleLabel.text = "동일하지 않은 비밀번호입니다"
-            passwordCheckInsertView.subTitleLabel.textColor = .primary
-            passwordIsSame = false
-        }
-    }
-    
-    @objc func textFieldDidChange2(_ textField: UITextField) {
-        checkEnableNextButtonOrNot()
-    }
- 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-}
-
-
+// TODO: 추후 수정할 네트워크 관련 로직
 private extension EditUserInfoViewController {
     
     @objc func didTapNickNameCheckButton() {
@@ -190,7 +211,7 @@ private extension EditUserInfoViewController {
                     
                     DispatchQueue.main.async {
                         showPopUp1(title: response.message, message: "", buttonText: "확인", buttonAction: { })
-                        checkEnableNextButtonOrNot()
+//                        checkEnableNextButtonOrNot()
                     }
                 } else {
                     guard let error = response.errorResponse else {

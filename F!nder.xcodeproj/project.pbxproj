@@ -138,6 +138,7 @@
 		2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */; };
 		2BBDE60429DBE76200FABE16 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDE60329DBE76200FABE16 /* SettingViewModel.swift */; };
 		2BBDE60729DD546900FABE16 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDE60629DD546900FABE16 /* HeaderView.swift */; };
+		2BBDE60929DE984A00FABE16 /* EditUserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBDE60829DE984A00FABE16 /* EditUserInfoViewModel.swift */; };
 		2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB62854DA93002573DE /* AppDelegate.swift */; };
 		2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBEABB82854DA93002573DE /* SceneDelegate.swift */; };
 		2BBEABC02854DA94002573DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BBEABBF2854DA94002573DE /* Assets.xcassets */; };
@@ -282,6 +283,7 @@
 		2BB7610528A15F3F0011CEBC /* EmailLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginViewModel.swift; sourceTree = "<group>"; };
 		2BBDE60329DBE76200FABE16 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		2BBDE60629DD546900FABE16 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		2BBDE60829DE984A00FABE16 /* EditUserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserInfoViewModel.swift; sourceTree = "<group>"; };
 		2BBEABB32854DA93002573DE /* F!nder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "F!nder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BBEABB62854DA93002573DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BBEABB82854DA93002573DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -869,6 +871,7 @@
 			isa = PBXGroup;
 			children = (
 				2BB455D928832A89001139E5 /* EditUserInfoViewController.swift */,
+				2BBDE60829DE984A00FABE16 /* EditUserInfoViewModel.swift */,
 			);
 			path = EditUserInfo;
 			sourceTree = "<group>";
@@ -1078,6 +1081,7 @@
 				2BB4B8FD29C181CC007D7004 /* DebateModel.swift in Sources */,
 				2B27761A29BB21CA0046B9D6 /* Popup1ViewController.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
+				2BBDE60929DE984A00FABE16 /* EditUserInfoViewModel.swift in Sources */,
 				2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */,
 				2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */,
 				2B557B092888403F0057CC9D /* DebateComment.swift in Sources */,
