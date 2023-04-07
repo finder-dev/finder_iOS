@@ -298,7 +298,7 @@ struct CommunityAPI {
     
     // 커뮤니티 글 신고
     func reportCommunity(communityId:Int,
-                         completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                         completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityId)/report")
         
@@ -320,7 +320,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             
@@ -338,7 +338,7 @@ struct CommunityAPI {
     
     // 커뮤니티 글 삭제
     func requestDeleteCommunity(communityId:Int,
-                                completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                                completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityId)")
         
@@ -360,7 +360,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             
@@ -378,7 +378,7 @@ struct CommunityAPI {
     
     // 커뮤니티 댓글 삭제
     func requestDeleteCommunityComment(answerId:Int,
-                                       completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                                       completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/answers/\(answerId)")
         
@@ -400,7 +400,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             
@@ -419,7 +419,7 @@ struct CommunityAPI {
     
     // 커뮤니티 댓글 신고
     func reportCommunityComment(answerId:Int,
-                            completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                            completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/answers/\(answerId)/report")
         
@@ -441,7 +441,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             
@@ -460,7 +460,7 @@ struct CommunityAPI {
     // 커뮤니티 좋아요 버튼
     
     func requestCommunityLike(communityId:Int,
-                            completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                            completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/community/\(communityId)/like")
         
@@ -482,7 +482,7 @@ struct CommunityAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             

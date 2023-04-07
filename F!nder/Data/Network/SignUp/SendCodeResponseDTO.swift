@@ -7,6 +7,18 @@
 
 import Foundation
 
+// MARK: - Data Transfer Object
+
+struct SendCodeResponseDTO: Codable {
+    let success: Bool
+    let response: SendCodeSuccessDTO?
+    let errorResponse: ErrorReponseDTO?
+}
+
+struct SendCodeSuccessDTO: Codable {
+    let message: String
+}
+
 struct SendCode {
     let code: String
     let email: String
@@ -14,14 +26,4 @@ struct SendCode {
         "code": code,
         "email": email
     ]}
-}
-
-struct SendCodeResponse: Codable {
-    let success : Bool
-    let response : SendCodeSuccessResponse?
-    let errorResponse : ErrorReponseDTO?
-}
-
-struct SendCodeSuccessResponse : Codable {
-    let message: String
 }

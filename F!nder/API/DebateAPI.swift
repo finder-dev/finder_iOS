@@ -262,7 +262,7 @@ struct DebateAPI {
     
     // 토론 신고
     func reportDebate(debateId:Int,
-                      completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                      completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/\(debateId)/report")
         
@@ -284,7 +284,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             
@@ -301,7 +301,7 @@ struct DebateAPI {
     }
     
     func reportDebateComment(answerId:Int,
-                             completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                             completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/answers/\(answerId)/report")
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
@@ -322,7 +322,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             
@@ -340,7 +340,7 @@ struct DebateAPI {
     
     // 토론 댓글 삭제
     func requestDeleteDebateComment(answerId:Int,
-                                    completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                                    completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/answers/\(answerId)")
         
@@ -362,7 +362,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             

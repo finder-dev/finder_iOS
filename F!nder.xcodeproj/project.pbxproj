@@ -99,9 +99,9 @@
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
 		2BA8F25328671DB200D64F0E /* SelectMBTIElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */; };
 		2BA8F2552867270400D64F0E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BA8F2542867270400D64F0E /* Storyboard.storyboard */; };
-		2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponse.swift */; };
-		2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCode.swift */; };
-		2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */; };
+		2BA8F2582868906200D64F0E /* SendEmailResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponseDTO.swift */; };
+		2BA8F25B2868A98000D64F0E /* SendCodeResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCodeResponseDTO.swift */; };
+		2BA8F25F286C8E0100D64F0E /* SocialLoginResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25E286C8E0100D64F0E /* SocialLoginResponseDTO.swift */; };
 		2BAB6DAD2885B46E001DEE35 /* VoteDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAC2885B46E001DEE35 /* VoteDebateResponseDTO.swift */; };
 		2BAB6DAF2885B98A001DEE35 /* DetailDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAE2885B98A001DEE35 /* DetailDebateResponseDTO.swift */; };
 		2BAB811929C0798200002987 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB811829C0798200002987 /* BaseNavigationController.swift */; };
@@ -148,7 +148,7 @@
 		2BC8C9AA29D0503E00DC929B /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC8C9A929D0503E00DC929B /* AuthRepository.swift */; };
 		2BC8C9AC29D0507D00DC929B /* DefaultAuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC8C9AB29D0507D00DC929B /* DefaultAuthRepository.swift */; };
 		2BE5F0CD286DCCB50016480A /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F0CC286DCCB50016480A /* View+Extensions.swift */; };
-		2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F0CE286DD3550016480A /* SendSignUp.swift */; };
+		2BE5F0CF286DD3550016480A /* SignUpResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5F0CE286DD3550016480A /* SignUpResponseDTO.swift */; };
 		2BE7BE4A2873169E0062EB5A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7BE492873169E0062EB5A /* MainTabBarController.swift */; };
 		2BE7BE4C2873173B0062EB5A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */; };
 		2BE7BE4E2873176C0062EB5A /* DebateListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7BE4D2873176C0062EB5A /* DebateListViewController.swift */; };
@@ -249,10 +249,10 @@
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIElementViewController.swift; sourceTree = "<group>"; };
 		2BA8F2542867270400D64F0E /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		2BA8F2572868906200D64F0E /* SendEmailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailResponse.swift; sourceTree = "<group>"; };
+		2BA8F2572868906200D64F0E /* SendEmailResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendEmailResponseDTO.swift; sourceTree = "<group>"; };
 		2BA8F25928689AB100D64F0E /* F!nder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "F!nder.entitlements"; sourceTree = "<group>"; };
-		2BA8F25A2868A98000D64F0E /* SendCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCode.swift; sourceTree = "<group>"; };
-		2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSocialLogin.swift; sourceTree = "<group>"; };
+		2BA8F25A2868A98000D64F0E /* SendCodeResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCodeResponseDTO.swift; sourceTree = "<group>"; };
+		2BA8F25E286C8E0100D64F0E /* SocialLoginResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLoginResponseDTO.swift; sourceTree = "<group>"; };
 		2BAB6DAC2885B46E001DEE35 /* VoteDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2BAB6DAE2885B98A001DEE35 /* DetailDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2BAB811829C0798200002987 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
@@ -294,7 +294,7 @@
 		2BC8C9A929D0503E00DC929B /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		2BC8C9AB29D0507D00DC929B /* DefaultAuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAuthRepository.swift; sourceTree = "<group>"; };
 		2BE5F0CC286DCCB50016480A /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		2BE5F0CE286DD3550016480A /* SendSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSignUp.swift; sourceTree = "<group>"; };
+		2BE5F0CE286DD3550016480A /* SignUpResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResponseDTO.swift; sourceTree = "<group>"; };
 		2BE7BE492873169E0062EB5A /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		2BE7BE4B2873173B0062EB5A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2BE7BE4D2873176C0062EB5A /* DebateListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateListViewController.swift; sourceTree = "<group>"; };
@@ -724,10 +724,10 @@
 		2BA8F25C286C8DCB00D64F0E /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
-				2BA8F2572868906200D64F0E /* SendEmailResponse.swift */,
-				2BA8F25A2868A98000D64F0E /* SendCode.swift */,
-				2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */,
-				2BE5F0CE286DD3550016480A /* SendSignUp.swift */,
+				2BA8F2572868906200D64F0E /* SendEmailResponseDTO.swift */,
+				2BA8F25A2868A98000D64F0E /* SendCodeResponseDTO.swift */,
+				2BA8F25E286C8E0100D64F0E /* SocialLoginResponseDTO.swift */,
+				2BE5F0CE286DD3550016480A /* SignUpResponseDTO.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -1030,7 +1030,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */,
+				2BA8F2582868906200D64F0E /* SendEmailResponseDTO.swift in Sources */,
 				2B20B55B29C6F651008AA709 /* ErrorReponseDTO.swift in Sources */,
 				2BE7BE54287317DE0062EB5A /* UserViewController.swift in Sources */,
 				2B557B07288712AD0057CC9D /* SaveCommunityResponseDTO.swift in Sources */,
@@ -1061,7 +1061,7 @@
 				2BB7610628A15F3F0011CEBC /* EmailLoginViewModel.swift in Sources */,
 				2BC8C9A729D04E9B00DC929B /* AuthUseCase.swift in Sources */,
 				2BB455E02883EEB6001139E5 /* Logout.swift in Sources */,
-				2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */,
+				2BA8F25B2868A98000D64F0E /* SendCodeResponseDTO.swift in Sources */,
 				2B9C523429CADCDF00567B36 /* MBTICollectionViewFlowLayout.swift in Sources */,
 				2B9C521C29C990EE00567B36 /* CommentView.swift in Sources */,
 				2B00E5C929CAFBBD00F7A829 /* ImageCollectionViewCell.swift in Sources */,
@@ -1069,12 +1069,12 @@
 				2B20B55629C6EF8E008AA709 /* Reply.swift in Sources */,
 				2BA2C38229D9488D00822D0B /* UserInfoView.swift in Sources */,
 				2BA2E9AD287C6A29005DFE96 /* CommunityTableViewCell.swift in Sources */,
-				2BE5F0CF286DD3550016480A /* SendSignUp.swift in Sources */,
+				2BE5F0CF286DD3550016480A /* SignUpResponseDTO.swift in Sources */,
 				2B27761C29BB29940046B9D6 /* Control+Ex.swift in Sources */,
 				2BA0185029D46D77008F62F7 /* CommunityDetailView.swift in Sources */,
 				2BB455E52883F7EA001139E5 /* DebateAPI.swift in Sources */,
 				2B27643E28732DAD00C37C9A /* Label+Extensions.swift in Sources */,
-				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
+				2BA8F25F286C8E0100D64F0E /* SocialLoginResponseDTO.swift in Sources */,
 				2BB4B8FB29C17EE8007D7004 /* MakeDebateViewModel.swift in Sources */,
 				2BE7BE4C2873173B0062EB5A /* HomeViewController.swift in Sources */,
 				2BB455E82883F855001139E5 /* HotDebateResponseDTO.swift in Sources */,

@@ -11,7 +11,7 @@ struct SignUpAPI {
     
     // MARK : 이메일 확인
     func requestAuthEmail(email:String,
-                          completionHandler: @escaping (Result<SendEmailResponse,Error>)-> Void) {
+                          completionHandler: @escaping (Result<SendEmailResponseDTO,Error>)-> Void) {
         
         let emailData = SendEmail(email: email)
         let bodyData = emailData.parameters.percentEncoded()
@@ -29,7 +29,7 @@ struct SignUpAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendEmailResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendEmailResponseDTO.self, from: data) else {
                 return
             }
             print("======================================================================")
@@ -44,7 +44,7 @@ struct SignUpAPI {
     // MARK : - 이메일 인증 코드 확인
     func requestCodeAuth(code:String,
                          email: String,
-                         completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+                         completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         
         let codeData = SendCode(code: code, email: email)
         let bodyData = codeData.parameters.percentEncoded()
@@ -62,7 +62,7 @@ struct SignUpAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 return
             }
             print("======================================================================")
@@ -80,7 +80,7 @@ struct SignUpAPI {
                        password: String,
                        mbti:String,
                        nickname:String,
-                       completionHandler: @escaping (Result<SignUpResponse,Error>)-> Void) {
+                       completionHandler: @escaping (Result<SignUpResponseDTO,Error>)-> Void) {
         
         let codeData = SendSignUp(email: email, password: password, mbti: mbti, nickname: nickname)
         let bodyData = codeData.parameters.percentEncoded()
@@ -98,7 +98,7 @@ struct SignUpAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SignUpResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SignUpResponseDTO.self, from: data) else {
                 return
             }
             print("======================================================================")
@@ -115,7 +115,7 @@ struct SignUpAPI {
                            token: String,
                            mbti: String?,
                            nickName: String?,
-                           completionHandler: @escaping (Result<SocialLoginResponse,Error>)-> Void) {
+                           completionHandler: @escaping (Result<SocialLoginResponseDTO,Error>)-> Void) {
         print("=========================requestOAuthLogin=============================================")
         
         let codeData = SendSocialLogin(userType: userType,
@@ -140,7 +140,7 @@ struct SignUpAPI {
             
             let decoder = JSONDecoder()
             do {
-                let json = try! decoder.decode(SocialLoginResponse.self, from: data)
+                let json = try! decoder.decode(SocialLoginResponseDTO.self, from: data)
                 print("======================================================================")
                 print("SendSocialLogin : Network - socialLoginResponse => \(json.success)")
                 if !json.success {

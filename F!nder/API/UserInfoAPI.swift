@@ -44,7 +44,7 @@ struct UserInfoAPI {
     }
     
     //회원 탈퇴
-    func requestDeleteUser(completionHandler: @escaping (Result<SendCodeResponse,Error>)-> Void) {
+    func requestDeleteUser(completionHandler: @escaping (Result<SendCodeResponseDTO,Error>)-> Void) {
         let urlComponents = URLComponents(string: "https://finder777.com/api/users")
         
         guard let token = UserDefaults.standard.string(forKey: "accessToken") else {
@@ -61,7 +61,7 @@ struct UserInfoAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendCodeResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendCodeResponseDTO.self, from: data) else {
                 print("오류 : requestDeleteUser jsonDecode 실패")
                 return
             }
@@ -78,7 +78,7 @@ struct UserInfoAPI {
     
     // MARK : - 닉네임 중복 확인
     func requestCheckNickname(nickname: String,
-                              completionHandler: @escaping (Result<SendEmailResponse,Error>)-> Void) {
+                              completionHandler: @escaping (Result<SendEmailResponseDTO,Error>)-> Void) {
         
         let urlString = "https://finder777.com/api/duplicated/nickname?nickname=\(nickname)"
         
@@ -97,7 +97,7 @@ struct UserInfoAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendEmailResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendEmailResponseDTO.self, from: data) else {
                 return
             }
             print("======================================================================")
@@ -164,7 +164,7 @@ struct UserInfoAPI {
     
     // 사용자 차단
     func requestBlockUser(userID:Int,
-                          completionHandler: @escaping (Result<SendEmailResponse,Error>)-> Void) {
+                          completionHandler: @escaping (Result<SendEmailResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/users/block")
         let httpbody = "{\"blockUserId\" : \"\(userID)\"}"
@@ -190,7 +190,7 @@ struct UserInfoAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(SendEmailResponse.self, from: data) else {
+            guard let json = try? decoder.decode(SendEmailResponseDTO.self, from: data) else {
                 return
             }
             
