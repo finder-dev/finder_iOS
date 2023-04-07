@@ -49,15 +49,15 @@ final class CommunityTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCellData(data: CommunityTableDTO) {
+    func setupCellData(data: CommunityTable) {
         mbtiCategoryLabel.text = data.communityMBTI
         titleLabel.text = data.communityTitle
         contentLabel.text = data.communityContent
         userMBTILabel.text = data.userMBTI
         userNameLabel.text = data.userNickname
         timeLabel.text = data.createTime
-        commentLabel.text = "\(data.answerCount)"
-        recommentButton.setTitle(" \(data.likeCount)", for: .normal)
+        commentLabel.text = data.answerCount
+        recommentButton.setTitle(data.likeCount, for: .normal)
         
         recommentButton.isEnabled = data.likeUser ? true : false
         questionImageView.isHidden = data.isQuestion ? false : true

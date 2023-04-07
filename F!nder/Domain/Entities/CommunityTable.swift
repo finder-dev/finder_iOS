@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CommunityTable {
+struct CommunityTable: Equatable {
     let communityId: Int
     let communityTitle: String
     let communityContent: String

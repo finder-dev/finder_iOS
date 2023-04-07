@@ -73,7 +73,7 @@ final class DebateVoteView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupData(_ data: HotDebateSuccessDTO) {
+    func setupData(_ data: HotDebateResponseDTO.HotDebateSuccessDTO) {
         debateTitleLabel.text = data.title
         debateTimeLabel.text = data.deadline
         buttonACountLabel.text = "\(data.optionACount)"

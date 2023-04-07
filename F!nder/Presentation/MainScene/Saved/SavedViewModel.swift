@@ -16,7 +16,7 @@ final class SavedViewModel {
     }
     
     struct Output {
-        let communityTableViewDataSource = BehaviorRelay<[CommunityTableDTO]>(value: [])
+        let communityTableViewDataSource = BehaviorRelay<[CommunityTable]>(value: [])
     }
     
     let input = Input()
@@ -32,8 +32,8 @@ final class SavedViewModel {
 }
 
 private extension SavedViewModel {
-    func returnTempData() -> [CommunityTableDTO] {
-        let array = [CommunityTableDTO(communityId: 1,
+    func returnTempData() -> [CommunityTable] {
+        let array = [CommunityTable(communityId: 1,
                              communityTitle: "잇티제들은 표현해주는 거 좋아함? 언제는 부담스럽다더니 이제는 왜 안 하냐는데",
                              communityContent: "test testest",
                              communityMBTI: "INFJ",
@@ -41,11 +41,11 @@ private extension SavedViewModel {
                              userNickname: "포포",
                              userMBTI: "infj",
                              likeUser: true,
-                             likeCount: 9,
-                             answerCount: 4,
+                             likeCount: "9",
+                             answerCount: "4",
                              isQuestion: true,
                              createTime: "1분전"),
-                     CommunityTableDTO(communityId: 1,
+                     CommunityTable(communityId: 1,
                                           communityTitle: "test",
                                           communityContent: "test testest test testest test testest test testest test testest test testest test testest test testest test testest test testest test testest",
                                           communityMBTI: "infj",
@@ -53,11 +53,11 @@ private extension SavedViewModel {
                                           userNickname: "포포",
                                           userMBTI: "infj",
                                           likeUser: false,
-                                          likeCount: 9,
-                                          answerCount: 4,
+                                          likeCount: "9",
+                                          answerCount: "4",
                                           isQuestion: true,
                              createTime: "1분전"),
-                     CommunityTableDTO(communityId: 1,
+                     CommunityTable(communityId: 1,
                                           communityTitle: "test",
                                           communityContent: "test testest",
                                           communityMBTI: "infj",
@@ -65,11 +65,11 @@ private extension SavedViewModel {
                                           userNickname: "포포",
                                           userMBTI: "infj",
                                           likeUser: true,
-                                          likeCount: 9,
-                                          answerCount: 4,
+                                          likeCount: "9",
+                                          answerCount: "4",
                                           isQuestion: false,
                                           createTime: "1분전"),
-                     CommunityTableDTO(communityId: 1,
+                     CommunityTable(communityId: 1,
                                           communityTitle: "test",
                                           communityContent: "test testest",
                                           communityMBTI: "infj",
@@ -77,11 +77,11 @@ private extension SavedViewModel {
                                           userNickname: "포포",
                                           userMBTI: "infj",
                                           likeUser: false,
-                                          likeCount: 9,
-                                          answerCount: 4,
+                                          likeCount: "9",
+                                          answerCount: "4",
                                           isQuestion: true,
                                           createTime: "1분전"),
-                     CommunityTableDTO(communityId: 1,
+                     CommunityTable(communityId: 1,
                                           communityTitle: "test",
                                           communityContent: "test testest",
                                           communityMBTI: "infj",
@@ -89,8 +89,8 @@ private extension SavedViewModel {
                                           userNickname: "포포",
                                           userMBTI: "infj",
                                           likeUser: true,
-                                          likeCount: 9,
-                                          answerCount: 4,
+                                          likeCount: "9",
+                                          answerCount: "4",
                                           isQuestion: false,
                                           createTime: "1분전")]
         
