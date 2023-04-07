@@ -10,7 +10,7 @@ import Foundation
 struct DebateAPI {
     
     //가장 많이 참여한 토론 조회
-    func requestHotDebate(completionHandler: @escaping (Result<HotDebateResponse,Error>)-> Void) {
+    func requestHotDebate(completionHandler: @escaping (Result<HotDebateResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/hot")
         
@@ -29,7 +29,7 @@ struct DebateAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(HotDebateResponse.self, from: data) else {
+            guard let json = try? decoder.decode(HotDebateResponseDTO.self, from: data) else {
                 print("오류 : jsonDecode 실패")
                 return
             }
@@ -48,7 +48,7 @@ struct DebateAPI {
     func requestMakeDebate(title:String,
                            optionA:String,
                            optionB:String,
-                           completionHandler: @escaping (Result<MakeDebateResponse,Error>)-> Void) {
+                           completionHandler: @escaping (Result<MakeDebateResponseDTO,Error>)-> Void) {
         
         let httpbody = "{\"title\" : \"\(title)\",\"optionA\" : \"\(optionA)\",\"optionB\" : \"\(optionB)\"}"
         let data = httpbody.data(using: String.Encoding.utf8)
@@ -74,7 +74,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(MakeDebateResponse.self, from: data) else {
+            guard let json = try? decoder.decode(MakeDebateResponseDTO.self, from: data) else {
                 return
             }
             
@@ -93,7 +93,7 @@ struct DebateAPI {
     // 전체 토론조회
     func requestEveryDebateData(state:String = "PROCEEDING",
                                          page:Int,
-                                         completionHandler: @escaping (Result<EveryDebateResponse,Error>)-> Void) {
+                                         completionHandler: @escaping (Result<EveryDebateResponseDTO,Error>)-> Void) {
         
         var urlComponents = URLComponents(string: "https://finder777.com/api/debate?page=\(page)&state=\(state)")!
     
@@ -114,7 +114,7 @@ struct DebateAPI {
                 return
             }
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(EveryDebateResponse.self, from: data) else {
+            guard let json = try? decoder.decode(EveryDebateResponseDTO.self, from: data) else {
                 print("오류 : HotCommunityResponse jsonDecode 실패")
                 return
             }
@@ -132,7 +132,7 @@ struct DebateAPI {
     // 토론 참여
     func requestVoteDebate(debateID:Int,
                            option:String,
-                           completionHandler: @escaping (Result<VoteDebateResponse,Error>)-> Void) {
+                           completionHandler: @escaping (Result<VoteDebateResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/\(debateID)")
         let httpbody = "{\"option\" : \"\(option)\"}"
@@ -158,7 +158,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(VoteDebateResponse.self, from: data) else {
+            guard let json = try? decoder.decode(VoteDebateResponseDTO.self, from: data) else {
                 return
             }
             
@@ -218,7 +218,7 @@ struct DebateAPI {
     // 새 댓글 생성
     func requestNewComment(debateID:Int,
                            content:String,
-                           completionHandler: @escaping (Result<DebateCommentResponse,Error>)-> Void) {
+                           completionHandler: @escaping (Result<DebateCommentResponseDTO,Error>)-> Void) {
         
         let urlComponents = URLComponents(string: "https://finder777.com/api/debate/\(debateID)/answers")
         let httpbody = "{\"content\" : \"\(content)\"}"
@@ -244,7 +244,7 @@ struct DebateAPI {
             }
             
             let decoder = JSONDecoder()
-            guard let json = try? decoder.decode(DebateCommentResponse.self, from: data) else {
+            guard let json = try? decoder.decode(DebateCommentResponseDTO.self, from: data) else {
                 return
             }
             

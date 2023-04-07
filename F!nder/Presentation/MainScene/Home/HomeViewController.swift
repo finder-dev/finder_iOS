@@ -189,7 +189,7 @@ extension HomeViewController {
         }
     }
     
-    func setupDebateView(data: HotDebateSuccessResponse) {
+    func setupDebateView(data: HotDebateSuccessDTO) {
         debateVoteView.setupData(data)
         goBalanceGameButton.setTitle("의견 남기러 가기 > ", for: .normal)
     }

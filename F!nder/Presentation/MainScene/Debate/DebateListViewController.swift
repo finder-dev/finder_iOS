@@ -24,7 +24,7 @@ final class DebateListViewController: BaseViewController {
     
     var viewModel: DebateListViewModel?
     let debateNetwork = DebateAPI()
-    var tableViewData = [debateContent]()
+    var tableViewData = [DebateContentDTO]()
     var isLastPage = false
     var pageCount = 0
     

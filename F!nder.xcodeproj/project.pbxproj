@@ -62,9 +62,9 @@
 		2B55094B29C2F84900C52D45 /* Popup2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B55094A29C2F84900C52D45 /* Popup2ViewController.swift */; };
 		2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */; };
 		2B557B032886F49D0057CC9D /* DetailCommunityResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B022886F49D0057CC9D /* DetailCommunityResponseDTO.swift */; };
-		2B557B052886F8B20057CC9D /* EveryDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B042886F8B20057CC9D /* EveryDebate.swift */; };
+		2B557B052886F8B20057CC9D /* EveryDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B042886F8B20057CC9D /* EveryDebateResponseDTO.swift */; };
 		2B557B07288712AD0057CC9D /* SaveCommunityResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B06288712AD0057CC9D /* SaveCommunityResponseDTO.swift */; };
-		2B557B092888403F0057CC9D /* DebateComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B082888403F0057CC9D /* DebateComment.swift */; };
+		2B557B092888403F0057CC9D /* DebateCommentResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B082888403F0057CC9D /* DebateCommentResponseDTO.swift */; };
 		2B557B0B288843AB0057CC9D /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0A288843AB0057CC9D /* CommentTableViewCell.swift */; };
 		2B557B0D288852600057CC9D /* CommunityCommentResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0C2888525F0057CC9D /* CommunityCommentResponseDTO.swift */; };
 		2B557B0F288855DF0057CC9D /* NewCommunityResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0E288855DF0057CC9D /* NewCommunityResponseDTO.swift */; };
@@ -102,7 +102,7 @@
 		2BA8F2582868906200D64F0E /* SendEmailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F2572868906200D64F0E /* SendEmailResponse.swift */; };
 		2BA8F25B2868A98000D64F0E /* SendCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25A2868A98000D64F0E /* SendCode.swift */; };
 		2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */; };
-		2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */; };
+		2BAB6DAD2885B46E001DEE35 /* VoteDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAC2885B46E001DEE35 /* VoteDebateResponseDTO.swift */; };
 		2BAB6DAF2885B98A001DEE35 /* DetailDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB6DAE2885B98A001DEE35 /* DetailDebateResponseDTO.swift */; };
 		2BAB811929C0798200002987 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB811829C0798200002987 /* BaseNavigationController.swift */; };
 		2BAB811C29C0813D00002987 /* DebateListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB811B29C0813D00002987 /* DebateListHeaderView.swift */; };
@@ -119,14 +119,14 @@
 		2BB455E02883EEB6001139E5 /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455DF2883EEB6001139E5 /* Logout.swift */; };
 		2BB455E32883F170001139E5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E22883F170001139E5 /* UserInfo.swift */; };
 		2BB455E52883F7EA001139E5 /* DebateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E42883F7EA001139E5 /* DebateAPI.swift */; };
-		2BB455E82883F855001139E5 /* HotDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E72883F855001139E5 /* HotDebate.swift */; };
+		2BB455E82883F855001139E5 /* HotDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E72883F855001139E5 /* HotDebateResponseDTO.swift */; };
 		2BB455EA2883FCBD001139E5 /* CommunityAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455E92883FCBD001139E5 /* CommunityAPI.swift */; };
 		2BB455ED2883FD04001139E5 /* HotCommunityResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EC2883FD04001139E5 /* HotCommunityResponseDTO.swift */; };
-		2BB455EF2884044D001139E5 /* MakeDebate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EE2884044D001139E5 /* MakeDebate.swift */; };
+		2BB455EF2884044D001139E5 /* MakeDebateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455EE2884044D001139E5 /* MakeDebateResponseDTO.swift */; };
 		2BB455F128845B70001139E5 /* EveryCommunityResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB455F028845B70001139E5 /* EveryCommunityResponseDTO.swift */; };
 		2BB4B8F229C08838007D7004 /* EmptyDebateListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F129C08838007D7004 /* EmptyDebateListView.swift */; };
 		2BB4B8F429C089D4007D7004 /* DebateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F329C089D4007D7004 /* DebateTableView.swift */; };
-		2BB4B8F629C09062007D7004 /* DebateTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F529C09062007D7004 /* DebateTableModel.swift */; };
+		2BB4B8F629C09062007D7004 /* DebateContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F529C09062007D7004 /* DebateContent.swift */; };
 		2BB4B8F829C095B2007D7004 /* DebateListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */; };
 		2BB4B8FB29C17EE8007D7004 /* MakeDebateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */; };
 		2BB4B8FD29C181CC007D7004 /* DebateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB4B8FC29C181CC007D7004 /* DebateModel.swift */; };
@@ -213,9 +213,9 @@
 		2B55094A29C2F84900C52D45 /* Popup2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup2ViewController.swift; sourceTree = "<group>"; };
 		2B557B002886E97D0057CC9D /* CommunityDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailViewController.swift; sourceTree = "<group>"; };
 		2B557B022886F49D0057CC9D /* DetailCommunityResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCommunityResponseDTO.swift; sourceTree = "<group>"; };
-		2B557B042886F8B20057CC9D /* EveryDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryDebate.swift; sourceTree = "<group>"; };
+		2B557B042886F8B20057CC9D /* EveryDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B06288712AD0057CC9D /* SaveCommunityResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCommunityResponseDTO.swift; sourceTree = "<group>"; };
-		2B557B082888403F0057CC9D /* DebateComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateComment.swift; sourceTree = "<group>"; };
+		2B557B082888403F0057CC9D /* DebateCommentResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateCommentResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B0A288843AB0057CC9D /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		2B557B0C2888525F0057CC9D /* CommunityCommentResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCommentResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B0E288855DF0057CC9D /* NewCommunityResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCommunityResponseDTO.swift; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 		2BA8F25928689AB100D64F0E /* F!nder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "F!nder.entitlements"; sourceTree = "<group>"; };
 		2BA8F25A2868A98000D64F0E /* SendCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCode.swift; sourceTree = "<group>"; };
 		2BA8F25E286C8E0100D64F0E /* SendSocialLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendSocialLogin.swift; sourceTree = "<group>"; };
-		2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDebate.swift; sourceTree = "<group>"; };
+		2BAB6DAC2885B46E001DEE35 /* VoteDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2BAB6DAE2885B98A001DEE35 /* DetailDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2BAB811829C0798200002987 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		2BAB811B29C0813D00002987 /* DebateListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateListHeaderView.swift; sourceTree = "<group>"; };
@@ -267,14 +267,14 @@
 		2BB455DF2883EEB6001139E5 /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		2BB455E22883F170001139E5 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		2BB455E42883F7EA001139E5 /* DebateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateAPI.swift; sourceTree = "<group>"; };
-		2BB455E72883F855001139E5 /* HotDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotDebate.swift; sourceTree = "<group>"; };
+		2BB455E72883F855001139E5 /* HotDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2BB455E92883FCBD001139E5 /* CommunityAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityAPI.swift; sourceTree = "<group>"; };
 		2BB455EC2883FD04001139E5 /* HotCommunityResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCommunityResponseDTO.swift; sourceTree = "<group>"; };
-		2BB455EE2884044D001139E5 /* MakeDebate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebate.swift; sourceTree = "<group>"; };
+		2BB455EE2884044D001139E5 /* MakeDebateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebateResponseDTO.swift; sourceTree = "<group>"; };
 		2BB455F028845B70001139E5 /* EveryCommunityResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EveryCommunityResponseDTO.swift; sourceTree = "<group>"; };
 		2BB4B8F129C08838007D7004 /* EmptyDebateListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDebateListView.swift; sourceTree = "<group>"; };
 		2BB4B8F329C089D4007D7004 /* DebateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableView.swift; sourceTree = "<group>"; };
-		2BB4B8F529C09062007D7004 /* DebateTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateTableModel.swift; sourceTree = "<group>"; };
+		2BB4B8F529C09062007D7004 /* DebateContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateContent.swift; sourceTree = "<group>"; };
 		2BB4B8F729C095B2007D7004 /* DebateListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateListViewModel.swift; sourceTree = "<group>"; };
 		2BB4B8FA29C17EE8007D7004 /* MakeDebateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeDebateViewModel.swift; sourceTree = "<group>"; };
 		2BB4B8FC29C181CC007D7004 /* DebateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebateModel.swift; sourceTree = "<group>"; };
@@ -415,7 +415,7 @@
 		2B2775F829BAC8B60046B9D6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				2BB4B8F529C09062007D7004 /* DebateTableModel.swift */,
+				2BB4B8F529C09062007D7004 /* DebateContent.swift */,
 				2BB4B8FC29C181CC007D7004 /* DebateModel.swift */,
 				2B20B55529C6EF8E008AA709 /* Reply.swift */,
 				2B20B55729C6F1BC008AA709 /* Answer.swift */,
@@ -806,12 +806,12 @@
 		2BB455E62883F848001139E5 /* Debate */ = {
 			isa = PBXGroup;
 			children = (
-				2BB455E72883F855001139E5 /* HotDebate.swift */,
-				2BB455EE2884044D001139E5 /* MakeDebate.swift */,
-				2BAB6DAC2885B46E001DEE35 /* VoteDebate.swift */,
+				2BB455E72883F855001139E5 /* HotDebateResponseDTO.swift */,
+				2BB455EE2884044D001139E5 /* MakeDebateResponseDTO.swift */,
+				2BAB6DAC2885B46E001DEE35 /* VoteDebateResponseDTO.swift */,
 				2BAB6DAE2885B98A001DEE35 /* DetailDebateResponseDTO.swift */,
-				2B557B042886F8B20057CC9D /* EveryDebate.swift */,
-				2B557B082888403F0057CC9D /* DebateComment.swift */,
+				2B557B042886F8B20057CC9D /* EveryDebateResponseDTO.swift */,
+				2B557B082888403F0057CC9D /* DebateCommentResponseDTO.swift */,
 			);
 			path = Debate;
 			sourceTree = "<group>";
@@ -1077,14 +1077,14 @@
 				2BA8F25F286C8E0100D64F0E /* SendSocialLogin.swift in Sources */,
 				2BB4B8FB29C17EE8007D7004 /* MakeDebateViewModel.swift in Sources */,
 				2BE7BE4C2873173B0062EB5A /* HomeViewController.swift in Sources */,
-				2BB455E82883F855001139E5 /* HotDebate.swift in Sources */,
+				2BB455E82883F855001139E5 /* HotDebateResponseDTO.swift in Sources */,
 				2BB4B8FD29C181CC007D7004 /* DebateModel.swift in Sources */,
 				2B27761A29BB21CA0046B9D6 /* Popup1ViewController.swift in Sources */,
 				2B09DF08285B58BF00FE19DC /* LoginViewController.swift in Sources */,
 				2BBDE60929DE984A00FABE16 /* EditUserInfoViewModel.swift in Sources */,
 				2BE8BB612875D9BF0013F75B /* AlertTableViewModel.swift in Sources */,
 				2BA10F882882CC2400614C2E /* SettingViewController.swift in Sources */,
-				2B557B092888403F0057CC9D /* DebateComment.swift in Sources */,
+				2B557B092888403F0057CC9D /* DebateCommentResponseDTO.swift in Sources */,
 				2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */,
 				2BBEABB72854DA93002573DE /* AppDelegate.swift in Sources */,
 				2B557B0F288855DF0057CC9D /* NewCommunityResponseDTO.swift in Sources */,
@@ -1125,7 +1125,7 @@
 				2B0252BD288D89F30078D7F2 /* ChangeUserInfo.swift in Sources */,
 				2B27763429BCD1B10046B9D6 /* SignupInsertDataType.swift in Sources */,
 				2BA2E9AF287F10FB005DFE96 /* DebateTableViewCell.swift in Sources */,
-				2BB4B8F629C09062007D7004 /* DebateTableModel.swift in Sources */,
+				2BB4B8F629C09062007D7004 /* DebateContent.swift in Sources */,
 				2B09DF0B285B649D00FE19DC /* Button+Extensions.swift in Sources */,
 				2BAB811929C0798200002987 /* BaseNavigationController.swift in Sources */,
 				2B27763A29BE181E0046B9D6 /* MBTIElementView.swift in Sources */,
@@ -1133,7 +1133,7 @@
 				2BE8BB5F2875D8250013F75B /* AlertTableViewCell.swift in Sources */,
 				2BB455F128845B70001139E5 /* EveryCommunityResponseDTO.swift in Sources */,
 				2BE7BE52287317C30062EB5A /* SavedViewController.swift in Sources */,
-				2B557B052886F8B20057CC9D /* EveryDebate.swift in Sources */,
+				2B557B052886F8B20057CC9D /* EveryDebateResponseDTO.swift in Sources */,
 				2B557B0D288852600057CC9D /* CommunityCommentResponseDTO.swift in Sources */,
 				2BE8BB5D2875D14D0013F75B /* AlertViewController.swift in Sources */,
 				2B27763229BCD0F00046B9D6 /* FinderTextField.swift in Sources */,
@@ -1146,12 +1146,12 @@
 				2B27762629BC6ABB0046B9D6 /* OnBoarding.swift in Sources */,
 				2BA2C37D29D6D17E00822D0B /* BaseTabBarController.swift in Sources */,
 				2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */,
-				2BAB6DAD2885B46E001DEE35 /* VoteDebate.swift in Sources */,
+				2BAB6DAD2885B46E001DEE35 /* VoteDebateResponseDTO.swift in Sources */,
 				2BA0184C29D46355008F62F7 /* CommentTextFieldView.swift in Sources */,
 				2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */,
 				2BBEABB92854DA93002573DE /* SceneDelegate.swift in Sources */,
 				2B27761429BB196C0046B9D6 /* HomeHeaderView.swift in Sources */,
-				2BB455EF2884044D001139E5 /* MakeDebate.swift in Sources */,
+				2BB455EF2884044D001139E5 /* MakeDebateResponseDTO.swift in Sources */,
 				2BE7BE4E2873176C0062EB5A /* DebateListViewController.swift in Sources */,
 				2B27760029BAD7140046B9D6 /* UserDefaultsWrapper.swift in Sources */,
 				2BB455DC28832BCE001139E5 /* WebViewController.swift in Sources */,

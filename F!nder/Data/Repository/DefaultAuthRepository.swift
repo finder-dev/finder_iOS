@@ -10,10 +10,10 @@ import Foundation
 final class DefaultAuthRepository: AuthRepository {
     
     func login() {
-        <#code#>
+        
     }
     
     func logout() {
-        <#code#>
+        
     }
 }

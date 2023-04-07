@@ -16,7 +16,7 @@ final class DebateListViewModel {
     }
     
     struct Output {
-        var debateTableViewDataSource = BehaviorSubject<[DebateTableModel]>(value: [])
+        var debateTableViewDataSource = BehaviorSubject<[DebateContent]>(value: [])
         var debateViewStatus = BehaviorSubject<DebateListViewStatus>(value: .hasData)
     }
     
@@ -34,20 +34,20 @@ final class DebateListViewModel {
 
 // TestData
 extension DebateListViewModel {
-    func returnCommunityTableViewData() -> [DebateTableModel] {
-        let array = [DebateTableModel(debateId: 0,
+    func returnCommunityTableViewData() -> [DebateContent] {
+        let array = [DebateContent(debateId: 0,
                                       debateTitle: "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?",
                                       joinState: "42명 참여",
                                       debateState: "", deadLine: "D-6"),
-                     DebateTableModel(debateId: 0,
+                     DebateContent(debateId: 0,
                                                    debateTitle: "여사친 롱패딩 지퍼 올려준다 만다",
                                                    joinState: "42명 참여",
                                                    debateState: "", deadLine: "D-6"),
-                     DebateTableModel(debateId: 0,
+                     DebateContent(debateId: 0,
                                                    debateTitle: "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?",
                                                    joinState: "42명 참여",
                                                    debateState: "", deadLine: "D-6"),
-                     DebateTableModel(debateId: 0,
+                     DebateContent(debateId: 0,
                                                    debateTitle: "친구의 깻잎, 19장이 엉겨붙었는데 애인이 떼줘도 된다?",
                                                    joinState: "42명 참여",
                                                    debateState: "", deadLine: "D-6")]

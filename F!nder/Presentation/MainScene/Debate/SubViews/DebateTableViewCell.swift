@@ -36,7 +36,7 @@ final class DebateTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupCell(data: DebateTableModel) {
+    func setupCell(data: DebateContent) {
         discussLabel.text = data.debateTitle
         peopleCountLabel.text = data.joinState
         timeLabel.text = data.deadLine

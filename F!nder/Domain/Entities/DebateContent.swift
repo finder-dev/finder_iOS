@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DebateTableModel {
+struct DebateContent {
     let debateId: Int
     let debateTitle: String
     let joinState: String
