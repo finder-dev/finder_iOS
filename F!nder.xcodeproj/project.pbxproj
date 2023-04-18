@@ -69,6 +69,7 @@
 		2B557B0D288852600057CC9D /* CommunityCommentResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0C2888525F0057CC9D /* CommunityCommentResponseDTO.swift */; };
 		2B557B0F288855DF0057CC9D /* NewCommunityResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B0E288855DF0057CC9D /* NewCommunityResponseDTO.swift */; };
 		2B557B1128885C1C0057CC9D /* AlertMessage2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B557B1028885C1C0057CC9D /* AlertMessage2ViewController.swift */; };
+		2B632E2E29EEB96500E30D46 /* FinderNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 2B632E2D29EEB96500E30D46 /* FinderNetwork */; };
 		2B881DE928A3EFFC00ECD31A /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 2B881DE828A3EFFC00ECD31A /* RxGesture */; };
 		2B881DEB28A3F7D500ECD31A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B881DEA28A3F7D500ECD31A /* Extensions.swift */; };
 		2B9C521C29C990EE00567B36 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9C521B29C990EE00567B36 /* CommentView.swift */; };
@@ -94,7 +95,6 @@
 		2BA51BC128771E7400D87533 /* HomeCommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */; };
 		2BA51BC92879390B00D87533 /* WriteCommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */; };
 		2BA51BCB287957A800D87533 /* SelectMBTIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */; };
-		2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */; };
 		2BA8F24D2866F87E00D64F0E /* TextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */; };
 		2BA8F24F2866FBCE00D64F0E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */; };
 		2BA8F25328671DB200D64F0E /* SelectMBTIElementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */; };
@@ -220,6 +220,7 @@
 		2B557B0C2888525F0057CC9D /* CommunityCommentResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCommentResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B0E288855DF0057CC9D /* NewCommunityResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCommunityResponseDTO.swift; sourceTree = "<group>"; };
 		2B557B1028885C1C0057CC9D /* AlertMessage2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage2ViewController.swift; sourceTree = "<group>"; };
+		2B632E2C29EEB90700E30D46 /* FinderNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FinderNetwork; sourceTree = "<group>"; };
 		2B881DEA28A3F7D500ECD31A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2B9C521B29C990EE00567B36 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		2B9C522129C9A8DB00567B36 /* CommunitySortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunitySortView.swift; sourceTree = "<group>"; };
@@ -244,7 +245,6 @@
 		2BA51BC028771E7400D87533 /* HomeCommunityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCommunityTableViewCell.swift; sourceTree = "<group>"; };
 		2BA51BC82879390B00D87533 /* WriteCommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteCommunityViewController.swift; sourceTree = "<group>"; };
 		2BA51BCA287957A800D87533 /* SelectMBTIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIViewController.swift; sourceTree = "<group>"; };
-		2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageViewController.swift; sourceTree = "<group>"; };
 		2BA8F24C2866F87E00D64F0E /* TextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+Extensions.swift"; sourceTree = "<group>"; };
 		2BA8F24E2866FBCE00D64F0E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		2BA8F25228671DB200D64F0E /* SelectMBTIElementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMBTIElementViewController.swift; sourceTree = "<group>"; };
@@ -314,6 +314,7 @@
 			files = (
 				2B09DF06285B585900FE19DC /* SnapKit in Frameworks */,
 				2B0252C2288EE5B50078D7F2 /* KakaoSDK in Frameworks */,
+				2B632E2E29EEB96500E30D46 /* FinderNetwork in Frameworks */,
 				2BAEB1C628A2050B00D737C7 /* Moya in Frameworks */,
 				2BAEB1CA28A2050B00D737C7 /* RxMoya in Frameworks */,
 				2BAEB1C828A2050B00D737C7 /* ReactiveMoya in Frameworks */,
@@ -557,6 +558,21 @@
 			path = PopUp;
 			sourceTree = "<group>";
 		};
+		2B632E2829EEB86400E30D46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B632E2B29EEB90700E30D46 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				2B632E2C29EEB90700E30D46 /* FinderNetwork */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		2B6826B4286DF7A1006AF742 /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -698,7 +714,6 @@
 			isa = PBXGroup;
 			children = (
 				2B55094C29C2F84D00C52D45 /* PopUp */,
-				2BA51BCF2879784D00D87533 /* AlertMessageViewController.swift */,
 				2B557B1028885C1C0057CC9D /* AlertMessage2ViewController.swift */,
 				2B0252BE288EE4B10078D7F2 /* BottomSheetViewController.swift */,
 				2B27761F29BC4DB70046B9D6 /* BarView.swift */,
@@ -879,8 +894,10 @@
 		2BBEABAA2854DA93002573DE = {
 			isa = PBXGroup;
 			children = (
+				2B632E2B29EEB90700E30D46 /* Packages */,
 				2BBEABB52854DA93002573DE /* F!nder */,
 				2BBEABB42854DA93002573DE /* Products */,
+				2B632E2829EEB86400E30D46 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -964,6 +981,7 @@
 				2BAEB1C928A2050B00D737C7 /* RxMoya */,
 				2B881DE828A3EFFC00ECD31A /* RxGesture */,
 				2B2775F429BA1B2F0046B9D6 /* PanModal */,
+				2B632E2D29EEB96500E30D46 /* FinderNetwork */,
 			);
 			productName = "F!nder";
 			productReference = 2BBEABB32854DA93002573DE /* F!nder.app */;
@@ -1040,7 +1058,6 @@
 				2B557B0B288843AB0057CC9D /* CommentTableViewCell.swift in Sources */,
 				2B9C522429C9B2BA00567B36 /* CommunityTableView.swift in Sources */,
 				2B20B55829C6F1BC008AA709 /* Answer.swift in Sources */,
-				2BA51BD02879784D00D87533 /* AlertMessageViewController.swift in Sources */,
 				2B9C522229C9A8DB00567B36 /* CommunitySortView.swift in Sources */,
 				2B557B012886E97D0057CC9D /* CommunityDetailViewController.swift in Sources */,
 				2B27762829BC709A0046B9D6 /* FinderButton.swift in Sources */,
@@ -1472,6 +1489,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2B2775F329BA1B2F0046B9D6 /* XCRemoteSwiftPackageReference "PanModal" */;
 			productName = PanModal;
+		};
+		2B632E2D29EEB96500E30D46 /* FinderNetwork */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FinderNetwork;
 		};
 		2B881DE828A3EFFC00ECD31A /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;
