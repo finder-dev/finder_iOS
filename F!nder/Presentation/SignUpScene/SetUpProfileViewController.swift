@@ -9,11 +9,8 @@ import UIKit
 import SnapKit
 import Then
 
-class SetUpProfileViewController: UIViewController, MBTIElementViewControllerDelegate, AlertMessageDelegate {
-    func okButtonTapped(from: String) {
-       
-    }
-    
+class SetUpProfileViewController: UIViewController, MBTIElementViewControllerDelegate {
+
     let network = SignUpAPI()
     var isnicknameChecked = false {
         didSet {
@@ -212,7 +209,7 @@ private extension SetUpProfileViewController {
                 } else {
                     DispatchQueue.main.async {
                         let errorMessage = response.errorResponse?.errorMessages[0]
-                        self.presentCutomAlertVC(target: "setup", title: "회원가입 실패", message: errorMessage!)
+                        self.showPopUp1(title: "회원가입 실패", message: errorMessage!, buttonText: "확인", buttonAction: { })
                     }
 //                    print(response.errorResponse?.errorMessages)
                 }
@@ -282,17 +279,6 @@ private extension SetUpProfileViewController {
                 nextButton.isEnabled = false
             }
         }
-    }
-    
-    // AlertVC 띄움
-    func presentCutomAlertVC(target:String, title:String, message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
     }
 }
 

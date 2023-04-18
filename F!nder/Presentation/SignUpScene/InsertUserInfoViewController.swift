@@ -103,20 +103,6 @@ class InsertUserInfoViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension InsertUserInfoViewController: AlertMessageDelegate {
-    
-    func okButtonTapped(from: String) {
-        if from == "email" {
-            self.codeAuthButton.isEnabled = true
-            self.codeAuthButton.setTitleColor(.white, for: .normal)
-            self.codeAuthButton.backgroundColor = .primary
-        } else if from == "auth" {
-            
-        }
-    }
-    
-}
-
 extension InsertUserInfoViewController {
     
     func checkEnableNextButtonOrNot() {
@@ -189,17 +175,17 @@ private extension InsertUserInfoViewController {
             case let .success(response) :
                 if response.success {
                     DispatchQueue.main.async {
-                        self.presentCutomAlertVC(target: "email",
-                                            title: "코드번호 발송",
-                                            message: "이메일로 코드번호가 발송되었습니다.")
+//                        self.presentCutomAlertVC(target: "email",
+//                                            title: "코드번호 발송",
+//                                            message: "이메일로 코드번호가 발송되었습니다.")
                         
                         emailAuth = true
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self.presentCutomAlertVC(target: "email",
-                                            title: "코드번호 발송 실패",
-                                            message: "코드번호 발송을 실패했습니다.")
+//                        self.presentCutomAlertVC(target: "email",
+//                                            title: "코드번호 발송 실패",
+//                                            message: "코드번호 발송을 실패했습니다.")
                         requestAuthButton.isEnabled = true
                         requestAuthButton.backgroundColor = .primary
                         requestAuthButton.setTitleColor(.white, for: .normal)
@@ -234,17 +220,13 @@ private extension InsertUserInfoViewController {
                         codeAuthButton.isEnabled = false
                         codeAuthButton.backgroundColor = .grey7
                         codeAuthButton.setTitleColor(.grey8, for: .normal)
-                        self.presentCutomAlertVC(target: "auth",
-                                            title: "이메일 인증 완료",
-                                            message: "인증되었습니다.")
+                        showPopUp1(title: "이메일 인증 완료", message: "인증되었습니다.", buttonText: "확인", buttonAction: { })
                         
                         codeAuth = true
                     }
                 } else {
                     DispatchQueue.main.async { [self] in
-                        presentCutomAlertVC(target: "auth",
-                                            title: "이메일 인증 실패",
-                                            message: "이메일 인증을 실패했습니다")
+                        showPopUp1(title: "이메일 인증 실패", message: "이메일 인증을 실패했습니다", buttonText: "확인", buttonAction: { })
                         
                         codeAuthButton.isEnabled = true
                         codeAuthButton.backgroundColor = .primary
@@ -256,16 +238,6 @@ private extension InsertUserInfoViewController {
                 print("오류")
             }
         }
-    }
-    
-    func presentCutomAlertVC(target:String, title:String, message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
     }
 }
 

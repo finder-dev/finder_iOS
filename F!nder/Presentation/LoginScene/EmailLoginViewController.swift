@@ -119,8 +119,8 @@ class EmailLoginViewController: UIViewController, View {
         reactor.state
             .map { $0.isLoginButtonEnabled }
             .distinctUntilChanged()
-            .subscribe (onNext:{
-                self.updateButtonState(enable: $0)
+            .subscribe (onNext:{ [weak self] isEnabled in
+                self?.updateButtonState(enable: isEnabled)
             })
             .disposed(by: disposeBag)
         
@@ -128,11 +128,11 @@ class EmailLoginViewController: UIViewController, View {
         reactor.state.map { $0.userToken }
             .filter { $0 != "" }
             .distinctUntilChanged()
-            .subscribe(onNext: { token in
+            .subscribe(onNext: { [weak self] token in
                 UserDefaultsData.accessToken = token
                 
                 DispatchQueue.main.async {
-                    self.presentCutomAlertVC(target: "successEmailLogin", title: "로그인 성공", message: "로그인에 성공하였습니다.")
+                    self?.showPopUp1(title: "로그인 성공", message: "로그인에 성공하였습니다.", buttonText: "확인", buttonAction: { })
                 }
             })
             .disposed(by: disposeBag)
@@ -141,13 +141,14 @@ class EmailLoginViewController: UIViewController, View {
         reactor.state.map { $0.errorMessage }
             .filter { $0 != "" }
             .distinctUntilChanged()
-            .subscribe(onNext: { message in
+            .subscribe(onNext: { [weak self] message in
                 print("실패 : 이메일 로그인")
                 DispatchQueue.main.async {
-                    self.presentCutomAlertVC(target: "emailLogin", title: "로그인 실패", message: message)
-                    self.enableLoginButton()
+                    self?.showPopUp1(title: "로그인 실패", message: message, buttonText: "확인", buttonAction: { })
+                    self?.enableLoginButton()
                 }
             })
+            .disposed(by: disposeBag)
     }
     
    
@@ -160,19 +161,6 @@ class EmailLoginViewController: UIViewController, View {
         }
         layout()
         attribute()
-    }
-}
-
-extension EmailLoginViewController: AlertMessageDelegate {
-    func okButtonTapped(from: String) {
-        if from == "successEmailLogin" {
-            print("============getData=========")
-            getData()
-        } else if from == "emailLogin" {
-            loginButton.backgroundColor = .primary
-            loginButton.setTitleColor(.white, for: .normal)
-            loginButton.isEnabled = true
-        }
     }
 }
 
@@ -217,17 +205,6 @@ private extension EmailLoginViewController {
             checkButton.tintColor = .lightGray
             checkButton.layer.borderColor = UIColor.lightGray.cgColor
         }
-    }
-    
-    // AlertVC 띄움
-    func presentCutomAlertVC(target:String, title:String, message:String) {
-        let nextVC = AlertMessageViewController()
-        nextVC.titleLabelText = title
-        nextVC.textLabelText = message
-        nextVC.delegate = self
-        nextVC.target = target
-        nextVC.modalPresentationStyle = .overCurrentContext
-        self.present(nextVC, animated: true)
     }
     
     func getData() {
