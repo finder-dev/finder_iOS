@@ -3,12 +3,21 @@
 > F!nder is an iOS community app where you can enjoy MBTI.
 > 
 > Written using the latest verion of Swift programming language
-> + 2022.05 ~ 2022.07
+> + Development : 2022.05 ~ 2022.07
+> + AppStore Distribute : 2022.07 ~ 2023.01
 > + Service Info ([Notion link](https://www.notion.so/F-nder-80fa84cb2ef84a3ead8d2d70f8c3098d)) - written in Korean
 
 <br>
 
-## 📱 App Screens
+## Skills
++ **RxSwift** for Reactive Programming
++ Autolayout UI with **Snapkit & Then**
++ **Clean-Architecture** & **MVVM** for App Architecture
+                                                                                                                                          
+                                                                                         
+<br>
+
+## 🌟 Main Features
 
 <p float="left">
   
@@ -18,16 +27,18 @@
 
 </p>
 
-<br>                                                                                                                    
-                                                                                                                                          
-## Architecture
-+ Clean-Architecture (partly)
-+ MVVM
-                                                                                         
+### Home 
+### Debate
+### Community 
+
 <br>
 
-## 🔗 [App distribution (2022.07 ~ 2023.01)](https://apps.apple.com/kr/app/f!nder/id1635616533)
-                                                                                                                                        
+## 📝 Learned
++ how to develop economical, code-based UIs using ***Snapkit, Then***.
++ how to call and respond to the ***Rest API*** using ***URLSession*** in iOS.
++ how to efficiently manage ***UserDefaults*** data using ***PropertyWrapper***.
++ how to apply ***CustomView*** to improve code repetition.
+                                                                                                                      
                                                                                                                    
                                                                                                                                             
                                                                                                                                          
