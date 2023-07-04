@@ -3,8 +3,8 @@
 > F!nder is an iOS community app where you can enjoy MBTI.
 > 
 > Written using the latest verion of Swift programming language
-> + Development : 2022.05 ~ 2022.07
-> + AppStore Distribute : 2022.07 ~ 2023.01
+> + Development period : 2022.05 ~ 2022.07
+> + AppStore Distribution : 2022.07 ~ 2023.01
 > + Service Info ([Notion link](https://www.notion.so/F-nder-80fa84cb2ef84a3ead8d2d70f8c3098d)) - written in Korean
 
 <br>
